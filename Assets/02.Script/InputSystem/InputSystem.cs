@@ -73,6 +73,8 @@ public class InputSystem : MonoBehaviour
     }
     private void DoAction()
     {
+        if (currentMap == null)
+            return;
         foreach(var pair in currentMap._actionAxis)
         {
             pair.Value.Invoke(Input.GetAxisRaw(pair.Key));
