@@ -62,19 +62,22 @@ public class InputSystem : MonoBehaviour
 
     public void RegisterAction(KeyState state, KeyCode keyCode, Action act)
     {
-        if (maps[state]._actionKey.ContainsKey(keyCode))
+        
+        if (!maps[state]._actionKey.ContainsKey(keyCode))
         {
-            maps[state]._actionKey[keyCode] += act;
+            maps[state]._actionKey.Add(keyCode, act);
+            return;
         }
-        maps[state]._actionKey.Add(keyCode, act);
+            maps[state]._actionKey[keyCode] += act;
     }
     public void RegisterAction(KeyState state, string axis, Action<float> act)
     {
-        if (maps[state]._actionAxis.ContainsKey(axis))
+        if (!maps[state]._actionAxis.ContainsKey(axis))
         {
-            maps[state]._actionAxis[axis] += act;
+            maps[state]._actionAxis.Add(axis, act);
+            return;
         }
-        maps[state]._actionAxis.Add(axis, act);
+            maps[state]._actionAxis[axis] += act;
     }
     public void DeregisterAction(KeyState state, KeyCode keyCode, Action act)
     {
