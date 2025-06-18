@@ -1,7 +1,7 @@
+using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
-public class CharacterControl : MonoBehaviour
+public class CharacterControl : MonoBehaviour, IReset
 {
     
     private Rigidbody2D _rb;
@@ -15,29 +15,36 @@ public class CharacterControl : MonoBehaviour
     {
         get
         {
-            Collider2D col;
-            col = Physics2D.OverlapBox(_rb.position + footOffset, 
+            _col = Physics2D.OverlapBox(_rb.position + footOffset, 
                 new Vector2(transform.localScale.x, 0.2f),
                 0.0f,
                 groundMask);
-            return col;
+            return _col;
         }
     }
 
     private bool _canMove;
-    private bool _isDetected;
-
+    private IDetect _detect;
     private AerialState _aerialState;
 
     public float moveSpeed;
     public float jumpForce;
     public Vector2 footOffset;
+    public float detectRange;
+
     public LayerMask detectMask;
     public LayerMask groundMask;
+
+    private Collider2D _col;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Initialize();
+    }
+    private void Initialize()
+    {
+        InputSystem.Instance.RegisterAction(KeyState.Play_Key, "Horizontal", Move);
+        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Space, Jump);
     }
     private void Awake()
     {
@@ -50,7 +57,7 @@ public class CharacterControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        _detect = OnDetect();
     }
     private void FixedUpdate()
     {
@@ -65,12 +72,79 @@ public class CharacterControl : MonoBehaviour
     private void Jump()
     {
         _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+    } 
+    private IDetect OnDetect()
+    {
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(_rb.position, detectRange, detectMask);
+
+        IDetect currentClosest = null;
+        float minDistanceSqr = float.MaxValue; // 제곱 거리를 사용하면 Mathf.Sqrt 계산을 피할 수 있어 성능에 좋습니다.
+
+        // 2. 감지된 Collider2D들 중에서 IDetect 인터페이스를 가진 오브젝트를 찾습니다.
+        foreach (Collider2D hitCollider in hitColliders)
+        {
+            // 자기 자신은 제외 (선택 사항)
+            if (hitCollider.gameObject == this.gameObject)
+            {
+                continue;
+            }
+
+            // TryGetComponent를 사용하여 Collider2D의 GameObject가 IDetect 인터페이스를 가지고 있는지 확인합니다.
+            if (hitCollider.TryGetComponent<IDetect>(out IDetect detectedObject))
+            {
+                // 3. IDetect를 가진 오브젝트 중 가장 가까운 것을 찾습니다.
+                float distanceSqr = ((Vector2)hitCollider.transform.position - _rb.position).sqrMagnitude;
+
+                if (distanceSqr < minDistanceSqr)
+                {
+                    minDistanceSqr = distanceSqr;
+                    currentClosest = detectedObject;
+                }
+            }
+        }
+        if (currentClosest != null)
+        {
+            if (_detect != null)//무언가 이미 감지되어있었을때
+            {
+                if (_detect == currentClosest) //같은거일때
+                {
+                    return _detect;
+                }
+                _detect.DetectExit();
+                currentClosest.DetectAction(this.gameObject);
+                currentClosest.DetectEnter();
+                _detect = currentClosest;
+            }
+            else //무언가 감지된적 없을때
+            {
+                currentClosest.DetectAction(this.gameObject);
+                currentClosest.DetectEnter();
+                _detect = currentClosest;
+                return currentClosest;
+            }
+        }
+        else
+        {
+            if (_detect != null)//무언가 이미 감지되어있었을때
+            {
+                _detect.DetectExit();
+            }
+        }
+        return currentClosest;
     }
 
-    private void Initialize()
+
+
+
+
+
+    private void OnDrawGizmos()
     {
-        InputSystem.Instance.RegisterAction(KeyState.Play_Key,"Horizontal",Move);
-        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Space, Jump);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(transform.position + (Vector3)footOffset, new Vector2(transform.localScale.x, 0.2f));
+
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(transform.position, detectRange);
     }
 
 }

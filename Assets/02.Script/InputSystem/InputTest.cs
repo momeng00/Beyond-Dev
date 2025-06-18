@@ -12,7 +12,7 @@ public class InputTest : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         ani = GetComponent<Animator>();
-        initialize();
+        Initialize();
     }
     private void Update()
     {
@@ -43,7 +43,7 @@ public class InputTest : MonoBehaviour
         }
 
     }
-    public void initialize()
+    public void Initialize()
     {
         InputSystem.Instance.RegisterAction(KeyState.Play_Key,"Horizontal",Move);
         InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Space, Jump);
