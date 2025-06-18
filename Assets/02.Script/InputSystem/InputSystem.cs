@@ -68,7 +68,7 @@ public class InputSystem : MonoBehaviour
             maps[state]._actionKey.Add(keyCode, act);
             return;
         }
-            maps[state]._actionKey[keyCode] += act;
+        maps[state]._actionKey[keyCode] += act;
     }
     public void RegisterAction(KeyState state, string axis, Action<float> act)
     {
@@ -77,7 +77,7 @@ public class InputSystem : MonoBehaviour
             maps[state]._actionAxis.Add(axis, act);
             return;
         }
-            maps[state]._actionAxis[axis] += act;
+        maps[state]._actionAxis[axis] += act;
     }
     public void DeregisterAction(KeyState state, KeyCode keyCode, Action act)
     {
