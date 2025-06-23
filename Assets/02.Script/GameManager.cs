@@ -67,9 +67,5 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         CheckClear();
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            CheckClear();
-        }
     }
 }
