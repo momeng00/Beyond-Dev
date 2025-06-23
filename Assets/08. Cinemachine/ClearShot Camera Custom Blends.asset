@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: ClearShot Camera Custom Blends
   m_EditorClassIdentifier: 
   CustomBlends:
-  - From: CinemachineCamera (0)
-    To: CinemachineCamera (1)
+  - From: CinemachineCamera Home (0)
+    To: CinemachineCamera Alley (0)
     Blend:
       Style: 0
       Time: 0
@@ -23,26 +23,37 @@ MonoBehaviour:
         m_Curve: []
         m_PreInfinity: 0
         m_PostInfinity: 0
-        m_RotationOrder: 4
-  - From: CinemachineCamera (1)
-    To: CinemachineCamera (2)
+        m_RotationOrder: 0
+  - From: CinemachineCamera Alley (0)
+    To: CinemachineCamera Alley (1)
     Blend:
       Style: 0
-      Time: 0.5
+      Time: 0
       CustomCurve:
         serializedVersion: 2
         m_Curve: []
         m_PreInfinity: 0
         m_PostInfinity: 0
-        m_RotationOrder: 4
-  - From: CinemachineCamera (2)
-    To: CinemachineCamera (3)
+        m_RotationOrder: 0
+  - From: CinemachineCamera Alley (1)
+    To: CinemachineCamera Alley (2)
     Blend:
-      Style: 1
-      Time: 3
+      Style: 0
+      Time: 0
       CustomCurve:
         serializedVersion: 2
         m_Curve: []
         m_PreInfinity: 0
         m_PostInfinity: 0
-        m_RotationOrder: 4
+        m_RotationOrder: 0
+  - From: CinemachineCamera Alley (2)
+    To: CinemachineCamera Alley (3)
+    Blend:
+      Style: 0
+      Time: 0
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
