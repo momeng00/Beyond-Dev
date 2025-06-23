@@ -31,8 +31,8 @@ public class CharacterControl : MonoBehaviour, IReset
             }
         }
     }
-    
-    private Vector2 _prePos;
+
+    private Vector2 startPos;
     public Vector2 handOffset;
     public float handDistance;
     [SerializeField] private LayerMask handLayerMask;
@@ -84,6 +84,8 @@ public class CharacterControl : MonoBehaviour, IReset
     {
         InputSystem.Instance.RegisterAction(KeyState.Play_Key, "Horizontal", Move);
         InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Space, Jump);
+        GameManager.Instance.RegisterInitAction(InitializeReset);
+        GameManager.Instance.OnReset += ResetAction;
         InitializeReset();
     }
     private void Awake()
@@ -97,9 +99,9 @@ public class CharacterControl : MonoBehaviour, IReset
     // Update is called once per frame
     void Update()
     {
+
         if (isHandFull)
         {
-            int a = 1;
         }
     }
     private void FixedUpdate()
@@ -187,12 +189,12 @@ public class CharacterControl : MonoBehaviour, IReset
 
     public void InitializeReset()
     {
-        
+        startPos = transform.position;
     }
 
     public void ResetAction()
     {
-        
+        transform.position = startPos;
     }
 }
 public enum AerialState

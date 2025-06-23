@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Teleport : Spot, IClearCondition
 {
-    public bool willYouUse;
     public Vector2 arrivePos;
     public int stage;
     [SerializeField]private List<GameObject> detects = new List<GameObject>();
@@ -50,7 +49,6 @@ public class Teleport : Spot, IClearCondition
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(IsInLayerMask(collision.gameObject, layerMask));
         if (IsInLayerMask(collision.gameObject, layerMask))
         {
             detects.Add(collision.gameObject);
