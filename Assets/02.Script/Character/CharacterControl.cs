@@ -5,10 +5,12 @@ using static UnityEngine.UI.Image;
 
 public class CharacterControl : MonoBehaviour, IReset
 {
-    
+    #region 컴포넌트 선언부
     private Rigidbody2D _rb;
     private Animator _ani;
-    
+    #endregion
+
+
     private float _axisX; //이동되는 수치 받을 힘
     private float _axisY; //이동되는 수치 받을 힘
     private float _direction =1f;
@@ -32,7 +34,7 @@ public class CharacterControl : MonoBehaviour, IReset
         }
     }
 
-    private Vector2 startPos;
+    [SerializeField]private Vector2 startPos;
     public Vector2 handOffset;
     public float handDistance;
     [SerializeField] private LayerMask handLayerMask;
@@ -100,9 +102,6 @@ public class CharacterControl : MonoBehaviour, IReset
     void Update()
     {
 
-        if (isHandFull)
-        {
-        }
     }
     private void FixedUpdate()
     {
@@ -112,6 +111,10 @@ public class CharacterControl : MonoBehaviour, IReset
     {
         if(!_canMove)
             return;
+        if (isHandFull)
+        {
+
+        }
         _axisX = horizontal;
         direction = horizontal;
     }
@@ -119,73 +122,6 @@ public class CharacterControl : MonoBehaviour, IReset
     {
         _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     } 
-
-    //private IDetect OnDetect()
-    //{
-    //    Collider2D[] hitColliders = Physics2D.OverlapCircleAll(_rb.position, detectRange, detectMask);
-
-    //    IDetect currentClosest = null;
-    //    float minDistanceSqr = float.MaxValue; // 제곱 거리를 사용하면 Mathf.Sqrt 계산을 피할 수 있어 성능에 좋습니다.
-
-    //    // 2. 감지된 Collider2D들 중에서 IDetect 인터페이스를 가진 오브젝트를 찾습니다.
-    //    foreach (Collider2D hitCollider in hitColliders)
-    //    {
-    //        // 자기 자신은 제외 (선택 사항)
-    //        if (hitCollider.gameObject == this.gameObject)
-    //        {
-    //            continue;
-    //        }
-
-    //        // TryGetComponent를 사용하여 Collider2D의 GameObject가 IDetect 인터페이스를 가지고 있는지 확인합니다.
-    //        if (hitCollider.TryGetComponent<IDetect>(out IDetect detectedObject))
-    //        {
-    //            // 3. IDetect를 가진 오브젝트 중 가장 가까운 것을 찾습니다.
-    //            float distanceSqr = ((Vector2)hitCollider.transform.position - _rb.position).sqrMagnitude;
-
-    //            if (distanceSqr < minDistanceSqr)
-    //            {
-    //                minDistanceSqr = distanceSqr;
-    //                currentClosest = detectedObject;
-    //            }
-    //        }
-    //    }
-    //    if (currentClosest != null)
-    //    {
-    //        if (_detect != null)//무언가 이미 감지되어있었을때
-    //        {
-    //            if (_detect == currentClosest) //같은거일때
-    //            {
-    //                return _detect;
-    //            }
-    //            _detect.DetectExit();
-    //            currentClosest.DetectAction(this.gameObject);
-    //            currentClosest.DetectEnter();
-    //            _detect = currentClosest;
-    //        }
-    //        else //무언가 감지된적 없을때
-    //        {
-    //            currentClosest.DetectAction(this.gameObject);
-    //            currentClosest.DetectEnter();
-    //            _detect = currentClosest;
-    //            return currentClosest;
-    //        }
-    //    }
-    //    else
-    //    {
-    //        if (_detect != null)//무언가 이미 감지되어있었을때
-    //        {
-    //            _detect.DetectExit();
-    //        }
-    //    }
-    //    return currentClosest;
-    //}
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position + (Vector3)footOffset, new Vector2(transform.localScale.x, 0.2f));
-        Gizmos.DrawLine((Vector2)transform.position + handOffset, (Vector2)transform.position + handOffset + new Vector2(_direction, 0f));
-    }
 
     public void InitializeReset()
     {
@@ -196,6 +132,14 @@ public class CharacterControl : MonoBehaviour, IReset
     {
         transform.position = startPos;
     }
+    #region 단순 편의성 기능
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(transform.position + (Vector3)footOffset, new Vector2(transform.localScale.x, 0.2f));
+        Gizmos.DrawLine((Vector2)transform.position + handOffset, (Vector2)transform.position + handOffset + new Vector2(_direction, 0f));
+    }
+    #endregion
 }
 public enum AerialState
 {

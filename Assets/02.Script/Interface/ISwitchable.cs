@@ -1,5 +1,6 @@
 public interface ISwitchable
 {
-    void SwitchOn();
-    void SwitchOff();
+    Switch Switch { get; }
+    void SwitchOn(bool value);
+
 }

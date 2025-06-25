@@ -79,12 +79,7 @@ public class GameManager : MonoBehaviour
     }
     public void RegisterInitAction(Action act)
     {
-        if (!clearAction.ContainsKey(stage))
-        {
-            clearAction[stage] = act;
-            return;
-        }
-        clearAction[stage] += act;
+        initAction += act;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

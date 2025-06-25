@@ -11,4 +11,8 @@ public abstract class Switch : MonoBehaviour, IInteract
     {
         return ((1 << obj.layer) & mask) != 0;
     }
+    virtual public void SetSwitch(ISwitchable node)
+    {
+
+    }
 }

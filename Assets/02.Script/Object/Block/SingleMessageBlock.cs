@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class SingleMessageBlock : Block, ISwitchable
 {
-    private Collider2D col;
-    private Animator ani;
+    Vector2 startPos;
     private bool _blockState;
     public bool blockState
     {
@@ -17,11 +16,52 @@ public class SingleMessageBlock : Block, ISwitchable
             MessagerBlock(value);
         }
     }
-    private void Start()
+
+    public Switch Switch
     {
+        get
+        {
+            return _Switch;
+        }
+        set
+        {
+            _Switch = value;
+            MessagerBlock(value);
+        }
+    }
+    [SerializeField]Switch _Switch;
+
+    public override void Start()
+    {
+        base.Start();
         _blockState = false;
-        col = GetComponent<Collider2D>();
-        ani = GetComponent<Animator>();
+        InitializeReset();
+        GameManager.Instance.RegisterInitAction(ResetAction);
+        GameManager.Instance.OnReset += ResetAction;
+        Switch.SetSwitch(this);
+    }
+    
+
+    public void MessagerBlock(bool on)
+    {
+        //ani.SetBool("BlockState",blockState);
+        gameObject.SetActive(on);
+    }
+
+    public void SwitchOn(bool value)
+    {
+        blockState = value;
+    }
+    public override void InitializeReset()
+    {
+        base.InitializeReset();
+        startPos = transform.position;
+    }
+    public override void ResetAction()
+    {
+        base.ResetAction();
+        transform.position = startPos;
+        blockState = false;
     }
     public override void OnBlockAction()
     {
@@ -29,18 +69,4 @@ public class SingleMessageBlock : Block, ISwitchable
         _blockState = !_blockState;
     }
 
-    public void MessagerBlock(bool on)
-    {
-        ani.SetBool("BlockState",blockState);
-    }
-
-    public void SwitchOn()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void SwitchOff()
-    {
-        throw new System.NotImplementedException();
-    }
 }
