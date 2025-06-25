@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 public class CharacterControl : MonoBehaviour, IReset
 {
@@ -9,13 +11,51 @@ public class CharacterControl : MonoBehaviour, IReset
     
     private float _axisX; //이동되는 수치 받을 힘
     private float _axisY; //이동되는 수치 받을 힘
-    private float _direction;
-    private Vector2 _prePos;
+    private float _direction =1f;
+    public float direction
+    {
+        set
+        {
+            if(_direction != value)
+            {
+                _direction = value;
+                if (value > 0f) 
+                {
+                    transform.localScale = new Vector3(1f, 1f, 1f);
+                }
+                else if(value < 0f)
+                {
+                    transform.localScale = new Vector3(-1f, 1f, 1f);
+                }
+                
+            }
+        }
+    }
+
+    private Vector2 startPos;
+    public Vector2 handOffset;
+    public float handDistance;
+    [SerializeField] private LayerMask handLayerMask;
+
+    public bool isHandFull
+    {
+        get
+        {
+            Collider2D handObj = null;
+            RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + handOffset,
+                                                    new Vector2(_direction,0f),
+                                                    handDistance,
+                                                    handLayerMask);
+            Debug.DrawRay((Vector2)transform.position + handOffset, new Vector2(_direction, 0f) * handDistance, hit.collider ? Color.red : Color.green);
+            handObj = hit.collider;
+            return handObj;
+        }
+    }
     public bool isGrounded
     {
         get
         {
-            _col = Physics2D.OverlapBox(_rb.position + footOffset, 
+            _col = Physics2D.OverlapBox((Vector2)transform.position + footOffset, 
                 new Vector2(transform.localScale.x, 0.2f),
                 0.0f,
                 groundMask);
@@ -24,15 +64,14 @@ public class CharacterControl : MonoBehaviour, IReset
     }
 
     private bool _canMove;
-    private IDetect _detect;
     private AerialState _aerialState;
 
     public float moveSpeed;
     public float jumpForce;
     public Vector2 footOffset;
-    public float detectRange;
 
-    public LayerMask detectMask;
+    private List<IInteract> interacts = new List<IInteract>();
+    
     public LayerMask groundMask;
 
     private Collider2D _col;
@@ -45,6 +84,9 @@ public class CharacterControl : MonoBehaviour, IReset
     {
         InputSystem.Instance.RegisterAction(KeyState.Play_Key, "Horizontal", Move);
         InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Space, Jump);
+        GameManager.Instance.RegisterInitAction(InitializeReset);
+        GameManager.Instance.OnReset += ResetAction;
+        InitializeReset();
     }
     private void Awake()
     {
@@ -57,7 +99,10 @@ public class CharacterControl : MonoBehaviour, IReset
     // Update is called once per frame
     void Update()
     {
-        _detect = OnDetect();
+
+        if (isHandFull)
+        {
+        }
     }
     private void FixedUpdate()
     {
@@ -68,85 +113,89 @@ public class CharacterControl : MonoBehaviour, IReset
         if(!_canMove)
             return;
         _axisX = horizontal;
+        direction = horizontal;
     }
     private void Jump()
     {
         _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
     } 
-    private IDetect OnDetect()
-    {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(_rb.position, detectRange, detectMask);
 
-        IDetect currentClosest = null;
-        float minDistanceSqr = float.MaxValue; // 제곱 거리를 사용하면 Mathf.Sqrt 계산을 피할 수 있어 성능에 좋습니다.
+    //private IDetect OnDetect()
+    //{
+    //    Collider2D[] hitColliders = Physics2D.OverlapCircleAll(_rb.position, detectRange, detectMask);
 
-        // 2. 감지된 Collider2D들 중에서 IDetect 인터페이스를 가진 오브젝트를 찾습니다.
-        foreach (Collider2D hitCollider in hitColliders)
-        {
-            // 자기 자신은 제외 (선택 사항)
-            if (hitCollider.gameObject == this.gameObject)
-            {
-                continue;
-            }
+    //    IDetect currentClosest = null;
+    //    float minDistanceSqr = float.MaxValue; // 제곱 거리를 사용하면 Mathf.Sqrt 계산을 피할 수 있어 성능에 좋습니다.
 
-            // TryGetComponent를 사용하여 Collider2D의 GameObject가 IDetect 인터페이스를 가지고 있는지 확인합니다.
-            if (hitCollider.TryGetComponent<IDetect>(out IDetect detectedObject))
-            {
-                // 3. IDetect를 가진 오브젝트 중 가장 가까운 것을 찾습니다.
-                float distanceSqr = ((Vector2)hitCollider.transform.position - _rb.position).sqrMagnitude;
+    //    // 2. 감지된 Collider2D들 중에서 IDetect 인터페이스를 가진 오브젝트를 찾습니다.
+    //    foreach (Collider2D hitCollider in hitColliders)
+    //    {
+    //        // 자기 자신은 제외 (선택 사항)
+    //        if (hitCollider.gameObject == this.gameObject)
+    //        {
+    //            continue;
+    //        }
 
-                if (distanceSqr < minDistanceSqr)
-                {
-                    minDistanceSqr = distanceSqr;
-                    currentClosest = detectedObject;
-                }
-            }
-        }
-        if (currentClosest != null)
-        {
-            if (_detect != null)//무언가 이미 감지되어있었을때
-            {
-                if (_detect == currentClosest) //같은거일때
-                {
-                    return _detect;
-                }
-                _detect.DetectExit();
-                currentClosest.DetectAction(this.gameObject);
-                currentClosest.DetectEnter();
-                _detect = currentClosest;
-            }
-            else //무언가 감지된적 없을때
-            {
-                currentClosest.DetectAction(this.gameObject);
-                currentClosest.DetectEnter();
-                _detect = currentClosest;
-                return currentClosest;
-            }
-        }
-        else
-        {
-            if (_detect != null)//무언가 이미 감지되어있었을때
-            {
-                _detect.DetectExit();
-            }
-        }
-        return currentClosest;
-    }
+    //        // TryGetComponent를 사용하여 Collider2D의 GameObject가 IDetect 인터페이스를 가지고 있는지 확인합니다.
+    //        if (hitCollider.TryGetComponent<IDetect>(out IDetect detectedObject))
+    //        {
+    //            // 3. IDetect를 가진 오브젝트 중 가장 가까운 것을 찾습니다.
+    //            float distanceSqr = ((Vector2)hitCollider.transform.position - _rb.position).sqrMagnitude;
 
-
-
-
-
+    //            if (distanceSqr < minDistanceSqr)
+    //            {
+    //                minDistanceSqr = distanceSqr;
+    //                currentClosest = detectedObject;
+    //            }
+    //        }
+    //    }
+    //    if (currentClosest != null)
+    //    {
+    //        if (_detect != null)//무언가 이미 감지되어있었을때
+    //        {
+    //            if (_detect == currentClosest) //같은거일때
+    //            {
+    //                return _detect;
+    //            }
+    //            _detect.DetectExit();
+    //            currentClosest.DetectAction(this.gameObject);
+    //            currentClosest.DetectEnter();
+    //            _detect = currentClosest;
+    //        }
+    //        else //무언가 감지된적 없을때
+    //        {
+    //            currentClosest.DetectAction(this.gameObject);
+    //            currentClosest.DetectEnter();
+    //            _detect = currentClosest;
+    //            return currentClosest;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        if (_detect != null)//무언가 이미 감지되어있었을때
+    //        {
+    //            _detect.DetectExit();
+    //        }
+    //    }
+    //    return currentClosest;
+    //}
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(transform.position + (Vector3)footOffset, new Vector2(transform.localScale.x, 0.2f));
-
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawWireSphere(transform.position, detectRange);
+        Gizmos.DrawLine((Vector2)transform.position + handOffset, (Vector2)transform.position + handOffset + new Vector2(_direction, 0f));
     }
 
+    public void InitializeReset()
+    {
+        startPos = transform.position;
+    }
+
+    public void ResetAction()
+    {
+        transform.position = startPos;
+    }
 }
 public enum AerialState
 {
