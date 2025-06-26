@@ -25,7 +25,7 @@ public class TempBlock : Block, IReset
     {
         if(collision.gameObject.TryGetComponent<Rigidbody2D>(out Rigidbody2D otherRb))
         {
-            otherRb.linearVelocity = rb.linearVelocity;
+            otherRb.linearVelocity  = rb.linearVelocity;
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
