@@ -1,23 +1,21 @@
 using UnityEngine;
 
-public class TempBlock : Block, IReset
+public class TempBlock : Block
 {
     Vector2 startPos;
 
-    private void Start()
+    public override void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        col = GetComponent<Collider2D>();
         InitializeReset();
         GameManager.Instance.RegisterInitAction(ResetAction);
         GameManager.Instance.OnReset += ResetAction;
     }
-    public void InitializeReset()
+    override public void InitializeReset()
     {
         startPos = transform.position;
     }
 
-    public void ResetAction()
+    override public void ResetAction()
     {
         transform.position = startPos;
     }
