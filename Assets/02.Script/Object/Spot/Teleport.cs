@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Teleport : Spot, IClearCondition
 {
-    public Vector2 arrivePos;
+    public Transform arrivePos;
     public int stage;
     [SerializeField]private List<GameObject> detects = new List<GameObject>();
     [SerializeField]private bool isSatisfied;
@@ -25,7 +25,7 @@ public class Teleport : Spot, IClearCondition
         base.Interact();
         foreach (GameObject go in detects)
         {
-            go.transform.position = arrivePos;
+            go.transform.position = arrivePos.position;
         }
     }
 
@@ -72,7 +72,7 @@ public class Teleport : Spot, IClearCondition
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube((Vector3)arrivePos,new Vector3(0.5f,0.5f,0));
+        Gizmos.DrawWireCube((Vector3)arrivePos.position,new Vector3(0.5f,0.5f,0));
     }
     #endregion
 }
