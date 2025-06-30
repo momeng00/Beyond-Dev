@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.UI.Image;
 
-public class CharacterControl : MonoBehaviour, IReset
+public class CharacterControl : MonoBehaviour, IReset, IDetected
 {
     #region 컴포넌트 선언부
     private Rigidbody2D _rb;
@@ -68,8 +69,18 @@ public class CharacterControl : MonoBehaviour, IReset
     private bool _canMove;
     private AerialState _aerialState;
 
-    public float moveSpeed;
-    public float jumpForce;
+    public List<Stat> stats = new List<Stat>();
+    [SerializeField]private Stat _currentStat;
+    public Stat currentStat {
+        get
+        {
+            if (_currentStat == null)
+            {
+                return stats.FirstOrDefault();
+            }
+            return _currentStat;
+        }
+    }
     public Vector2 footOffset;
 
     private List<IInteract> interacts = new List<IInteract>();
@@ -101,11 +112,19 @@ public class CharacterControl : MonoBehaviour, IReset
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Stat deSO = stats.Find(so => so.name == CharacterStat.SlowStat.ToString());
+            if (deSO != null)
+            {
+                _currentStat = deSO;
+                Debug.Log("hello");
+            }
+        }
     }
     private void FixedUpdate()
     {
-        _rb.linearVelocity = new Vector2(_axisX * moveSpeed , _rb.linearVelocityY);
+        _rb.linearVelocity = new Vector2(_axisX * currentStat.moveSpeed , _rb.linearVelocityY);
     }
     private void Move(float horizontal)
     {
@@ -120,7 +139,7 @@ public class CharacterControl : MonoBehaviour, IReset
     }
     private void Jump()
     {
-        _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        _rb.AddForce(Vector2.up * currentStat.jumpForce, ForceMode2D.Impulse);
     } 
 
     public void InitializeReset()
@@ -132,6 +151,19 @@ public class CharacterControl : MonoBehaviour, IReset
     {
         transform.position = startPos;
     }
+    
+    public void OnDetected()
+    {
+        throw new System.NotImplementedException();
+    }
+    public void OnDetected(CharacterStat stat)
+    {
+        Stat deSO = stats.Find(so => so.name == stat.ToString());
+        if (deSO != null)
+        {
+            _currentStat = deSO;
+        }
+    }
     #region 단순 편의성 기능
     private void OnDrawGizmos()
     {
@@ -139,6 +171,7 @@ public class CharacterControl : MonoBehaviour, IReset
         Gizmos.DrawWireCube(transform.position + (Vector3)footOffset, new Vector2(transform.localScale.x, 0.2f));
         Gizmos.DrawLine((Vector2)transform.position + handOffset, (Vector2)transform.position + handOffset + new Vector2(_direction, 0f));
     }
+
     #endregion
 }
 public enum AerialState
