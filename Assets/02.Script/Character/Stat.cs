@@ -10,4 +10,6 @@ public enum CharacterStat
 {
     NormalStat,
     SlowStat,
+    FastStat,
+
 }
