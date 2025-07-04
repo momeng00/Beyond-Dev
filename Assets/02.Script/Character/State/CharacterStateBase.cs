@@ -2,6 +2,8 @@ using UnityEngine;
 
 public abstract class CharacterStateBase : MonoBehaviour
 {
+    
+    public CharacterAnimation machine;
     public virtual bool canExecute => true;
     public virtual void EnterState()
     {
@@ -11,8 +13,8 @@ public abstract class CharacterStateBase : MonoBehaviour
     {
         
     }
-    public virtual void OnUpdateState()
+    public virtual CharacterStateID OnUpdateState()
     {
-
+        return CharacterStateID.Idle;
     }
 }

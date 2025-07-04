@@ -3,7 +3,8 @@ using UnityEngine;
 public class SingleMessageBlock : Block, ISwitchable
 {
     Vector2 startPos;
-    private bool _blockState;
+    private bool _startState;
+    [SerializeField]private bool _blockState;
     public bool blockState
     {
         get
@@ -34,11 +35,11 @@ public class SingleMessageBlock : Block, ISwitchable
     public override void Start()
     {
         base.Start();
-        _blockState = false;
         InitializeReset();
         GameManager.Instance.RegisterInitAction(ResetAction);
         GameManager.Instance.OnReset += ResetAction;
         Switch.SetSwitch(this);
+        MessagerBlock(blockState);
     }
     
 
@@ -50,18 +51,19 @@ public class SingleMessageBlock : Block, ISwitchable
 
     public void SwitchOn(bool value)
     {
-        blockState = value;
+        blockState = !blockState;
     }
     public override void InitializeReset()
     {
         base.InitializeReset();
         startPos = transform.position;
+        _startState= blockState;
     }
     public override void ResetAction()
     {
         base.ResetAction();
         transform.position = startPos;
-        blockState = false;
+        blockState = _startState;
     }
     public override void OnBlockAction()
     {

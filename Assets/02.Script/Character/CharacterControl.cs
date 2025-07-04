@@ -12,7 +12,7 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected
     #endregion
 
 
-    private float _axisX; //이동되는 수치 받을 힘
+    public float _axisX; //이동되는 수치 받을 힘
     private float _axisY; //이동되는 수치 받을 힘
     private float _direction =1f;
     public float direction
