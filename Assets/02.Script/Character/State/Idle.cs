@@ -1,18 +1,18 @@
 using UnityEngine;
 
-public class Move : CharacterStateBase
+public class Idle: CharacterStateBase
 {
-    public Move(CharacterAnimation animation)
+    public Idle(CharacterAnimation animation)
     {
         machine = animation;
 
     }
-    public override bool canExecute => base.canExecute && machine.characterControl.isGrounded;
+    public override bool canExecute => base.canExecute;
     public override void EnterState()
     {
         base.EnterState();
         //초기화와 같은 방식
-        Debug.Log("Move 상태");
+        Debug.Log("Idle 상태");
     }
     public override void ExitState()
     {
@@ -22,7 +22,7 @@ public class Move : CharacterStateBase
     public override CharacterStateID OnUpdateState()
     {
         CharacterStateID next = CharacterStateID.Idle;
-
+        
         if (machine.characterControl.isGrounded)
         {
             if (Mathf.Abs(machine.characterControl._axisX) > 0)
@@ -43,4 +43,5 @@ public class Move : CharacterStateBase
         }
         return next;
     }
+    
 }
