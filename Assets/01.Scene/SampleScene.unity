@@ -1187,11 +1187,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1273984154}
   - component: {fileID: 1273984153}
+  - component: {fileID: 1273984160}
   - component: {fileID: 1273984158}
   - component: {fileID: 1273984156}
   - component: {fileID: 1273984157}
   - component: {fileID: 1273984159}
-  - component: {fileID: 1273984160}
   m_Layer: 3
   m_Name: Square
   m_TagString: Untagged
@@ -1362,6 +1362,13 @@ MonoBehaviour:
   handLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  jumpBuffetTime: 1
+  jumpTime: 0
+  canJump: 0
+  hasJump: 0
+  coyoteTime: 1
+  landingLimit: 5
+  canMove: 0
   stats:
   - {fileID: 11400000, guid: 53b625428c8d622419454197d7375a3e, type: 2}
   - {fileID: 11400000, guid: a02dfdac58422a943b16bb43bc5daacc, type: 2}

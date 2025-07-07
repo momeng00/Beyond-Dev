@@ -9,8 +9,8 @@ public static class CharacterStateSheet
         return new Dictionary<CharacterStateID, CharacterStateBase>()
         {
             { CharacterStateID.Move, new Move(machine) },
-            { CharacterStateID.Jump, new Jump() },
-            { CharacterStateID.Falling, new Falling() },
+            { CharacterStateID.Jump, new Jump(machine) },
+            { CharacterStateID.Falling, new Falling(machine) },
             { CharacterStateID.Landing,new Landing() },
             { CharacterStateID.Slow, new Slow() },
             { CharacterStateID.Idle, new Idle(machine) },

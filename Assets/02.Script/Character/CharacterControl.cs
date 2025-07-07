@@ -12,8 +12,8 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected
     #endregion
 
 
-    public float _axisX; //이동되는 수치 받을 힘
-    private float _axisY; //이동되는 수치 받을 힘
+    [HideInInspector] public float _axisX; //이동되는 수치 받을 힘
+    [HideInInspector] private float _axisY; //이동되는 수치 받을 힘
     private float _direction =1f;
     public float direction
     {
@@ -65,8 +65,13 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected
             return _col;
         }
     }
-
-    private bool _canMove;
+    public float jumpBuffetTime;
+    [HideInInspector] public float jumpTime;
+    [HideInInspector] public bool canJump;
+    [HideInInspector] public bool hasJump;
+    public float coyoteTime;
+    public float landingLimit;
+    [HideInInspector] public bool canMove;
     private AerialState _aerialState;
 
     public List<Stat> stats = new List<Stat>();
@@ -76,6 +81,7 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected
         {
             if (_currentStat == null)
             {
+                _currentStat = stats.FirstOrDefault();
                 return stats.FirstOrDefault();
             }
             return _currentStat;
@@ -103,7 +109,9 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected
     }
     private void Awake()
     {
-        _canMove = true;
+        canMove = true;
+        canJump = true;
+        hasJump = false;
         _ani = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody2D>();
         _axisY = 0;
@@ -112,35 +120,30 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            Stat deSO = stats.Find(so => so.name == CharacterStat.SlowStat.ToString());
-            if (deSO != null)
-            {
-                _currentStat = deSO;
-                Debug.Log("hello");
-            }
-        }
+        if(jumpTime<-1)
+            jumpTime -= Time.deltaTime;
     }
     private void FixedUpdate()
     {
-        _rb.linearVelocity = new Vector2(_axisX * currentStat.moveSpeed , _rb.linearVelocityY);
+        _rb.linearVelocity = new Vector2(_axisX * currentStat.moveSpeed, _rb.linearVelocityY);
     }
     private void Move(float horizontal)
     {
-        if(!_canMove)
+        if(!canMove)
             return;
-        if (isHandFull)
-        {
-
-        }
         _axisX = horizontal;
         direction = horizontal;
     }
+
     private void Jump()
     {
+        jumpTime = jumpBuffetTime;
+        if (!canJump)
+            return;
+        if (hasJump)
+            return;
         _rb.AddForce(Vector2.up * currentStat.jumpForce, ForceMode2D.Impulse);
-    } 
+    }
 
     public void InitializeReset()
     {
