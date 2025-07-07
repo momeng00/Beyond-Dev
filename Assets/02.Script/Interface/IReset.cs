@@ -1,5 +1,5 @@
 public interface IReset
 {
-    void InitializeReset();
+    void InitializeReset(); 
     void ResetAction();
 }
