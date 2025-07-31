@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class CharacterStateBase : MonoBehaviour
+public abstract class CharacterStateBase 
 {
     
     public CharacterAnimation machine;

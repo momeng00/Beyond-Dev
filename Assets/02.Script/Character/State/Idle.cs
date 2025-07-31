@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Idle: CharacterStateBase
@@ -5,12 +6,13 @@ public class Idle: CharacterStateBase
     public Idle(CharacterAnimation animation)
     {
         machine = animation;
-
     }
     public override bool canExecute => base.canExecute;
     public override void EnterState()
     {
         base.EnterState();
+        machine.characterControl.hasJump = false;
+        machine.characterControl.canJump = true;
         //초기화와 같은 방식
         Debug.Log("Idle 상태");
     }
@@ -32,11 +34,11 @@ public class Idle: CharacterStateBase
         }
         else
         {
-            if (machine.rb.linearVelocityY > 0)
+            if (machine.rb.linearVelocityY > 0f)
             {
                 next = CharacterStateID.Jump;
             }
-            else if (machine.rb.linearVelocityY < 0)
+            else if (machine.rb.linearVelocityY < 0f)
             {
                 next = CharacterStateID.Falling;
             }

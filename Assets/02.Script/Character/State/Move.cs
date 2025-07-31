@@ -30,16 +30,12 @@ public class Move : CharacterStateBase
                 next = CharacterStateID.Move;
             }
         }
-        else
+        if (!machine.characterControl.isGrounded)
         {
-            if (machine.rb.linearVelocityY > 0)
-            {
-                next = CharacterStateID.Jump;
-            }
-            else if (machine.rb.linearVelocityY < 0)
-            {
-                next = CharacterStateID.Falling;
-            }
+            if (machine.rb.linearVelocityY > 0.01f)
+                return CharacterStateID.Jump;
+            if (machine.rb.linearVelocityY < -0.01f)
+                return CharacterStateID.Falling;
         }
         return next;
     }

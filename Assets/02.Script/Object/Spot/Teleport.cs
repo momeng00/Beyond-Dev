@@ -5,8 +5,8 @@ public class Teleport : Spot, IClearCondition
 {
     public Transform arrivePos;
     public int stage;
-    [SerializeField]private List<GameObject> detects = new List<GameObject>();
-    [SerializeField]private bool isSatisfied;
+    [SerializeField] private List<GameObject> detects = new List<GameObject>();
+    [SerializeField] private bool isSatisfied;
     private Collider2D col;
     public void Initialize()
     {
@@ -72,7 +72,7 @@ public class Teleport : Spot, IClearCondition
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube((Vector3)arrivePos.position,new Vector3(0.5f,0.5f,0));
+        Gizmos.DrawWireCube((Vector3)arrivePos.position, new Vector3(0.5f, 0.5f, 0));
     }
     #endregion
 }

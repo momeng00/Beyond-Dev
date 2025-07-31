@@ -37,7 +37,7 @@ public class CharacterAnimation : MonoBehaviour
     {
         if(nextStateID == currentCharacterStateID)
             { return false; }
-        if(!stateData[currentCharacterStateID].canExecute)
+        if(!stateData[nextStateID].canExecute)
             { return false; }
 
         stateData[currentCharacterStateID].ExitState();
