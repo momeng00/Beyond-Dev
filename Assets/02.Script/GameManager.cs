@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
 
     public void CheckClear()
     {
+        if (condition.Count <= 1)
+            return;
         if (condition[stage]==null)
         {
             return;
