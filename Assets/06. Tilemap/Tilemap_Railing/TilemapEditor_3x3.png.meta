@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: cb7c410f0a5d51041a184bedaddf5d22
+guid: b16f56b19dca89b4f93bd350f08c4490
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8610941293763038544
-    second: "\uB208\uAE54\uD14C\uC2A4\uD2B8_0"
+      213: -2931547652043195969
+    second: TilemapEditor_3x3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -72,10 +72,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 32
+    maxTextureSize: 64
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,7 +113,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\uB208\uAE54\uD14C\uC2A4\uD2B8_0"
+      name: TilemapEditor_3x3_0
       rect:
         serializedVersion: 2
         x: 0
@@ -128,8 +128,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0b2f28b148acf7880800000000000000
-      internalID: -8610941293763038544
+      spriteID: fb9b5d541fc0157d0800000000000000
+      internalID: -2931547652043195969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapEditor_3x3_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff2d825641a61af42ab82d2c00b7079c
+      internalID: 336244933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TilemapEditor_3x3_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25adca05ee3197a4da7029548a5a757b
+      internalID: -393435731
       vertices: []
       indices: 
       edges: []
@@ -138,7 +182,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 655d80b8caf6fdc40bfa7ea6a462cb87
     internalID: 0
     vertices: []
     indices: 
@@ -146,9 +190,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":16.0,"y":16.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      "\uB208\uAE54\uD14C\uC2A4\uD2B8_0": -8610941293763038544
+      TilemapEditor_3x3_0: -2931547652043195969
+      TilemapEditor_3x3_1: 336244933
+      TilemapEditor_3x3_2: -393435731
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
