@@ -10,6 +10,7 @@ public class SwitchPhone : Switch,IReset
 
     private void Start()
     {
+        this.gameObject.AddComponent<BoxCollider2D>();
         col = GetComponent<Collider2D>();
         col.isTrigger = true;
         _switchState = false;
