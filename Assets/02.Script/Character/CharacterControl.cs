@@ -120,7 +120,7 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected
     // Update is called once per frame
     void Update()
     {
-        if(jumpTime>-1)
+        if(jumpTime<-1)
             jumpTime -= Time.deltaTime;
     }
     private void FixedUpdate()
@@ -142,7 +142,6 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected
             return;
         if (hasJump)
             return;
-        _rb.linearVelocity = Vector2.zero;
         _rb.AddForce(Vector2.up * currentStat.jumpForce, ForceMode2D.Impulse);
     }
 
