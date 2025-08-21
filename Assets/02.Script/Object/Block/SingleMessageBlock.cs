@@ -30,7 +30,7 @@ public class SingleMessageBlock : Block, ISwitchable
             MessagerBlock(value);
         }
     }
-    [SerializeField]Switch _Switch;
+    [SerializeField]private Switch _Switch;
 
     public override void Start()
     {
