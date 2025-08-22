@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -9,16 +10,21 @@ public class LanguageSystem : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.T))
         {
-            Debug.Log(LanguageSystem.Instance.GetText("BLOCK_TEMP"));
-        }   
+            LanguageSystem.Instance.ChangeLanguage(Language.English);
+        }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            LanguageSystem.Instance.ChangeLanguage(Language.Korean);
+        }
     }
     public static LanguageSystem Instance { get; private set; }
 
     [Header("Language Settings")]
     [Tooltip("현재 게임에서 사용할 언어를 설정합니다.")]
-    public Language targetLanguage = Language.Korean;
+    public Language currentLanguage = Language.Korean;
+    public static event Action OnLanguageChanged;
 
     [Header("Data Files")]
     [Tooltip("로딩할 CSV 파일들의 이름을 입력하세요.")]
@@ -27,7 +33,7 @@ public class LanguageSystem : MonoBehaviour
         "textSetting.csv"
     }; // 여러 파일 이름을 받을 리스트
 
-    private Dictionary<string, string> currentLanguageData;
+    private Dictionary<Language, Dictionary<string, string>> allLanguageData;
 
     void Awake()
     {
@@ -43,24 +49,32 @@ public class LanguageSystem : MonoBehaviour
         }
     }
 
+    public void ChangeLanguage(Language newLanguage)
+    {
+        currentLanguage = newLanguage;
+        // 언어가 변경되었음을 모든 구독자에게 알림
+        OnLanguageChanged?.Invoke();
+        Debug.Log($"Language changed to: {newLanguage}");
+    }
     public string GetText(string key)
     {
-        if (currentLanguageData != null && currentLanguageData.ContainsKey(key))
+        // 현재 언어의 딕셔너리가 존재하고, 그 안에 키가 있는지 확인
+        if (allLanguageData != null &&
+            allLanguageData.ContainsKey(currentLanguage) &&
+            allLanguageData[currentLanguage].ContainsKey(key))
         {
-            return currentLanguageData[key];
+            return allLanguageData[currentLanguage][key];
         }
 
-        Debug.LogWarning($"Localization key not found: {key}");
+        Debug.LogWarning($"Localization key not found for language '{currentLanguage}': {key}");
         return $"#{key}";
     }
 
     private void LoadLocalizationData()
     {
-        Debug.Log("Load text File");
         // 딕셔너리를 먼저 초기화합니다.
-        currentLanguageData = new Dictionary<string, string>();
+        allLanguageData = new Dictionary<Language, Dictionary<string, string>>();
 
-        // 지정된 모든 파일에 대해 로딩을 시도합니다.
         foreach (string fileName in dataFileNames)
         {
             string filePath = Path.Combine(Application.streamingAssetsPath, fileName);
@@ -70,9 +84,8 @@ public class LanguageSystem : MonoBehaviour
 #else
             if (File.Exists(filePath))
             {
-                Debug.Log("Exist text File");
                 string csvText = File.ReadAllText(filePath);
-                ParseCSV(csvText); // 읽어온 데이터를 기존 딕셔너리에 추가
+                ParseCSV(csvText);
             }
             else
             {
@@ -98,45 +111,43 @@ public class LanguageSystem : MonoBehaviour
 
     private void ParseCSV(string csvText)
     {
-        string[] lines = csvText.Split(new[] { "\r\n", "\n" }, System.StringSplitOptions.None);
+        string[] lines = csvText.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
         if (lines.Length <= 1) return;
 
+        // --- 헤더 분석 ---
         string[] header = lines[0].Split(',');
-        int languageColumnIndex = -1;
-        for (int i = 0; i < header.Length; i++)
+        // <열 인덱스, 해당 언어 Enum> 맵 생성
+        Dictionary<int, Language> columnIndexToLanguage = new Dictionary<int, Language>();
+        for (int i = 1; i < header.Length; i++) // 1부터 시작 (0은 Key 열)
         {
-            if (header[i].Trim() == targetLanguage.ToString())
+            // 헤더의 문자열을 Language Enum으로 변환 시도
+            if (Enum.TryParse(header[i].Trim(), out Language lang))
             {
-                languageColumnIndex = i;
-                break;
+                columnIndexToLanguage[i] = lang;
+                // 만약 allLanguageData에 해당 언어 딕셔너리가 없다면 새로 생성
+                if (!allLanguageData.ContainsKey(lang))
+                {
+                    allLanguageData[lang] = new Dictionary<string, string>();
+                }
             }
         }
 
-        if (languageColumnIndex == -1)
-        {
-            Debug.LogError($"Language column '{targetLanguage}' not found in CSV header.");
-            return;
-        }
-
+        // --- 데이터 분석 ---
         for (int i = 1; i < lines.Length; i++)
         {
             if (string.IsNullOrEmpty(lines[i])) continue;
 
             string[] columns = lines[i].Split(',');
-            if (columns.Length > languageColumnIndex)
-            {
-                string key = columns[0].Trim();
-                string value = columns[languageColumnIndex].Trim().Trim('"');
+            string key = columns[0].Trim();
 
-                // 키가 이미 존재하면 경고를 표시하고, 아니면 추가합니다.
-                if (currentLanguageData.ContainsKey(key))
+            foreach (var pair in columnIndexToLanguage)
+            {
+                int colIndex = pair.Key;
+                Language lang = pair.Value;
+                if (columns.Length > colIndex)
                 {
-                    Debug.LogWarning($"Duplicate key found: '{key}'. The value will be overwritten.");
-                    currentLanguageData[key] = value; // 덮어쓰기
-                }
-                else
-                {
-                    currentLanguageData.Add(key, value);
+                    string value = columns[colIndex].Trim().Trim('"');
+                    allLanguageData[lang][key] = value; // 키가 있으면 덮어쓰고, 없으면 추가
                 }
             }
         }
