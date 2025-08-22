@@ -35,7 +35,7 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected
         }
     }
 
-    [SerializeField]private Vector2 startPos;
+    private Vector2 startPos;
     public Vector2 handOffset;
     public float handDistance;
     [SerializeField] private LayerMask handLayerMask;

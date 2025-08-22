@@ -22,7 +22,7 @@ public class Sound
 
 public class AudioManager : MonoBehaviour
 {
-    [SerializeField]
+    //[SerializeField]
     public Sound[] sounds;
     // Start is called before the first frame update
     void Start()
