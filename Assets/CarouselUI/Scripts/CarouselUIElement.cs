@@ -1,10 +1,13 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CarouselUI
 {
-    public class CarouselUIElement : MonoBehaviour
+    public class CarouselUIElement : UIElement
     {
+        public Image image;
         [Header("Carousel Members")]
         [SerializeField, Tooltip("Array containing gameobjects used for options.")] private GameObject[] _optionsObjects;
 
@@ -48,7 +51,25 @@ namespace CarouselUI
 
             UpdateUI();
         }
+        public override void Selected()
+        {
+            base.Selected();
+            Color color = image.color;
+            color.a = 1f;
+            TMP_Text text = _optionsObjects[_currentIndex].GetComponent<TMP_Text>();
+            image.color = color;
+            text.color = color;
+        }
+        public override void UnSelected()
+        {
+            base.UnSelected();
+            Color color = image.color;
+            color.a = 0.5f;
+            TMP_Text text = _optionsObjects[_currentIndex].GetComponent<TMP_Text>();
+            image.color = color;
+            text.color = color;
 
+        }
         private void UpdateUI()
         {
             foreach (GameObject text in _optionsObjects)
@@ -94,7 +115,7 @@ namespace CarouselUI
         }
 
         //METHOD ACCESSED BY NEXT BUTTON
-        public void PressNext()
+        public virtual void PressNext()
         {
             if (_isProcessing)
             {
@@ -125,7 +146,7 @@ namespace CarouselUI
         }
 
         //METHOD ACCESSED BY PREVIOUS BUTTON
-        public void PressPrevious()
+        public virtual void PressPrevious()
         {
             if (_isProcessing)
             {
