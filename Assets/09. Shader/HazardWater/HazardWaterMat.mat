@@ -25,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 3a10eb71dcd23644d97aca88656d48d2, type: 3}
+        m_Texture: {fileID: 8400000, guid: abc0742deb72eaf499f9f5a4ca3b0722, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTexture:
@@ -58,17 +58,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 0.85
-    - _BlendValue: 0.13
-    - _CellDensity: 1.69
-    - _Float: 0
+    - _BlendValue: 0.01
+    - _CellDensity: 0.34
     - _PixelateAmount: 256
-    - _Speed: 0.5
+    - _Speed: 0.01
     - _Thickness: 0.002
     m_Colors:
     - _ColorHighlight: {r: 1, g: 0.5235849, b: 0.5235849, a: 0}
-    - _ColorOutline: {r: 1, g: 1, b: 1, a: 0}
-    - _ColorWater: {r: 1, g: 1, b: 1, a: 0}
+    - _ColorOutline: {r: 0, g: 0, b: 0, a: 0}
+    - _ColorWater: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &7823414564186565085
