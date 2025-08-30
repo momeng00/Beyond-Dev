@@ -82,9 +82,14 @@ public class UIManager : MonoBehaviour
             if (uiElements.ContainsKey(groupName))
             {
                 oldGroupCanvas.alpha = 0f;
+                oldGroupCanvas.interactable = false;
+                oldGroupCanvas.blocksRaycasts = false;
                 uiElement = uiElements[groupName];
 
                 currentElement = uiElement[0]; // 새 그룹의 첫 번째 요소를 기본 선택
+                CanvasGroup current = currentElement.gameObject.GetComponentInParent<CanvasGroup>();
+                current.interactable = true;
+                current.blocksRaycasts = true;
                 if (Enum.TryParse(groupName, out MenuName menuName))
                 {
                     this.menuName = menuName;

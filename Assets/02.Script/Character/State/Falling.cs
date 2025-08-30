@@ -38,7 +38,7 @@ public class Falling : CharacterStateBase
         }
         if (machine.characterControl.isGrounded)
         {
-            if (startFall < machine.characterControl.transform.position.y)
+            if (machine.characterControl.landingLimit < startFall - machine.characterControl.transform.position.y)
             {
                 return CharacterStateID.Landing;
             }
