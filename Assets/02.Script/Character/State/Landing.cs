@@ -4,9 +4,9 @@ public class Landing : CharacterStateBase
 {
     public override CharacterStateID OnUpdateState()
     {
-        if(machine.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
+        if(machine.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
         {
-            return CharacterStateID.Landing;
+            return CharacterStateID.Idle;
         }
         return base.OnUpdateState();
     }

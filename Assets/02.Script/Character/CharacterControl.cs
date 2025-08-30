@@ -58,8 +58,8 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected
     {
         get
         {
-            _col = Physics2D.OverlapBox((Vector2)transform.position + footOffset, 
-                new Vector2(transform.localScale.x, 0.2f),
+            _col = Physics2D.OverlapBox((Vector2)transform.position + footOffset,
+                footSizeOffset,
                 0.0f,
                 groundMask);
             return _col;
@@ -88,6 +88,7 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected
         }
     }
     public Vector2 footOffset;
+    public Vector2 footSizeOffset;
 
     private List<IInteract> interacts = new List<IInteract>();
     
@@ -172,7 +173,7 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position + (Vector3)footOffset, new Vector2(transform.localScale.x, 0.2f));
+        Gizmos.DrawWireCube(transform.position + (Vector3)footOffset, footSizeOffset);
         Gizmos.DrawLine((Vector2)transform.position + handOffset, (Vector2)transform.position + handOffset + new Vector2(_direction, 0f));
     }
 
