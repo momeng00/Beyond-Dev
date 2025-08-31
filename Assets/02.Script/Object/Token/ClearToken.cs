@@ -29,6 +29,7 @@ public class ClearToken : Token, IClearCondition
         if (IsInLayerMask(collision.gameObject, layerMask))
         {
             go = collision.gameObject.GetComponent<Transform>();
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
             //아이템을 먹었을때
             isSatisfied = true;
             

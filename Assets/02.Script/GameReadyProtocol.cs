@@ -20,7 +20,7 @@ public class GameReadyProtocol : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F3))
         {
-            Screen.SetResolution(1920, 1080, FullScreenMode.Windowed);
+            Screen.SetResolution(1280, 720, FullScreenMode.Windowed);
         }
     }
 }

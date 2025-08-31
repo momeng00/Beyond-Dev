@@ -26,6 +26,10 @@ public class Move : CharacterStateBase
 
         if (machine.characterControl.isGrounded)
         {
+            if (machine.characterControl.isHandFull)
+            {
+                return CharacterStateID.Push;
+            }
             if (Mathf.Abs(machine.characterControl._axisX) > 0)
             {
                 next = CharacterStateID.Move;

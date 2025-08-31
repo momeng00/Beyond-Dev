@@ -14,7 +14,7 @@ public static class CharacterStateSheet
             { CharacterStateID.Landing,new Landing() },
             { CharacterStateID.Slow, new Slow() },
             { CharacterStateID.Idle, new Idle(machine) },
-            { CharacterStateID.Push, new Push() },
+            { CharacterStateID.Push, new Push(machine) },
             { CharacterStateID.Die, new Die() },
 
         };

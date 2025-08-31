@@ -51,7 +51,12 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected
                                                     handLayerMask);
             Debug.DrawRay((Vector2)transform.position + handOffset, new Vector2(_direction, 0f) * handDistance, hit.collider ? Color.red : Color.green);
             handObj = hit.collider;
+            if (handObj != null)
+            {
+                return !handObj.isTrigger;
+            }
             return handObj;
+            
         }
     }
     public bool isGrounded
@@ -62,6 +67,10 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected
                 footSizeOffset,
                 0.0f,
                 groundMask);
+//            if (_col != null)
+   //         {
+   //             return !_col.isTrigger;
+        //    }
             return _col;
         }
     }
@@ -174,7 +183,7 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(transform.position + (Vector3)footOffset, footSizeOffset);
-        Gizmos.DrawLine((Vector2)transform.position + handOffset, (Vector2)transform.position + handOffset + new Vector2(_direction, 0f));
+        Gizmos.DrawLine((Vector2)transform.position + handOffset, (Vector2)transform.position + handOffset + new Vector2(_direction*handDistance, 0f));
     }
 
     #endregion

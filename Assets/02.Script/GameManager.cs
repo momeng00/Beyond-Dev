@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.AI;
+using UnityEngine.SceneManagement;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 public class GameManager : MonoBehaviour
@@ -11,14 +12,21 @@ public class GameManager : MonoBehaviour
     private Dictionary<int, Action> clearAction = new Dictionary<int, Action>();
     private Action initAction;
     public Action OnReset;
+    public string finalClearSceneName = "ClearScene";
     private static GameManager _instance;
     public static GameManager Instance
     {
         get
         {
+
             if (_instance == null)
             {
-                _instance = new GameObject("GameSystem").AddComponent<GameManager>();
+                _instance = FindAnyObjectByType<GameManager>();
+                if (_instance == null)
+                {
+                    _instance = new GameObject("GameSystem").AddComponent<GameManager>();
+                }
+
             }
             return _instance;
         }
@@ -57,6 +65,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            SceneManager.LoadScene(finalClearSceneName);
             Debug.Log("stage ERROR 끝이 났거나 오류가 발생!");
             stage = 0;
         }
