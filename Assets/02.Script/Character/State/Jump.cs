@@ -11,6 +11,7 @@ public class Jump : CharacterStateBase
     {
         base.EnterState();
         Debug.Log("Jump ป๓ลย");
+        machine.GetComponent<Animator>().Play("Jump");
         machine.characterControl.hasJump = true;
     }
 
@@ -26,6 +27,11 @@ public class Jump : CharacterStateBase
         {
             next = CharacterStateID.Falling;
         }
+        if (machine.characterControl.isGrounded)
+        {
+            next = CharacterStateID.Idle;
+        }
+
         return next;
     }
 }

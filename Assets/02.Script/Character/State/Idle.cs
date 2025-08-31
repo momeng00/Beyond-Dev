@@ -11,6 +11,7 @@ public class Idle: CharacterStateBase
     public override void EnterState()
     {
         base.EnterState();
+        machine.GetComponent<Animator>().Play("Idle");
         machine.characterControl.hasJump = false;
         machine.characterControl.canJump = true;
         //초기화와 같은 방식
@@ -34,11 +35,11 @@ public class Idle: CharacterStateBase
         }
         else
         {
-            if (machine.rb.linearVelocityY > 0f)
+            if (machine.rb.linearVelocityY > 0.03f)
             {
                 next = CharacterStateID.Jump;
             }
-            else if (machine.rb.linearVelocityY < 0f)
+            else if (machine.rb.linearVelocityY < 0.03f)
             {
                 next = CharacterStateID.Falling;
             }

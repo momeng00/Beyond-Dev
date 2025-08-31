@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Teleport : Spot, IClearCondition
 {
+    //게임의 클리어에 해당하는 기능을 구현해야합니다.
     public Transform arrivePos;
     public int stage;
     [SerializeField] private List<GameObject> detects = new List<GameObject>();
@@ -66,13 +67,4 @@ public class Teleport : Spot, IClearCondition
 
     #endregion
 
-
-
-    #region 그냥 편의성 유틸
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube((Vector3)arrivePos.position, new Vector3(0.5f, 0.5f, 0));
-    }
-    #endregion
 }

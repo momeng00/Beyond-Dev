@@ -5,6 +5,7 @@ using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class MessageBlock : Block, ISwitchable
 {
+    //글씨를 넣기위한 기능으로 변경예정
     // --- 인스펙터 설정 변수 ---
 
     [Header("Text Margins & Alignment")]
@@ -70,7 +71,10 @@ public class MessageBlock : Block, ISwitchable
         tmp.alignment = TextAlignmentOptions.Center;
         tmp.enableAutoSizing = false;
         tmp.color = Color.black;
-        boxCollider = gameObject.AddComponent<BoxCollider2D>();
+        if (boxCollider == null) 
+        {
+            boxCollider = gameObject.AddComponent<BoxCollider2D>();
+        }
         boxCollider.size = boundsWithoutScale;
 
         RectTransform rectTransform = tmp.rectTransform;

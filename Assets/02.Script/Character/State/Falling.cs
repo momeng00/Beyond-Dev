@@ -14,6 +14,7 @@ public class Falling : CharacterStateBase
     {
         base.EnterState();
         Debug.Log("Falling ป๓ลย");
+        machine.GetComponent<Animator>().Play("Falling");
         machine.characterControl.jumpTime = -1;
         time = 0f;
         startFall = machine.characterControl.transform.position.y;
@@ -32,7 +33,7 @@ public class Falling : CharacterStateBase
         {
             machine.characterControl.canJump = false;
         }
-        if (machine.rb.linearVelocityY > 0f)
+        if (machine.rb.linearVelocityY > 0.03f)
         {
             next = CharacterStateID.Jump;
         }
@@ -42,7 +43,7 @@ public class Falling : CharacterStateBase
             {
                 return CharacterStateID.Landing;
             }
-            if (machine.characterControl.jumpTime > 0)
+            if (machine.characterControl.jumpTime >= 0)
             {
                 machine.rb.linearVelocity = Vector2.zero;
                 machine.rb.AddForce(Vector2.up * machine.characterControl.currentStat.jumpForce, ForceMode2D.Impulse);
