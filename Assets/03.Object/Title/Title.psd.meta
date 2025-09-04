@@ -109,7 +109,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 110
-      y: 555
+      y: 134
       width: 94
       height: 205
     spriteID: aed9f9dab2cb13f488dcc81420e364aa
@@ -120,7 +120,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 110, y: 555}
+    uvTransform: {x: 110, y: 134}
     spritePosition: {x: 62, y: 7}
   - name: "\uC2A4\uB9DB"
     originalName: 
@@ -131,7 +131,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 555
+      y: 134
       width: 98
       height: 210
     spriteID: 0b59624c50fc9464a9c40a2dfc24eb00
@@ -142,9 +142,9 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 555}
+    uvTransform: {x: 4, y: 134}
     spritePosition: {x: 60, y: 5}
-  - name: "\uB808\uC774\uC5B4 0"
+  - name: resonance
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -153,10 +153,10 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 282
-      width: 480
-      height: 265
-    spriteID: 932ae3f110a59f44f92c6871810bbd0e
+      y: 352
+      width: 87
+      height: 11
+    spriteID: a59ac42a80be60c41adb86d9d0d37eba
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -164,9 +164,9 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 282}
-    spritePosition: {x: 0, y: 0}
-  - name: "\uB808\uC774\uC5B4 1"
+    uvTransform: {x: 4, y: 352}
+    spritePosition: {x: 276, y: 116}
+  - name: "\uB808\uC774\uC5B4 0"
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -177,8 +177,8 @@ ScriptedImporter:
       x: 4
       y: 4
       width: 480
-      height: 270
-    spriteID: d8bd39c7f1516dd48808e5cf0f960f0f
+      height: 122
+    spriteID: 932ae3f110a59f44f92c6871810bbd0e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -187,7 +187,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-    spritePosition: {x: 0, y: 0}
+    spritePosition: {x: 0, y: 62}
   spriteImportData: []
   rigSpriteImportData: []
   sharedRigSpriteImportData: []
@@ -268,7 +268,7 @@ ScriptedImporter:
   spriteCategoryList:
     categories: []
   spritePackingTag: 
-  resliceFromLayer: 0
+  resliceFromLayer: 1
   pSDLayerImportSetting: []
   psdLayers:
   - name: "\uD654\uBA74"
@@ -277,7 +277,7 @@ ScriptedImporter:
     parentIndex: -1
     spriteID: aed9f9dab2cb13f488dcc81420e364aa
     layerID: 73
-    mosaicPosition: {x: 110, y: 555}
+    mosaicPosition: {x: 110, y: 134}
     flatten: 0
     isImported: 1
     isVisible: 1
@@ -287,7 +287,7 @@ ScriptedImporter:
     parentIndex: -1
     spriteID: 0b59624c50fc9464a9c40a2dfc24eb00
     layerID: 49
-    mosaicPosition: {x: 4, y: 555}
+    mosaicPosition: {x: 4, y: 134}
     flatten: 0
     isImported: 1
     isVisible: 1
@@ -301,13 +301,23 @@ ScriptedImporter:
     flatten: 0
     isImported: 0
     isVisible: 0
+  - name: resonance
+    spriteName: resonance
+    isGroup: 0
+    parentIndex: -1
+    spriteID: a59ac42a80be60c41adb86d9d0d37eba
+    layerID: 84
+    mosaicPosition: {x: 4, y: 352}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: "\uB808\uC774\uC5B4 0"
     spriteName: "\uB808\uC774\uC5B4 0"
     isGroup: 0
     parentIndex: -1
     spriteID: 932ae3f110a59f44f92c6871810bbd0e
     layerID: 71
-    mosaicPosition: {x: 4, y: 282}
+    mosaicPosition: {x: 4, y: 4}
     flatten: 0
     isImported: 1
     isVisible: 1
@@ -329,8 +339,8 @@ ScriptedImporter:
     layerID: 67
     mosaicPosition: {x: 4, y: 4}
     flatten: 0
-    isImported: 1
-    isVisible: 1
+    isImported: 0
+    isVisible: 0
   mosaicPSDLayers: []
   rigPSDLayers: []
   sharedRigPSDLayers: []
