@@ -1,9 +1,13 @@
 using System.Collections.Generic;
+using System.Xml;
+using TMPro;
 using UnityEngine;
 
 public class SingleMessageBlock : Block, ISwitchable
 {
     //스위치를 위한 블럭으로 변경예정
+    public LocalizationKeys localizationKeys;
+    TextMeshPro tmpText;
     Vector2 startPos;
     private bool _startState;
     [SerializeField]private bool _blockState;
@@ -50,6 +54,7 @@ public class SingleMessageBlock : Block, ISwitchable
     }
     private void Awake()
     {
+        tmpText = GetComponent<TextMeshPro>();
         boxCollider = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -85,12 +90,19 @@ public class SingleMessageBlock : Block, ISwitchable
         {
             // 리스트에 있는 모든 오브젝트를 위로 올림
             MoveObjectsUp();
-
+            if(tmpText != null)
+            {
+                tmpText.enabled = true;
+            }
             spriteRenderer.enabled = true; // 보이게
             boxCollider.isTrigger = false; // 단단한 발판으로
         }
         else // 블록이 꺼질 때
         {
+            if (tmpText != null)
+            {
+                tmpText.enabled = false;
+            }
             spriteRenderer.enabled = false; // 안 보이게
             boxCollider.isTrigger = true; // 감지 모드로
         }

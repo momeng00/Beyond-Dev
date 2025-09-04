@@ -49,6 +49,7 @@ public class MessageBlock : Block, ISwitchable
         base.Start();
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         Sprite sprite = spriteRenderer.sprite;
+        boxCollider  = GetComponent<BoxCollider2D>();
 
         Vector2 boundsWithoutScale = new Vector2(
             spriteRenderer.bounds.size.x / transform.localScale.x,
@@ -63,6 +64,7 @@ public class MessageBlock : Block, ISwitchable
         textObj.transform.localPosition = transform.position;
         // TextMeshPro 컴포넌트 추가
         TextMeshPro tmp = textObj.AddComponent<TextMeshPro>();
+        tmp.sortingOrder = spriteRenderer.sortingOrder;
         text = tmp;
         // 텍스트 설정
         tmp.text = "Hello World!";
