@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ClearToken : Token, IClearCondition, IReset
+public class ClearToken : Token, IClearCondition
 {
     public int stage;
     public LayerMask layerMask;
@@ -14,7 +14,6 @@ public class ClearToken : Token, IClearCondition, IReset
     {
         GameManager.Instance.RegisterCondition(stage, this);
         GameManager.Instance.RegisterClearAction(stage, ClearAction);
-        GameManager.Instance.OnReset += ResetAction;
     }
     public bool IsSatisfied()
     {
@@ -41,14 +40,5 @@ public class ClearToken : Token, IClearCondition, IReset
         return ((1 << obj.layer) & mask) != 0;
     }
 
-    public void InitializeReset()
-    {
-        throw new System.NotImplementedException();
-    }
 
-    public void ResetAction()
-    {
-        isSatisfied = false;
-        gameObject.GetComponent<SpriteRenderer>().enabled = true;
-    }
 }
