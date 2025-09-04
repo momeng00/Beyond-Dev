@@ -51,10 +51,11 @@ public class SingleMessageBlock : Block, ISwitchable
         GameManager.Instance.OnReset += ResetAction;
         Switch.SetSwitch(this);
         MessagerBlock(blockState);
+        
     }
     private void Awake()
     {
-        tmpText = GetComponent<TextMeshPro>();
+        tmpText = GetComponentInChildren<TextMeshPro>();
         boxCollider = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -85,6 +86,10 @@ public class SingleMessageBlock : Block, ISwitchable
 
     public void MessagerBlock(bool on)
     {
+        if(tmpText == null)
+        {
+            tmpText = GetComponentInChildren<TextMeshPro>();
+        }
         //ani.SetBool("BlockState",blockState);
         if (on) // 블록이 켜질 때
         {
@@ -99,6 +104,10 @@ public class SingleMessageBlock : Block, ISwitchable
         }
         else // 블록이 꺼질 때
         {
+            if (tmpText == null)
+            {
+                tmpText = GetComponentInChildren<TextMeshPro>();
+            }
             if (tmpText != null)
             {
                 tmpText.enabled = false;
