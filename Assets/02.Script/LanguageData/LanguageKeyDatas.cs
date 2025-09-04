@@ -4,5 +4,10 @@ public enum LocalizationKeys
     TITLE_START,
     UI_YES,
     UI_NO,
-    BLOCK_TEMP,
+    BLOCK_1_BOY1,
+    BLOCK_1_GIRL1,
+    BLOCK_3_GIRL1,
+    BLOCK_5_BOY1,
+    BLOCK_6_BOY1,
+    BLOCK_6_GIRL1,
 }

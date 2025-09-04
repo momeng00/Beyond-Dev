@@ -4,10 +4,31 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
+using static Unity.Collections.AllocatorManager;
 
 public class LanguageSystem : MonoBehaviour
 {
+    private static LanguageSystem _instance;
+    public static LanguageSystem Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                // 1. 씬에서 기존 인스턴스를 찾아봅니다.
+                _instance = FindAnyObjectByType<LanguageSystem>();
 
+                // 2. 씬에 인스턴스가 없다면 새로 생성합니다.
+                if (_instance == null)
+                {
+                    GameObject singletonObject = new GameObject("LanguageSystem");
+                    _instance = singletonObject.AddComponent<LanguageSystem>();
+                    _instance.LoadLocalizationData();
+                }
+            }
+            return _instance;
+        }
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
@@ -19,7 +40,6 @@ public class LanguageSystem : MonoBehaviour
             LanguageSystem.Instance.ChangeLanguage(Language.Korean);
         }
     }
-    public static LanguageSystem Instance { get; private set; }
 
     [Header("Language Settings")]
     [Tooltip("현재 게임에서 사용할 언어를 설정합니다.")]
@@ -37,15 +57,10 @@ public class LanguageSystem : MonoBehaviour
 
     void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-            LoadLocalizationData();
-        }
-        else
+        if (Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
     }
 
@@ -74,14 +89,18 @@ public class LanguageSystem : MonoBehaviour
     {
         // 딕셔너리를 먼저 초기화합니다.
         allLanguageData = new Dictionary<Language, Dictionary<string, string>>();
+#if UNITY_WEBGL && !UNITY_EDITOR
+        // 자동 생성된 데이터 시트를 사용합니다.
+        // LanguageDataSheet_KR.Data가 IDictionary<string, string>이므로, Dictionary로 변환해줍니다.
+        allLanguageData[Language.Korean] = new Dictionary<string, string>(LanguageDataSheet_KR.Data);
+        Debug.Log("WebGL: Loaded language data from generated data sheet.");
 
+#else
+#endif
         foreach (string fileName in dataFileNames)
         {
             string filePath = Path.Combine(Application.streamingAssetsPath, fileName);
 
-#if UNITY_ANDROID && !UNITY_EDITOR
-            StartCoroutine(LoadDataForAndroid(filePath));
-#else
             if (File.Exists(filePath))
             {
                 string csvText = File.ReadAllText(filePath);
@@ -91,10 +110,25 @@ public class LanguageSystem : MonoBehaviour
             {
                 Debug.LogError($"Cannot find localization file: {fileName}");
             }
-#endif
         }
     }
+    // 안드로이드뿐만 아니라 WebGL에서도 사용하므로 함수 이름 변경
+    private IEnumerator LoadDataWithWebRequest(string path)
+    {
+        // UnityWebRequest를 사용하여 서버(또는 로컬 데이터)에 파일 요청
+        UnityWebRequest www = UnityWebRequest.Get(path);
+        yield return www.SendWebRequest(); // 요청이 끝날 때까지 대기
 
+        if (www.result == UnityWebRequest.Result.Success)
+        {
+            // 성공적으로 텍스트를 다운로드하면 파싱 실행
+            ParseCSV(www.downloadHandler.text);
+        }
+        else
+        {
+            Debug.LogError($"Failed to load localization file: {path} | Error: {www.error}");
+        }
+    }
     private IEnumerator LoadDataForAndroid(string path)
     {
         UnityWebRequest www = UnityWebRequest.Get(path);

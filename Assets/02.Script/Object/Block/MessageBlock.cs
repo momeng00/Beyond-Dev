@@ -5,9 +5,10 @@ using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class MessageBlock : Block, ISwitchable
 {
+    public string checktext;
     //글씨를 넣기위한 기능으로 변경예정
     // --- 인스펙터 설정 변수 ---
-
+    public LocalizationKeys localizationKey;
     [Header("Text Margins & Alignment")]
     [Tooltip("텍스트의 사방 여백(Margins)을 조절합니다. (좌, 상, 우, 하)")]
     public Vector4 textMargins; // TextMeshPro의 Margin 속성을 직접 제어
@@ -20,7 +21,6 @@ public class MessageBlock : Block, ISwitchable
     public List<LanguageEntry> languageEntries = new List<LanguageEntry>();
 
     // --- 내부 변수 ---
-    private TextMeshPro textMeshPro;
     private RectTransform textRectTransform;
     private Dictionary<Language, string> languageDictionary;
 
@@ -42,14 +42,12 @@ public class MessageBlock : Block, ISwitchable
     {
         throw new System.NotImplementedException();
     }
+    private void Awake()
+    { 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public override void Start()
-    {
-        base.Start();
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         Sprite sprite = spriteRenderer.sprite;
-        boxCollider  = GetComponent<BoxCollider2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
 
         Vector2 boundsWithoutScale = new Vector2(
             spriteRenderer.bounds.size.x / transform.localScale.x,
@@ -65,15 +63,18 @@ public class MessageBlock : Block, ISwitchable
         // TextMeshPro 컴포넌트 추가
         TextMeshPro tmp = textObj.AddComponent<TextMeshPro>();
         tmp.sortingOrder = spriteRenderer.sortingOrder;
-        text = tmp;
+
         // 텍스트 설정
-        tmp.text = "Hello World!";
-        
+
+        tmp.text = LanguageSystem.Instance.GetText(localizationKey.ToString());
+        checktext = tmp.text;
+
         tmp.fontSize = this.fontSize;
         tmp.alignment = TextAlignmentOptions.Center;
         tmp.enableAutoSizing = false;
         tmp.color = Color.black;
-        if (boxCollider == null) 
+        text = tmp;
+        if (boxCollider == null)
         {
             boxCollider = gameObject.AddComponent<BoxCollider2D>();
         }
@@ -86,9 +87,16 @@ public class MessageBlock : Block, ISwitchable
         rectTransform.sizeDelta = localSize;
 
         textObj.transform.SetParent(transform);
-        
+
         Initialize();
         UpdateTextObject();
+        
+    }
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public override void Start()
+    {
+        base.Start();
+        LanguageSystem.OnLanguageChanged += ChangeLanguage;
     }
 
     // Update is called once per frame
@@ -96,15 +104,22 @@ public class MessageBlock : Block, ISwitchable
     {
         
     }
-
+    public void ChangeLanguage()
+    {
+        if (text == null)
+        {
+            text = gameObject.GetComponentInChildren<TextMeshPro>();
+        }
+        text.text = LanguageSystem.Instance.GetText(localizationKey.ToString());
+    }
     /// <summary>
     /// 컴포넌트 참조 및 딕셔너리 초기화
     /// </summary>
     private void Initialize()
     {
         boxCollider = GetComponent<BoxCollider2D>();
-        textMeshPro = text.GetComponent<TextMeshPro>();
-        textRectTransform = textMeshPro.GetComponent<RectTransform>();
+        text = text.GetComponent<TextMeshPro>();
+        textRectTransform = text.GetComponent<RectTransform>();
 
         // List를 Dictionary로 변환하여 런타임 시 빠른 텍스트 조회를 준비
         languageDictionary = new Dictionary<Language, string>();
@@ -122,32 +137,18 @@ public class MessageBlock : Block, ISwitchable
     /// </summary>
     public void UpdateTextObject()
     {
-        if (boxCollider == null || textMeshPro == null) return;
+        if (boxCollider == null || text == null) return;
 
         // 1. 콜라이더 크기에 맞춰 RectTransform 크기 설정 (패딩 없음)
         //textRectTransform.sizeDelta = boxCollider.size;
 
         // 2. TextMeshPro 자체의 Margin 기능으로 패딩 적용
-        textMeshPro.margin = textMargins;
-
+        text.margin = textMargins;
+        
         // 3. 텍스트 정렬 설정
-        textMeshPro.alignment = alignment;
-
-        // 4. GameManager에서 현재 설정된 언어를 가져와 텍스트 업데이트
-        // TODO: 아래 GameManager 참조는 임시로 사용된 변수입니다.
-        //Language currentLanguage = GameManager.Instance.currentLanguage;
-        Language currentLanguage = Language.Korean;
-
-        if (languageDictionary.ContainsKey(currentLanguage))
-        {
-            textMeshPro.text = languageDictionary[currentLanguage];
-        }
-        else
-        {
-            // 해당하는 언어의 텍스트가 없으면 경고 메시지 표시
-            textMeshPro.text = "N/A";
-            Debug.LogWarning($"'{gameObject.name}' 오브젝트에 '{currentLanguage}' 언어에 대한 텍스트가 없습니다.", this);
-        }
+        text.alignment = alignment;
+        text.textWrappingMode = TextWrappingModes.NoWrap;
+        text.text = LanguageSystem.Instance.GetText(localizationKey.ToString());
     }
 }
 

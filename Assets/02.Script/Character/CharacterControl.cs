@@ -11,7 +11,6 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected
     private Animator _ani;
     #endregion
 
-
     [HideInInspector] public float _axisX; //이동되는 수치 받을 힘
     [HideInInspector] private float _axisY; //이동되는 수치 받을 힘
     private float _direction =1f;
@@ -122,6 +121,7 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected
         canMove = true;
         canJump = true;
         hasJump = false;
+        _col = GetComponent<Collider2D>();
         _ani = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody2D>();
         _axisY = 0;

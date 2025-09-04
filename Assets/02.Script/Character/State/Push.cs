@@ -23,7 +23,7 @@ public class Push : CharacterStateBase
     public override CharacterStateID OnUpdateState()
     {
         CharacterStateID next = CharacterStateID.Push;
-        if(Mathf.Abs(machine.characterControl._axisX) <= 0.03f)
+        if(Mathf.Abs(machine.characterControl._axisX) <= 0.03f || !machine.characterControl.isHandFull)
         {
             next=CharacterStateID.Idle;
         }
