@@ -3,16 +3,26 @@ using UnityEngine;
 
 public class SwitchPhone : Switch,IReset
 {
+    private Animator _ani;
     public List<ISwitchable> targetBlock = new List<ISwitchable>();
     [SerializeField]private bool isSatisfied;
+    public bool IsSatisfied
+    {
+        get { return isSatisfied; }
+    }
     private bool _switchState;
     private Collider2D col;
 
-    private void Start()
+    private void Awake()
     {
+        _ani = GetComponent<Animator>();
         this.gameObject.AddComponent<BoxCollider2D>();
         col = GetComponent<Collider2D>();
         col.isTrigger = true;
+    }
+    private void Start()
+    {
+        
         _switchState = false;
         GameManager.Instance.OnReset += ResetAction;
         InputSystem.Instance.RegisterAction(KeyState.Play_Key,KeyCode.E,Interact);
@@ -50,6 +60,7 @@ public class SwitchPhone : Switch,IReset
         if (IsInLayerMask(collision.gameObject,layerMask))
         {
             isSatisfied = true;
+            _ani.Play("Switch_On");
         }
     }
 
@@ -58,6 +69,7 @@ public class SwitchPhone : Switch,IReset
         if (IsInLayerMask(collision.gameObject, layerMask))
         {
             isSatisfied = false;
+            _ani.Play("Switch_Off");
         }
     }
 }
