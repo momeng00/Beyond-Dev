@@ -10,7 +10,7 @@ public class LanguageKeyExtractor: MonoBehaviour
     private static readonly string CSV_PATH = Path.Combine(Application.streamingAssetsPath);
     // 생성될 enum 스크립트가 저장될 경로
     private static readonly string ENUM_SCRIPT_PATH = Path.Combine(Application.dataPath, "02.Script/LanguageData/LanguageKeyDatas.cs");
-
+    private static readonly string DATA_SHEET_PATH = Path.Combine(Application.dataPath, "02.Script/LanguageData/LanguageDataSheet_KR.cs");
     // 유니티 상단 메뉴에 "Tools/Generate Localization Keys" 메뉴를 추가
     [MenuItem("Tools/Generate Language Keys")]
     public static void GenerateKeysEnum()
@@ -60,5 +60,84 @@ public class LanguageKeyExtractor: MonoBehaviour
         AssetDatabase.Refresh();
 
         Debug.Log($"LocalizationKeys.cs file generated successfully with {allKeys.Count} keys.");
+    }
+
+    [MenuItem("Tools/Generate Language Data Sheet (for Web)")]
+    public static void GenerateLanguageDataSheet()
+    {
+        // 1. 모든 CSV 파일에서 Key와 목표 언어(Korean) 텍스트를 불러온다.
+        Dictionary<string, string> languageData = new Dictionary<string, string>();
+        string[] csvFiles = Directory.GetFiles(CSV_PATH, "*.csv");
+
+        int languageColumnIndex = -1;
+
+        foreach (string filePath in csvFiles)
+        {
+            string[] lines = File.ReadAllLines(filePath);
+            if (lines.Length <= 1) continue;
+
+            // 헤더 분석 (언어 열 인덱스 찾기)
+            string[] header = lines[0].Split(',');
+            for (int i = 0; i < header.Length; i++)
+            {
+                if (header[i].Trim() == "Korean")
+                {
+                    languageColumnIndex = i;
+                    break;
+                }
+            }
+
+            if (languageColumnIndex == -1)
+            {
+                Debug.LogError($"'{"Korean"}' column not found in {Path.GetFileName(filePath)}");
+                continue; // 다음 파일로 넘어감
+            }
+
+            // 데이터 행 분석
+            for (int i = 1; i < lines.Length; i++)
+            {
+                if (string.IsNullOrEmpty(lines[i])) continue;
+
+                string[] columns = lines[i].Split(',');
+                if (columns.Length > languageColumnIndex)
+                {
+                    string key = columns[0].Trim();
+                    string value = columns[languageColumnIndex].Trim().Trim('"');
+
+                    if (!languageData.ContainsKey(key))
+                    {
+                        languageData.Add(key, value);
+                    }
+                }
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine("// This file is auto-generated. DO NOT EDIT.");
+        sb.AppendLine("using System.Collections.Generic;");
+        sb.AppendLine();
+        sb.AppendLine("public static class LanguageDataSheet_KR");
+        sb.AppendLine("{");
+        sb.AppendLine("    // 미리 생성된 한국어 텍스트 데이터 시트");
+        sb.AppendLine("    public static readonly IDictionary<string, string> Data = new Dictionary<string, string>");
+        sb.AppendLine("    {");
+
+        foreach (var pair in languageData)
+        {
+            // value에 포함된 " 문자를 이스케이프 처리
+            string escapedValue = pair.Value.Replace("\"", "\\\"");
+            sb.AppendLine($"        {{ \"{pair.Key}\", \"{escapedValue}\" }},");
+        }
+
+        sb.AppendLine("    };");
+        sb.AppendLine("}");
+
+        // 3. 최종적으로 스크립트 파일을 디스크에 쓴다.
+        Directory.CreateDirectory(Path.GetDirectoryName(DATA_SHEET_PATH));
+        File.WriteAllText(DATA_SHEET_PATH, sb.ToString());
+
+        // 4. 유니티 에디터가 새로운 스크립트를 인지하도록 새로고침한다.
+        AssetDatabase.Refresh();
+
+        Debug.Log($"LanguageDataSheet_KR.cs file generated successfully with {languageData.Count} entries.");
     }
 }

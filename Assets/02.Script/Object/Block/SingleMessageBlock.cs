@@ -6,7 +6,6 @@ using UnityEngine;
 public class SingleMessageBlock : Block, ISwitchable
 {
     //스위치를 위한 블럭으로 변경예정
-    public LocalizationKeys localizationKeys;
     TextMeshPro tmpText;
     Vector2 startPos;
     private bool _startState;

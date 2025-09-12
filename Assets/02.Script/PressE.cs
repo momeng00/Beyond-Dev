@@ -21,7 +21,6 @@ public class PressE : MonoBehaviour
         if (masterSatisfied != master.IsSatisfied)
         {
             masterSatisfied = master.IsSatisfied;
-            Debug.Log(masterSatisfied + "º¯°æ" + master.IsSatisfied);
             gameObject.GetComponent<SpriteRenderer>().enabled = master.IsSatisfied;
         }
     }
