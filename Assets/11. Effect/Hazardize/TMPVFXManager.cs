@@ -1,0 +1,43 @@
+using TMPro;
+using UnityEngine;
+using UnityEngine.VFX;
+
+[System.Serializable]
+public class TMPVFXPair
+{
+    public TextMeshPro tmp;
+    public VisualEffect vfx;
+
+    // 내부에서 관리할 Mesh (한 번만 생성)
+    [HideInInspector] public Mesh tmpMesh;
+}
+
+public class TMPVFXManager : MonoBehaviour
+{
+    public TMPVFXPair[] pairs;
+
+    void Start()
+    {
+        foreach (var p in pairs)
+        {
+            if (p.tmp == null || p.vfx == null) continue;
+
+            // 1) TMP Mesh 추출
+            p.tmp.ForceMeshUpdate();
+            p.tmpMesh = p.tmp.mesh;
+
+            // 2) TMP SDF 아틀라스 텍스처 추출
+            Texture sdfTex = p.tmp.fontMaterial.GetTexture("_MainTex");
+
+            // 3) VFX에 전달
+            if (p.vfx.HasMesh("SourceMesh"))
+                p.vfx.SetMesh("SourceMesh", p.tmpMesh);
+
+            if (p.vfx.HasTexture("TextSDF"))
+                p.vfx.SetTexture("TextSDF", sdfTex);
+
+            if (p.vfx.HasFloat("SDF_Threshold"))
+                p.vfx.SetFloat("SDF_Threshold", 0.5f); // 필요시 조정
+        }
+    }
+}
