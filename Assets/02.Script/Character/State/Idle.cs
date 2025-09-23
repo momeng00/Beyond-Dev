@@ -15,7 +15,6 @@ public class Idle: CharacterStateBase
         machine.characterControl.hasJump = false;
         machine.characterControl.canJump = true;
         //초기화와 같은 방식
-        Debug.Log("Idle 상태");
     }
     public override void ExitState()
     {

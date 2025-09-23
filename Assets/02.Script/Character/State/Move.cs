@@ -13,7 +13,6 @@ public class Move : CharacterStateBase
         base.EnterState();
         machine.GetComponent<Animator>().Play("Walk");
         //초기화와 같은 방식
-        Debug.Log("Move 상태");
     }
     public override void ExitState()
     {

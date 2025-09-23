@@ -13,7 +13,6 @@ public class Falling : CharacterStateBase
     public override void EnterState()
     {
         base.EnterState();
-        Debug.Log("Falling ป๓ลย");
         machine.GetComponent<Animator>().Play("Falling");
         machine.characterControl.jumpTime = -1;
         time = 0f;

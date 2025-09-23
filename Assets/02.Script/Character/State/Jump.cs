@@ -10,7 +10,6 @@ public class Jump : CharacterStateBase
     public override void EnterState()
     {
         base.EnterState();
-        Debug.Log("Jump ป๓ลย");
         machine.GetComponent<Animator>().Play("Jump");
         machine.characterControl.hasJump = true;
     }
