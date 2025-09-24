@@ -53,15 +53,30 @@ public class MessageBlock : Block, ISwitchable
             spriteRenderer.bounds.size.x / transform.localScale.x,
             spriteRenderer.bounds.size.y / transform.localScale.y
         );
+        TextMeshPro tmp = GetComponentInChildren<TextMeshPro>();
+        if (tmp == null)
+        {
+            GameObject textObj = new GameObject("Text");
 
-        GameObject textObj = new GameObject("Text");
+            // 위치 초기화
+            textObj.transform.localRotation = Quaternion.identity;
+            textObj.transform.localScale = Vector3.one;
+            textObj.transform.localPosition = transform.position;
+            // TextMeshPro 컴포넌트 추가
+            tmp = textObj.AddComponent<TextMeshPro>();
+            textObj.transform.SetParent(transform);
+        }
+        else 
+        {
+            tmp.gameObject.transform.localRotation = Quaternion.identity;
+            tmp.gameObject.transform.localScale = new Vector3(
+                1f / transform.localScale.x,
+                1f / transform.localScale.y,
+                1f / transform.localScale.z
+            );
+            tmp.gameObject.transform.localPosition = transform.localPosition;
+        }
 
-        // 위치 초기화
-        textObj.transform.localRotation = Quaternion.identity;
-        textObj.transform.localScale = Vector3.one;
-        textObj.transform.localPosition = transform.position;
-        // TextMeshPro 컴포넌트 추가
-        TextMeshPro tmp = textObj.AddComponent<TextMeshPro>();
         tmp.sortingOrder = spriteRenderer.sortingOrder;
 
         // 텍스트 설정
@@ -85,8 +100,6 @@ public class MessageBlock : Block, ISwitchable
 
         Vector2 localSize = rectTransform.InverseTransformVector(spriteWorldSize);
         rectTransform.sizeDelta = localSize;
-
-        textObj.transform.SetParent(transform);
 
         Initialize();
         UpdateTextObject();
