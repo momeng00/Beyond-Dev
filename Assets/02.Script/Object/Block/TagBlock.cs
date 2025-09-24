@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TagBlock : Block
@@ -32,12 +33,15 @@ public class TagBlock : Block
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (IsInLayerMask(collision.gameObject, detectedLayer))
+        if (IsInLayerMask(collision.gameObject, detectedLayer) & collision.gameObject.transform.position.y >= transform.position.y)
         {
-            detectedLists.Add(collision.gameObject.name);
+            if (!detectedLists.Contains(collision.gameObject.name))
+            {
+                detectedLists.Add(collision.gameObject.name);
+            }
+            OnShow();
+            OnBlockAction();
         }
-        OnShow();
-        OnBlockAction();
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -96,25 +100,24 @@ public class TagBlock : Block
         if (runningShakeCoroutine != null)
         {
             StopCoroutine("OnAnimation");
+            StartCoroutine(ReturnToOriginalPosition(originalPosition));
         }
     }
     private IEnumerator OnAnimation()
     {
         Debug.Log(originalPosition);
-        float elapsed = 0.0f;
+        float elapsed = duration;
 
         // try...finally 구문을 사용하여 코루틴이 어떻게 종료되든 finally는 항상 실행되도록 보장
         try
         {
+            Vector2 targetPosition = originalPosition;
+            targetPosition.y -= magnitude;
             // --- 1. 흔들리는 로직 ---
-            while (elapsed < duration)
+            while (elapsed >= 0)
             {
-                // 2D 게임이라면 Random.insideUnitCircle 사용
-                Vector2 randomOffset = UnityEngine.Random.insideUnitCircle * magnitude;
-
-                render.transform.position = originalPosition + new Vector3(randomOffset.x, randomOffset.y, 0);
-
-                elapsed += Time.deltaTime;
+                render.transform.position = Vector2.Lerp(originalPosition, targetPosition, elapsed);
+                elapsed -= Time.deltaTime;
                 yield return null; // 다음 프레임까지 대기
             }
         }
