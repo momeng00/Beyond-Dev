@@ -8,7 +8,6 @@ public class TMPVFXPair
     public TextMeshPro tmp;
     public VisualEffect vfx;
 
-    // 내부에서 관리할 Mesh (한 번만 생성)
     [HideInInspector] public Mesh tmpMesh;
 }
 
@@ -29,7 +28,13 @@ public class TMPVFXManager : MonoBehaviour
             // 2) TMP SDF 아틀라스 텍스처 추출
             Texture sdfTex = p.tmp.fontMaterial.GetTexture("_MainTex");
 
-            // 3) VFX에 전달
+            // 3) TMP 머테리얼 Color 추출
+            // TMP 기본 SDF 셰이더는 "_FaceColor" 프로퍼티 사용
+            Color faceColor = Color.white;
+            if (p.tmp.fontMaterial.HasProperty("_Color"))
+                faceColor = p.tmp.fontMaterial.GetColor("_Color");
+
+            // 4) VFX에 전달
             if (p.vfx.HasMesh("SourceMesh"))
                 p.vfx.SetMesh("SourceMesh", p.tmpMesh);
 
@@ -37,7 +42,10 @@ public class TMPVFXManager : MonoBehaviour
                 p.vfx.SetTexture("TextSDF", sdfTex);
 
             if (p.vfx.HasFloat("SDF_Threshold"))
-                p.vfx.SetFloat("SDF_Threshold", 0.5f); // 필요시 조정
+                p.vfx.SetFloat("SDF_Threshold", 0.5f);
+
+            if (p.vfx.HasVector4("Color")) // VFX Graph에서는 보통 Color를 Vector4로 받음
+                p.vfx.SetVector4("Color", faceColor);
         }
     }
 }
