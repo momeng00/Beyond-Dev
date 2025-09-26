@@ -77,7 +77,7 @@ public class MessageBlock : Block, ISwitchable
             tmp.gameObject.transform.localPosition = transform.localPosition;
         }
 
-        tmp.sortingOrder = spriteRenderer.sortingOrder;
+        tmp.sortingOrder = spriteRenderer.sortingOrder + 1;
 
         // 텍스트 설정
 
