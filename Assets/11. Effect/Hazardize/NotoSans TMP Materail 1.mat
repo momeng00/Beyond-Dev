@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: GradientSkyBackgroundMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: 9f47a2e9ead607c44bb80b556826cc7a, type: 3}
+  m_Name: NotoSans TMP Materail 1
+  m_Shader: {fileID: -6465566751694194690, guid: a4f79206647c5c7429e6f8bc0c80bda6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -18,12 +18,25 @@ Material:
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
+        m_Texture: {fileID: 470270835192763772, guid: 106297e077295f04d970aae3bba3b080, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -41,18 +54,21 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Vector1_7fc0629019724b2aa3aa65287d7d27c3: -0.5
-    - Vector1_ad97766143834ca4848b1bab63e9db74: -0.51
-    - Vector1_c8af298112cf444394ee97ef3e95ab96: 0.83
-    - Vector1_ea745bfa2f044670a200ee0fe756ed70: 0.18
-    - _PixelizeAmount: 49.15
+    - _Die: 0
+    - _EnableExternalAlpha: 0
+    - _Pixelation: 4096
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _Speed: 0.0001
+    - _Threshold: 0.5
+    - _ZWrite: 0
+    - _dissolve: 1.1
     m_Colors:
-    - Color_4f828612097b4e92ad8005356fbf2572: {r: 0.98039216, g: 0.96862745, b: 0.69803923, a: 0}
-    - Color_915234e14bf14936b1378dc25286f6b1: {r: 0.9647059, g: 0.84313726, b: 0.8666667, a: 0}
-    - Color_99004139a61f42ba99cb363b9369becd: {r: 0.22846209, g: 0.23846264, b: 0.3207547, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &2611810160957752416
+--- !u!114 &2338878865405877301
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
