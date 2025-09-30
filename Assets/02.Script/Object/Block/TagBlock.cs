@@ -8,77 +8,64 @@ using UnityEngine;
 
 public class TagBlock : Block
 {
-    public TextMeshPro text;
-    private Animator ani;
-    [SerializeField]private List<string> detectedLists = new List<string>();
-    public Action OnSatisfied;
-    public TagContent content;
+    private Collider2D myCollider;
+    public TagBlockController controller;
+
+    [Header("필수")]
+    public string groupName;
     public LayerMask detectedLayer;
-    private float duration = 0.3f;
-    private Coroutine runningShakeCoroutine;
-    public float magnitude;
-    public GameObject render;
-    Vector3 originalPosition;
+    private bool isActivated = false; // 자신의 ON/OFF 상태
+    private bool isTransitioning = false; // 상태 전환 중인지
+
+    public TagContent content;
+
+    //애니메이션이라면 추가적으로 event용 action을 추가해서 진행. (상태전환의 끝을 알려줄 곳)
+
     private void Awake()
     {
-        ani = GetComponent<Animator>();
-        content.gameObject.SetActive(false);
+        myCollider = GetComponent<Collider2D>();
+        if (controller == null) { 
+            controller = GetComponentInParent<TagBlockController>();
+            if (controller == null)
+            {
+                Debug.LogError("부모 계층에 BlockController가 없습니다!", this.gameObject);
+            }
+        }
+        controller.RegisterBlock(groupName,this);
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    override public void Start()
-    {
-        base.Start();
-        originalPosition = render.transform.position;
-    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (IsInLayerMask(collision.gameObject, detectedLayer) & collision.gameObject.transform.position.y >= transform.position.y)
+        // 1. 부딪힌 오브젝트의 경계(Bounds)를 가져옵니다.
+        Bounds otherBounds = collision.collider.bounds;
+
+        // 2. 이 오브젝트(센서)의 경계를 가져옵니다.
+        Bounds myBounds = myCollider.bounds;
+
+        // 3. 상대방의 '발끝'(가장 낮은 y값)이 나의 '머리끝'(가장 높은 y값)보다 위에 있거나 같은지 확인합니다.
+        float otherBottomEdge = otherBounds.center.y - otherBounds.extents.y;
+        float myTopEdge = myBounds.center.y + myBounds.extents.y;
+
+        if (IsInLayerMask(collision.gameObject, detectedLayer) && otherBottomEdge >= myTopEdge)
         {
-            if (!detectedLists.Contains(collision.gameObject.name))
-            {
-                detectedLists.Add(collision.gameObject.name);
-            }
-            OnShow();
-            OnBlockAction();
+            Debug.Log("위로 올라감 진입");
+            controller.OnObjectEntered(groupName, collision.gameObject);
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (detectedLists.Contains(collision.gameObject.name))
-        {
-            detectedLists.Remove(collision.gameObject.name);
-        }
-        OnHide();
+        controller.OnObjectExited(groupName, collision.gameObject);
     }
 
     public override void OnBlockAction()
     {
         base.OnBlockAction();
-        runningShakeCoroutine = StartCoroutine("OnAnimation");
-    }
-
-    public void OnShow()
-    {
-
-        if(detectedLists.Count > 0)
+        if (!isTransitioning)
         {
-            content.gameObject.SetActive(true);
+            StartCoroutine(ToggleStateCoroutine());
         }
-    }
-
-    public void OnHide()
-    {
-        StopShaking();
-        if (detectedLists.Count <= 0)
-        {
-            if (content.gameObject.activeSelf)
-            {
-                content.gameObject.SetActive(false);
-            }
-        }
-
     }
 
     public override void InitializeReset()
@@ -95,59 +82,16 @@ public class TagBlock : Block
     {
         return ((1 << obj.layer) & mask) != 0;
     }
-    public void StopShaking()
+    private IEnumerator ToggleStateCoroutine()
     {
-        if (runningShakeCoroutine != null)
-        {
-            StopCoroutine("OnAnimation");
-            StartCoroutine(ReturnToOriginalPosition(originalPosition));
-        }
-    }
-    private IEnumerator OnAnimation()
-    {
-        Debug.Log(originalPosition);
-        float elapsed = duration;
-
-        // try...finally 구문을 사용하여 코루틴이 어떻게 종료되든 finally는 항상 실행되도록 보장
-        try
-        {
-            Vector2 targetPosition = originalPosition;
-            targetPosition.y -= magnitude;
-            // --- 1. 흔들리는 로직 ---
-            while (elapsed >= 0)
-            {
-                render.transform.position = Vector2.Lerp(originalPosition, targetPosition, elapsed);
-                elapsed -= Time.deltaTime;
-                yield return null; // 다음 프레임까지 대기
-            }
-        }
-        finally
-        {
-            runningShakeCoroutine = null;
-
-            // 오브젝트가 비활성화되거나 파괴되었을 경우를 대비한 안전장치
-            if (gameObject.activeInHierarchy)
-            {
-                StartCoroutine(ReturnToOriginalPosition(originalPosition));
-            }
-        }
-        render.transform.position = originalPosition;
+        isTransitioning = true;
+        isActivated = !isActivated;
+        Debug.Log("실행되었습니다.");
+        //To Do....
+        //애니메이션 혹은 컨텐츠를 띄우기 위한 동작이 들어갈 곳.
+        //잠금 해제를 위한 기능이 들어갈곳.
+        //애니메이션이면 위의 이벤트로 처리.
+        isTransitioning = false;
         yield return null;
-    }
-
-    private IEnumerator ReturnToOriginalPosition(Vector3 originalPosition)
-    {
-        float returnDuration = 0.2f;
-        float timer = 0f;
-        Vector3 currentPosition = render.transform.position;
-
-        while (timer < returnDuration)
-        {
-            timer += Time.deltaTime;
-            render.transform.position = Vector3.Lerp(currentPosition, originalPosition, timer / returnDuration);
-            yield return null;
-        }
-
-        render.transform.position = originalPosition;
     }
 }
