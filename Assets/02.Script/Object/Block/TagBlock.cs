@@ -1,13 +1,11 @@
-using NUnit.Framework;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
+using System.Linq;
 using UnityEngine;
 
 public class TagBlock : Block
 {
+    private List<Animator> childAnimators;
     private Collider2D myCollider;
     public TagBlockController controller;
 
@@ -23,6 +21,7 @@ public class TagBlock : Block
 
     private void Awake()
     {
+        childAnimators = GetComponentsInChildren<Animator>(true).ToList();
         myCollider = GetComponent<Collider2D>();
         if (controller == null) { 
             controller = GetComponentInParent<TagBlockController>();
@@ -41,13 +40,18 @@ public class TagBlock : Block
         Bounds otherBounds = collision.collider.bounds;
 
         // 2. 이 오브젝트(센서)의 경계를 가져옵니다.
+        if(myCollider == null)
+        {
+            myCollider = GetComponent<Collider2D>();
+        }
         Bounds myBounds = myCollider.bounds;
+
 
         // 3. 상대방의 '발끝'(가장 낮은 y값)이 나의 '머리끝'(가장 높은 y값)보다 위에 있거나 같은지 확인합니다.
         float otherBottomEdge = otherBounds.center.y - otherBounds.extents.y;
         float myTopEdge = myBounds.center.y + myBounds.extents.y;
-
-        if (IsInLayerMask(collision.gameObject, detectedLayer) && otherBottomEdge >= myTopEdge)
+        Debug.Log(otherBottomEdge >= myTopEdge);
+        if (IsInLayerMask(collision.gameObject, detectedLayer) && otherBottomEdge >= (myTopEdge-0.05f))
         {
             Debug.Log("위로 올라감 진입");
             controller.OnObjectEntered(groupName, collision.gameObject);
@@ -67,7 +71,16 @@ public class TagBlock : Block
             StartCoroutine(ToggleStateCoroutine());
         }
     }
+    private void SetAllAnimatorsBool(bool value)
+    {
+        if (childAnimators == null) return;
 
+        // 리스트에 있는 모든 애니메이터를 순회하며 파라미터 값을 변경
+        foreach (var animator in childAnimators)
+        {
+            animator.SetBool("IsActive", value);
+        }
+    }
     public override void InitializeReset()
     {
         base.InitializeReset();
@@ -87,6 +100,7 @@ public class TagBlock : Block
         isTransitioning = true;
         isActivated = !isActivated;
         Debug.Log("실행되었습니다.");
+        SetAllAnimatorsBool(isActivated);
         //To Do....
         //애니메이션 혹은 컨텐츠를 띄우기 위한 동작이 들어갈 곳.
         //잠금 해제를 위한 기능이 들어갈곳.
