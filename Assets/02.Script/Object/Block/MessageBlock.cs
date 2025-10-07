@@ -61,7 +61,7 @@ public class MessageBlock : Block, ISwitchable
             // 위치 초기화
             textObj.transform.localRotation = Quaternion.identity;
             textObj.transform.localScale = Vector3.one;
-            textObj.transform.localPosition = transform.localPosition;
+            textObj.transform.localPosition = transform.position;
             // TextMeshPro 컴포넌트 추가
             tmp = textObj.AddComponent<TextMeshPro>();
             textObj.transform.SetParent(transform);
