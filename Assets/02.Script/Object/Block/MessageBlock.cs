@@ -74,7 +74,7 @@ public class MessageBlock : Block, ISwitchable
                 1f / transform.localScale.y,
                 1f / transform.localScale.z
             );
-            tmp.gameObject.transform.localPosition = transform.localPosition;
+            tmp.gameObject.transform.localPosition = Vector2.zero;
         }
 
         tmp.sortingOrder = spriteRenderer.sortingOrder + 1;

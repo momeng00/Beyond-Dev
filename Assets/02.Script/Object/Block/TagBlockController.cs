@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,6 @@ using UnityEngine;
 public class TagBlockController : MonoBehaviour
 {
     public TagBlockCondition condition;
-    public static TagBlockController Instance { get; private set; }
     public Dictionary<string, List<Block>> blockPairs = new Dictionary<string, List<Block>>();
     public Dictionary<string, List<GameObject>> detectedObject = new Dictionary<string, List<GameObject>>();
 
@@ -14,16 +14,7 @@ public class TagBlockController : MonoBehaviour
     public Dictionary<string, bool> isGroupActive = new Dictionary<string, bool>();
     void Awake()
     {
-        // ½Ì±ÛÅæ ÆÐÅÏ ±¸Çö
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+
     }
     public void RegisterBlock(string groupName, Block block)
     {
