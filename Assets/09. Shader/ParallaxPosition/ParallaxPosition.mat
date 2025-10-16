@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6562926267820246688
+--- !u!114 &-3251063503918115621
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ParallaxCloud 1
-  m_Shader: {fileID: -6465566751694194690, guid: 94bab165a31e59d44afff29d9474aa43, type: 3}
+  m_Name: ParallaxPosition
+  m_Shader: {fileID: -6465566751694194690, guid: 2c9de46d16d779d4fae74730cb5e0234, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -67,16 +67,9 @@ Material:
     m_Ints: []
     m_Floats:
     - _EnableExternalAlpha: 0
-    - _IsParallax: 1
-    - _Pixellation: 30
-    - _Scale: 6
-    - _Speed: 1
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color_0: {r: 1, g: 0.7028302, b: 0.7488268, a: 1}
-    - _Color_1: {r: 0.6650944, g: 0.763596, b: 1, a: 1}
-    - _Color_2: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
