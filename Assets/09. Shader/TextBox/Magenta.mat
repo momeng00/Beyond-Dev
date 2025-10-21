@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TextBox_Right
+  m_Name: Magenta
   m_Shader: {fileID: -6465566751694194690, guid: 398ed31b4072a5440ac5d8c0fef0e4c0, type: 3}
   m_Parent: {fileID: 2100000, guid: 3bb4b5b31695eaa48b3a87447bb329aa, type: 2}
   m_ModifiedSerializedProperties: 0
@@ -28,7 +28,7 @@ Material:
     - _AngleOffset: 0.03
     - _DashThickness: 0.57
     - _DotThickness: 0.68
-    - _FlowDirection: 1
+    - _FlowDirection: 0
     - _OutLineSub: 0.49
     - _OutlineBase: 0
     - _OutlineCount: 2.58
@@ -41,8 +41,8 @@ Material:
     - _isOutline: 1
     - _isRight: 1
     m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 0}
-    - _OutlineColor: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
+    - _Color: {r: 1, g: 0, b: 0.34803295, a: 0}
+    - _OutlineColor: {r: 0.6509434, g: 0.6509434, b: 0.6509434, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &7000291916266563673
@@ -57,4 +57,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 9
+  version: 10
