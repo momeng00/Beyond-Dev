@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.UI.Image;
 
-public class CharacterControl : MonoBehaviour, IReset, IDetected
+public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
 {
     #region 컴포넌트 선언부
     private Rigidbody2D _rb;
@@ -12,7 +12,7 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected
     #endregion
 
     [HideInInspector] public float _axisX; //이동되는 수치 받을 힘
-    [HideInInspector] private float _axisY; //이동되는 수치 받을 힘
+    private Vector2 extraVelocity;
     private float _direction =1f;
     public float direction
     {
@@ -95,6 +95,10 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected
             return _currentStat;
         }
     }
+
+    private Dictionary<object, Vector2> _extraVelocityList = new Dictionary<object, Vector2>();
+    public Dictionary<object, Vector2> ExtraVelocityList { get => _extraVelocityList; }
+
     public Vector2 footOffset;
     public Vector2 footSizeOffset;
 
@@ -124,7 +128,6 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected
         _col = GetComponent<Collider2D>();
         _ani = GetComponent<Animator>();
         _rb = GetComponent<Rigidbody2D>();
-        _axisY = 0;
         _axisX = 0;
     }
     // Update is called once per frame
@@ -135,7 +138,7 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected
     }
     private void FixedUpdate()
     {
-        _rb.linearVelocity = new Vector2(_axisX * currentStat.moveSpeed, _rb.linearVelocityY);
+        _rb.linearVelocity = new Vector2((_axisX) * currentStat.moveSpeed + extraVelocity.x, _rb.linearVelocityY+extraVelocity.y);
     }
     private void Move(float horizontal)
     {
@@ -184,6 +187,26 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(transform.position + (Vector3)footOffset, footSizeOffset);
         Gizmos.DrawLine((Vector2)transform.position + handOffset, (Vector2)transform.position + handOffset + new Vector2(_direction*handDistance, 0f));
+    }
+
+    public void AddExtraVelocity(object root, Vector2 force)
+    {
+        _extraVelocityList[root]=force;
+        extraVelocity = CalculateVelocity();
+    }
+
+    public void RemoveExtraVelocity(object root)
+    {
+        if (_extraVelocityList.ContainsKey(root))
+        {
+            _extraVelocityList.Remove(root);
+        }
+        extraVelocity = CalculateVelocity();
+    }
+
+    public Vector2 CalculateVelocity()
+    {
+        return _extraVelocityList.Values.Aggregate(Vector2.zero, (acc, v) => acc + v);
     }
 
     #endregion
