@@ -74,7 +74,7 @@ public class RetweetSwitch : Switch, IReset
         FunctionBlock functionBlockTarget = node as FunctionBlock;
         if (functionBlockTarget != null) 
         {
-            OnDirection = functionBlockTarget.SetMovingwalkDirection;
+            OnDirection += functionBlockTarget.SetMovingwalkDirection;
         }
         targetBlock.Add(node);
     }
