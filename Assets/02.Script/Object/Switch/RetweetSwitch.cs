@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class RetweetSwitch : Switch, IReset
 {
@@ -21,14 +22,26 @@ public class RetweetSwitch : Switch, IReset
     public MovingwalkDirection targetDirection;
     public List<ISwitchable> targetBlock = new List<ISwitchable>();
     public event Action<MovingwalkDirection> OnDirection;
-    [SerializeField]private bool isSatisfied;
+    private bool isSatisfied;
+    private Material materialInstance;
+    private Renderer myRenderer;
+    public override void Awake()
+    {
+        base.Awake();
+        myRenderer = GetComponent<Renderer>();
+        _collider = GetComponent<BoxCollider2D>();
+    }
     private void Start()
     {
-        _collider = GetComponent<BoxCollider2D>();
         _collider.isTrigger = true;
         SwitchState = false;
         InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.E, Interact);
         GameManager.Instance.OnReset += ResetAction;
+        materialInstance = myRenderer.material;
+    }
+    protected override void IsDetected(bool activate)
+    {
+        base.IsDetected(activate);
     }
     public override void Interact()
     {
@@ -36,6 +49,7 @@ public class RetweetSwitch : Switch, IReset
         if (isSatisfied)
         {
             SwitchState = !SwitchState;
+            IsDetected(SwitchState);
             OnDirection?.Invoke(targetDirection);
             foreach (ISwitchable switchable in targetBlock)
             {
@@ -49,6 +63,7 @@ public class RetweetSwitch : Switch, IReset
         if (IsInLayerMask(collision.gameObject, layerMask))
         {
             isSatisfied = true;
+            materialInstance.SetFloat("_IsHovered", 1.0f);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -56,12 +71,15 @@ public class RetweetSwitch : Switch, IReset
         if (IsInLayerMask(collision.gameObject, layerMask))
         {
             isSatisfied = false;
+            materialInstance.SetFloat("_IsHovered", 0.0f);
         }
     }
 
     public void ResetAction()
     {
         isSatisfied = false;
+        materialInstance.SetFloat("_IsHovered", 0.0f);
+        myRenderer.material = materialInstance;
     }
 
     protected override bool IsInLayerMask(GameObject obj, LayerMask mask)
