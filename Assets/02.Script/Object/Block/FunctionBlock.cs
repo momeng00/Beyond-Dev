@@ -11,7 +11,7 @@ public enum MovingwalkDirection
 public class FunctionBlock : Block, ISwitchable
 {
     private Animator ani;
-    public MovingwalkDirection movingWalkDirection;
+    [HideInInspector] public MovingwalkDirection movingWalkDirection;
     // 1. Swtich가 타입캐스팅을 통해서 해결.
     // 2. Block이 상속받는 곳에 메서드를 추가하는 방식으로 해결.
     // 3. Struct를 통해서 switchData를 제작. (Object를 통해서 해결)

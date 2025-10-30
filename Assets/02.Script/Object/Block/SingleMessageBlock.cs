@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Xml;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SingleMessageBlock : Block, ISwitchable
@@ -42,6 +43,10 @@ public class SingleMessageBlock : Block, ISwitchable
     }
     [SerializeField]private Switch _Switch;
 
+    private void Update()
+    {
+        Debug.Log(spriteRenderer.enabled);
+    }
     public override void Start()
     {
         base.Start();

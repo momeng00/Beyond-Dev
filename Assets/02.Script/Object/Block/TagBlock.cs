@@ -7,7 +7,7 @@ public class TagBlock : Block
 {
     private List<Animator> childAnimators;
     private Collider2D myCollider;
-    public TagBlockController controller;
+    [HideInInspector] public TagBlockController controller;
 
     [Header("ÇÊ¼ö")]
     public string groupName;
