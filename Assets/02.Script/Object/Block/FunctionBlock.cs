@@ -24,7 +24,8 @@ public class FunctionBlock : Block, ISwitchable
 
     public List<Switch> switchList = new List<Switch>();
     private List<IMovable> movingTargets = new List<IMovable>();
-    
+    private Material materialInstance;
+    private Renderer myRenderer;
     public bool BlockState
     {
         get 
@@ -60,6 +61,8 @@ public class FunctionBlock : Block, ISwitchable
     private void Awake()
     {
         ani = GetComponent<Animator>();
+        myRenderer = GetComponent<Renderer>();
+        materialInstance = myRenderer.material;
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public override void Start()
@@ -69,7 +72,7 @@ public class FunctionBlock : Block, ISwitchable
         {
             sw.SetSwitch(this);
         }
-        
+        materialInstance.SetVector("_SpriteSize", myRenderer.bounds.size);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

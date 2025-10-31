@@ -23,12 +23,10 @@ public class RetweetSwitch : Switch, IReset
     public List<ISwitchable> targetBlock = new List<ISwitchable>();
     public event Action<MovingwalkDirection> OnDirection;
     private bool isSatisfied;
-    private Material materialInstance;
-    private Renderer myRenderer;
+    
     public override void Awake()
     {
         base.Awake();
-        myRenderer = GetComponent<Renderer>();
         _collider = GetComponent<BoxCollider2D>();
     }
     private void Start()
@@ -37,7 +35,6 @@ public class RetweetSwitch : Switch, IReset
         SwitchState = false;
         InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.E, Interact);
         GameManager.Instance.OnReset += ResetAction;
-        materialInstance = myRenderer.material;
     }
     protected override void IsDetected(bool activate)
     {

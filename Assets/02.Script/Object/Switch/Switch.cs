@@ -4,9 +4,13 @@ public abstract class Switch : MonoBehaviour, IInteract
 {
     [SerializeField] protected LayerMask layerMask;
     protected Animator ani;
+    protected Material materialInstance;
+    protected Renderer myRenderer;
     virtual public void Awake()
     {
         ani = GetComponent<Animator>();
+        myRenderer = GetComponent<Renderer>();
+        materialInstance = myRenderer.material;
     }
     public virtual void Interact()
     {
