@@ -27,6 +27,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 962194056493ec6498e058760799a57d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SDFTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_4d5372c444274d359834ce70ea9aee7c_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: 06ed2d57f983c124fb66378ba28aa782, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -53,24 +57,41 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Amplitude: 0.1
     - _AngleOffset: 0
+    - _AnimLerp: 0
+    - _AnimationSpeed: 4
+    - _B: 1
+    - _Damping: 4
     - _DotThickness: 0.5
     - _FlowDirection: 1
+    - _G: 1
+    - _IgnoreBaseColor: 0
     - _Lines: 64
     - _OutLineSub: 0.42
     - _OutlineBase: 0
     - _OutlineCount: 4
     - _OutlineOpacity: 0
+    - _Outline_Base: 0.24
+    - _Outline_Count: 4
+    - _Outline_Mask: 0.33
+    - _Outline_Opacity: 1
+    - _PhaseOffset: 3
+    - _R: 1
     - _Rate: 0
     - _Speed: 0.05
     - _Tile: 9
     - _TileOffset: 0
     - _isDotted: 1
+    - _isDottedline: 1
     - _isOutline: 0
     m_Colors:
     - _CellCenterLocal: {r: 0.5, g: 0.5, b: 0, a: 0}
     - _Color: {r: 0, g: 0, b: 0, a: 0}
+    - _Direction: {r: 1, g: 1, b: 1, a: 0}
     - _OutlineColor: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 0}
+    - _Outline_Color: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 0}
+    - _SpriteSize: {r: 0, g: 0, b: 0, a: 0}
     - _TileCount: {r: 4, g: 4, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TagBlock
+  m_Name: TagBlock RGB
   m_Shader: {fileID: -6465566751694194690, guid: 398ed31b4072a5440ac5d8c0fef0e4c0, type: 3}
   m_Parent: {fileID: 2100000, guid: 3bb4b5b31695eaa48b3a87447bb329aa, type: 2}
   m_ModifiedSerializedProperties: 0
@@ -25,10 +25,12 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _B: 0
+    - _AnimLerp: 1
+    - _B: 1
     - _G: 1
     - _IgnoreBaseColor: 1
     - _Lines: 20
+    - _Outline_Base: 0
     - _R: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
