@@ -7,10 +7,9 @@ using UnityEngine;
 public class SingleMessageBlock : Block, ISwitchable
 {
     //스위치를 위한 블럭으로 변경예정
-    TextMeshPro tmpText;
     Vector2 startPos;
     private bool _startState;
-    [SerializeField]private bool _blockState;
+    private bool _blockState;
 
     private BoxCollider2D boxCollider;
     private SpriteRenderer spriteRenderer;
@@ -59,7 +58,6 @@ public class SingleMessageBlock : Block, ISwitchable
     }
     private void Awake()
     {
-        tmpText = GetComponentInChildren<TextMeshPro>();
         boxCollider = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -87,35 +85,30 @@ public class SingleMessageBlock : Block, ISwitchable
             }
         }
     }
-
-    public void MessagerBlock(bool on)
+    private void OnCollisionExit2D(Collision2D collision)
     {
-        if(tmpText == null)
+        if (((1 << collision.gameObject.layer) & targetLayer) != 0)
         {
-            tmpText = GetComponentInChildren<TextMeshPro>();
+            Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
+            if (rb != null && rigidbodiesInTrigger.Contains(rb))
+            {
+                // 안에서 '오브젝트가 SetActive(false)가 되면 오류 확인을 해야합니다'
+                rigidbodiesInTrigger.Remove(rb);
+            }
         }
+    }
+    public void MessagerBlock(bool on)
+    { 
         //ani.SetBool("BlockState",blockState);
         if (on) // 블록이 켜질 때
         {
             // 리스트에 있는 모든 오브젝트를 위로 올림
             MoveObjectsUp();
-            if(tmpText != null)
-            {
-                tmpText.enabled = true;
-            }
             spriteRenderer.enabled = true; // 보이게
             boxCollider.isTrigger = false; // 단단한 발판으로
         }
         else // 블록이 꺼질 때
         {
-            if (tmpText == null)
-            {
-                tmpText = GetComponentInChildren<TextMeshPro>();
-            }
-            if (tmpText != null)
-            {
-                tmpText.enabled = false;
-            }
             spriteRenderer.enabled = false; // 안 보이게
             boxCollider.isTrigger = true; // 감지 모드로
         }
