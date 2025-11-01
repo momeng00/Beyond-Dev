@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: ea725cdbc4409cd459dcfddfca330127
+guid: df4e8282c4bc49c4c9fdb5426a895d08
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1125388800310007075
-    second: cyber2_0
+      213: 3028621455570271572
+    second: TextBox_Normal_0
+  - first:
+      213: -9119948012282147889
+    second: TextBox_Normal_1
+  - first:
+      213: -822597991654748640
+    second: TextBox_Normal_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -96,30 +102,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cyber2_0
+      name: TextBox_Normal_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 480
-        height: 270
+        y: 127
+        width: 256
+        height: 129
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3255eacb62f2e9f00800000000000000
-      internalID: 1125388800310007075
+      spriteID: 45d7462ea23d70a20800000000000000
+      internalID: 3028621455570271572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TextBox_Normal_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 14
+        width: 40
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcb84e53a9f6f6180800000000000000
+      internalID: -9119948012282147889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TextBox_Normal_2
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 14
+        width: 41
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02e08722c7b8594f0800000000000000
+      internalID: -822597991654748640
       vertices: []
       indices: 
       edges: []
@@ -148,7 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      cyber2_0: 1125388800310007075
+      TextBox_Normal_0: 3028621455570271572
+      TextBox_Normal_1: -9119948012282147889
+      TextBox_Normal_2: -822597991654748640
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

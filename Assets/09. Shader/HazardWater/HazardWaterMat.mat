@@ -24,8 +24,12 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BackGround:
+        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 3a10eb71dcd23644d97aca88656d48d2, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalTexture:
@@ -68,7 +72,7 @@ Material:
     m_Colors:
     - _ColorHighlight: {r: 1, g: 0.5235849, b: 0.5235849, a: 0}
     - _ColorOutline: {r: 1, g: 1, b: 1, a: 0}
-    - _ColorWater: {r: 0, g: 0, b: 0, a: 0}
+    - _ColorWater: {r: 1, g: 0.1273585, b: 0.1273585, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &7823414564186565085

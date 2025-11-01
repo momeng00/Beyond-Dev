@@ -32,12 +32,16 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: _DisplacementFre
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _AlphaTex:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BackGround:
+        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -70,13 +74,13 @@ Material:
     - _EnableExternalAlpha: 0
     - _SecondWave: -1.36
     - _SecondWaveT: -1.55
-    - _Speed: 0.17
+    - _Speed: 0.9
     - _ZWrite: 0
     - _amplitude: 19.4
-    - _displacement: -10.1
-    - _frequency: 0.33
+    - _displacement: -3.17
+    - _frequency: 5
     m_Colors:
-    - _Color: {r: 0.1981132, g: 0.17101282, b: 0.17101282, a: 1}
+    - _Color: {r: 0.4433962, g: 0.37437698, b: 0.37437698, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
