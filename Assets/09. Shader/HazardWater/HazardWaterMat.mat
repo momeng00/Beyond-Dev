@@ -65,14 +65,16 @@ Material:
     - _Alpha: 0.85
     - _BlendValue: 0.13
     - _CellDensity: 1.69
+    - _CellDensity_1: 0.32
     - _Float: 0
-    - _PixelateAmount: 256
+    - _PixelateAmount: 30
     - _Speed: 0.5
     - _Thickness: 0.002
+    - _threshold: 1
     m_Colors:
     - _ColorHighlight: {r: 1, g: 0.5235849, b: 0.5235849, a: 0}
     - _ColorOutline: {r: 1, g: 1, b: 1, a: 0}
-    - _ColorWater: {r: 0.5943396, g: 0.4737896, b: 0.4737896, a: 0}
+    - _ColorWater: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &7823414564186565085
