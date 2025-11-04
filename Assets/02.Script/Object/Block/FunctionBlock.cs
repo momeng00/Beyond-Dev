@@ -35,6 +35,7 @@ public class FunctionBlock : Block, ISwitchable
         set
         {
             _blockState = value;
+            blockEvent?.Invoke(value);
             if (_blockState)
             {
                 foreach (var moving in movingTargets)

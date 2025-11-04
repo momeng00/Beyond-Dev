@@ -24,6 +24,7 @@ public class SingleMessageBlock : Block, ISwitchable
         set
         {
             _blockState = value;
+            blockEvent?.Invoke(value);
             MessagerBlock(value);
         }
     }

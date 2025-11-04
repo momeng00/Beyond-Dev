@@ -4,7 +4,12 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
-using static Unity.Collections.AllocatorManager;
+public enum Language
+{
+    Korean,
+    English,
+    Japanese
+}
 
 public class LanguageSystem : MonoBehaviour
 {
@@ -57,6 +62,7 @@ public class LanguageSystem : MonoBehaviour
 
     void Awake()
     {
+        LoadLocalizationData();
         if (Instance != this)
         {
             Destroy(gameObject);

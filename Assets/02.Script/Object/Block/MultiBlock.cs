@@ -15,9 +15,11 @@ public class MultiBlock : Block, ISwitchable
         {
             return _blockState;
         }
-        set 
+        set
         {
             _blockState = value;
+            blockEvent?.Invoke(value);
+            MessagerBlock(value);
         }
     }
     private bool _blockState = false;
@@ -30,21 +32,20 @@ public class MultiBlock : Block, ISwitchable
         ani = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        boxCollider.size = spriteRenderer.bounds.size;
     }
     public override void Start()
     {
         base.Start();
-        boxCollider.size = spriteRenderer.bounds.size;
         foreach (Switch sw in switchList)
         {
             sw.SetSwitch(this);
         }
-        MessagerBlock(BlockState);
+        BlockState = false;
     }
     public void SwitchOn(bool value)
     {
         BlockState = !BlockState;
-        MessagerBlock(BlockState);
     }
     public void MessagerBlock(bool on)
     {

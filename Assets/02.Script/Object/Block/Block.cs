@@ -1,10 +1,11 @@
+using System;
 using UnityEngine;
 
 public abstract class Block : MonoBehaviour, IReset
 {
     protected Collider2D col;
     protected Rigidbody2D rb;
-
+    public Action<bool> blockEvent;
     public virtual void Start()
     {
         col = GetComponent<Collider2D>();
