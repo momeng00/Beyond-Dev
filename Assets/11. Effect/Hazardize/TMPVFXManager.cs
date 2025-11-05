@@ -15,7 +15,14 @@ public class TMPVFXManager : MonoBehaviour
 {
     public TMPVFXPair[] pairs;
 
-    void Start()
+    private void Update()
+    {
+        if (Input.anyKeyDown)
+        {
+            InitTMP();
+        }
+    }
+    public void InitTMP()
     {
         foreach (var p in pairs)
         {

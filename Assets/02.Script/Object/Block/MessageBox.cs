@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class MessageBox : MonoBehaviour
 {
@@ -27,13 +30,17 @@ public class MessageBox : MonoBehaviour
     // --- 내부 변수 ---
     private RectTransform textRectTransform;
     private Dictionary<Language, string> languageDictionary;
-    
-    [SerializeField]private TextMeshPro text;
+    private Animator animator;
+    private TextMeshPro text;
 
     private void Awake()
     {
         Initialize();
         FindTextObject();
+        if(animator == null)
+        {
+            animator = text.GetComponent<Animator>();
+        }
         gameObject.GetComponent<Block>().blockEvent += BlockStateHandle;
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -74,25 +81,28 @@ public class MessageBox : MonoBehaviour
     }
     public void BlockStateHandle(bool state)
     {
-        text.enabled = state;
+        animator.SetBool("IsActive",state);
     }
     private void FindTextObject()
     {
         text = GetComponentInChildren<TextMeshPro>();
         if (text == null)
         {
-            GameObject textObj = new GameObject("Text");
+            GameObject prefabToLoad = Resources.Load<GameObject>("Text");
+            GameObject textObj =Instantiate(prefabToLoad, Vector3.zero, Quaternion.identity);
+            Animator newAnimator = textObj.GetComponent<Animator>();
             // 위치 초기화
             textObj.transform.localRotation = Quaternion.identity;
             textObj.transform.localScale = Vector3.one;
             textObj.transform.localPosition = transform.position;
-            text = textObj.AddComponent<TextMeshPro>();
+            text = textObj.GetComponent<TextMeshPro>();
             textObj.transform.SetParent(transform);
             text.fontSize = fontSize;
             text.alignment = alignment;
             text.enableAutoSizing = false;
             text.sortingOrder = gameObject.GetComponent<SpriteRenderer>().sortingOrder + 1;
             text.rectTransform.sizeDelta = gameObject.GetComponent<BoxCollider2D>().size;
+            animator = newAnimator;
         }
         text.text = LanguageSystem.Instance.GetText(localizationKey.ToString());
     }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Networking;
 public enum Language
@@ -177,7 +178,8 @@ public class LanguageSystem : MonoBehaviour
         {
             if (string.IsNullOrEmpty(lines[i])) continue;
 
-            string[] columns = lines[i].Split(',');
+            //string[] columns = lines[i].Split(',');
+            string[] columns = SplitCsvLine(lines[i]);
             string key = columns[0].Trim();
 
             foreach (var pair in columnIndexToLanguage)
@@ -186,10 +188,25 @@ public class LanguageSystem : MonoBehaviour
                 Language lang = pair.Value;
                 if (columns.Length > colIndex)
                 {
-                    string value = columns[colIndex].Trim().Trim('"');
+                    //string value = columns[colIndex].Trim().Trim('"');
+                    string value = columns[colIndex];
                     allLanguageData[lang][key] = value; // 키가 있으면 덮어쓰고, 없으면 추가
                 }
             }
         }
+    }
+    private string[] SplitCsvLine(string line)
+    {
+        // 정규표현식을 사용하여 따옴표로 묶인 필드 내부의 쉼표는 무시하고 분리
+        Regex csvParser = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+        string[] columns = csvParser.Split(line);
+
+        // 각 분리된 항목의 양 끝에 있는 공백과 따옴표를 제거
+        for (int i = 0; i < columns.Length; i++)
+        {
+            columns[i] = columns[i].Trim().Trim('"');
+        }
+
+        return columns;
     }
 }
