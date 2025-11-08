@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6037463806020530236
+--- !u!114 &-7151511274399049494
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Wave
-  m_Shader: {fileID: -6465566751694194690, guid: 06b4c30a941d6de4fba4caf6963311c0, type: 3}
+  m_Name: Tilemap_Gradient
+  m_Shader: {fileID: -6465566751694194690, guid: 56ee9e0e284e86a4a893ebef8e645fe9, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -38,10 +38,6 @@ Material:
     m_TexEnvs:
     - _AlphaTex:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _BackGround:
-        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -70,17 +66,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DisplacementFre: 1
     - _EnableExternalAlpha: 0
-    - _SecondWave: -1.36
-    - _SecondWaveT: -1.55
-    - _Speed: 0.9
+    - _Origin: -6.58
+    - _Spread: 3.34
     - _ZWrite: 0
-    - _amplitude: 19.4
-    - _displacement: -1.78
-    - _frequency: 5
     m_Colors:
-    - _Color: {r: 0.5754717, g: 0.36645603, b: 0.5049802, a: 1}
+    - _BottomColor: {r: 0.5473478, g: 0.5473478, b: 0.9433962, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _TopColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

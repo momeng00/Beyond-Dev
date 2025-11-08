@@ -26,10 +26,12 @@ Material:
     m_Ints: []
     m_Floats:
     - _AngleOffset: 0.03
+    - _B: 0
     - _DashThickness: 0.57
     - _DotThickness: 0.68
     - _FlowDirection: 0
     - _G: 0
+    - _IgnoreBaseColor: 0
     - _OutLineSub: 0.49
     - _OutlineBase: 0
     - _OutlineCount: 2.58
@@ -37,7 +39,7 @@ Material:
     - _OutlineSpeed: 0.1
     - _OutlineThickness: 0.78
     - _Outline_Opacity: 1
-    - _R: 0
+    - _R: 1
     - _Speed: 0.5
     - _Tile: 7.73
     - _isDotted: 1
@@ -47,6 +49,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 0}
     - _OutlineColor: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
+    - _PlayerPos: {r: 0, g: -1.5, b: 0, a: 0}
     - _SpriteSize: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
