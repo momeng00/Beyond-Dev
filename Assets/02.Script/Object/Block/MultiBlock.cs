@@ -1,15 +1,18 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEngine.VFX;
+
 
 public class MultiBlock : Block, ISwitchable
 {
     private Animator ani;
     public Switch Switch => throw new System.NotImplementedException();
     public List<Switch> switchList = new List<Switch>();
+    public List<IEventListener> eventListeners;
+    public float toggleDelay;
+    private Coroutine activateCoroutine;
+
     public bool BlockState
     {
         get
@@ -21,6 +24,7 @@ public class MultiBlock : Block, ISwitchable
             _blockState = value;
             blockEvent?.Invoke(value);
             MessagerBlock(value);
+            RunToggleEvent(value);
         }
     }
     private bool _blockState = false;
@@ -42,7 +46,9 @@ public class MultiBlock : Block, ISwitchable
         {
             sw.SetSwitch(this);
         }
+        ToggleEventChildren();
         BlockState = false;
+        
     }
     public void SwitchOn(bool value)
     {
@@ -56,12 +62,14 @@ public class MultiBlock : Block, ISwitchable
             // 리스트에 있는 모든 오브젝트를 위로 올림
             MoveObjectsUp();
             ani.Play("In");
+            mask.enabled = on;
             //spriteRenderer.enabled = true; // 보이게
             boxCollider.isTrigger = false; // 단단한 발판으로
         }
         else // 블록이 꺼질 때
         {
             ani.Play("Out");
+            mask.enabled = on;
             //spriteRenderer.enabled = false; // 안 보이게
             boxCollider.isTrigger = true; // 감지 모드로
         }
@@ -122,6 +130,30 @@ public class MultiBlock : Block, ISwitchable
             }
         }
     }
+    private void ToggleEventChildren()
+    {
+        IEventListener[] listeners = GetComponentsInChildren<IEventListener>();
+        eventListeners = new List<IEventListener>(listeners);
+        eventListeners.Sort((a, b) => a.ToggleEventPriority.CompareTo(b.ToggleEventPriority));
+    }
+    public void RunToggleEvent(bool state) 
+    {
+        if (state)
+        {
+            activateCoroutine = StartCoroutine(RunToggleEventDelay(state));
+        }
+        else 
+        {
+            foreach (var listener in eventListeners)
+            {
+                listener.ToggleEvent(BlockState);
+            }
+            if (activateCoroutine == null)
+                return;
+            StopCoroutine(activateCoroutine);
+        }
+    }
+
     public override void InitializeReset()
     {
         base.InitializeReset();
@@ -135,4 +167,12 @@ public class MultiBlock : Block, ISwitchable
         base.ResetAction();
     }
 
+    IEnumerator RunToggleEventDelay(bool state)
+    {
+        foreach (var listener in eventListeners)
+        {
+            listener.ToggleEvent(BlockState);
+            yield return new WaitForSeconds(toggleDelay);
+        }
+    }
 }

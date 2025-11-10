@@ -4,6 +4,7 @@ public class PushBlock : Block
 {
     public LayerMask layerMask;
     private Animator animator;
+    private Material material;
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -11,6 +12,7 @@ public class PushBlock : Block
     public override void Start()
     {
         base.Start();
+        material = this.GetComponent<Renderer>().material;
     }
 
     // Update is called once per frame

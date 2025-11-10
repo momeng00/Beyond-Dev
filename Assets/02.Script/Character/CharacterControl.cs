@@ -10,7 +10,6 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
     private Rigidbody2D _rb;
     private Animator _ani;
     #endregion
-
     [HideInInspector] public float _axisX; //이동되는 수치 받을 힘
     private Vector2 extraVelocity;
     private float _direction =1f;
