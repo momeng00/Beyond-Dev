@@ -4,16 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class MultiBlock : Block, ISwitchable
+public class MessageBlock : Block, ISwitchable
 {
     private Animator ani;
     public Switch Switch => throw new System.NotImplementedException();
     public List<Switch> switchList = new List<Switch>();
-    public List<IEventListener> eventListeners;
-    public float toggleDelay;
-    private Coroutine activateCoroutine;
-
-    public bool BlockState
+    override public bool BlockState
     {
         get
         {
@@ -24,7 +20,7 @@ public class MultiBlock : Block, ISwitchable
             _blockState = value;
             blockEvent?.Invoke(value);
             MessagerBlock(value);
-            RunToggleEvent(value);
+            RunToggleEvent(value); 
         }
     }
     private bool _blockState = false;
@@ -56,10 +52,8 @@ public class MultiBlock : Block, ISwitchable
     }
     public void MessagerBlock(bool on)
     {
-        //ani.SetBool("BlockState",blockState);
         if (on) // 블록이 켜질 때
         {
-            // 리스트에 있는 모든 오브젝트를 위로 올림
             MoveObjectsUp();
             ani.Play("In");
             mask.enabled = on;
@@ -130,49 +124,10 @@ public class MultiBlock : Block, ISwitchable
             }
         }
     }
-    private void ToggleEventChildren()
-    {
-        IEventListener[] listeners = GetComponentsInChildren<IEventListener>();
-        eventListeners = new List<IEventListener>(listeners);
-        eventListeners.Sort((a, b) => a.ToggleEventPriority.CompareTo(b.ToggleEventPriority));
-    }
-    public void RunToggleEvent(bool state) 
-    {
-        if (state)
-        {
-            activateCoroutine = StartCoroutine(RunToggleEventDelay(state));
-        }
-        else 
-        {
-            foreach (var listener in eventListeners)
-            {
-                listener.ToggleEvent(BlockState);
-            }
-            if (activateCoroutine == null)
-                return;
-            StopCoroutine(activateCoroutine);
-        }
-    }
 
-    public override void InitializeReset()
-    {
-        base.InitializeReset();
-    }
-    public override void OnBlockAction()
-    {
-        base.OnBlockAction();
-    }
     public override void ResetAction()
     {
         base.ResetAction();
-    }
-
-    IEnumerator RunToggleEventDelay(bool state)
-    {
-        foreach (var listener in eventListeners)
-        {
-            listener.ToggleEvent(BlockState);
-            yield return new WaitForSeconds(toggleDelay);
-        }
+        BlockState = false;
     }
 }

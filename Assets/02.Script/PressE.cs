@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class PressE : MonoBehaviour
 {
-    public SwitchPhone master;
+    public BlockSwitch master;
     public bool masterSatisfied;
     private void Awake()
     {
-        master = GetComponentInParent<SwitchPhone>();
+        master = GetComponentInParent<BlockSwitch>();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

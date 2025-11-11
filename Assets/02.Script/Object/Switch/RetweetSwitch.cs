@@ -5,7 +5,6 @@ using UnityEngine.UIElements;
 
 public class RetweetSwitch : Switch, IReset
 {
-    private List<Rigidbody2D> movingLists = new List<Rigidbody2D>();
     public bool SwitchState
     {
         get 
@@ -76,7 +75,6 @@ public class RetweetSwitch : Switch, IReset
     {
         isSatisfied = false;
         materialInstance.SetFloat("_IsHovered", 0.0f);
-        myRenderer.material = materialInstance;
     }
 
     protected override bool IsInLayerMask(GameObject obj, LayerMask mask)
@@ -86,7 +84,7 @@ public class RetweetSwitch : Switch, IReset
     public override void SetSwitch(ISwitchable node)
     {
         base.SetSwitch(node);
-        FunctionBlock functionBlockTarget = node as FunctionBlock;
+        RetweetBlock functionBlockTarget = node as RetweetBlock;
         if (functionBlockTarget != null) 
         {
             OnDirection += functionBlockTarget.SetMovingwalkDirection;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DamgerBlock : Block
+public class Hazard : Block
 {
 
     public LayerMask layerMask;

@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,12 +5,13 @@ public enum MovingwalkDirection
 {
     Stop = 0,  
     Left = -1,  
-    Right = 1  
+    Right = 1
 }
-public class FunctionBlock : Block, ISwitchable
+public class RetweetBlock : Block, ISwitchable
 {
     private Animator ani;
     [HideInInspector] public MovingwalkDirection movingWalkDirection;
+    
     // 1. Swtich가 타입캐스팅을 통해서 해결.
     // 2. Block이 상속받는 곳에 메서드를 추가하는 방식으로 해결.
     // 3. Struct를 통해서 switchData를 제작. (Object를 통해서 해결)
@@ -26,16 +26,18 @@ public class FunctionBlock : Block, ISwitchable
     private List<IMovable> movingTargets = new List<IMovable>();
     private Material materialInstance;
     private Renderer myRenderer;
-    public bool BlockState
+    override public bool BlockState
     {
-        get 
-        { 
-            return _blockState; 
+        get
+        {
+            return _blockState;
         }
         set
         {
             _blockState = value;
+            mask.enabled = value;
             blockEvent?.Invoke(value);
+            RunToggleEvent(value);
             if (_blockState)
             {
                 foreach (var moving in movingTargets)
@@ -51,7 +53,7 @@ public class FunctionBlock : Block, ISwitchable
                     moving.RemoveExtraVelocity(this);
                 }
             }
-            ani.SetInteger("Direction",(int)movingWalkDirection);
+            ani.SetInteger("Direction", (int)movingWalkDirection);
         }
     }
 
@@ -64,6 +66,7 @@ public class FunctionBlock : Block, ISwitchable
         ani = GetComponent<Animator>();
         myRenderer = GetComponent<Renderer>();
         materialInstance = myRenderer.material;
+        ToggleEventChildren();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public override void Start()
@@ -74,6 +77,7 @@ public class FunctionBlock : Block, ISwitchable
             sw.SetSwitch(this);
         }
         materialInstance.SetVector("_SpriteSize", myRenderer.bounds.size);
+        BlockState = false;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -110,5 +114,11 @@ public class FunctionBlock : Block, ISwitchable
     public void SetMovingwalkDirection(MovingwalkDirection direction)
     {
         movingWalkDirection = direction;
+    }
+
+    public override void ResetAction()
+    {
+        base.ResetAction();
+        BlockState = false;
     }
 }

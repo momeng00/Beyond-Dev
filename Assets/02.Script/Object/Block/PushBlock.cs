@@ -4,15 +4,19 @@ public class PushBlock : Block
 {
     public LayerMask layerMask;
     private Animator animator;
+    private Vector2 startPos;
     private Material material;
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        startPos = transform.position;
     }
     public override void Start()
     {
         base.Start();
-        material = this.GetComponent<Renderer>().material;
+        //해당 구문은 의도적으로 배치를 늘려서 Matarial이 공용화가 되는 것을 막는것임
+        material = this.GetComponent<Renderer>().material; 
+        
     }
 
     // Update is called once per frame
@@ -38,5 +42,10 @@ public class PushBlock : Block
     protected bool IsInLayerMask(GameObject obj, LayerMask mask)
     {
         return ((1 << obj.layer) & mask) != 0;
+    }
+    public override void ResetAction()
+    {
+        base.ResetAction();
+        transform.position = startPos;
     }
 }

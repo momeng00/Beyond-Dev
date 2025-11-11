@@ -4,11 +4,11 @@ using UnityEngine;
 public class NormalPopUp : PopUp, IEventListener
 {
     private Animator animator;
-    [SerializeField]private Block Block;
+    //[SerializeField]private Block Block;
 
     public int toggleEventPriority;
     public int ToggleEventPriority =>  toggleEventPriority;
-    public List<Animator> childAnimators;
+    protected List<Animator> childAnimators;
 
     private void Awake()
     {
@@ -36,14 +36,7 @@ public class NormalPopUp : PopUp, IEventListener
 
     public void ToggleEvent(bool state)
     {
-        if (state)
-        {
-            animator.Play("In");
-        }
-        else
-        {
-            animator.Play("Out");
-        }
+        animator.Play(state ? "In" : "Out");
         foreach (Animator anim in childAnimators)
         {
             anim.SetBool("IsActive", state);

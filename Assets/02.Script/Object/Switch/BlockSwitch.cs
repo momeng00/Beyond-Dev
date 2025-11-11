@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwitchPhone : Switch,IReset
+public class BlockSwitch : Switch,IReset
 {
 
     public List<ISwitchable> targetBlock = new List<ISwitchable>();

@@ -11,7 +11,7 @@ public class TagRetweetSwitch : Switch, IReset
     private Material retweetMaterial;
     public MovingwalkDirection targetDirection;
     public event Action<MovingwalkDirection> OnDirection;
-    private Collider2D col;
+    private BoxCollider2D col;
     public bool SwitchState
     {
         get
@@ -28,7 +28,7 @@ public class TagRetweetSwitch : Switch, IReset
     private bool isSatisfied;
     new private void Awake()
     {
-        col = GetComponent<Collider2D>();
+        col = GetComponent<BoxCollider2D>();
         tagMaterial = tagRenderer.material;
         retweetMaterial = retweetRenderer.material;
     }
@@ -36,11 +36,12 @@ public class TagRetweetSwitch : Switch, IReset
     {
         col.isTrigger = true;
         InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.E, Interact);
+        GameManager.Instance.OnReset += ResetAction;
     }
     public override void SetSwitch(ISwitchable node)
     {
         base.SetSwitch(node);
-        FunctionBlock functionBlockTarget = node as FunctionBlock;
+        RetweetBlock functionBlockTarget = node as RetweetBlock;
         if (functionBlockTarget != null)
         {
             OnDirection += functionBlockTarget.SetMovingwalkDirection;
@@ -86,13 +87,15 @@ public class TagRetweetSwitch : Switch, IReset
         }
     }
 
-    public void InitializeReset()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public void ResetAction()
     {
-        throw new System.NotImplementedException();
+        isSatisfied = false;
+        tagMaterial.SetFloat("_IsHovered", 0.0f);
+        retweetMaterial.SetFloat("_IsHovered", 0.0f);
+    }
+
+    public void InitializeReset()
+    {
+        throw new NotImplementedException();
     }
 }
