@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 962194056493ec6498e058760799a57d
+guid: e4e515c2926bd7040836487b39001614
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3800782402952206127
-    second: TextBox_0
+      213: -1802259435949937491
+    second: CloudStations_0
+  - first:
+      213: -474491569146518337
+    second: CloudStations_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +40,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -53,7 +56,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -72,10 +75,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -96,54 +99,33 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TextBox_0
+      name: CloudStations_0
       rect:
         serializedVersion: 2
         x: 0
         y: 192
         width: 64
         height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 26, y: 26, z: 26, w: 26}
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 25, y: 25, z: 25, w: 25}
       customData: 
-      outline:
-      - - {x: 32, y: 32}
-        - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-      physicsShape:
-      - - {x: 32, y: 32}
-        - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-      tessellationDetail: 0
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
       bones: []
-      spriteID: f27958445771fb430800000000000000
-      internalID: 3800782402952206127
+      spriteID: dacab1f77961df6e0800000000000000
+      internalID: -1802259435949937491
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TextBox_1
+      name: CloudStations_1
       rect:
         serializedVersion: 2
         x: 64
@@ -152,28 +134,20 @@ TextureImporter:
         height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 25, y: 25, z: 25, w: 25}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline:
-      - - {x: 32, y: 32}
-        - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-      physicsShape:
-      - - {x: 32, y: 32}
-        - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-      tessellationDetail: 0
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
       bones: []
-      spriteID: d5d0db96d37bff044aca8d052fc92b51
-      internalID: -815385694
+      spriteID: fb4aa1c8e644a69f0800000000000000
+      internalID: -474491569146518337
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TextBox_2
+      name: CloudStations_2
       rect:
         serializedVersion: 2
         x: 128
@@ -182,28 +156,42 @@ TextureImporter:
         height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 25, y: 25, z: 25, w: 25}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline:
-      - - {x: 32, y: 32}
-        - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-      physicsShape:
-      - - {x: 32, y: 32}
-        - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
+      outline: []
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 06d1e39af79625c4b991e27ea1e5a166
-      internalID: -903127694
+      spriteID: 2ba16616b0fb62c478ecabefa1747ae4
+      internalID: -937561960
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RetweetBox
+      name: CloudStations_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e674f79ff3ec7a44ad19905aee42824
+      internalID: -1445380324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CloudStations_4
       rect:
         serializedVersion: 2
         x: 0
@@ -212,52 +200,36 @@ TextureImporter:
         height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 25, y: 25, z: 25, w: 25}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline:
-      - - {x: 32, y: 32}
-        - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-      physicsShape:
-      - - {x: 32, y: 32}
-        - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
+      outline: []
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ace926a48da990a4ebcabab0615ac8f8
-      internalID: -614691990
+      spriteID: 528e66b569ccbd147a3bbf57d169a74b
+      internalID: 1014054817
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RetweetIcon
+      name: CloudStations_5
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 128
+        y: 128
         width: 64
         height: 64
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline:
-      - - {x: 32, y: 32}
-        - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
-      physicsShape:
-      - - {x: 32, y: 32}
-        - {x: -32, y: 32}
-        - {x: -32, y: -32}
-        - {x: 32, y: -32}
+      outline: []
+      physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34f9dbe82b77d1a45b318e9ee428b4e7
-      internalID: 56675418
+      spriteID: 0eb7af3662cce38438dba1fca739926e
+      internalID: -903836589
       vertices: []
       indices: 
       edges: []
@@ -266,29 +238,24 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 604440c4bc1e8af4e9dee76dda7714c2
+    spriteID: 9d1e5dc09a140b54fb292e7d821863a6
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
-    secondaryTextures:
-    - texture: {fileID: 2800000, guid: 4f5d81276d2e34e419a3d97bb77cbd40, type: 3}
-      name: _SDFTexture
-    - texture: {fileID: 2800000, guid: df4e8282c4bc49c4c9fdb5426a895d08, type: 3}
-      name: _NormalMap
+    secondaryTextures: []
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      RetweetBox: -614691990
-      RetweetIcon: 56675418
-      Station_Download: 1581542562
-      Station_Upload: 475960532
-      TextBox_0: 3800782402952206127
-      TextBox_1: -815385694
-      TextBox_2: -903127694
+      CloudStations_0: -1802259435949937491
+      CloudStations_1: -474491569146518337
+      CloudStations_2: -937561960
+      CloudStations_3: -1445380324
+      CloudStations_4: 1014054817
+      CloudStations_5: -903836589
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
