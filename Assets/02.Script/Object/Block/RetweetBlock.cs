@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 public enum MovingwalkDirection
 {
     Stop = 0,  
@@ -11,7 +14,7 @@ public class RetweetBlock : Block, ISwitchable
 {
     private Animator ani;
     [HideInInspector] public MovingwalkDirection movingWalkDirection;
-    
+
     // 1. Swtich가 타입캐스팅을 통해서 해결.
     // 2. Block이 상속받는 곳에 메서드를 추가하는 방식으로 해결.
     // 3. Struct를 통해서 switchData를 제작. (Object를 통해서 해결)
@@ -81,6 +84,26 @@ public class RetweetBlock : Block, ISwitchable
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        ////1.부딪힌 오브젝트의 경계(bounds)를 가져옵니다.
+        //bounds otherbounds = collision.collider.bounds;
+
+        ////2.이 오브젝트(센서)의 경계를 가져옵니다.
+        //if (mycollider == null)
+        //{
+        //    mycollider = getcomponent<collider2d>();
+        //}
+        //bounds mybounds = mycollider.bounds;
+
+
+        ////3.상대방의 '발끝'(가장 낮은 y값)이 나의 '머리끝'(가장 높은 y값)보다 위에 있거나 같은지 확인합니다.
+        //float otherbottomedge = otherbounds.center.y - otherbounds.extents.y;
+        //float mytopedge = mybounds.center.y + mybounds.extents.y;
+        //debug.log(otherbottomedge >= mytopedge);
+        //if (isinlayermask(collision.gameobject, detectedlayer) && otherbottomedge >= (mytopedge - 0.05f))
+        //{
+        //    debug.log("위로 올라감 진입");
+        //    controller.onobjectentered(groupname, collision.gameobject);
+        //}
         IMovable otherRb = collision.gameObject.GetComponent<IMovable>(); ;
         if (otherRb != null && !movingTargets.Contains(otherRb))
         {
@@ -121,4 +144,7 @@ public class RetweetBlock : Block, ISwitchable
         base.ResetAction();
         BlockState = false;
     }
+
+
+     
 }
