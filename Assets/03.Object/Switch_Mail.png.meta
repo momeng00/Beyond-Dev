@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 512
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -100,1057 +100,1665 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Icon_Mail_0
+      name: Switch_Mail_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 448
-        width: 64
-        height: 64
+        y: 896
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56a43d2495e1103449fc17d037359562
-      internalID: -1295513873
+      spriteID: d20f31c320e678c4f9ef51ba4222b575
+      internalID: 741053748
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_1
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 448
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a511f06f5d1415242aaee6212f05157f
-      internalID: 1336845079
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Mail_2
+      name: Switch_Mail_1
       rect:
         serializedVersion: 2
         x: 128
-        y: 448
-        width: 64
-        height: 64
+        y: 896
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bf548006a426d4d4cb50d2f448b29ff6
-      internalID: -176147859
+      spriteID: 4985b7f887217214898bd705631a0b0d
+      internalID: -1774428558
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_3
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 448
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5742f657760c47046ad60bd78785ec27
-      internalID: -1507764448
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Mail_4
+      name: Switch_Mail_2
       rect:
         serializedVersion: 2
         x: 256
-        y: 448
-        width: 64
-        height: 64
+        y: 896
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 004b114328bc7c74692f257a4bf22331
-      internalID: -497076440
+      spriteID: 81a67ee754036c9409fc50af090fa4e8
+      internalID: 1169598629
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_5
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 448
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f91917af4960fb84f8a16aecaf30285c
-      internalID: -310358850
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Mail_6
+      name: Switch_Mail_3
       rect:
         serializedVersion: 2
         x: 384
-        y: 448
-        width: 64
-        height: 64
+        y: 896
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7fb0a5df80e89ec45b911fb789bb593c
-      internalID: 1550888818
+      spriteID: cdbd1115e0ad67d43a467083da852737
+      internalID: 786457704
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_7
+      name: Switch_Mail_4
       rect:
         serializedVersion: 2
-        x: 448
-        y: 448
-        width: 64
-        height: 64
+        x: 512
+        y: 896
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4c75d72de99222e49abb87d86c5a9b45
-      internalID: -1890672887
+      spriteID: 97ef185c417f5cf478339906731970cb
+      internalID: 1677327237
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_8
+      name: Switch_Mail_5
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 896
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fad92f2fa3ad5bc47b7b26c839725e49
+      internalID: -714826599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_6
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 896
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3105830dca3dbf4abd3c41d7bc3448c
+      internalID: 801599932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_7
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 896
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64a3e22ed0883b74bbd3620c20ad107a
+      internalID: 1698082798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 820c98464fdd30a4984e25f4fb815616
+      internalID: 786372798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_9
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cc8cccb71f63c243b51964770a5cba2
+      internalID: 1441585919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_10
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e09e8a51c33f8844393765d2f850aee9
+      internalID: 533278034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_11
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd81e99ede12a25428dcace863022aa3
+      internalID: 1906000693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_12
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4fe14cc98e19a04ab570a8cf3687f65
+      internalID: 27689517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_13
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84692920e209a6745ab8e6444ba1277e
+      internalID: -33024421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_14
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3086ff2de21576429c6c94901fc2f0b
+      internalID: -1508214444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_15
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 768
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b49d9fe47bca35342be718a93ea6c086
+      internalID: 715083457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d667ff9f3938704e8b6ed80dd443a30
+      internalID: 1605165146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_17
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81c2b9e3a78ee274e931687ef6eed062
+      internalID: 1065073051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_18
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be7de34fb459ac147aef2a8e74b74b9b
+      internalID: -1674138096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_19
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c18aa813d3d2af2449819fd01ff9c024
+      internalID: 499446532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_20
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dac55bd36faf3fb41bb2ae0c32860402
+      internalID: -229984583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_21
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d36b1fc2da16254094e3bf7aff02ead
+      internalID: -786493166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_22
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d0555272d7029c409335562380caa79
+      internalID: 260222401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_23
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 640
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf99f627dc9c10e4bbde3a14b8d06b13
+      internalID: -211992266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecae400d69abab64caf5d22b1ee808c1
+      internalID: 326816701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_25
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6100d561184de34693ddf7f38420112
+      internalID: 1109508112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_26
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 380c6794097e03741baf8dbdf6ca4933
+      internalID: -267031971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_27
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10ad6c8a70edf4149b8de6a958f5a4dd
+      internalID: 1030325114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_28
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b3d14e693a6d18478ec0d414a5f4cc9
+      internalID: 506776770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_29
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60d5118d6c4a1e041a494fd166706065
+      internalID: -1793691053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_30
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f204a4b5d4b4a58449490599c8444991
+      internalID: 1722909398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_31
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 512
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aebc21ba49ed70641878d503b978f1c7
+      internalID: 1915897192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_32
       rect:
         serializedVersion: 2
         x: 0
         y: 384
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f2df6b224db4bc4b81ad88bc4c4d44f
-      internalID: 162539851
+      spriteID: 4a51f1d4fda80e740a71d185cef5e807
+      internalID: 1383420943
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_9
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 384
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 61b613c628710604c895071d52daa1cc
-      internalID: 1362194373
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Mail_10
+      name: Switch_Mail_33
       rect:
         serializedVersion: 2
         x: 128
         y: 384
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fe54fda3aba93454cbf043771471c99f
-      internalID: -329414428
+      spriteID: a84b114ba9adb094f80ca1caf25ce0d9
+      internalID: 405365092
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_11
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 384
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 436a296cf7a8fda44b6f6662a12863c7
-      internalID: -246526539
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Mail_12
+      name: Switch_Mail_34
       rect:
         serializedVersion: 2
         x: 256
         y: 384
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2c43defdc5a7a5d44a78c0a9ebfbd699
-      internalID: -2023776804
+      spriteID: d89c326fba765b342affec26cbb3d005
+      internalID: -503186716
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_13
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 384
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f830c00fc517069479cbbbc259eee3c7
-      internalID: 543804321
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Mail_14
+      name: Switch_Mail_35
       rect:
         serializedVersion: 2
         x: 384
         y: 384
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 432509793930f2f499b0385b37da49ad
-      internalID: 1874571225
+      spriteID: bb64a470ae4536447b48ba59843ecb77
+      internalID: -1054262618
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_15
+      name: Switch_Mail_36
       rect:
         serializedVersion: 2
-        x: 448
+        x: 512
         y: 384
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5d870da14b38c53449e09fd0b8687777
-      internalID: 1572165690
+      spriteID: 0e19218f978d37d40b5fde7060cea8c9
+      internalID: 1404100727
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_16
+      name: Switch_Mail_37
       rect:
         serializedVersion: 2
-        x: 0
-        y: 320
-        width: 64
-        height: 64
+        x: 640
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d762644351a552640aab044bcf6bac63
-      internalID: -929429712
+      spriteID: 8c65569884144f345bf965a9623df89a
+      internalID: -391682313
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_17
+      name: Switch_Mail_38
       rect:
         serializedVersion: 2
-        x: 64
-        y: 320
-        width: 64
-        height: 64
+        x: 768
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 37ceca2241e7496428fcffbffcb56cf5
-      internalID: -1882968210
+      spriteID: dcc6288963e6f5a4a9f384261adda962
+      internalID: -1705874028
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_18
+      name: Switch_Mail_39
       rect:
         serializedVersion: 2
-        x: 128
-        y: 320
-        width: 64
-        height: 64
+        x: 896
+        y: 384
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e3b886d61a4c23843bff779e261b9be2
-      internalID: 1027402666
+      spriteID: 67c6596b68598814c915a8469289b95e
+      internalID: 2113927325
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_19
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 320
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 883b020177624f44f8f3caa1b7173d79
-      internalID: 1170393111
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Mail_20
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 320
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6abbf835a43e2de4aa695ddee4d17ab0
-      internalID: -1165666776
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Mail_21
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 320
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 60fe118bee2a1da4ab779d3fe060b5ee
-      internalID: -1576438308
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Mail_22
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 320
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1a86b5fe9baa46f4ca4a3caedb3cc828
-      internalID: -520821451
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Mail_23
-      rect:
-        serializedVersion: 2
-        x: 448
-        y: 320
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 276f933423bf16142b6ca3300c2c28a4
-      internalID: -680251678
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Mail_24
+      name: Switch_Mail_40
       rect:
         serializedVersion: 2
         x: 0
         y: 256
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2ce5e6dde12996148b4d57c605a644f5
-      internalID: -1707704692
+      spriteID: e020fc1b45f92a24fb0e0a2e35eec5d8
+      internalID: 1145170386
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_25
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 256
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6b8a6136ccff17243af64af8c01e3204
-      internalID: 424533337
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Mail_26
+      name: Switch_Mail_41
       rect:
         serializedVersion: 2
         x: 128
         y: 256
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 39fd1e94c7ff00b479740cf6560340f6
-      internalID: 64570461
+      spriteID: f37929d476389c547a15da5a9286729a
+      internalID: 1853473710
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_27
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 256
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 581df35841e99fc40b80d27ad7cd7e7b
-      internalID: 1139981840
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Mail_28
+      name: Switch_Mail_42
       rect:
         serializedVersion: 2
         x: 256
         y: 256
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2af6a004eb284f54cadd2a747db658c9
-      internalID: 355905007
+      spriteID: 13640ff37718e284e804cf688c584208
+      internalID: -1457714476
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_29
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 256
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 15c567cd3dd9d21469e1d295789ff516
-      internalID: -364652697
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Mail_30
+      name: Switch_Mail_43
       rect:
         serializedVersion: 2
         x: 384
         y: 256
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: faa13dff31501d744b6e48e16934a56a
-      internalID: 443728546
+      spriteID: ba7dd16b220fdc747b5b6b79ce63ce3d
+      internalID: 2000091370
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_31
+      name: Switch_Mail_44
       rect:
         serializedVersion: 2
-        x: 448
+        x: 512
         y: 256
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 38ea969bd50bf0045824fb5245cbe963
-      internalID: -1433456737
+      spriteID: a0d353f6a34a4ef4f9e3a667cda732d4
+      internalID: -180751033
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_32
+      name: Switch_Mail_45
       rect:
         serializedVersion: 2
-        x: 0
-        y: 192
-        width: 64
-        height: 64
+        x: 640
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fe4f46eb18f53044a9d984228dba78db
-      internalID: 1664056952
+      spriteID: 5619bb2b4971dfb4f98fdab5a46c7013
+      internalID: -1647830116
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_33
+      name: Switch_Mail_46
       rect:
         serializedVersion: 2
-        x: 64
-        y: 192
-        width: 64
-        height: 64
+        x: 768
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 49c68edeba14f56418811c0fa089f7dc
-      internalID: 314204144
+      spriteID: 86b36961499a9d342b986fa9b8fd30d4
+      internalID: -397868147
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_34
+      name: Switch_Mail_47
       rect:
         serializedVersion: 2
-        x: 128
-        y: 192
-        width: 64
-        height: 64
+        x: 896
+        y: 256
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9384e3083cbaa994d98dde7a7b42def2
-      internalID: 391472224
+      spriteID: 0ffdac07cd97caa4ca9658c3d2fbd699
+      internalID: -61959875
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_35
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 192
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 049c1bae7e3442a4096dbb0d71a38379
-      internalID: -1355314440
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Mail_36
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 192
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 11c303cef42f4204d9e03fc9c9726f0d
-      internalID: -1356008937
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Mail_37
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 192
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3af01bb799fafb140923bc5106896a7d
-      internalID: 1110385726
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Mail_38
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 192
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 45e9713be920e00478b766c3ae5ea483
-      internalID: 1079128059
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Mail_39
-      rect:
-        serializedVersion: 2
-        x: 448
-        y: 192
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4b9cd5a126baef544adca3429d9118b4
-      internalID: -1729021189
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Mail_40
+      name: Switch_Mail_48
       rect:
         serializedVersion: 2
         x: 0
         y: 128
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 116a9904947145b49bc4b51e9bc698aa
-      internalID: 1694721952
+      spriteID: cdbc3e630f0151e469f790e140e3ff34
+      internalID: 1304547446
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_41
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 390f4911cc21507499188dd27147e2ec
-      internalID: -2112139847
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Mail_42
+      name: Switch_Mail_49
       rect:
         serializedVersion: 2
         x: 128
         y: 128
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: df0412ff8f4c9b8408471b6b4dd0ae67
-      internalID: -199934179
+      spriteID: cbf3edd36d46ec2478d51186a69caa5f
+      internalID: -1303936517
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_43
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c2912de3965de694a9965a56ef91ebd7
-      internalID: 1765972913
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Mail_44
+      name: Switch_Mail_50
       rect:
         serializedVersion: 2
         x: 256
         y: 128
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 72cb283f5e26991478ebad5dc48f43ee
-      internalID: -1665489599
+      spriteID: 6ab6e1b6a8ca52e42a25a8a173b4b8f3
+      internalID: 1952312713
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_45
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 128
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 16d4d7c735b906c40b97cdc46e126758
-      internalID: 670445688
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Icon_Mail_46
+      name: Switch_Mail_51
       rect:
         serializedVersion: 2
         x: 384
         y: 128
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ee27a55b619b4764cb102bf7a6937a65
-      internalID: 522697702
+      spriteID: 2432aa531e344104a807168f9308e9ee
+      internalID: -1236316088
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Mail_47
+      name: Switch_Mail_52
       rect:
         serializedVersion: 2
-        x: 448
+        x: 512
         y: 128
-        width: 64
-        height: 64
+        width: 128
+        height: 128
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4057eac85052d7f4397b5d358b89ef34
-      internalID: -339010514
+      spriteID: cc71934eea7560148b78b9f8db57ab49
+      internalID: -1763138825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_53
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cbbd2a1fd61c8248bde548131fcca1d
+      internalID: -364329156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_54
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acd7f147f8ce54e499065539069b2ab2
+      internalID: -898552368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_55
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb5c385ecac247f4d877abf4fa362b4a
+      internalID: -2012672020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_56
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90d0eb36d0e924e41ac7f6a533b1c003
+      internalID: 276637526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_57
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d6c5fd7583ff934eac4bad2fed19a35
+      internalID: -1158884425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_58
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2356b8151f8c02041b50f00a78fc712f
+      internalID: 336651569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_59
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a93de89e27771945b415b249d4f576f
+      internalID: -51927367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_60
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 330cd7e23ad9f5f4db65ab36d0d0581b
+      internalID: 955929928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_61
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9773ed02fbdb6146bcd381251d6cb63
+      internalID: -1259667088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_62
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fdd1754059be224a9cbe8ed77d40cfe
+      internalID: -835822523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Switch_Mail_63
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline:
+      - - {x: 64, y: -64}
+        - {x: 64, y: 64}
+        - {x: -64, y: 64}
+        - {x: -64, y: -64}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95ad35a410f62254fbe40f7d1936e0f1
+      internalID: -2092847842
       vertices: []
       indices: 
       edges: []
@@ -1169,56 +1777,72 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":128.0,"y":128.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":true,"isAlternate":false}'
     nameFileIdTable:
-      Icon_Mail_0: -1295513873
-      Icon_Mail_1: 1336845079
-      Icon_Mail_10: -329414428
-      Icon_Mail_11: -246526539
-      Icon_Mail_12: -2023776804
-      Icon_Mail_13: 543804321
-      Icon_Mail_14: 1874571225
-      Icon_Mail_15: 1572165690
-      Icon_Mail_16: -929429712
-      Icon_Mail_17: -1882968210
-      Icon_Mail_18: 1027402666
-      Icon_Mail_19: 1170393111
-      Icon_Mail_2: -176147859
-      Icon_Mail_20: -1165666776
-      Icon_Mail_21: -1576438308
-      Icon_Mail_22: -520821451
-      Icon_Mail_23: -680251678
-      Icon_Mail_24: -1707704692
-      Icon_Mail_25: 424533337
-      Icon_Mail_26: 64570461
-      Icon_Mail_27: 1139981840
-      Icon_Mail_28: 355905007
-      Icon_Mail_29: -364652697
-      Icon_Mail_3: -1507764448
-      Icon_Mail_30: 443728546
-      Icon_Mail_31: -1433456737
-      Icon_Mail_32: 1664056952
-      Icon_Mail_33: 314204144
-      Icon_Mail_34: 391472224
-      Icon_Mail_35: -1355314440
-      Icon_Mail_36: -1356008937
-      Icon_Mail_37: 1110385726
-      Icon_Mail_38: 1079128059
-      Icon_Mail_39: -1729021189
-      Icon_Mail_4: -497076440
-      Icon_Mail_40: 1694721952
-      Icon_Mail_41: -2112139847
-      Icon_Mail_42: -199934179
-      Icon_Mail_43: 1765972913
-      Icon_Mail_44: -1665489599
-      Icon_Mail_45: 670445688
-      Icon_Mail_46: 522697702
-      Icon_Mail_47: -339010514
-      Icon_Mail_5: -310358850
-      Icon_Mail_6: 1550888818
-      Icon_Mail_7: -1890672887
-      Icon_Mail_8: 162539851
-      Icon_Mail_9: 1362194373
+      Switch_Mail_0: 741053748
+      Switch_Mail_1: -1774428558
+      Switch_Mail_10: 533278034
+      Switch_Mail_11: 1906000693
+      Switch_Mail_12: 27689517
+      Switch_Mail_13: -33024421
+      Switch_Mail_14: -1508214444
+      Switch_Mail_15: 715083457
+      Switch_Mail_16: 1605165146
+      Switch_Mail_17: 1065073051
+      Switch_Mail_18: -1674138096
+      Switch_Mail_19: 499446532
+      Switch_Mail_2: 1169598629
+      Switch_Mail_20: -229984583
+      Switch_Mail_21: -786493166
+      Switch_Mail_22: 260222401
+      Switch_Mail_23: -211992266
+      Switch_Mail_24: 326816701
+      Switch_Mail_25: 1109508112
+      Switch_Mail_26: -267031971
+      Switch_Mail_27: 1030325114
+      Switch_Mail_28: 506776770
+      Switch_Mail_29: -1793691053
+      Switch_Mail_3: 786457704
+      Switch_Mail_30: 1722909398
+      Switch_Mail_31: 1915897192
+      Switch_Mail_32: 1383420943
+      Switch_Mail_33: 405365092
+      Switch_Mail_34: -503186716
+      Switch_Mail_35: -1054262618
+      Switch_Mail_36: 1404100727
+      Switch_Mail_37: -391682313
+      Switch_Mail_38: -1705874028
+      Switch_Mail_39: 2113927325
+      Switch_Mail_4: 1677327237
+      Switch_Mail_40: 1145170386
+      Switch_Mail_41: 1853473710
+      Switch_Mail_42: -1457714476
+      Switch_Mail_43: 2000091370
+      Switch_Mail_44: -180751033
+      Switch_Mail_45: -1647830116
+      Switch_Mail_46: -397868147
+      Switch_Mail_47: -61959875
+      Switch_Mail_48: 1304547446
+      Switch_Mail_49: -1303936517
+      Switch_Mail_5: -714826599
+      Switch_Mail_50: 1952312713
+      Switch_Mail_51: -1236316088
+      Switch_Mail_52: -1763138825
+      Switch_Mail_53: -364329156
+      Switch_Mail_54: -898552368
+      Switch_Mail_55: -2012672020
+      Switch_Mail_56: 276637526
+      Switch_Mail_57: -1158884425
+      Switch_Mail_58: 336651569
+      Switch_Mail_59: -51927367
+      Switch_Mail_6: 801599932
+      Switch_Mail_60: 955929928
+      Switch_Mail_61: -1259667088
+      Switch_Mail_62: -835822523
+      Switch_Mail_63: -2092847842
+      Switch_Mail_7: 1698082798
+      Switch_Mail_8: 786372798
+      Switch_Mail_9: 1441585919
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

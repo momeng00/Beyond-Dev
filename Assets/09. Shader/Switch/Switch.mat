@@ -32,7 +32,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: 
+  m_LockedProperties: _Angle _HoveringEffect _LineNumber _LineSpeed _Speed _amp
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -67,14 +67,18 @@ Material:
     m_Ints: []
     m_Floats:
     - _Angle: 0
+    - _B: 0
     - _EnableExternalAlpha: 0
+    - _G: 0
     - _HoveringEffect: 0.32
     - _IsHovered: 0
     - _LineNumber: 128
     - _LineSpeed: 1
+    - _R: 0
     - _Speed: 5
     - _ZWrite: 0
     - _amp: 0.02
+    - _isIndexed: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
