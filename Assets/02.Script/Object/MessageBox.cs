@@ -30,7 +30,7 @@ public class MessageBox : MonoBehaviour
     // --- 내부 변수 ---
     private RectTransform textRectTransform;
     private Dictionary<Language, string> languageDictionary;
-    private Animator animator;
+    [SerializeField]private Animator animator;
     [SerializeField] private TextMeshPro text;
 
     private void Awake()
@@ -81,7 +81,8 @@ public class MessageBox : MonoBehaviour
     }
     public void BlockStateHandle(bool state)
     {
-        animator.SetBool("IsActive",state);
+        animator.SetBool("IsActive", state);
+        Debug.Log("MyFunction이 호출되었습니다" + state);
     }
     private void FindTextObject()
     {

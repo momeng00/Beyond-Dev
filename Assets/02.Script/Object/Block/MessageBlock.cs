@@ -17,8 +17,8 @@ public class MessageBlock : Block, ISwitchable
         }
         set
         {
-            _blockState = value;
             blockEvent?.Invoke(value);
+            _blockState = value;
             MessagerBlock(value);
             RunToggleEvent(value); 
         }

@@ -1,9 +1,11 @@
+using NUnit.Framework;
 using UnityEngine;
 
-public class DownloadStation : Spot
+public class DownloadStation : MonoBehaviour
 {
     private Material material;
     private SpriteRenderer spriteRenderer;
+    [SerializeField]private UploadStation partnerStation;
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -14,7 +16,12 @@ public class DownloadStation : Spot
         material.SetVector("_UploadStation_Pos", position);
         material.SetVector("_UploadStation_Size", size);
         spriteRenderer.size = size;
-        Debug.Log(position);
-        Debug.Log(size);
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            partnerStation.GetDetectedObject(this.gameObject);
+        }
     }
 }
