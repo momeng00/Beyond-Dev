@@ -31,7 +31,7 @@ public class MessageBox : MonoBehaviour
     private RectTransform textRectTransform;
     private Dictionary<Language, string> languageDictionary;
     private Animator animator;
-    private TextMeshPro text;
+    [SerializeField] private TextMeshPro text;
 
     private void Awake()
     {
