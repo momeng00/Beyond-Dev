@@ -6,6 +6,7 @@ public class PushBlock : Block
     private Animator animator;
     private Vector2 startPos;
     private Material material;
+    [SerializeField]private Animator focusAnimation;
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -24,7 +25,11 @@ public class PushBlock : Block
     {
         
     }
-
+    public override void OnBlockAction()
+    {
+        base.OnBlockAction();
+        focusAnimation.Play("Focus",0,0);
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (IsInLayerMask(collision.gameObject, layerMask))

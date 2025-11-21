@@ -82,11 +82,11 @@ public class MessageBox : MonoBehaviour
     public void BlockStateHandle(bool state)
     {
         animator.SetBool("IsActive", state);
-        Debug.Log("MyFunction이 호출되었습니다" + state);
     }
     private void FindTextObject()
     {
-        text = GetComponentInChildren<TextMeshPro>();
+        if (text == null)
+            text = GetComponentInChildren<TextMeshPro>();
         if (text == null)
         {
             GameObject prefabToLoad = Resources.Load<GameObject>("Text");
