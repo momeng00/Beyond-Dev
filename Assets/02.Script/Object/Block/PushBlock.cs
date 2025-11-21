@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PushBlock : Block
@@ -6,35 +7,33 @@ public class PushBlock : Block
     private Animator animator;
     private Vector2 startPos;
     private Material material;
-    [SerializeField]private Animator focusAnimation;
+    private Coroutine activeCoroution;
+    private SpriteRenderer spriteRenderer;
+    [SerializeField] private Animator focusAnimation;
     private void Awake()
     {
         animator = GetComponent<Animator>();
         startPos = transform.position;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
     public override void Start()
     {
         base.Start();
         //해당 구문은 의도적으로 배치를 늘려서 Matarial이 공용화가 되는 것을 막는것임
-        material = this.GetComponent<Renderer>().material; 
-        
+        material = this.GetComponent<Renderer>().material;
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public override void OnBlockAction()
     {
         base.OnBlockAction();
-        focusAnimation.Play("Focus",0,0);
+        focusAnimation.Play("Focus", 0, 0);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (IsInLayerMask(collision.gameObject, layerMask))
         {
-            animator.SetBool("activate",true);
+            animator.SetBool("activate", true);
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
@@ -52,5 +51,40 @@ public class PushBlock : Block
     {
         base.ResetAction();
         transform.position = startPos;
+    }
+    public void UDAnimationPlay(bool value)
+    {
+        if(activeCoroution !=null)
+            StopCoroutine(activeCoroution);
+        activeCoroution = StartCoroutine(ReturnAnimation(value));
+    }
+
+    private IEnumerator ReturnAnimation(bool value)
+    {
+        if (value)
+        {
+            animator.Play("PushBlock_Download");
+        }
+        else
+        {
+            animator.Play("PushBlock_Upload");
+            while (true)
+            {
+                AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+                if (stateInfo.IsName("PushBlock_Upload") && stateInfo.normalizedTime >= 1.0f)
+                {
+                    animator.Play("PushBlock_Off");
+                    animator.enabled = false;
+                    Color color = spriteRenderer.color;
+                    color.a = 1f; // 투명도 1(불투명)로 강제 설정
+                    spriteRenderer.color = color;
+                    animator.enabled = true;
+                    gameObject.SetActive(false);
+                    break;
+                }
+                yield return null;
+            }
+        }
+        yield return null;
     }
 }

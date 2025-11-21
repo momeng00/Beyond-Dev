@@ -131,9 +131,14 @@ public class UploadStation : Spot, ISwitchable, IReset
     }
     public void PoolingReturn()
     {
+
         foreach(GameObject ob in activeList)
         {
-            ob.SetActive(false);
+            if (ob.TryGetComponent(out PushBlock pushBlock))
+            {
+                pushBlock.UDAnimationPlay(stationState);
+                break;
+            }
         }
     }
 

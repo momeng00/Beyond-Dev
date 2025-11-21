@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DownloadStation : MonoBehaviour, ISwitchable
@@ -7,6 +8,7 @@ public class DownloadStation : MonoBehaviour, ISwitchable
     private SpriteRenderer spriteRenderer;
     [SerializeField]private UploadStation partnerStation;
     public List<DownloadStationSwtich> switches;
+    private Animator ani;
 
     public Switch Switch => throw new System.NotImplementedException();
 
@@ -14,6 +16,7 @@ public class DownloadStation : MonoBehaviour, ISwitchable
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         material = spriteRenderer.material;
+        ani = GetComponent<Animator>();
     }
     private void Start()
     {
@@ -38,11 +41,13 @@ public class DownloadStation : MonoBehaviour, ISwitchable
         else
         {
             partnerStation.PoolingReturn();
+            ani.SetBool("activate", false);
         }
     }
 
     public void UploadComplete(bool value)
     {
+        ani.SetBool("activate", value);
         foreach (DownloadStationSwtich dss in switches)
         {
             dss.isUpload = value;
