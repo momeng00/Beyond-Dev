@@ -29,6 +29,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _BackGround:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 962194056493ec6498e058760799a57d, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -69,6 +73,7 @@ Material:
     - _Threshold: 0.5
     - _ZWrite: 0
     - _dissolve: 1.1
+    - _isPopup: 1
     - _isText: 0
     m_Colors:
     - _Color: {r: 1, g: 0, b: 0, a: 1}

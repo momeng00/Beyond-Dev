@@ -28,6 +28,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _BackGround:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 470270835192763772, guid: 106297e077295f04d970aae3bba3b080, type: 2}
         m_Scale: {x: 1, y: 1}
@@ -56,6 +60,7 @@ Material:
     m_Floats:
     - _Die: 1
     - _EnableExternalAlpha: 0
+    - _IsText: 1
     - _Pixelation: 4096
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -63,6 +68,7 @@ Material:
     - _Threshold: 0.5
     - _ZWrite: 0
     - _dissolve: 1
+    - _isPopup: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}

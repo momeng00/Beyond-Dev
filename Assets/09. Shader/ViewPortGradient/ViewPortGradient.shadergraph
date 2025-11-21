@@ -767,10 +767,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -907.0,
-            "y": 666.0,
+            "x": -897.0,
+            "y": 639.0,
             "width": 125.0,
-            "height": 33.99993896484375
+            "height": 34.0
         }
     },
     "m_Slots": [
@@ -842,6 +842,27 @@
         "y": 0.0,
         "z": 0.0,
         "w": 0.0
+    },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector2MaterialSlot",
+    "m_ObjectId": "875656fe9b0a4b62911f68e1b69ed388",
+    "m_Id": 23128999,
+    "m_DisplayName": "UV",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_UV",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0
     },
     "m_Labels": []
 }
@@ -930,7 +951,7 @@
     "m_ObjectId": "9e22dbc12d12415f9b2d5fa9d929e210",
     "m_Title": "ViewPortGradient",
     "m_Position": {
-        "x": -932.0,
+        "x": -922.0,
         "y": 469.0
     }
 }
@@ -1190,17 +1211,17 @@
     "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
     "m_ObjectId": "d6e16629a08848858575e219b765f969",
     "m_Group": {
-        "m_Id": ""
+        "m_Id": "9e22dbc12d12415f9b2d5fa9d929e210"
     },
     "m_Name": "Property",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -905.0,
-            "y": 619.0,
+            "x": -895.0,
+            "y": 592.0,
             "width": 143.0,
-            "height": 33.99993896484375
+            "height": 34.0
         }
     },
     "m_Slots": [
@@ -1693,6 +1714,9 @@
             "m_Id": "84f92101715647039d7e2b4388dcfcee"
         },
         {
+            "m_Id": "875656fe9b0a4b62911f68e1b69ed388"
+        },
+        {
             "m_Id": "dab960769e814412bce62c33579c9efb"
         },
         {
@@ -1712,13 +1736,15 @@
         "609bf683-b14e-43c4-a3cf-925c07d580bf",
         "2fc34171-931e-4fde-831a-6474e2719332",
         "eaee2b51-2d3f-4b8a-9d40-d1d0b868f99c",
-        "56c9f6e5-6a06-4b12-a6c0-983269ec812f"
+        "56c9f6e5-6a06-4b12-a6c0-983269ec812f",
+        "b0474641-d8ab-49db-a77a-d66fea0f2a97"
     ],
     "m_PropertyIds": [
         -1068671639,
         652917006,
         -313774517,
-        12759084
+        12759084,
+        23128999
     ],
     "m_Dropdowns": [],
     "m_DropdownSelectedEntries": []
