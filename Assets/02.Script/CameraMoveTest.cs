@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class CameraMoveTest : MonoBehaviour
 {
     public Transform target;
@@ -10,7 +11,7 @@ public class CameraMoveTest : MonoBehaviour
     Queue<(Vector3 pos, float time)> history = new();
 
     private Vector3 nextPosition;
-    bool flag;
+    public bool flag;
     private void Start()
     {
         flag = true;
