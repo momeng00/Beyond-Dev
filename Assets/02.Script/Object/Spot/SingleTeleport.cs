@@ -1,10 +1,14 @@
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class SingleTeleport : Spot
 {
     public Transform arrivePos;
     private Collider2D col;
+    public CinemachineCamera cam;
 
 
     private void Start()
@@ -21,7 +25,13 @@ public class SingleTeleport : Spot
     {
         if (IsInLayerMask(collision.gameObject, layerMask))
         {
+
+            StartCoroutine("CamControl");
+            
             collision.gameObject.transform.position = arrivePos.position;
+            
+
+
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -32,5 +42,12 @@ public class SingleTeleport : Spot
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube((Vector3)arrivePos.position, new Vector3(0.5f, 0.5f, 0));
+    }
+    IEnumerator CamControl()
+    {
+        var posComposer = cam.GetComponent<CinemachinePositionComposer>();
+        if (posComposer != null) posComposer.enabled = false;
+        yield return new WaitForSeconds(1.5f);
+        if (posComposer != null) posComposer.enabled = true;
     }
 }
