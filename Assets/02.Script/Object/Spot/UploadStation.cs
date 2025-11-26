@@ -13,8 +13,8 @@ public class UploadStation : Spot, ISwitchable, IReset
     private Material material;
     private SpriteRenderer spriteRenderer;
     private bool stationState;
-    private List<GameObject> detectedList = new List<GameObject>();
-    private List<GameObject> activeList = new List<GameObject>();
+    [SerializeField]private List<GameObject> detectedList = new List<GameObject>();
+    [SerializeField]private List<GameObject> activeList = new List<GameObject>();
     private Dictionary<GameObject, GameObject> readyList = new Dictionary<GameObject, GameObject>();
     private bool isUploading = false;
 
@@ -87,14 +87,18 @@ public class UploadStation : Spot, ISwitchable, IReset
             if(!clone.activeSelf)
                 clone.SetActive(true);
             clone.transform.position = requester.transform.position - comparative;
-            activeList.Add(clone);
+            if (!activeList.Contains(clone))
+            {
+                activeList.Add(clone);
+            }
+            
         }
         
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isUploading) return;
-        if (IsInLayerMask(collision.gameObject, layerMask))
+        if (IsInLayerMask(collision.gameObject, layerMask) && !detectedList.Contains(collision.gameObject))
         {
             collision.gameObject.GetComponent<Block>().OnBlockAction();
             detectedList.Add(collision.gameObject);
@@ -137,9 +141,9 @@ public class UploadStation : Spot, ISwitchable, IReset
             if (ob.TryGetComponent(out PushBlock pushBlock))
             {
                 pushBlock.UDAnimationPlay(stationState);
-                break;
             }
         }
+        activeList.Clear();
     }
 
     public void InitializeReset()
