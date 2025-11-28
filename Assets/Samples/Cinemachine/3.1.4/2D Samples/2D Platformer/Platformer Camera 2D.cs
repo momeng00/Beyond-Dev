@@ -13,7 +13,7 @@ namespace Unity.Cinemachine.Samples
     [ExecuteAlways]
     public class PlatformerCamera2D : CinemachineCameraManagerBase
     {
-        public enum PlayerState
+        public enum StateCameras
         {
             Right,
             Left,
@@ -47,7 +47,7 @@ namespace Unity.Cinemachine.Samples
                 Debug.LogError("PlatformerCamera2D: Default target must be set to Player with a Rigidbody2D");
         }
 
-        PlayerState GetPlayerState()
+        StateCameras GetPlayerState()
         {
             bool isLeft = false;
             bool isFalling = false;
@@ -64,8 +64,8 @@ namespace Unity.Cinemachine.Samples
 #endif
             }
             if (isFalling)
-                return isLeft ? PlayerState.FallingLeft : PlayerState.FallingRight;
-            return isLeft ? PlayerState.Left : PlayerState.Right;
+                return isLeft ? StateCameras.FallingLeft : StateCameras.FallingRight;
+            return isLeft ? StateCameras.Left : StateCameras.Right;
         }
 
         /// <summary>
@@ -75,9 +75,9 @@ namespace Unity.Cinemachine.Samples
         {
             return GetPlayerState() switch
             {
-                PlayerState.Left => LeftCamera,
-                PlayerState.FallingRight => FallingRightCamera,
-                PlayerState.FallingLeft => FallingLeftCamera,
+                StateCameras.Left => LeftCamera,
+                StateCameras.FallingRight => FallingRightCamera,
+                StateCameras.FallingLeft => FallingLeftCamera,
                 _ => RightCamera,
             };
         }
