@@ -545,6 +545,21 @@
         },
         {
             "m_Id": "203ad3514abf4d0db7a65df2c5c4c432"
+        },
+        {
+            "m_Id": "73d5fa768bff4e64b9062477cf7cc653"
+        },
+        {
+            "m_Id": "5972e3e4d8694a2c97a4b27724c7b564"
+        },
+        {
+            "m_Id": "2eb9cc220c324c6aa6f49b5854afc3f1"
+        },
+        {
+            "m_Id": "53c8a39f14234cfb9a0b78325518b32f"
+        },
+        {
+            "m_Id": "db9ee9701a37448e9a6e28652ddb22f1"
         }
     ],
     "m_Edges": [
@@ -4028,7 +4043,7 @@
         "m_Position": {
             "serializedVersion": "2",
             "x": 1918.0,
-            "y": -2216.0,
+            "y": -2275.0,
             "width": 126.0,
             "height": 118.0
         }
@@ -5337,6 +5352,26 @@
 }
 
 {
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
+    "m_ObjectId": "2eb9cc220c324c6aa6f49b5854afc3f1",
+    "m_Title": "",
+    "m_Content": "대충 그거에다가 숫자 이것저것 곱해서 uv상에서 표시",
+    "m_TextSize": 0,
+    "m_Theme": 0,
+    "m_Position": {
+        "serializedVersion": "2",
+        "x": 3066.0,
+        "y": -2616.0,
+        "width": 200.0,
+        "height": 160.0
+    },
+    "m_Group": {
+        "m_Id": ""
+    }
+}
+
+{
     "m_SGVersion": 1,
     "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
     "m_ObjectId": "30eb570ea7cf48bdb28c5d93ff847b7a",
@@ -5546,10 +5581,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 1783.0,
-            "y": -2098.0,
+            "x": 1703.0,
+            "y": -2116.0,
             "width": 124.0,
-            "height": 173.0001220703125
+            "height": 173.0
         }
     },
     "m_Slots": [
@@ -6007,8 +6042,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 2145.0,
-            "y": -2487.000244140625,
+            "x": 2024.0,
+            "y": -2486.999755859375,
             "width": 120.0,
             "height": 149.0
         }
@@ -7558,6 +7593,26 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
+    "m_ObjectId": "53c8a39f14234cfb9a0b78325518b32f",
+    "m_Title": "",
+    "m_Content": "0-1 값을 -0.5-0.5가 되도록 0.5뺌",
+    "m_TextSize": 0,
+    "m_Theme": 0,
+    "m_Position": {
+        "serializedVersion": "2",
+        "x": 3679.0,
+        "y": -2632.0,
+        "width": 200.0,
+        "height": 160.0
+    },
+    "m_Group": {
+        "m_Id": ""
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.SampleTexture2DNode",
     "m_ObjectId": "53ff6c509bcc4d9799e25c945529f18d",
     "m_Group": {
@@ -7896,6 +7951,26 @@
         "z": 0.0
     },
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
+    "m_ObjectId": "5972e3e4d8694a2c97a4b27724c7b564",
+    "m_Title": "",
+    "m_Content": "y축기준 아래서부터 먼저 흔들리게\n",
+    "m_TextSize": 0,
+    "m_Theme": 0,
+    "m_Position": {
+        "serializedVersion": "2",
+        "x": 2328.0,
+        "y": -2573.0,
+        "width": 200.0,
+        "height": 160.0
+    },
+    "m_Group": {
+        "m_Id": ""
+    }
 }
 
 {
@@ -9214,6 +9289,26 @@
     "m_PreviewMode": 0,
     "m_CustomColors": {
         "m_SerializableColors": []
+    }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
+    "m_ObjectId": "73d5fa768bff4e64b9062477cf7cc653",
+    "m_Title": "",
+    "m_Content": "큰오브젝트가 먼저 흔들리게\n",
+    "m_TextSize": 0,
+    "m_Theme": 0,
+    "m_Position": {
+        "serializedVersion": "2",
+        "x": 1736.5435791015625,
+        "y": -2307.082763671875,
+        "width": 200.0,
+        "height": 160.0
+    },
+    "m_Group": {
+        "m_Id": ""
     }
 }
 
@@ -15837,8 +15932,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 1781.0,
-            "y": -2225.999755859375,
+            "x": 1701.0,
+            "y": -2244.0,
             "width": 126.0,
             "height": 118.0
         }
@@ -16016,6 +16111,26 @@
         "y": 0.0,
         "z": 0.0,
         "w": 0.0
+    }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
+    "m_ObjectId": "db9ee9701a37448e9a6e28652ddb22f1",
+    "m_Title": "",
+    "m_Content": "흔들림 정도 조정. 가로가 더 많이 흔들리게./",
+    "m_TextSize": 0,
+    "m_Theme": 0,
+    "m_Position": {
+        "serializedVersion": "2",
+        "x": 4202.0,
+        "y": -2485.0,
+        "width": 200.0,
+        "height": 160.0
+    },
+    "m_Group": {
+        "m_Id": ""
     }
 }
 
@@ -16333,8 +16448,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 1604.0,
-            "y": -2225.999755859375,
+            "x": 1529.0,
+            "y": -2247.0,
             "width": 120.0,
             "height": 149.0
         }
