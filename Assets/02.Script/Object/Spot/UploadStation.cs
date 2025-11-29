@@ -13,8 +13,8 @@ public class UploadStation : Spot, ISwitchable, IReset
     private Material material;
     private SpriteRenderer spriteRenderer;
     private bool stationState;
-    [SerializeField]private List<GameObject> detectedList = new List<GameObject>();
-    [SerializeField]private List<GameObject> activeList = new List<GameObject>();
+    private List<GameObject> detectedList = new List<GameObject>();
+    private List<GameObject> activeList = new List<GameObject>();
     private Dictionary<GameObject, GameObject> readyList = new Dictionary<GameObject, GameObject>();
     private bool isUploading = false;
 

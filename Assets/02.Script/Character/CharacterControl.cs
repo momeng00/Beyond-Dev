@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Cinemachine.Samples;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.UI.Image;
@@ -15,6 +16,7 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
     private float _direction =1f;
     public float direction
     {
+        get { return _direction; }
         set
         {
             if(_direction != value)
@@ -23,10 +25,12 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
                 if (value > 0f) 
                 {
                     transform.localScale = new Vector3(1f, 1f, 1f);
+                    
                 }
                 else if(value < 0f)
                 {
                     transform.localScale = new Vector3(-1f, 1f, 1f);
+                    
                 }
                 
             }
@@ -137,7 +141,16 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
     }
     private void FixedUpdate()
     {
-        _rb.linearVelocity = new Vector2((_axisX) * currentStat.moveSpeed + extraVelocity.x, _rb.linearVelocityY+extraVelocity.y);
+        _rb.linearVelocity = new Vector2((_axisX) * currentStat.moveSpeed + extraVelocity.x, _rb.linearVelocityY + extraVelocity.y);
+    }
+    private void OnEnable()
+    {
+        MainCameraController.Instance.Register(_rb);
+    }
+
+    private void OnDisable()
+    {
+        MainCameraController.Instance.Unregister(_rb);
     }
     private void Move(float horizontal)
     {

@@ -10,4 +10,6 @@ public enum LocalizationKeys
     BLOCK_5_BOY1,
     BLOCK_6_BOY1,
     BLOCK_6_GIRL1,
+    BLOCK_7,
+    TestKey,
 }

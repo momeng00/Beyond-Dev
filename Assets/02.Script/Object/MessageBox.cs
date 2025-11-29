@@ -30,8 +30,8 @@ public class MessageBox : MonoBehaviour
     // --- 내부 변수 ---
     private RectTransform textRectTransform;
     private Dictionary<Language, string> languageDictionary;
-    [SerializeField]private Animator animator;
-    [SerializeField] private TextMeshPro text;
+    private Animator animator;
+    [SerializeField]private TextMeshPro text;
 
     private void Awake()
     {
@@ -46,7 +46,7 @@ public class MessageBox : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        UpdateTextObject();
+        //UpdateTextObject();
         LanguageSystem.OnLanguageChanged += ChangeLanguage;
     }
 

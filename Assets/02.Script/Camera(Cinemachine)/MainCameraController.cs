@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Unity.Cinemachine;
 using Unity.Cinemachine.Samples;
 using UnityEngine;
@@ -24,26 +26,90 @@ public class MainCameraController : MonoBehaviour
     //시네머신에서 카메라의 움직임에 따라 흔들림의 강약조절
     //본 기능은 Cinemachine Camera 컴포넌트의 noise 드롭다운에서 활성화
     //Cinemachin Basic Multi Channel Perlin 컴포넌트에서 두개의 게인값으로 조절
-    private CameraBaseState cameraState;
-    public CinemachineCamera cinemachineCamera;
+    public float criticalVelocity;
+    private CameraBehaviorBase cameraBehavior;
     public PlatformerCamera2D platformerCamera2D;
-    public MainCameraController Instance
+    private HashSet<Rigidbody2D> _players = new HashSet<Rigidbody2D>();
+    private StateCameras currentStateCameras = StateCameras.Right;
+    private bool isRight = true;
+    public bool IsRight
     {
-        get{ return _Instance; }
-        private set { }
+        set { isRight = value; }
     }
-    private MainCameraController _Instance;
+    private int _lastCalculatedFrame = -1;
+    public void Register(Rigidbody2D rb)
+    {
+        _players.Add(rb);
+    }
+    public void Unregister(Rigidbody2D rb)
+    {
+        _players.Remove(rb);
+    }
+
+    public bool GetAverageVelocityY()
+    {
+        //if (Time.frameCount != _lastCalculatedFrame)
+        //{
+        //    _lastCalculatedFrame = Time.frameCount;
+        //} 프레임 캐싱이라고 프레임 id를 저장할 수 있음. 필요해지면 쓸것
+
+        if (_players.Count == 0) return false;
+        
+        float total = 0f;
+        foreach (var rb in _players)
+        {
+            total += rb.linearVelocity.y;
+        }
+
+        Debug.Log( (total / _players.Count) < criticalVelocity );
+        return (total / _players.Count) < criticalVelocity;
+    }
+    private static MainCameraController _instance;
+    public static MainCameraController Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindAnyObjectByType<MainCameraController>();
+                if (_instance == null)
+                    Debug.Log("CameraController가 없음");
+            }
+            return _instance;
+        }
+    }
     public void ChangeCamera(StateCameras state)
     {
-
+        if (currentStateCameras < state)
+        {
+            currentStateCameras = state;
+        }   
+    }
+    public void ReportCameraSelect(StateCameras state)
+    {
+        platformerCamera2D.ChangeCameraState(state);
     }
     public void ChangeCameraState()
     {
-        cameraState.CameraStateExit();
-        cameraState.CameraStateEnter();
+        cameraBehavior.CameraStateEnter();
+    }
+    public void ExitCameraState()
+    {
+        cameraBehavior.CameraStateExit();
     }
     private void Update()
-    {
-        cameraState.CameraStateUpdate();
+    {   
+        if(cameraBehavior != null)
+            cameraBehavior.CameraStateUpdate();
     }
+    private void LateUpdate()
+    {
+        ReportCameraSelect(currentStateCameras);
+        if (isRight)
+            currentStateCameras = StateCameras.Right;
+        else 
+            currentStateCameras = StateCameras.Left;
+
+    }
+
 }

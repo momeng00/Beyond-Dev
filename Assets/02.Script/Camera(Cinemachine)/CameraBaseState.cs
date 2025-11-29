@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class CameraBaseState
+public class CameraBaseState : MonoBehaviour
 {
+    public void CameraStateExit()
+    {
+
+    }
     public void CameraStateEnter()
     {
 
     }
-    public void CameraStateExit() 
-    {
-
-    }   
     public void CameraStateUpdate()
     {
 

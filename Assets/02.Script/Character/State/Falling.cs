@@ -1,5 +1,5 @@
+using Unity.Cinemachine.Samples;
 using UnityEngine;
-using UnityEngine.InputSystem.Controls;
 
 public class Falling : CharacterStateBase
 {
@@ -28,6 +28,18 @@ public class Falling : CharacterStateBase
     {
         CharacterStateID next = CharacterStateID.Falling;
         time += Time.deltaTime;
+        if (MainCameraController.Instance.GetAverageVelocityY())
+        {
+            if (machine.characterControl.direction >= 0f)
+            {
+                MainCameraController.Instance.ChangeCamera(PlatformerCamera2D.StateCameras.FallingRight);
+            }
+            else if (machine.characterControl.direction < 0f)
+            {
+                MainCameraController.Instance.ChangeCamera(PlatformerCamera2D.StateCameras.FallingLeft);
+            }
+        }
+
         if (time > machine.characterControl.coyoteTime)
         {
             machine.characterControl.canJump = false;

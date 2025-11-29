@@ -20,7 +20,7 @@ namespace Unity.Cinemachine.Samples
             FallingRight,
             FallingLeft
         }
-
+        private StateCameras mCameras;
         [Space]
         public float FallingSpeedThreshold = 0.1f;
 
@@ -46,9 +46,15 @@ namespace Unity.Cinemachine.Samples
             if (m_Player == null)
                 Debug.LogError("PlatformerCamera2D: Default target must be set to Player with a Rigidbody2D");
         }
-
+        public void ChangeCameraState(StateCameras state)
+        {
+            mCameras = state;
+        }
         StateCameras GetPlayerState()
         {
+            
+            return mCameras;
+            
             bool isLeft = false;
             bool isFalling = false;
             if (m_Player != null)

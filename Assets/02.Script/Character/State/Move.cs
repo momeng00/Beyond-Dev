@@ -1,3 +1,4 @@
+using Unity.Cinemachine.Samples;
 using UnityEngine;
 
 public class Move : CharacterStateBase
@@ -31,6 +32,16 @@ public class Move : CharacterStateBase
             }
             if (Mathf.Abs(machine.characterControl._axisX) > 0)
             {
+                if (machine.characterControl.direction > 0f)
+                {
+                    MainCameraController.Instance.ChangeCamera(PlatformerCamera2D.StateCameras.Right);
+                    MainCameraController.Instance.IsRight = true;
+                }
+                else if(machine.characterControl.direction < 0f) 
+                {
+                    MainCameraController.Instance.ChangeCamera(PlatformerCamera2D.StateCameras.Left);
+                    MainCameraController.Instance.IsRight = false;
+                }
                 next = CharacterStateID.Move;
             }
         }
