@@ -14,6 +14,7 @@ public class RetweetSwitch : Switch, IReset
         set
         {
             _switchState = value;
+            OnSwitchAction?.Invoke(value);
         }
     }
     private BoxCollider2D _collider;

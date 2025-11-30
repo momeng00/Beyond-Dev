@@ -21,6 +21,7 @@ public class TagRetweetSwitch : Switch, IReset
         set
         {
             _switchState = value;
+            OnSwitchAction?.Invoke(value);
         }
     }
     private bool _switchState;
@@ -35,6 +36,7 @@ public class TagRetweetSwitch : Switch, IReset
     private void Start()
     {
         col.isTrigger = true;
+        SwitchState = false;
         InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.E, Interact);
         GameManager.Instance.OnReset += ResetAction;
     }

@@ -10,6 +10,18 @@ public class BlockSwitch : Switch,IReset
     {
         get { return isSatisfied; }
     }
+    public bool SwitchState
+    {
+        get
+        {
+            return _switchState;
+        }
+        set
+        {
+            _switchState = value;
+            OnSwitchAction?.Invoke(value);
+        }
+    }
     private bool _switchState;
     private Collider2D col;
 
@@ -21,7 +33,7 @@ public class BlockSwitch : Switch,IReset
     }
     private void Start()
     {
-        _switchState = false;
+        SwitchState = false;
         GameManager.Instance.OnReset += ResetAction;
         InputSystem.Instance.RegisterAction(KeyState.Play_Key,KeyCode.E,Interact);
     }
@@ -40,11 +52,11 @@ public class BlockSwitch : Switch,IReset
         base.Interact();
         if (isSatisfied)
         {
-            _switchState = !_switchState;
+            SwitchState = !SwitchState;
             foreach (var block in targetBlock)
             {
-                block.SwitchOn(_switchState);
-                IsDetected(_switchState);
+                block.SwitchOn(SwitchState);
+                IsDetected(SwitchState);
             }
         }
     }
