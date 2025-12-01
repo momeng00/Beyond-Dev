@@ -5,7 +5,7 @@ using Unity.Cinemachine.Samples;
 using UnityEngine;
 using static Unity.Cinemachine.Samples.PlatformerCamera2D;
 
-public class MainCameraController : MonoBehaviour
+public class MainCameraController : MonoBehaviour, IReset
 {
     //카메라의 기능을 블럭처럼 끼고 뺄 수 있도록 구현을 하려고 함.
     //현재 생각이 되고 있는 카메라의 기능은 원하는 곳으로 위치가 이동이 되었는가?
@@ -60,8 +60,6 @@ public class MainCameraController : MonoBehaviour
         {
             total += rb.linearVelocity.y;
         }
-
-        Debug.Log( (total / _players.Count) < criticalVelocity );
         return (total / _players.Count) < criticalVelocity;
     }
     private static MainCameraController _instance;
@@ -97,6 +95,10 @@ public class MainCameraController : MonoBehaviour
     {
         cameraBehavior.CameraStateExit();
     }
+    private void Start()
+    {
+        GameManager.Instance.OnReset += ResetAction;
+    }
     private void Update()
     {   
         if(cameraBehavior != null)
@@ -112,4 +114,13 @@ public class MainCameraController : MonoBehaviour
 
     }
 
+    public void InitializeReset()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void ResetAction()
+    {
+        
+    }
 }

@@ -10,7 +10,11 @@ public class DownloadStationSwtich : Switch, IReset
 
     public bool IsSatisfied
     {
-        get { return isEnter && isUpload; }
+        get 
+        {
+            OnSwitchAction?.Invoke(isEnter && isUpload);
+            return isEnter && isUpload; 
+        }
     }
 
     private Collider2D col;

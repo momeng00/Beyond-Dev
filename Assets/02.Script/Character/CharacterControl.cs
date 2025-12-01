@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Cinemachine;
 using Unity.Cinemachine.Samples;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -180,7 +181,7 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
     {
         transform.position = startPos;
     }
-    
+
     public void OnDetected()
     {
         throw new System.NotImplementedException();

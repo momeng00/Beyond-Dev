@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class Switch : MonoBehaviour, IInteract
@@ -6,6 +7,7 @@ public abstract class Switch : MonoBehaviour, IInteract
     protected Animator ani;
     protected Material materialInstance;
     protected Renderer myRenderer;
+    public Action<bool> OnSwitchAction;
     virtual public void Awake()
     {
         ani = GetComponent<Animator>();
