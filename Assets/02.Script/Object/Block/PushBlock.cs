@@ -56,6 +56,9 @@ public class PushBlock : Block
     {
         if(activeCoroution !=null)
             StopCoroutine(activeCoroution);
+
+        if(!gameObject.activeSelf)
+            gameObject.SetActive(true);
         activeCoroution = StartCoroutine(ReturnAnimation(value));
     }
 

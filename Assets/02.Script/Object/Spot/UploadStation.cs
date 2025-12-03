@@ -14,6 +14,7 @@ public class UploadStation : Spot, ISwitchable, IReset
     private SpriteRenderer spriteRenderer;
     private bool stationState;
     private List<GameObject> detectedList = new List<GameObject>();
+    [SerializeField]private List<GameObject> uploadList = new List<GameObject>();
     private List<GameObject> activeList = new List<GameObject>();
     private Dictionary<GameObject, GameObject> readyList = new Dictionary<GameObject, GameObject>();
     private bool isUploading = false;
@@ -46,7 +47,13 @@ public class UploadStation : Spot, ISwitchable, IReset
         isUploading = true;
         if (value)
         {
-            foreach (GameObject ob in detectedList)
+            uploadList.Clear();
+            foreach (GameObject go in detectedList) 
+            {
+                uploadList.Add(go);
+            }
+
+            foreach (GameObject ob in uploadList)
             {
                 ob.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
                 ob.GetComponent<Collider2D>().enabled = false;
@@ -55,7 +62,7 @@ public class UploadStation : Spot, ISwitchable, IReset
         else
         {
             PoolingReturn();
-            foreach (GameObject ob in detectedList)
+            foreach (GameObject ob in uploadList)
             {
                 ob.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                 ob.GetComponent<Collider2D>().enabled = true;
@@ -80,34 +87,45 @@ public class UploadStation : Spot, ISwitchable, IReset
 
     public void GetDetectedObject(GameObject requester)
     {
-        foreach (GameObject ob in detectedList)
+        foreach (GameObject ob in uploadList)
         {
             Vector3 comparative = transform.position - ob.transform.position;
             GameObject clone = PoolingGet(ob);
-            if(!clone.activeSelf)
+            if (ob.TryGetComponent(out PushBlock pushBlock))
+            {
+                pushBlock.UDAnimationPlay(false);
+            }
+            if (!clone.activeSelf)
                 clone.SetActive(true);
             clone.transform.position = requester.transform.position - comparative;
             if (!activeList.Contains(clone))
             {
                 activeList.Add(clone);
             }
-            
-        }
-        
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (isUploading) return;
-        if (IsInLayerMask(collision.gameObject, layerMask) && !detectedList.Contains(collision.gameObject))
-        {
-            collision.gameObject.GetComponent<Block>().OnBlockAction();
-            detectedList.Add(collision.gameObject);
-        }
-        if (detectedList.Count > 0)
-        {
-            ani.SetBool("IsDetected", true);
+
         }
 
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (isUploading) return;
+        if (IsFullyContained(collision.bounds))
+        {
+            if (IsInLayerMask(collision.gameObject, layerMask) && !detectedList.Contains(collision.gameObject))
+            {
+                collision.gameObject.GetComponent<Block>().OnBlockAction();
+                detectedList.Add(collision.gameObject);
+            }
+            if (detectedList.Count > 0)
+            {
+                ani.SetBool("IsDetected", true);
+            }
+        }
+    }
+    private bool IsFullyContained(Bounds blockBounds)
+    {
+        return col.bounds.Contains(blockBounds.min) &&
+               col.bounds.Contains(blockBounds.max);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -135,12 +153,19 @@ public class UploadStation : Spot, ISwitchable, IReset
     }
     public void PoolingReturn()
     {
-
+        
         foreach(GameObject ob in activeList)
         {
             if (ob.TryGetComponent(out PushBlock pushBlock))
             {
-                pushBlock.UDAnimationPlay(stationState);
+                pushBlock.UDAnimationPlay(false);
+            }
+        }
+        foreach (GameObject ob in uploadList)
+        {
+            if (ob.TryGetComponent(out PushBlock pushBlock))
+            {
+                pushBlock.UDAnimationPlay(true);
             }
         }
         activeList.Clear();

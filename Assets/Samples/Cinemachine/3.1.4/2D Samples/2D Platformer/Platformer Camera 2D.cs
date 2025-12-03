@@ -37,14 +37,14 @@ namespace Unity.Cinemachine.Samples
         protected override void OnEnable()
         {
             base.OnEnable();
-            var target = DefaultTarget.Enabled ? DefaultTarget.Target.TrackingTarget : null;
-            if (target != null)
-            {
-                target.TryGetComponent(out m_Player);
-                m_PlayerAnimator = target.GetComponentInChildren<SimplePlayerAnimator>();
-            }
-            if (m_Player == null)
-                Debug.LogError("PlatformerCamera2D: Default target must be set to Player with a Rigidbody2D");
+            //var target = DefaultTarget.Enabled ? DefaultTarget.Target.TrackingTarget : null;
+            //if (target != null)
+            //{
+            //    target.TryGetComponent(out m_Player);
+            //    m_PlayerAnimator = target.GetComponentInChildren<SimplePlayerAnimator>();
+            //}
+            //if (m_Player == null)
+            //    Debug.LogError("PlatformerCamera2D: Default target must be set to Player with a Rigidbody2D");
         }
         public void ChangeCameraState(StateCameras state)
         {

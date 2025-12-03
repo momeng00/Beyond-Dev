@@ -9,7 +9,7 @@ public class DownloadStation : MonoBehaviour, ISwitchable
     [SerializeField]private UploadStation partnerStation;
     public List<DownloadStationSwtich> switches;
     private Animator ani;
-
+    private bool canRecall = false;
     public Switch Switch => throw new System.NotImplementedException();
 
     private void Awake()
@@ -34,13 +34,18 @@ public class DownloadStation : MonoBehaviour, ISwitchable
 
     public void SwitchOn(bool value)
     {
-        if (value)
+
+        if (canRecall)
         {
-            partnerStation.GetDetectedObject(this.gameObject);
+            partnerStation.PoolingReturn();
+            ani.SetBool("activate", false);
+            if (canRecall)
+                ani.SetBool("activate", true); canRecall = false;
         }
         else
         {
-            partnerStation.PoolingReturn();
+            partnerStation.GetDetectedObject(this.gameObject);
+            canRecall = true;
             ani.SetBool("activate", false);
         }
     }
@@ -51,7 +56,7 @@ public class DownloadStation : MonoBehaviour, ISwitchable
         foreach (DownloadStationSwtich dss in switches)
         {
             dss.isUpload = value;
-            dss.ani.SetBool("activate", value);
+            dss.anime.SetBool("activate", value);
         }
     }
 }

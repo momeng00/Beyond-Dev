@@ -1,21 +1,22 @@
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Cinemachine;
-using Unity.Cinemachine.Samples;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.UI.Image;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
 {
+    public enum Direction
+    {
+        Left = -1, Right = 1,
+    }
     #region 컴포넌트 선언부
     private Rigidbody2D _rb;
     private Animator _ani;
     #endregion
     [HideInInspector] public float _axisX; //이동되는 수치 받을 힘
     private Vector2 extraVelocity;
-    private float _direction =1f;
-    public float direction
+    private Direction _direction = Direction.Right;
+    public Direction direction
     {
         get { return _direction; }
         set
@@ -23,21 +24,26 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
             if(_direction != value)
             {
                 _direction = value;
-                if (value > 0f) 
+                if (dust != null)
+                    dust.Play();
+                if (value == Direction.Right) 
                 {
                     transform.localScale = new Vector3(1f, 1f, 1f);
-                    
+                    //var test = dust.velocityOverLifetime;
+                    //test.x = -0.4f;
                 }
-                else if(value < 0f)
+                else
                 {
+                    _direction = Direction.Left;
                     transform.localScale = new Vector3(-1f, 1f, 1f);
-                    
+                    //var test = dust.velocityOverLifetime;
+                    //test.x = 0.4f;
                 }
                 
             }
         }
     }
-
+    public ParticleSystem dust;
     private Vector2 startPos;
     public Vector2 handOffset;
     public float handDistance;
@@ -49,10 +55,10 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
         {
             Collider2D handObj = null;
             RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + handOffset,
-                                                    new Vector2(_direction,0f),
+                                                    new Vector2((float)_direction,0f),
                                                     handDistance,
                                                     handLayerMask);
-            Debug.DrawRay((Vector2)transform.position + handOffset, new Vector2(_direction, 0f) * handDistance, hit.collider ? Color.red : Color.green);
+            Debug.DrawRay((Vector2)transform.position + handOffset, new Vector2((float)_direction, 0f) * handDistance, hit.collider ? Color.red : Color.green);
             handObj = hit.collider;
             if (handObj != null)
             {
@@ -87,7 +93,7 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
     private AerialState _aerialState;
 
     public List<Stat> stats = new List<Stat>();
-    [SerializeField]private Stat _currentStat;
+    private Stat _currentStat;
     public Stat currentStat {
         get
         {
@@ -123,6 +129,7 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
         GameManager.Instance.RegisterInitAction(InitializeReset);
         GameManager.Instance.OnReset += ResetAction;
         InitializeReset();
+        
     }
     private void Awake()
     {
@@ -158,7 +165,15 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
         if(!canMove)
             return;
         _axisX = horizontal;
-        direction = horizontal;
+        if (horizontal > 0f)
+        {
+            direction = Direction.Right;
+        }
+        else if(0f > horizontal)
+        { 
+            direction = Direction.Left;
+        }
+        
     }
 
     private void Jump()
@@ -170,6 +185,8 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
             return;
         _rb.linearVelocity = Vector2.zero;
         _rb.AddForce(Vector2.up * currentStat.jumpForce, ForceMode2D.Impulse);
+        if (dust != null)
+            dust.Play();
     }
 
     public void InitializeReset()
@@ -199,7 +216,7 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(transform.position + (Vector3)footOffset, footSizeOffset);
-        Gizmos.DrawLine((Vector2)transform.position + handOffset, (Vector2)transform.position + handOffset + new Vector2(_direction*handDistance, 0f));
+        Gizmos.DrawLine((Vector2)transform.position + handOffset, (Vector2)transform.position + handOffset + new Vector2((float)_direction*handDistance, 0f));
     }
 
     public void AddExtraVelocity(object root, Vector2 force)

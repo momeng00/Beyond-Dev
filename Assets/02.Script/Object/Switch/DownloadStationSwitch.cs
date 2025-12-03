@@ -6,7 +6,7 @@ public class DownloadStationSwtich : Switch, IReset
     public List<ISwitchable> target = new List<ISwitchable>();
     private bool isEnter;
     [HideInInspector]public bool isUpload;
-    [HideInInspector]public new Animator ani;
+    [HideInInspector]public Animator anime;
 
     public bool IsSatisfied
     {
@@ -22,9 +22,10 @@ public class DownloadStationSwtich : Switch, IReset
     public override void Awake()
     {
         base.Awake();
-        ani = GetComponent<Animator>();
+        anime = GetComponent<Animator>();
         col = GetComponent<Collider2D>();
         col.isTrigger = true;
+
     }
     private void Start()
     {
@@ -45,6 +46,7 @@ public class DownloadStationSwtich : Switch, IReset
             materialInstance.SetFloat("_IsHovered", 1.0f);
         }
     }
+
     public override void Interact()
     {
         base.Interact();
