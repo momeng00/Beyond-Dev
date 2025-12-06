@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -196,7 +197,9 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
 
     public void ResetAction()
     {
-        transform.position = startPos;
+        StartCoroutine("RespawnRoutine");
+
+
     }
 
     public void OnDetected()
@@ -240,6 +243,17 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
     }
 
     #endregion
+    private IEnumerator RespawnRoutine()
+    {
+        // 1. 플레이어 이동
+        transform.position = startPos;
+
+        // 2. 아주 중요한 대기! (유니티가 이동을 처리할 시간을 줌)
+        yield return null;
+
+        // 3. 카메라 리셋
+        MainCameraController.Instance.CameraReset();
+    }
 }
 public enum AerialState
 {

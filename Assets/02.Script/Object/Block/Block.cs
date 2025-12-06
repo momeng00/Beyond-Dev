@@ -9,7 +9,8 @@ public abstract class Block : MonoBehaviour, IReset
     protected Rigidbody2D rb;
     public Action<bool> blockEvent;
     protected SpriteMask mask;
-    private List<IEventListener> eventListeners;
+    [SerializeField]private List<GameObject> PopUpList;
+    private List<IEventListener> eventListeners = new List<IEventListener>();
     public float toggleDelay;
     private Coroutine activateCoroutine;
     virtual public bool BlockState { get; set; }
@@ -36,11 +37,36 @@ public abstract class Block : MonoBehaviour, IReset
     {
 
     }
+    private void OnValidate()
+    {
+        for (int i = 0; i < PopUpList.Count; i++)
+        {
+            if (PopUpList[i] == null) continue;
 
+            // IMovable이 없으면?
+            if (PopUpList[i].GetComponent<IEventListener>() == null)
+            {
+                Debug.LogError($"{PopUpList[i].name}은(는) IEventListener 없습니다! 리스트에서 제거합니다.");
+                PopUpList[i] = null; // 강제로 빼버림
+            }
+        }
+    }
     protected void ToggleEventChildren()
     {
-        IEventListener[] listeners = GetComponentsInChildren<IEventListener>();
-        eventListeners = new List<IEventListener>(listeners);
+        //IEventListener[] listeners = GetComponentsInChildren<IEventListener>();
+        //eventListeners = new List<IEventListener>(listeners);
+        foreach (var obj in PopUpList)
+        {
+            // GameObject에서 인터페이스 추출 (TryGetComponent가 효율적)
+            if (obj.TryGetComponent(out IEventListener evt))
+            {
+                eventListeners.Add(evt);
+            }
+            else
+            {
+                Debug.LogError($"{obj.name}에는 IEventListener이 없습니다!");
+            }
+        }
         eventListeners.Sort((a, b) => a.ToggleEventPriority.CompareTo(b.ToggleEventPriority));
     }
     public void RunToggleEvent(bool state)

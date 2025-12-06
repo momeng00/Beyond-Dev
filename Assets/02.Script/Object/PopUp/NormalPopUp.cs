@@ -1,8 +1,15 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class NormalPopUp : PopUp, IEventListener
 {
+    //public key 나중에 키 생기면 추가하셈. enum을 통해서 전달 받을꺼임.
+    public SpriteRenderer image;
+    public TextMeshPro nickName;
+    public TextMeshPro content;
+    public TextMeshPro tagID;
+
     private Animator animator;
     //[SerializeField]private Block Block;
 
@@ -16,11 +23,7 @@ public class NormalPopUp : PopUp, IEventListener
         FindChildAnimator();
     }
 
-    public override void PopUpHandle(bool state)
-    {
-        base.PopUpHandle(state);
-        gameObject.SetActive(state);
-    }
+
     public void FindChildAnimator()
     {
         childAnimators = new List<Animator>();
@@ -41,6 +44,6 @@ public class NormalPopUp : PopUp, IEventListener
         {
             anim.SetBool("IsActive", state);
         }
-
+        
     }
 }

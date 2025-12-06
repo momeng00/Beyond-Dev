@@ -35,17 +35,7 @@ public class LanguageSystem : MonoBehaviour
             return _instance;
         }
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            LanguageSystem.Instance.ChangeLanguage(Language.English);
-        }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            LanguageSystem.Instance.ChangeLanguage(Language.Korean);
-        }
-    }
+    
 
     [Header("Language Settings")]
     [Tooltip("현재 게임에서 사용할 언어를 설정합니다.")]

@@ -33,6 +33,7 @@ public class TagRetweetSwitch : Switch, IReset
         tagMaterial = tagRenderer.material;
         retweetMaterial = retweetRenderer.material;
     }
+
     private void Start()
     {
         col.isTrigger = true;

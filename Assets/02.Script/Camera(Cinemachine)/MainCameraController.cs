@@ -3,9 +3,10 @@ using System.Linq;
 using Unity.Cinemachine;
 using Unity.Cinemachine.Samples;
 using UnityEngine;
+using UnityEngine.UIElements;
 using static Unity.Cinemachine.Samples.PlatformerCamera2D;
 
-public class MainCameraController : MonoBehaviour, IReset
+public class MainCameraController : MonoBehaviour
 {
     //카메라의 기능을 블럭처럼 끼고 뺄 수 있도록 구현을 하려고 함.
     //현재 생각이 되고 있는 카메라의 기능은 원하는 곳으로 위치가 이동이 되었는가?
@@ -95,10 +96,7 @@ public class MainCameraController : MonoBehaviour, IReset
     {
         cameraBehavior.CameraStateExit();
     }
-    private void Start()
-    {
-        GameManager.Instance.OnReset += ResetAction;
-    }
+
     private void Update()
     {   
         if(cameraBehavior != null)
@@ -114,13 +112,19 @@ public class MainCameraController : MonoBehaviour, IReset
 
     }
 
-    public void InitializeReset()
+    public void CameraReset()
     {
-        throw new System.NotImplementedException();
+
+        var brain = Camera.main.GetComponent<CinemachineBrain>();
+        var activeCam = brain.ActiveVirtualCamera as CinemachineVirtualCameraBase;
+        Debug.Log(activeCam);
+        if (activeCam != null)
+        {
+            // [강력한 방법] "이전 프레임의 위치 정보는 유효하지 않다"고 선언
+            // 이렇게 하면 시네머신은 댐핑 계산을 포기하고, 타겟의 현재 위치로 카메라를 즉시 강제 이동시킵니다.
+            activeCam.PreviousStateIsValid = false;
+        }
+
     }
 
-    public void ResetAction()
-    {
-        
-    }
 }
