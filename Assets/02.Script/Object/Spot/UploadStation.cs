@@ -41,8 +41,12 @@ public class UploadStation : Spot, ISwitchable, IReset
         GameManager.Instance.OnReset += ResetAction;
     }
 
-    public void SwitchOn(bool value)
+    public bool SwitchOn(bool value)
     {
+        if(detectedList.Count <= 0)
+        {
+            return false;
+        }
         stationState = value;
         isUploading = true;
         if (value)
@@ -73,6 +77,7 @@ public class UploadStation : Spot, ISwitchable, IReset
             ds.UploadComplete(value);
         }
         isUploading = false;
+        return true;
     }
     public void partnerInit()
     {

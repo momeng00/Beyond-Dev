@@ -32,7 +32,7 @@ public class DownloadStation : MonoBehaviour, ISwitchable
         spriteRenderer.size = size;
     }
 
-    public void SwitchOn(bool value)
+    public bool SwitchOn(bool value)
     {
 
         if (canRecall)
@@ -48,6 +48,8 @@ public class DownloadStation : MonoBehaviour, ISwitchable
             canRecall = true;
             ani.SetBool("activate", false);
         }
+
+        return true;
     }
 
     public void UploadComplete(bool value)

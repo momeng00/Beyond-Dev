@@ -55,8 +55,8 @@ public class BlockSwitch : Switch,IReset
             SwitchState = !SwitchState;
             foreach (var block in targetBlock)
             {
-                block.SwitchOn(SwitchState);
-                IsDetected(SwitchState);
+                if(block.SwitchOn(SwitchState))
+                    IsDetected(SwitchState);
             }
         }
     }

@@ -140,4 +140,6 @@ public class LanguageKeyExtractor: MonoBehaviour
 
         Debug.Log($"LanguageDataSheet_KR.cs file generated successfully with {languageData.Count} entries.");
     }
+
 }
+
