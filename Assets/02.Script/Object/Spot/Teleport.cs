@@ -61,8 +61,9 @@ public class Teleport : Spot, IClearCondition
         if (detects.Contains(collision.gameObject))
         {
             detects.Remove(collision.gameObject);
+            if(detects.Count<=0)
+                isSatisfied = false;
         }
-        isSatisfied = false;
     }
 
     #endregion

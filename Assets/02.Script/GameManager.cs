@@ -46,7 +46,6 @@ public class GameManager : MonoBehaviour
             if (!condition.IsSatisfied())
             {
                 clear = false; 
-                break;
             }
         }
         if (clear)
