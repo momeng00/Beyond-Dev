@@ -36,18 +36,18 @@ public class MessageBox : MonoBehaviour
     private void Awake()
     {
         Initialize();
-        FindTextObject();
+        //FindTextObject();
         if(animator == null)
         {
             animator = text.GetComponent<Animator>();
         }
-        gameObject.GetComponent<Block>().blockEvent += BlockStateHandle;
+        gameObject.GetComponent<Block>().blockEvent += BlockStateHandle;    
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
         //UpdateTextObject();
-        LanguageSystem.OnLanguageChanged += ChangeLanguage;
+        //LanguageSystem.OnLanguageChanged += ChangeLanguage;
     }
 
     // Update is called once per frame

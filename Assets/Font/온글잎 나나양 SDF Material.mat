@@ -7,36 +7,36 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Tilemap_Gradient_isFront 1
-  m_Shader: {fileID: -6465566751694194690, guid: 56ee9e0e284e86a4a893ebef8e645fe9, type: 3}
-  m_Parent: {fileID: 2100000, guid: a2f5c5c59f10e784aadaa24eb085a4b0, type: 2}
-  m_ModifiedSerializedProperties: 0
+  m_Name: "\uC628\uAE00\uC78E \uB098\uB098\uC591 SDF Material"
+  m_Shader: {fileID: -6465566751694194690, guid: a4f79206647c5c7429e6f8bc0c80bda6, type: 3}
+  m_Parent: {fileID: 1026656747885177109, guid: 696f38b496554d9418242301429bc48e, type: 2}
+  m_ModifiedSerializedProperties: 2
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _Texture:
-        m_Texture: {fileID: 0}
+    - _MainTex:
+        m_Texture: {fileID: -2225420091385369023, guid: 696f38b496554d9418242301429bc48e, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Origin: 0
-    - _Spread: 0.3
-    - _isFront: 0
+    - _Pixelation: 2048
+    - _dissolve: 1.1
     m_Colors:
-    - _BottomColor: {r: 0.17475078, g: 0.17791325, b: 0.19811317, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &2441459904256753695
+--- !u!114 &2540420985425123839
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

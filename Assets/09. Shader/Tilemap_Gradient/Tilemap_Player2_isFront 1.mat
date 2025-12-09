@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TriggerAnimTest
-  m_Shader: {fileID: -6465566751694194690, guid: 6c50c3d3f0ec4c646aba9b2673355342, type: 3}
-  m_Parent: {fileID: 0}
+  m_Name: Tilemap_Player2_isFront 1
+  m_Shader: {fileID: -6465566751694194690, guid: 56ee9e0e284e86a4a893ebef8e645fe9, type: 3}
+  m_Parent: {fileID: 2100000, guid: a2f5c5c59f10e784aadaa24eb085a4b0, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -23,46 +23,20 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _AlphaTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _MaskTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _NormalMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_Lightmaps:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_LightmapsInd:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_ShadowMasks:
+    - _Texture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AnimTime: 1
-    - _EnableExternalAlpha: 0
-    - _FlipTime: 0
-    - _ZWrite: 0
+    - _Origin: 0.18
+    - _Spread: 0.3
+    - _isFront: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BottomColor: {r: 0.17475078, g: 0.17791325, b: 0.19811317, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &1802210415717288523
+--- !u!114 &2441459904256753695
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
