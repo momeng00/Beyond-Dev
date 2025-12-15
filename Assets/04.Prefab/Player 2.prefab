@@ -4935,12 +4935,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4268507731509565816}
+  - component: {fileID: 3106092197536269694}
   - component: {fileID: 2083962587889681066}
   - component: {fileID: 7887694186623325661}
   - component: {fileID: 3167504606955331694}
   - component: {fileID: 3536156300969311913}
   - component: {fileID: 2241246480250662225}
   - component: {fileID: 8767291373406980733}
+  - component: {fileID: 2845951288642746355}
+  - component: {fileID: 4213662147157919618}
   m_Layer: 10
   m_Name: Player 2
   m_TagString: Untagged
@@ -4965,6 +4968,19 @@ Transform:
   - {fileID: 8196591036957055745}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3106092197536269694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7871200425626052665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a216139554c5cff4e82a3060553c7e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CostumeSwapper
+  costumeData: {fileID: 11400000, guid: 154c881b94b66c94891b38bac9cc2c12, type: 2}
 --- !u!212 &2083962587889681066
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5012,7 +5028,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 498
-  m_Sprite: {fileID: 1204122492, guid: f0043d232dcbb8949ba89be206a035c6, type: 3}
+  m_Sprite: {fileID: 69753928, guid: f0043d232dcbb8949ba89be206a035c6, type: 3}
   m_Color: {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5179,3 +5195,33 @@ PolygonCollider2D:
       - {x: 0.4, y: 0.36}
       - {x: 0.27, y: 0.49}
   m_UseDelaunayMesh: 0
+--- !u!114 &2845951288642746355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7871200425626052665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteLibrary
+  m_Library: []
+  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: 57f5bf5877d80a245805d0ba2e350605, type: 3}
+--- !u!114 &4213662147157919618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7871200425626052665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteResolver
+  m_CategoryHash: 1.8730534e-22
+  m_labelHash: 1.0729135e-16
+  m_SpriteKey: 0
+  m_SpriteHash: 605909478

@@ -28,6 +28,7 @@ public class RetweetBlock : Block, ISwitchable
     private List<IMovable> movingTargets = new List<IMovable>();
     private Material materialInstance;
     private Renderer myRenderer;
+    private BoxCollider2D BoxCollider2D;
     override public bool BlockState
     {
         get
@@ -69,6 +70,8 @@ public class RetweetBlock : Block, ISwitchable
         myRenderer = GetComponent<Renderer>();
         materialInstance = myRenderer.material;
         ToggleEventChildren();
+        BoxCollider2D = GetComponent<BoxCollider2D>();
+        BoxCollider2D.size = myRenderer.bounds.size;
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public override void Start()
