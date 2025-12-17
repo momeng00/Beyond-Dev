@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -63,7 +64,9 @@ public class BlockSwitch : Switch,IReset
 
     public void ResetAction()
     {
-       isSatisfied = false;
+        isSatisfied = false;
+        SwitchState = false;
+        ani.SetBool("activate", false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

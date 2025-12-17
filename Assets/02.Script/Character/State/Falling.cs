@@ -28,17 +28,17 @@ public class Falling : CharacterStateBase
     {
         CharacterStateID next = CharacterStateID.Falling;
         time += Time.deltaTime;
-        if (MainCameraController.Instance.GetAverageVelocityY())
-        {
-            if (machine.characterControl.direction >= 0f)
-            {
-                MainCameraController.Instance.ChangeCamera(PlatformerCamera2D.StateCameras.FallingRight);
-            }
-            else if (machine.characterControl.direction < 0f)
-            {
-                MainCameraController.Instance.ChangeCamera(PlatformerCamera2D.StateCameras.FallingLeft);
-            }
-        }
+        //if (MainCameraController.Instance.GetAverageVelocityY())
+        //{
+        //    if (machine.characterControl.direction >= 0f)
+        //    {
+        //        MainCameraController.Instance.ChangeCamera(PlatformerCamera2D.StateCameras.FallingRight);
+        //    }
+        //    else if (machine.characterControl.direction < 0f)
+        //    {
+        //        MainCameraController.Instance.ChangeCamera(PlatformerCamera2D.StateCameras.FallingLeft);
+        //    }
+        //}
 
         if (time > machine.characterControl.coyoteTime)
         {

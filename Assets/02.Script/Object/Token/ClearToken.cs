@@ -5,9 +5,9 @@ public class ClearToken : Token, IClearCondition, IReset
     public int stage;
     public LayerMask layerMask;
     public Transform arrivePos;
-    public Transform go;
+    private Transform go;
     private Collider2D col;
-    public bool isSatisfied = false;
+    private bool isSatisfied = false;
     
 
     private void Awake()

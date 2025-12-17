@@ -89,27 +89,56 @@ public class UploadStation : Spot, ISwitchable, IReset
             }
         }
     }
-
-    public void GetDetectedObject(GameObject requester)
+    public void PoolingReturn()
     {
+        foreach (DownloadStation ds in partnerStations)
+        {
+            ds.RefreshVisuals(true);
+        }
         foreach (GameObject ob in uploadList)
         {
-            Vector3 comparative = transform.position - ob.transform.position;
-            GameObject clone = PoolingGet(ob);
+            if (ob.TryGetComponent(out PushBlock pushBlock))
+            {
+                pushBlock.UDAnimationPlay(true);
+            }
+        }
+        foreach (GameObject ob in activeList)
+        {
             if (ob.TryGetComponent(out PushBlock pushBlock))
             {
                 pushBlock.UDAnimationPlay(false);
             }
+        }
+        activeList.Clear();
+    }
+    public void GetDetectedObject(GameObject requester)
+    {
+        foreach (DownloadStation ds in partnerStations)
+        {
+            ds.RefreshVisuals(false);
+        }
+        foreach (GameObject ob in uploadList)
+        {
+            Vector3 comparative = transform.position - ob.transform.position;
+            GameObject clone = PoolingGet(ob);
             if (!clone.activeSelf)
                 clone.SetActive(true);
             clone.transform.position = requester.transform.position - comparative;
+            if (clone.TryGetComponent(out PushBlock clonePushBlock))
+            {
+                clonePushBlock.UDAnimationPlay(true);
+                Debug.Log(clonePushBlock);
+            }
+            if (ob.TryGetComponent(out PushBlock pushBlock))
+            {
+                pushBlock.UDAnimationPlay(false);
+                Debug.Log(pushBlock);
+            }
             if (!activeList.Contains(clone))
             {
                 activeList.Add(clone);
             }
-
         }
-
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -152,30 +181,15 @@ public class UploadStation : Spot, ISwitchable, IReset
             GameObject clone = Instantiate(original);
             readyList[original] = clone;
             clone.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            Debug.Log(clone.GetComponent<Rigidbody2D>().linearVelocityY);
             clone.GetComponent<Collider2D>().enabled = true;
+        }
+        else 
+        {
+            readyList[original].GetComponent<Rigidbody2D>().linearVelocityY = 0f;
         }
         return readyList[original];
     }
-    public void PoolingReturn()
-    {
-        
-        foreach(GameObject ob in activeList)
-        {
-            if (ob.TryGetComponent(out PushBlock pushBlock))
-            {
-                pushBlock.UDAnimationPlay(false);
-            }
-        }
-        foreach (GameObject ob in uploadList)
-        {
-            if (ob.TryGetComponent(out PushBlock pushBlock))
-            {
-                pushBlock.UDAnimationPlay(true);
-            }
-        }
-        activeList.Clear();
-    }
-
     public void InitializeReset()
     {
         
@@ -184,5 +198,7 @@ public class UploadStation : Spot, ISwitchable, IReset
     public void ResetAction()
     {
         SwitchOn(false);
+        detectedList.Clear();
+        uploadList.Clear();
     }
 }

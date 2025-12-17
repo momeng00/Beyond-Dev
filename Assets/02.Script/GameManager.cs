@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.AI;
 using UnityEngine.SceneManagement;
-using static System.Runtime.CompilerServices.RuntimeHelpers;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,19 +10,24 @@ public class GameManager : MonoBehaviour
     private Dictionary<int, Action> clearAction = new Dictionary<int, Action>();
     private Action initAction;
     public Action OnReset;
+    public Action<GameState> OnGameStateChanged;
+    public GameState currentGameState;
     public string finalClearSceneName = "ClearScene";
     private static GameManager _instance;
+    private static bool _isQuitting = false;
     public static GameManager Instance
     {
+
         get
         {
-
+            if (_isQuitting) return null;
             if (_instance == null)
             {
                 _instance = FindAnyObjectByType<GameManager>();
                 if (_instance == null)
                 {
                     _instance = new GameObject("GameSystem").AddComponent<GameManager>();
+                    Debug.Log("오류상황");
                 }
 
             }
@@ -91,11 +94,15 @@ public class GameManager : MonoBehaviour
     {
         initAction += act;
     }
-
+    private void OnApplicationQuit()
+    {
+        _isQuitting = true;
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         RegisterCondition(0,new DummyCondition());
+        OnGameStateChanged?.Invoke(currentGameState);
     }
 
     // Update is called once per frame

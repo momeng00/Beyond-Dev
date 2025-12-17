@@ -55,9 +55,9 @@ public class PushBlock : Block
     public void UDAnimationPlay(bool value)
     {
         if(activeCoroution !=null)
-            StopCoroutine(activeCoroution);
+            StopCoroutine(activeCoroution); gameObject.SetActive(true);
 
-        if(!gameObject.activeSelf)
+        if (!gameObject.activeSelf)
             gameObject.SetActive(true);
         activeCoroution = StartCoroutine(ReturnAnimation(value));
     }

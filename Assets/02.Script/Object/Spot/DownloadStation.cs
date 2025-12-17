@@ -34,22 +34,24 @@ public class DownloadStation : MonoBehaviour, ISwitchable
 
     public bool SwitchOn(bool value)
     {
-
         if (canRecall)
         {
             partnerStation.PoolingReturn();
-            ani.SetBool("activate", false);
-            if (canRecall)
-                ani.SetBool("activate", true); canRecall = false;
+            ani.SetBool("activate", true); 
+            canRecall = false;
         }
         else
         {
             partnerStation.GetDetectedObject(this.gameObject);
-            canRecall = true;
             ani.SetBool("activate", false);
+            canRecall = true;
         }
-
         return true;
+    }
+    public void RefreshVisuals(bool state)
+    {
+        ani.SetBool("activate", state);
+        canRecall = !state;
     }
 
     public void UploadComplete(bool value)
