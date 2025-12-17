@@ -26,7 +26,7 @@ public class MessageBlock : Block, ISwitchable
     }
     private bool _blockState = false;
     private BoxCollider2D boxCollider;
-    private SpriteRenderer spriteRenderer;
+    
     public LayerMask targetLayer;
     private List<Rigidbody2D> rigidbodiesInTrigger = new List<Rigidbody2D>();
     private void Awake()

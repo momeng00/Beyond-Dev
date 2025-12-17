@@ -2,9 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static MatarialAnim;
 
 public abstract class Block : MonoBehaviour, IReset
 {
+    //원본 데이터
+    public List<PropertyData> propertyList;
+    public float matarialAnimDuration = 0.25f;
+    private MatarialAnim matarialAnim;
     protected Collider2D col;
     protected Rigidbody2D rb;
     public Action<bool> blockEvent;
@@ -13,10 +18,13 @@ public abstract class Block : MonoBehaviour, IReset
     private List<IEventListener> eventListeners = new List<IEventListener>();
     public float toggleDelay;
     private Coroutine activateCoroutine;
+    [HideInInspector]public SpriteRenderer spriteRenderer;
     virtual public bool BlockState { get; set; }
 
+    
     public virtual void Start()
     {
+        matarialAnim.InitMatarialAnim(this,spriteRenderer.GetComponent<SpriteRenderer>().material,propertyList, matarialAnimDuration);
         mask = GetComponent<SpriteMask>();
         col = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
