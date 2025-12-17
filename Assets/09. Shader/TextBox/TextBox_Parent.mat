@@ -19,7 +19,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: _PlayerPos _PlayerPos2
+  m_LockedProperties: _Outline_Base _PlayerPos _PlayerPos2 _isDottedline
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -75,7 +75,7 @@ Material:
     - _OutlineOpacity: 0
     - _Outline_Base: 0.24
     - _Outline_Count: 4
-    - _Outline_Mask: 0.33
+    - _Outline_Mask: 0.5
     - _Outline_Opacity: 1
     - _PhaseOffset: 3
     - _R: 1
@@ -89,6 +89,7 @@ Material:
     - _isDotted: 1
     - _isDottedline: 1
     - _isOutline: 0
+    - _isPlatform: 1
     - _isPopup: 0
     m_Colors:
     - _BlueColor: {r: 0.06274508, g: 0.18039218, b: 0.8, a: 1}
