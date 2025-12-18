@@ -9,7 +9,7 @@ public abstract class Block : MonoBehaviour, IReset
     //원본 데이터
     public List<PropertyData> propertyList;
     public float matarialAnimDuration = 0.25f;
-    private MatarialAnim matarialAnim;
+    protected MatarialAnim matarialAnim = new MatarialAnim();
     protected Collider2D col;
     protected Rigidbody2D rb;
     public Action<bool> blockEvent;

@@ -54,24 +54,24 @@ namespace Unity.Cinemachine.Samples
         {
             
             return mCameras;
-            
-            bool isLeft = false;
-            bool isFalling = false;
-            if (m_Player != null)
-            {
-                if (m_PlayerAnimator != null)
-                    isLeft = Mathf.Abs(m_PlayerAnimator.transform.rotation.eulerAngles.y) > 90;
-#if UNITY_6000_1_OR_NEWER
-                isFalling = m_Player.linearVelocity.y < -FallingSpeedThreshold;
-#else
-                #pragma warning disable CS0618 // obsolete for 6000.0.0f11 and newer
-                isFalling = m_Player.velocity.y < -FallingSpeedThreshold;
-                #pragma warning restore CS0618
-#endif
-            }
-            if (isFalling)
-                return isLeft ? StateCameras.FallingLeft : StateCameras.FallingRight;
-            return isLeft ? StateCameras.Left : StateCameras.Right;
+            //밑은 예전 원본 코드
+//            bool isLeft = false; 
+//            bool isFalling = false;
+//            if (m_Player != null)
+//            {
+//                if (m_PlayerAnimator != null)
+//                    isLeft = Mathf.Abs(m_PlayerAnimator.transform.rotation.eulerAngles.y) > 90;
+//#if UNITY_6000_1_OR_NEWER
+//                isFalling = m_Player.linearVelocity.y < -FallingSpeedThreshold;
+//#else
+//                #pragma warning disable CS0618 // obsolete for 6000.0.0f11 and newer
+//                isFalling = m_Player.velocity.y < -FallingSpeedThreshold;
+//                #pragma warning restore CS0618
+//#endif
+//            }
+//            if (isFalling)
+//                return isLeft ? StateCameras.FallingLeft : StateCameras.FallingRight;
+//            return isLeft ? StateCameras.Left : StateCameras.Right;
         }
 
         /// <summary>

@@ -197,8 +197,8 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
 
     public void ResetAction()
     {
+        _rb.linearVelocity = Vector2.zero;
         StartCoroutine("RespawnRoutine");
-
 
     }
 

@@ -59,6 +59,7 @@ public class MessageBlock : Block, ISwitchable
             MoveObjectsUp();
             ani.Play("In");
             mask.enabled = on;
+            matarialAnim.Play();
             //spriteRenderer.enabled = true; // 보이게
             boxCollider.isTrigger = false; // 단단한 발판으로
         }
@@ -66,6 +67,7 @@ public class MessageBlock : Block, ISwitchable
         {
             ani.Play("Out");
             mask.enabled = on;
+            matarialAnim.PlayReturn();
             //spriteRenderer.enabled = false; // 안 보이게
             boxCollider.isTrigger = true; // 감지 모드로
         }

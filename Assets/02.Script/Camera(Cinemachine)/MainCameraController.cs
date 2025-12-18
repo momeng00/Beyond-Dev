@@ -37,7 +37,6 @@ public class MainCameraController : MonoBehaviour
     {
         set { isRight = value; }
     }
-    private int _lastCalculatedFrame = -1;
     public void Register(Rigidbody2D rb)
     {
         _players.Add(rb);

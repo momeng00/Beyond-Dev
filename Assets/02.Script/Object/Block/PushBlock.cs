@@ -8,7 +8,6 @@ public class PushBlock : Block
     private Vector2 startPos;
     private Material material;
     private Coroutine activeCoroution;
-    private SpriteRenderer spriteRenderer;
     [SerializeField] private Animator focusAnimation;
     private void Awake()
     {
