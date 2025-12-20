@@ -4,54 +4,17 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-
+    public GameObject UI;
     public PlayableDirector director;
 
-    public void SetTimelineSpeed(float speed)
-    {
-        if (director.playableGraph.IsValid())
-        {
-            // 타임라인의 재생 속도를 직접 조절
-            director.playableGraph.GetRootPlayable(0).SetSpeed(speed);
-        }
-    }
-    private void Start()
-    {
-        Time.timeScale = 1.0f;
-    }
-    public string testSceneName;    
-    private bool flag = false;
     public void STR_BTN()
     {
-        if (flag)
+        if ((float)director.time <= 1f)
         {
-            Debug.Log("화면 이동");
-        }
-        else
-        {
-            Time.timeScale = 16.0f;
-            flag = true;
-        }
-
-    }
-    public void FlagSceneTest()
-    {
-        if (flag)
-        {
-            Time.timeScale = 1.0f;
-            Debug.Log("화면 이동");
-        }
-        else
-        {
-            flag = true;
+            director.playableGraph.GetRootPlayable(0).SetSpeed(1f);
+            UI.SetActive(false);
+            Debug.Log("타임 1 이하");
         }
     }
-    public void LoadSceneByName(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-    }
-    private void OnDisable()
-    {
-        Time.timeScale = 1.0f;
-    }
+    
 }

@@ -13113,6 +13113,7 @@ MonoBehaviour:
     - {fileID: 6919537761713388446}
     - {fileID: -5646023358420260406}
     - {fileID: -5161573070448159933}
+    - {fileID: 5657578961011697556}
 --- !u!114 &-4071845770565043706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -37274,6 +37275,22 @@ MonoBehaviour:
   m_OpenClipOffsetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
   m_ApplyOffsets: 0
+--- !u!114 &5657578961011697556
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
+  m_Name: Signal Emitter
+  m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.SignalEmitter
+  m_Time: 0
+  m_Retroactive: 0
+  m_EmitOnce: 0
+  m_Asset: {fileID: 11400000, guid: 420bf79dc77dc034098eb3c05ca67409, type: 2}
 --- !u!114 &5674983062483673083
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -41423,7 +41440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
   m_Name: Signal Emitter
   m_EditorClassIdentifier: Unity.Timeline::UnityEngine.Timeline.SignalEmitter
-  m_Time: 17.333333333333332
+  m_Time: 15.041666666666666
   m_Retroactive: 0
   m_EmitOnce: 0
   m_Asset: {fileID: 11400000, guid: 420bf79dc77dc034098eb3c05ca67409, type: 2}
