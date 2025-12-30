@@ -1,214 +1,100 @@
-using CarouselUI;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
-public enum MenuName
-{
-    Menu_Main,
-    Menu_Setting,
-}
 public class UIManager : MonoBehaviour
 {
-    //치트
-    private void Update()
+    private static UIManager _instance;
+    public static UIManager instance
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        get
         {
-            ChangeGroup(MenuName.Menu_Main.ToString());
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ChangeGroup(MenuName.Menu_Setting.ToString());
-        }
-    }
-    private Animator _animator;
-    private MenuName _menuName;
-    public MenuName menuName
-    {
-        get { return _menuName; }
-        set 
-        {
-            _menuName = value;
-            if(IsValidGroup(value.ToString()))
+            if (_instance == null)
             {
-                _animator.Play(menuName.ToString());
+                _instance = new GameObject("UIManagement").AddComponent<UIManager>();
             }
+            return _instance;
         }
     }
-    public List<UIElementGroup> uiElementGroups;
-    private Dictionary<string, List<UIElement>> uiElements;
-    private List<UIElement> uiElement;
-    [SerializeField]private UIElement currentElement; //호버 대상 임시확인
-    private void Awake()
+    public Dictionary<Type, IUI> uis = new Dictionary<Type, IUI>(); // 등록된 모든 UI
+    public LinkedList<IUI> showns = new LinkedList<IUI>(); // 현재 보여지고있는 팝업 UI 들
+
+    public T Get<T>()
+        where T : IUI
     {
-        _animator = gameObject.GetComponent<Animator>();
+        if (uis.TryGetValue(typeof(T), out IUI ui))
+            return (T)ui;
+        else
+            throw new Exception($"[UIManager] : {typeof(T)} has not been registered but you tried to get it ..");
     }
-    private void Start()
+    public void Register(IUI ui)
     {
-        Initialize();
-        uiElements = new Dictionary<string, List<UIElement>>();
-        foreach (var group in uiElementGroups)
-        {
-            if (!uiElements.ContainsKey(group.key.ToString()))
-            {
-                uiElements.Add(group.key.ToString(), group.uIElements);
-            }
-        }
-        uiElement = uiElements[menuName.ToString()];
-        currentElement = uiElement[0];
-        _animator.Play(menuName.ToString());
+        Type type = ui.GetType();
+        if (uis.TryAdd(type, ui) == false)
+            throw new Exception($"[UIManager] : {type} already registered but you tried to add it again..!");
+        Debug.Log($"[UIManager] : Registered {type}.");
     }
-
-    public void Initialize()
+    public void Push(IUI ui)
     {
-        menuName = MenuName.Menu_Main;
-        InputSystem.Instance.RegisterAction(KeyState.Play_Key,KeyCode.RightArrow, NextElement);
-        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.DownArrow, NextCarouselElement);
-        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.LeftArrow, PreElement);
-        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.UpArrow, PreCarouselElement);
-        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Return, SelectElement);
-        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Escape, () => ChangeGroup(MenuName.Menu_Main.ToString()) );
-    }
-
-    //Unity Event에 넣으려면 string이 들어가야하고 이걸 enum으로 변경하려면...
-    public void ChangeGroup(string groupName)
-    {
-        if (IsValidGroup(groupName))
-        {
-            CanvasGroup oldGroupCanvas = currentElement.gameObject.GetComponentInParent<CanvasGroup>();
-            if (uiElements.ContainsKey(groupName))
-            {
-                oldGroupCanvas.alpha = 0f;
-                oldGroupCanvas.interactable = false;
-                oldGroupCanvas.blocksRaycasts = false;
-                uiElement = uiElements[groupName];
-
-                currentElement = uiElement[0]; // 새 그룹의 첫 번째 요소를 기본 선택
-                CanvasGroup current = currentElement.gameObject.GetComponentInParent<CanvasGroup>();
-                current.interactable = true;
-                current.blocksRaycasts = true;
-                if (Enum.TryParse(groupName, out MenuName menuName))
-                {
-                    this.menuName = menuName;
-                }
-                
-                UpdateUIElement(); // UI 업데이트
-                Debug.Log($"Changed to group: {groupName}");
-            }
-            else
-            {
-                Debug.LogError($"UI Group with key '{groupName}' not found!");
-            }
-        }
-    }
-
-    public bool IsValidGroup(string groupName)
-    {
-        // Enum.IsDefined(typeof(확인할 Enum 타입), 확인할 문자열)
-        return Enum.IsDefined(typeof(MenuName), groupName);
-    }
-
-   
-
-    public void NextElement()
-    {
-        //CarouselUIElement 사용
-        CarouselUIElement carouselElement = currentElement as CarouselUIElement;
-        if(carouselElement != null)
-        {
-            carouselElement.PressNext();
-            UpdateUIElement();
+        // 이미 젤 뒤에있으면 안함
+        if (showns.Count > 0 && showns.Last.Value == ui)
             return;
-        }
-        UIElement nextElement;
-        //아닐경우
-        if ( (uiElement.IndexOf(currentElement) + 1) >= uiElement.Count)
+
+        // 가장뒤에있던 UI 보다 뒤로 보내기 
+        int sortingOrder = 0;
+        if (showns.Last?.Value != null)
         {
-            nextElement = uiElement[0];
+            sortingOrder = showns.Last.Value.sortingOrder + 1;
+            showns.Last.Value.inputActionEnabled = false;
         }
-        else
-        {
-            nextElement = uiElement[uiElement.IndexOf(currentElement) + 1];
-        }
-        currentElement.UnSelected();
-        currentElement = nextElement;
-        currentElement.Selected();
-    }
-    public void PreElement()
-    {
-        //CarouselUIElement 사용
-        CarouselUIElement carouselElement = currentElement as CarouselUIElement;
-        if (carouselElement != null)
-        {
-            carouselElement.PressPrevious();
-            UpdateUIElement();
-            return;
-        }
-        UIElement nextElement;
-        //아닐경우
-        if (uiElement.IndexOf(currentElement) <= 0)
-        {
-            nextElement = uiElement[uiElement.Count - 1];
-        }
-        else
-        {
-            nextElement = uiElement[uiElement.IndexOf(currentElement) - 1];
-        }
-        currentElement.UnSelected();
-        currentElement = nextElement;
-        currentElement.Selected();
+        ui.sortingOrder = sortingOrder;
+        ui.inputActionEnabled = true;
+        showns.Remove(ui);
+        showns.AddLast(ui);
+
+        //커서를 보이게 혹은 안보이게 하는 방법임 삭제 가능.
+        //if (showns.Count == 1)
+        //{
+        //    Cursor.visible = true;
+        //    Cursor.lockState = CursorLockMode.Confined;
+        //}
 
     }
-    public void NextCarouselElement()
+
+    public void Pop(IUI ui)
     {
-        UIElement nextElement;
-        if ((uiElement.IndexOf(currentElement) + 1) >= uiElement.Count)
+        // 빼려는게 하필 마지막꺼면서 마지막꺼 앞에 하나이상 있으면 InputAction 활성화 바톤터치
+        if (showns.Count > 1 &&
+            showns.Last.Value == ui)
         {
-            nextElement = uiElement[0];
+            showns.Last.Previous.Value.inputActionEnabled = true;
+            // [변경] 즉시 켜지 않고 코루틴으로 한 프레임 뒤에 켬
+            StartCoroutine(EnableNextUI(showns.Last.Previous.Value));
         }
-        else
-        {
-            nextElement = uiElement[uiElement.IndexOf(currentElement) + 1];
-        }
-        currentElement.UnSelected();
-        currentElement = nextElement;
-        currentElement.Selected();
+
+
+        showns.Remove(ui); // ui 뺌
+        //마찬가지로 커서를 안보이게 하는 방법임. 삭제 가능
+        //if (showns.Count == 0)
+        //{
+        //    Cursor.visible = false;
+        //    Cursor.lockState = CursorLockMode.Locked;
+        //}
     }
-    public void PreCarouselElement()
+    IEnumerator EnableNextUI(IUI nextUI)
     {
-        UIElement nextElement;
-        if (uiElement.IndexOf(currentElement) <= 0)
-        {
-            nextElement = uiElement[uiElement.Count - 1];
-        }
-        else
-        {
-            nextElement = uiElement[uiElement.IndexOf(currentElement) - 1];
-        }
-        currentElement.UnSelected();
-        currentElement = nextElement;
-        currentElement.Selected();
+        // 한 프레임 대기 (이 사이에 GetKeyDown 상태가 꺼짐)
+        yield return null;
+
+        if (nextUI != null)
+            nextUI.inputActionEnabled = true;
     }
-    public void SelectElement()
+    public void HideLast()
     {
-        if (currentElement == null)
-        {
-            Debug.Log("currentElement가 없습니다.");
+        if (showns.Count <= 0)
             return;
-        }
-        currentElement.OnCustomClick?.Invoke();
-        UpdateUIElement();
+
+        showns.Last.Value.Hide();
     }
-    public void CheckCurrentElement()
-    {
-        currentElement.Selected();
-    }
-    public void UpdateUIElement()
-    {
-        //currentElement를 호버되는 방식으로 업데이트 되어야함.
-    }
-    
 }

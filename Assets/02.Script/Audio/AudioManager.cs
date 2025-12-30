@@ -7,13 +7,14 @@ public enum AudioName
 {
     jump1,
     jump2,
-    jump3
+    jump3,
+    Walk,
 }
 public enum SnapShotName
 {
     Water,
     Normal,
-
+    Cave
 }
 public class AudioManager : MonoBehaviour
 {
@@ -57,7 +58,7 @@ public class AudioManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            PlaySFXAudio(AudioName.jump1);
+            PlaySFXAudio(AudioName.Walk);
         }
         if (Input.GetKeyDown(KeyCode.N))
         {
