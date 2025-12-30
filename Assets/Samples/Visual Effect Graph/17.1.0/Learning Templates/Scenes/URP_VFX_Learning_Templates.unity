@@ -256,17 +256,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 3
   m_UsePipelineSettings: 1
   m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
-  m_RenderingLayers: 1
   m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
-  m_ShadowRenderingLayers: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!108 &140851902
 Light:
   m_ObjectHideFlags: 0
@@ -1128,17 +1134,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 3
   m_UsePipelineSettings: 1
   m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
-  m_RenderingLayers: 1
   m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
-  m_ShadowRenderingLayers: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!108 &1908538146
 Light:
   m_ObjectHideFlags: 0
@@ -2548,12 +2560,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6812649016629805472, guid: 880de12b545a1a2438644f5c247282f7, type: 3}
       propertyPath: m_text
-      value: "<b>Particle's rotation</b> can be controlled by setting the <b>angle
-        attribute</b>. To get more realistic behavior, you can also, like in this
-        example, use the <b>angular velocity</b>. This attribute is usually set in
-        the <b>Initialize Context</b>, and then, the <b>Update Context</b> is responsible
-        to <b>integrate this angular velocity to update the Rotation</b>.\n\n<b>Covered
-        Aspects</b>: \nAngular Velocity \nAngle \nUpdate Rotation"
+      value: "\nThe <b>Particle\u2019s rotation</b> can be controlled by setting
+        the <b>angle attribute</b>. To get more realistic behavior, you can also,
+        like in this example, use the <b>angular velocity</b>. This attribute is
+        usually set in the <b>Initialize Context</b>, and then, the <b>Update Context</b>
+        is responsible for <b>integrating</b> this <b>angular velocity</b> to update
+        the rotation.\n\n<b>Covered Aspects</b>:\n\u2022 Angular Velocity\n\u2022
+        Angle\n\u2022 Update Rotation"
       objectReference: {fileID: 0}
     - target: {fileID: 6853316224602725313, guid: 880de12b545a1a2438644f5c247282f7, type: 3}
       propertyPath: m_text
@@ -3228,19 +3241,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 479498361658825341, guid: 6eb8621b47204894c9333821234ac421, type: 3}
       propertyPath: m_text
-      value: 'The <b>Bounds</b> are used to <b>cull</b> the VFX when it''s not in
+      value: "\nThe <b>Bounds</b> are used to <b>cull</b> the VFX when it's not in
         the <b>camera frustum</b>. <b>Bounds</b> can be manually or automatically
         set. The <b>VFX Bound</b> is the cumulative Bounds of each System within
-        a VFX Graph. In this example, the <b>Bounds</b> aren''t properly set up,
-        so the particles aren''t rendering correctly. Don''t hesitate to open the
-        VFX to correctly set the <b>Bounds.</b>
-
-
-        <b>Covered Aspects:</b>
-
-        Bounds
-
-        Culling'
+        a VFX Graph. In this example, the <b>Bounds</b> aren't properly set up, so
+        the particles aren't rendering correctly. Don't hesitate to open the VFX
+        to correctly set the <b>Bounds.</b>\n\n<b>Covered Aspects:</b>\n\u2022 Bounds\n\u2022
+        Culling"
       objectReference: {fileID: 0}
     - target: {fileID: 519954496486490140, guid: 6eb8621b47204894c9333821234ac421, type: 3}
       propertyPath: m_text

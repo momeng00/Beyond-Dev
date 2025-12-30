@@ -180,7 +180,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b59205a70773180409e711b2b2420483, type: 2}
   m_sharedMaterial: {fileID: -6634308840999944992, guid: b59205a70773180409e711b2b2420483, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: -6634308840999944992, guid: b59205a70773180409e711b2b2420483, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -316,7 +317,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b59205a70773180409e711b2b2420483, type: 2}
   m_sharedMaterial: {fileID: -6634308840999944992, guid: b59205a70773180409e711b2b2420483, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: -6634308840999944992, guid: b59205a70773180409e711b2b2420483, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -619,7 +621,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b59205a70773180409e711b2b2420483, type: 2}
   m_sharedMaterial: {fileID: -6634308840999944992, guid: b59205a70773180409e711b2b2420483, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: -6634308840999944992, guid: b59205a70773180409e711b2b2420483, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -1493,7 +1496,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b59205a70773180409e711b2b2420483, type: 2}
   m_sharedMaterial: {fileID: -6634308840999944992, guid: b59205a70773180409e711b2b2420483, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: -6634308840999944992, guid: b59205a70773180409e711b2b2420483, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -2210,6 +2214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIWindow
   openAnimation: 1
   animDuration: 0.3
+  keyNavigator: {fileID: 0}
   uISequenceController: {fileID: 1467150917}
 --- !u!114 &1467150917
 MonoBehaviour:
@@ -2326,6 +2331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UIWindow
   openAnimation: 1
   animDuration: 0.3
+  keyNavigator: {fileID: 0}
   uISequenceController: {fileID: 0}
 --- !u!225 &1969993178
 CanvasGroup:

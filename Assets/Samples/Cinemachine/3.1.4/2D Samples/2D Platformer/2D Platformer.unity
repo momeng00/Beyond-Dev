@@ -1576,7 +1576,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14768,6 +14768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _axisX: 0
+  dust: {fileID: 0}
   handOffset: {x: 0, y: 0}
   handDistance: 0.5
   handLayerMask:
@@ -14784,7 +14785,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6c89c1983902fc44dab2bc5f54f44891, type: 2}
   - {fileID: 11400000, guid: a02dfdac58422a943b16bb43bc5daacc, type: 2}
   - {fileID: 11400000, guid: 6716425c7670eb34995d43b99ca238c7, type: 2}
-  _currentStat: {fileID: 0}
   footOffset: {x: 0, y: -0.52}
   footSizeOffset: {x: 0.7, y: 0.05}
   groundMask:
@@ -14803,6 +14803,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _axisX: 0
+  dust: {fileID: 0}
   handOffset: {x: 0, y: 0}
   handDistance: 0.5
   handLayerMask:
@@ -14819,7 +14820,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 53b625428c8d622419454197d7375a3e, type: 2}
   - {fileID: 11400000, guid: a02dfdac58422a943b16bb43bc5daacc, type: 2}
   - {fileID: 11400000, guid: 6716425c7670eb34995d43b99ca238c7, type: 2}
-  _currentStat: {fileID: 0}
   footOffset: {x: 0, y: -0.52}
   footSizeOffset: {x: 0.7, y: 0.05}
   groundMask:

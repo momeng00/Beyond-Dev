@@ -244,7 +244,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   targetDirection: -1
-  isSatisfied: 0
 --- !u!61 &57264484
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -635,6 +634,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e40c129d0b7d0479a3478ec1b4cab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  propertyList: []
+  matarialAnimDuration: 0.25
+  PopUpList: []
+  toggleDelay: 0
+  spriteRenderer: {fileID: 0}
   controller: {fileID: 0}
   groupName: Test
   detectedLayer:
@@ -776,6 +780,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0df80d8842335284297e9fede33861a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FunctionBlock
+  propertyList: []
+  matarialAnimDuration: 0.25
+  PopUpList: []
+  toggleDelay: 0
+  spriteRenderer: {fileID: 0}
   movingWalkDirection: 0
   speed: 2
   switchList:
@@ -1357,7 +1366,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1493,14 +1502,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 572622346be186e478598696033220c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checktext: 
   localizationKey: 0
-  textMargins: {x: 0, y: 0, z: 0, w: 0}
   alignment: 514
-  languageEntries: []
-  text: {fileID: 0}
-  emoji: {fileID: 0}
   fontSize: 3
+  text: {fileID: 0}
 --- !u!1 &755096654
 GameObject:
   m_ObjectHideFlags: 0
@@ -1649,14 +1654,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 572622346be186e478598696033220c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checktext: 
   localizationKey: 0
-  textMargins: {x: 0, y: 0, z: 0, w: 0}
   alignment: 514
-  languageEntries: []
-  text: {fileID: 0}
-  emoji: {fileID: 0}
   fontSize: 0
+  text: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1813,6 +1814,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e40c129d0b7d0479a3478ec1b4cab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  propertyList: []
+  matarialAnimDuration: 0.25
+  PopUpList: []
+  toggleDelay: 0
+  spriteRenderer: {fileID: 0}
   controller: {fileID: 0}
   groupName: Test
   detectedLayer:
@@ -1958,7 +1964,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   targetDirection: 1
-  isSatisfied: 1
 --- !u!4 &1257111716
 Transform:
   m_ObjectHideFlags: 0
@@ -2021,7 +2026,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2156,6 +2161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _axisX: 0
+  dust: {fileID: 0}
   handOffset: {x: 0, y: 0}
   handDistance: 1.01
   handLayerMask:
@@ -2172,7 +2178,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 53b625428c8d622419454197d7375a3e, type: 2}
   - {fileID: 11400000, guid: a02dfdac58422a943b16bb43bc5daacc, type: 2}
   - {fileID: 11400000, guid: 6716425c7670eb34995d43b99ca238c7, type: 2}
-  _currentStat: {fileID: 0}
   footOffset: {x: 0, y: -0.53}
   footSizeOffset: {x: 0.6, y: 0.1}
   groundMask:
@@ -2488,14 +2493,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 572622346be186e478598696033220c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checktext: 
   localizationKey: 0
-  textMargins: {x: 0, y: 0, z: 0, w: 0}
   alignment: 514
-  languageEntries: []
-  text: {fileID: 0}
-  emoji: {fileID: 0}
   fontSize: 0
+  text: {fileID: 0}
 --- !u!1 &1645266506
 GameObject:
   m_ObjectHideFlags: 0
@@ -2707,7 +2708,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2848,6 +2849,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e40c129d0b7d0479a3478ec1b4cab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  propertyList: []
+  matarialAnimDuration: 0.25
+  PopUpList: []
+  toggleDelay: 0
+  spriteRenderer: {fileID: 0}
   controller: {fileID: 0}
   groupName: Test
   detectedLayer:
@@ -2947,6 +2953,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e40c129d0b7d0479a3478ec1b4cab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  propertyList: []
+  matarialAnimDuration: 0.25
+  PopUpList: []
+  toggleDelay: 0
+  spriteRenderer: {fileID: 0}
   controller: {fileID: 0}
   groupName: Test
   detectedLayer:
@@ -3056,14 +3067,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 572622346be186e478598696033220c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checktext: 
   localizationKey: 0
-  textMargins: {x: 0, y: 0, z: 0, w: 0}
   alignment: 514
-  languageEntries: []
-  text: {fileID: 0}
-  emoji: {fileID: 0}
   fontSize: 0
+  text: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
