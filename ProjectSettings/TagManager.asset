@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Folder
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - BackgroundBuildings
   - TargetGroup
   - Nearground
-  - 
+  - NearBackgrounds
   - 
   - 
   - 
@@ -47,17 +48,20 @@ TagManager:
   - name: Background
     uniqueID: 1626436685
     locked: 0
+  - name: NearBackGround
+    uniqueID: 3293684981
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: NearGround
+    uniqueID: 3846470357
     locked: 0
   - name: Platform
     uniqueID: 1005131287
     locked: 0
   - name: Effect
     uniqueID: 1157969919
-    locked: 0
-  - name: NearGround
-    uniqueID: 3846470357
     locked: 0
   - name: LetterBox
     uniqueID: 2744593421
