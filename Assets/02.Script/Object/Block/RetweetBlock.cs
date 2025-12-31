@@ -43,6 +43,7 @@ public class RetweetBlock : Block, ISwitchable
             RunToggleEvent(value);
             if (_blockState)
             {
+                matarialAnim.Play();
                 foreach (var moving in movingTargets)
                 {
                     moving.AddExtraVelocity(this, new Vector2(speed * (int)movingWalkDirection, 0f));
@@ -50,6 +51,7 @@ public class RetweetBlock : Block, ISwitchable
             }
             else
             {
+                matarialAnim.PlayReturn();
                 movingWalkDirection = MovingwalkDirection.Stop;
                 foreach (var moving in movingTargets)
                 {

@@ -13,7 +13,7 @@ public class Push : CharacterStateBase
         base.EnterState();
         machine.GetComponent<Animator>().Play("Pull");
         speed = machine.characterControl.currentStat.moveSpeed;
-        machine.characterControl.currentStat.moveSpeed = machine.characterControl.currentStat.moveSpeed * 0.36f;
+        machine.characterControl.currentStat.moveSpeed = machine.characterControl.currentStat.moveSpeed * 0.72f;
     }
     public override void ExitState()
     {

@@ -24,7 +24,10 @@ public abstract class Block : MonoBehaviour, IReset
     
     public virtual void Start()
     {
-        matarialAnim.InitMatarialAnim(this,spriteRenderer.GetComponent<SpriteRenderer>().material,propertyList, matarialAnimDuration);
+        if (gameObject.TryGetComponent(out SpriteRenderer sr))
+        {
+            matarialAnim.InitMatarialAnim(this,sr.material, propertyList, matarialAnimDuration);
+        }
         mask = GetComponent<SpriteMask>();
         col = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();

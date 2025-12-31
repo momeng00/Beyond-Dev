@@ -94,7 +94,6 @@ public class MessageBlock : Block, ISwitchable
     }
     private void MoveObjectsUp()
     {
-        Debug.Log(rigidbodiesInTrigger.Count);
         // 리스트 복사
         List<Rigidbody2D> rigidbodiesToMove = new List<Rigidbody2D>(rigidbodiesInTrigger);
 
