@@ -8,13 +8,11 @@ public class TestUI : MonoBehaviour
 
     private void Start()
     {
-        
+        window.Open();
+        second.Close();
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            window.Open();
-        }
+        
     }
 }

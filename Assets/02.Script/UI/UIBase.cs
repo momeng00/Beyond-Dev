@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 public enum UIAnimType { None, PopUp, SlideLeft, SlideRight, SlideTop, SlideBottom }
 // CanvasGroup과 RectTransform은 애니메이션을 위해 필수
 [RequireComponent(typeof(CanvasGroup), typeof(RectTransform))]
@@ -42,9 +43,10 @@ public class UIBase : MonoBehaviour
     public virtual void Open()
     {
         gameObject.SetActive(true);
+        canvasGroup.alpha = 0f;
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
-
+        canvasGroup.alpha = 1f;
         onOpen?.Invoke();
         StopAllCoroutines();
         StartCoroutine(PlayOpenAnimation());
@@ -52,9 +54,9 @@ public class UIBase : MonoBehaviour
 
     public virtual void Close()
     {
+        canvasGroup.alpha = 1f;
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
-
         onClose?.Invoke();
         StopAllCoroutines();
         StartCoroutine(PlayCloseAnimation());
@@ -63,81 +65,68 @@ public class UIBase : MonoBehaviour
 
     public void SetInitialState()
     {
-        // 1. 코루틴이 돌려면 오브젝트가 켜져 있어야 함 (문제 2번 해결)
+        // 이제 Open 코루틴 안에서 초기화를 다 하므로, 
+        // 외부에서 강제로 초기화할 때만 이 함수를 쓰면 됩니다.
         gameObject.SetActive(true);
-
-        // 2. 인터랙션 차단 (대기 중일 때 클릭 방지)
-        if (canvasGroup != null)
-        {
-            canvasGroup.interactable = false;
-            canvasGroup.blocksRaycasts = false;
-            // (선택) 대기 중에 깜빡임 방지를 위해 투명하게 할 수도 있음
-            // canvasGroup.alpha = 1f; // 혹은 0f
-        }
-
-        // 3. 시작 위치/크기 계산 (PlayOpenAnimation과 동일한 로직)
-        float width = Screen.width;
-        float height = Screen.height;
-
-        // 만약 originalPosition이 아직 세팅 안 됐다면(Awake 전이라면) 강제 세팅
-        if (rectTransform == null) rectTransform = GetComponent<RectTransform>();
-
-        // 주의: Awake가 실행되기 전일 수 있으므로 안전장치
-        if (originalPosition == Vector2.zero && rectTransform != null)
-            originalPosition = rectTransform.anchoredPosition;
-        if (originalScale == Vector3.zero && rectTransform != null)
-            originalScale = rectTransform.localScale;
-
-        switch (openAnimation)
-        {
-            case UIAnimType.PopUp:
-                rectTransform.localScale = Vector3.zero;
-                break;
-            case UIAnimType.SlideLeft:
-                rectTransform.anchoredPosition = new Vector2(-width, originalPosition.y);
-                break;
-            case UIAnimType.SlideRight:
-                rectTransform.anchoredPosition = new Vector2(width, originalPosition.y);
-                break;
-            case UIAnimType.SlideTop:
-                rectTransform.anchoredPosition = new Vector2(originalPosition.x, height);
-                break;
-            case UIAnimType.SlideBottom:
-                rectTransform.anchoredPosition = new Vector2(originalPosition.x, -height);
-                break;
-        }
+        if (openAnimation == UIAnimType.PopUp) rectTransform.localScale = Vector3.zero;
+        canvasGroup.alpha = 0f; // 안 보이게
     }
-    // --- 애니메이션 로직 (동일함) ---
+
+    // =========================================================
+    // 애니메이션 코루틴 (Alpha 페이드 추가됨)
+    // =========================================================
     protected IEnumerator PlayOpenAnimation()
     {
-        float timer = 0f;
+        // [핵심] 1프레임 대기 -> 유니티가 UI 정렬할 시간을 줌
+        yield return null;
+
+        // 1프레임 뒤, 정렬된 진짜 위치를 저장
+        originalPosition = rectTransform.anchoredPosition;
+        originalScale = Vector3.one;
+
+        // 시작 위치 계산
         float width = Screen.width;
         float height = Screen.height;
+        Vector2 startPos = originalPosition;
 
         switch (openAnimation)
         {
-            case UIAnimType.PopUp: rectTransform.localScale = Vector3.zero; break;
-            case UIAnimType.SlideLeft: rectTransform.anchoredPosition = new Vector2(-width, originalPosition.y); break;
-            case UIAnimType.SlideRight: rectTransform.anchoredPosition = new Vector2(width, originalPosition.y); break;
-            case UIAnimType.SlideTop: rectTransform.anchoredPosition = new Vector2(originalPosition.x, height); break;
-            case UIAnimType.SlideBottom: rectTransform.anchoredPosition = new Vector2(originalPosition.x, -height); break;
+            case UIAnimType.SlideLeft: startPos = new Vector2(-width, originalPosition.y); break;
+            case UIAnimType.SlideRight: startPos = new Vector2(width, originalPosition.y); break;
+            case UIAnimType.SlideTop: startPos = new Vector2(originalPosition.x, height); break;
+            case UIAnimType.SlideBottom: startPos = new Vector2(originalPosition.x, -height); break;
         }
 
-        Vector2 currentStartPos = rectTransform.anchoredPosition;
+        // 초기 위치 강제 적용
+        if (openAnimation != UIAnimType.PopUp && openAnimation != UIAnimType.None)
+            rectTransform.anchoredPosition = startPos;
 
+        if (openAnimation == UIAnimType.PopUp)
+            rectTransform.localScale = Vector3.zero;
+
+        // 애니메이션 루프
+        float timer = 0f;
         while (timer < animDuration)
         {
             timer += Time.unscaledDeltaTime;
             float t = Mathf.Sin((timer / animDuration) * Mathf.PI * 0.5f);
 
+            // 1. 움직임/크기 변화
             if (openAnimation == UIAnimType.PopUp)
                 rectTransform.localScale = Vector3.Lerp(Vector3.zero, originalScale, t);
             else if (openAnimation != UIAnimType.None)
-                rectTransform.anchoredPosition = Vector2.Lerp(currentStartPos, originalPosition, t);
+                rectTransform.anchoredPosition = Vector2.Lerp(startPos, originalPosition, t);
+
+            // 2. [추가됨] 투명도: 0(안보임) -> 1(잘보임) 로 서서히 변화
+            canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
+
             yield return null;
         }
+
+        // 끝난 후 확실하게 값 고정
         rectTransform.anchoredPosition = originalPosition;
         rectTransform.localScale = originalScale;
+        canvasGroup.alpha = 1f; // 완전히 보이게
     }
 
     protected IEnumerator PlayCloseAnimation()
@@ -146,7 +135,7 @@ public class UIBase : MonoBehaviour
         Vector2 startPos = rectTransform.anchoredPosition;
         Vector3 startScale = rectTransform.localScale;
 
-        // 닫힐 목표 지점 계산
+        // 목표 지점 계산
         Vector2 targetPos = originalPosition;
         Vector3 targetScale = originalScale;
         float width = Screen.width;
@@ -166,13 +155,23 @@ public class UIBase : MonoBehaviour
             timer += Time.unscaledDeltaTime;
             float t = Mathf.Sin((timer / animDuration) * Mathf.PI * 0.5f);
 
+            // 1. 움직임/크기 변화
             if (openAnimation == UIAnimType.PopUp)
                 rectTransform.localScale = Vector3.Lerp(startScale, targetScale, t);
             else if (openAnimation != UIAnimType.None)
                 rectTransform.anchoredPosition = Vector2.Lerp(startPos, targetPos, t);
+
+            // 2. [추가됨] 투명도: 1(잘보임) -> 0(안보임) 로 서서히 변화
+            canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
+
             yield return null;
         }
+
+        // 끝난 후 끄기
+        canvasGroup.alpha = 0f; // 완전히 투명하게
         gameObject.SetActive(false);
+
+        // 다음 오픈을 위해 원상복구
         rectTransform.anchoredPosition = originalPosition;
         rectTransform.localScale = originalScale;
     }

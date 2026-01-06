@@ -40,7 +40,6 @@ public class UIWindow : UIBase, IUI
             // 여기서는 UIManager 구조상 Push 때 등록되므로 비워둡니다.
         }
         // 시작 시 자동으로 꺼두고 싶다면 활성화 (선택)
-        gameObject.SetActive(false);
     }
 
     // UIBase의 Open 기능을 확장(Override)해서 매니저 호출 추가
@@ -65,6 +64,7 @@ public class UIWindow : UIBase, IUI
 
         // 2. 부모의 Close 실행 (애니메이션 재생)
         base.Close();
+        
         onHide?.Invoke();
     }
 
@@ -75,11 +75,6 @@ public class UIWindow : UIBase, IUI
     // 입력 감지 (ESC 등)
     public void InputAction()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Close();
-            return;
-        }
         if (keyNavigator != null)
         {
             // 상하좌우 키 로직 분배

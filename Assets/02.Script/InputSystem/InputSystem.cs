@@ -26,6 +26,7 @@ public class InputSystem : MonoBehaviour
         set
         {
             _keyState = value;
+            Debug.Log(InputSystem.Instance.keyState);
             if (maps.ContainsKey(value))
             {
                 currentMap = maps[value];

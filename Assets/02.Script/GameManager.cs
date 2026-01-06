@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,6 +16,9 @@ public class GameManager : MonoBehaviour
     public string finalClearSceneName = "ClearScene";
     private static GameManager _instance;
     private static bool _isQuitting = false;
+    public UIBase pauseMenu;
+    private UIBase _pauseMenuInstance;
+    
     public static GameManager Instance
     {
 
@@ -34,7 +38,7 @@ public class GameManager : MonoBehaviour
             return _instance;
         }
     }
-
+    
     public void CheckClear()
     {
         if (condition.Count <= 1)
@@ -72,6 +76,32 @@ public class GameManager : MonoBehaviour
             stage = 0;
         }
     }
+
+    public void GamePause()
+    {
+        Debug.Log("GamePause진입");
+        if (InputSystem.Instance.keyState != KeyState.Pause)
+        {
+            Debug.Log("키타입 확인");
+            if (UIManager.instance.showns.Count <= 0)
+            {
+                Debug.Log("보여지고있는 UI 없음 확인");
+                InputSystem.Instance.keyState = KeyState.Pause;
+                if (pauseMenu != null)
+                {
+                    if (_pauseMenuInstance == null)
+                    {
+                        _pauseMenuInstance = Instantiate(pauseMenu); ;
+                        _pauseMenuInstance.name = pauseMenu.name;
+                        Debug.Log("창 생성");
+                    }
+                    _pauseMenuInstance.Open();
+                    Debug.Log("창 오픈");
+                }
+            }
+        }
+        Debug.Log("반환");
+    }
     public void RegisterCondition(int stage, IClearCondition condition)
     {
         if (!this.condition.ContainsKey(stage))
@@ -94,6 +124,10 @@ public class GameManager : MonoBehaviour
     {
         initAction += act;
     }
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
     private void OnApplicationQuit()
     {
         _isQuitting = true;
@@ -103,6 +137,7 @@ public class GameManager : MonoBehaviour
     {
         RegisterCondition(0,new DummyCondition());
         OnGameStateChanged?.Invoke(currentGameState);
+        InputSystem.Instance.RegisterAction(KeyState.Play_Key,KeyCode.Escape, GamePause); 
     }
 
     // Update is called once per frame

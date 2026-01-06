@@ -19,7 +19,7 @@ public class UIManager : MonoBehaviour
     }
     public Dictionary<Type, IUI> uis = new Dictionary<Type, IUI>(); // 등록된 모든 UI
     public LinkedList<IUI> showns = new LinkedList<IUI>(); // 현재 보여지고있는 팝업 UI 들
-
+    
     public T Get<T>()
         where T : IUI
     {
@@ -81,6 +81,10 @@ public class UIManager : MonoBehaviour
         //    Cursor.visible = false;
         //    Cursor.lockState = CursorLockMode.Locked;
         //}
+        if(showns.Count <= 0)
+        {
+            InputSystem.Instance.keyState = KeyState.Play_Key;
+        }
     }
     IEnumerator EnableNextUI(IUI nextUI)
     {
@@ -97,4 +101,10 @@ public class UIManager : MonoBehaviour
 
         showns.Last.Value.Hide();
     }
+
+    void Start()
+    {
+        InputSystem.Instance.RegisterAction(KeyState.Pause,KeyCode.Escape,HideLast);
+    }
+
 }

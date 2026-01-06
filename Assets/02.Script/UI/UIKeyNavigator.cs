@@ -12,7 +12,6 @@ public enum MenuName
 }
 public class UIKeyNavigator : MonoBehaviour
 {
-    //ġƮ
     private void Update()
     {
         

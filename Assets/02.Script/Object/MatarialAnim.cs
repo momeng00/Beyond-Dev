@@ -27,14 +27,14 @@ public class MatarialAnim
     }
 
     // 문자열 검색 비용을 줄이기 위해 int ID로 변환하여 저장할 구조체
-    private struct CachedData
+    public struct CachedData
     {
         public int propertyID;
         public float startValue;
         public float endValue;
     }
 
-    private struct ReturnData
+    public struct ReturnData
     {
         public int propertyID;
         public float currentVal; // 멈춘 시점의 값

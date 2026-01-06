@@ -38,7 +38,8 @@ public class RetweetSwitch : Switch, IReset
     }
     protected override void IsDetected(bool activate)
     {
-        base.IsDetected(activate);
+        ani.SetBool("activate", true);
+        ani.SetBool("activate", false);
     }
     public override void Interact()
     {
@@ -75,6 +76,7 @@ public class RetweetSwitch : Switch, IReset
     public void ResetAction()
     {
         isSatisfied = false;
+        SwitchState = true;
         materialInstance.SetFloat("_IsHovered", 0.0f);
     }
 

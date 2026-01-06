@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEditor;
-
+#if UNITY_EDITOR
 public class SortOrderInLayerByHierarchy
 {
+
     [MenuItem("GameObject/정리/자식 Order In Layer 정렬", false, 0)]
     static void SortOrder()
     {
@@ -32,3 +33,4 @@ public class SortOrderInLayerByHierarchy
 
     }
 }
+#endif

@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
+using static MatarialAnim;
 public enum MovingwalkDirection
 {
     Stop = 0,  
@@ -23,7 +21,8 @@ public class RetweetBlock : Block, ISwitchable
     //처음에 스위치룰 둥록할때 타입케이스을 통해서 이벤트를 등록해야함. 
     //누가 이벤트를 가지고있어야 하나?
     public float speed;
-
+    public List<PropertyData> rightPropertyList;
+    protected MatarialAnim extraMatarialAnim = new MatarialAnim();
     public List<Switch> switchList = new List<Switch>();
     private List<IMovable> movingTargets = new List<IMovable>();
     private Material materialInstance;
@@ -43,7 +42,20 @@ public class RetweetBlock : Block, ISwitchable
             RunToggleEvent(value);
             if (_blockState)
             {
-                matarialAnim.Play();
+                Debug.Log((int)movingWalkDirection);
+                
+                if ((int)movingWalkDirection >= 1)
+                {
+                    matarialAnim.Stop();
+                    Debug.Log("extra");
+                    extraMatarialAnim.Play();
+                }
+                else if((int)movingWalkDirection <= 1)
+                {
+                    extraMatarialAnim.Stop();
+                    Debug.Log("Left");
+                    matarialAnim.Play();
+                }
                 foreach (var moving in movingTargets)
                 {
                     moving.AddExtraVelocity(this, new Vector2(speed * (int)movingWalkDirection, 0f));
@@ -75,6 +87,7 @@ public class RetweetBlock : Block, ISwitchable
         BoxCollider2D = GetComponent<BoxCollider2D>();
         BoxCollider2D.size = myRenderer.bounds.size;
     }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public override void Start()
     {
@@ -84,8 +97,10 @@ public class RetweetBlock : Block, ISwitchable
             sw.SetSwitch(this);
         }
         materialInstance.SetVector("_SpriteSize", myRenderer.bounds.size);
+        extraMatarialAnim.InitMatarialAnim(this,materialInstance,rightPropertyList,0.25f);
         BlockState = false;
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         ////1.부딪힌 오브젝트의 경계(bounds)를 가져옵니다.
@@ -122,7 +137,6 @@ public class RetweetBlock : Block, ISwitchable
         }
     }
 
-
     private void OnCollisionExit2D(Collision2D collision)
     {
         IMovable otherRb = collision.gameObject.GetComponent<IMovable>(); ;
@@ -135,7 +149,7 @@ public class RetweetBlock : Block, ISwitchable
 
     public bool SwitchOn(bool value)
     {
-        BlockState = !BlockState;
+        BlockState = true;
         return true;
     }
 
@@ -149,7 +163,5 @@ public class RetweetBlock : Block, ISwitchable
         base.ResetAction();
         BlockState = false;
     }
-
-
      
 }
