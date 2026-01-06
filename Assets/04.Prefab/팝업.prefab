@@ -14,8 +14,6 @@ GameObject:
   - component: {fileID: 4976314373046860932}
   - component: {fileID: 8460989088261699200}
   - component: {fileID: 6964313094527201680}
-  - component: {fileID: 5288654585905255305}
-  - component: {fileID: 2109451625945992346}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -102,7 +100,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 165
+  m_SortingOrder: 1076
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &4976314373046860932
 MonoBehaviour:
@@ -133,8 +131,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 3724541951
-  m_fontColor: {r: 1, g: 1, b: 1, a: 0.8666667}
+    rgba: 4162328600
+  m_fontColor: {r: 0.09433961, g: 0.09433961, b: 0.09433961, a: 0.972549}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -221,30 +219,6 @@ Animator:
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &6964313094527201680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 715125289919287960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18c9623e4ae8b1b4185fb49fb9da1c07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SortingOrderFollower
---- !u!114 &5288654585905255305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 715125289919287960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18c9623e4ae8b1b4185fb49fb9da1c07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SortingOrderFollower
---- !u!114 &2109451625945992346
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -440,7 +414,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 165
+  m_SortingOrder: 1076
   m_Sprite: {fileID: -1581789827, guid: 6f32d61e4f2cdb34ab61e91f17a7416e, type: 3}
   m_Color: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}
   m_FlipX: 0
@@ -628,7 +602,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5845678819193518919}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -749,7 +723,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 27b0a5d3e5bf35f4abbaecd2f6f79ba9, type: 2}
+  - {fileID: 2100000, guid: 46383c2344d334e4797989aaa2db704a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -770,10 +744,10 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 164
+  m_SortingOrder: 1075
   m_Sprite: {fileID: -1014657298, guid: f2ac3ed0935da4149b8906ccba881b41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.79607844}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
   m_Size: {x: 5, y: 1.5}
@@ -796,7 +770,6 @@ GameObject:
   - component: {fileID: 7533341930348821116}
   - component: {fileID: 8233975515981597288}
   - component: {fileID: 76962858893937611}
-  - component: {fileID: 3205531411813945784}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -869,7 +842,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 165
+  m_SortingOrder: 1076
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &6967753959576428739
 MonoBehaviour:
@@ -900,8 +873,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 2902458367
-  m_fontColor: {r: 1, g: 1, b: 1, a: 0.6745098}
+    rgba: 3992977407
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0.92941177}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1013,18 +986,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c9623e4ae8b1b4185fb49fb9da1c07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SortingOrderFollower
---- !u!114 &3205531411813945784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6152745196900359711}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18c9623e4ae8b1b4185fb49fb9da1c07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SortingOrderFollower
 --- !u!1 &6338715672678856372
 GameObject:
   m_ObjectHideFlags: 0
@@ -1112,7 +1073,7 @@ MeshRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 165
+  m_SortingOrder: 1076
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &7075883408557957666
 MonoBehaviour:
@@ -1143,8 +1104,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 3724541951
-  m_fontColor: {r: 1, g: 1, b: 1, a: 0.8666667}
+    rgba: 4143972351
+  m_fontColor: {r: 1, g: 1, b: 1, a: 0.9647059}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
