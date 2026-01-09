@@ -11,7 +11,7 @@ public class NormalPopUp : PopUp, IEventListener
     public TextMeshPro nickName;
     public TextMeshPro content;
     public TextMeshPro profileID;
-
+    public bool EventOnce = false;
     private Animator animator;
     //[SerializeField]private Block Block;
 
@@ -42,6 +42,8 @@ public class NormalPopUp : PopUp, IEventListener
 
     public void ToggleEvent(bool state)
     {
+        if (EventOnce)
+            return;
         animator.Play(state ? "In" : "Out");
         foreach (Animator anim in childAnimators)
         {

@@ -14,7 +14,7 @@ public abstract class Block : MonoBehaviour, IReset
     protected Rigidbody2D rb;
     public Action<bool> blockEvent;
     protected SpriteMask mask;
-    [SerializeField]private List<GameObject> PopUpList;
+    [SerializeField]protected List<GameObject> PopUpList;
     private List<IEventListener> eventListeners = new List<IEventListener>();
     public float toggleDelay;
     private Coroutine activateCoroutine;

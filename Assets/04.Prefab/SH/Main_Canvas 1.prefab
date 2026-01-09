@@ -51,7 +51,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnCustomClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   btn: {fileID: 74493999697652866}
 --- !u!1 &3253639711271056361
 GameObject:
@@ -118,7 +130,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB098\uAC00\uAE30\n"
+  m_text: "\uAC8C\uC784\uC885\uB8CC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b59205a70773180409e711b2b2420483, type: 2}
   m_sharedMaterial: {fileID: -6634308840999944992, guid: b59205a70773180409e711b2b2420483, type: 2}
@@ -128,8 +140,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190335
+  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -748,7 +760,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC77C\uC5B4\uB098\uAE30\n"
+  m_text: "\uACC4\uC18D\uD558\uAE30\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: df281beae4d98f04cae12febefe62157, type: 2}
   m_sharedMaterial: {fileID: 5706545311253116244, guid: df281beae4d98f04cae12febefe62157, type: 2}
@@ -830,7 +842,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5221653546224033445}
-  - component: {fileID: 425086391209443676}
   - component: {fileID: 7515294666924094342}
   - component: {fileID: 3665982897943524246}
   m_Layer: 5
@@ -860,20 +871,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 240, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &425086391209443676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8668780705777961811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e9ff673bcd54704f98da66105dce9ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UI: {fileID: 0}
-  director: {fileID: 0}
 --- !u!114 &7515294666924094342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -915,16 +912,16 @@ MonoBehaviour:
   OnCustomClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 425086391209443676}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: SendMessage
-        m_Mode: 5
+      - m_Target: {fileID: 1521076371786250441}
+        m_TargetAssemblyTypeName: UIWindow, Assembly-CSharp
+        m_MethodName: Close
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: StageDemo
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
   btn: {fileID: 7119179563239044840}
@@ -1149,4 +1146,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1796249532040633227}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 9193705641689376023}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

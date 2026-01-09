@@ -59,6 +59,8 @@ public class UIBase : MonoBehaviour
         canvasGroup.blocksRaycasts = false;
         onClose?.Invoke();
         StopAllCoroutines();
+        if (!gameObject.activeSelf)
+            return;
         StartCoroutine(PlayCloseAnimation());
     }
 
@@ -130,7 +132,7 @@ public class UIBase : MonoBehaviour
     }
 
     protected IEnumerator PlayCloseAnimation()
-    {
+    { 
         float timer = 0f;
         Vector2 startPos = rectTransform.anchoredPosition;
         Vector3 startScale = rectTransform.localScale;

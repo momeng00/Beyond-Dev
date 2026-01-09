@@ -8,21 +8,24 @@ public class PushBlock : Block
     private Vector2 startPos;
     private Material material;
     private Coroutine activeCoroution;
+    private bool popupFlag=false;
     [SerializeField] private Animator focusAnimation;
     private void Awake()
     {
         animator = GetComponent<Animator>();
         startPos = transform.position;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        ToggleEventChildren();
+        BlockState = false;
+        RunToggleEvent(false);
     }
     public override void Start()
     {
         base.Start();
         //해당 구문은 의도적으로 배치를 늘려서 Matarial이 공용화가 되는 것을 막는것임
         material = this.GetComponent<Renderer>().material;
-
     }
-
+    
     public override void OnBlockAction()
     {
         base.OnBlockAction();
@@ -32,7 +35,23 @@ public class PushBlock : Block
     {
         if (IsInLayerMask(collision.gameObject, layerMask))
         {
+            Debug.Log("진입성공");
             animator.SetBool("activate", true);
+            BlockState = true;
+            if (!popupFlag)
+            {
+                Debug.Log("PopUpFlag");
+                RunToggleEvent(true);
+                foreach (var popup in PopUpList)
+                {
+                    NormalPopUp sample = popup.GetComponent<NormalPopUp>();
+                    if (sample != null)
+                    {
+                        sample.EventOnce = true;
+                    }
+                }
+                popupFlag = true;
+            }
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
@@ -42,6 +61,7 @@ public class PushBlock : Block
             animator.SetBool("activate", false);
         }
     }
+    
     protected bool IsInLayerMask(GameObject obj, LayerMask mask)
     {
         return ((1 << obj.layer) & mask) != 0;
