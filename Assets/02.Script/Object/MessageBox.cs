@@ -28,25 +28,46 @@ public class MessageBox : MonoBehaviour
     private RectTransform textRectTransform;
     private Dictionary<Language, string> languageDictionary;
     private Animator animator;
+    public bool moreText = false;
+    private List<TextMeshPro> texts;
+    private List<Animator> textsAnimator;
     [SerializeField]private TextMeshPro text;
+
 
     private void Awake()
     {
         Initialize();
+        
         //FindTextObject();
         if(animator == null)
         {
-            animator = text.GetComponent<Animator>();
+            if(text != null) 
+                animator = text.GetComponent<Animator>();
         }
-        gameObject.GetComponent<Block>().blockEvent += BlockStateHandle;    
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
         //UpdateTextObject();
         //LanguageSystem.OnLanguageChanged += ChangeLanguage;
+        if (moreText)
+        {
+            texts = new List<TextMeshPro>(GetComponentsInChildren<TextMeshPro>());
+            CacheTexts(texts);
+        }
+        gameObject.GetComponent<Block>().blockEvent += BlockStateHandle;
     }
-
+    public void CacheTexts(List<TextMeshPro> rawTexts)
+    {
+        foreach (TextMeshPro text in rawTexts) 
+        {
+            Animator animator = text.GetComponent<Animator>();
+            if (animator !=null)
+            {
+                textsAnimator.Add(animator);
+            }
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -78,6 +99,14 @@ public class MessageBox : MonoBehaviour
     }
     public void BlockStateHandle(bool state)
     {
+        if (moreText)
+        {
+            foreach(Animator ani in textsAnimator)
+            {
+                ani.SetBool("IsActive", state);
+            }
+            return;
+        }
         animator.SetBool("IsActive", state);
     }
     private void FindTextObject()
