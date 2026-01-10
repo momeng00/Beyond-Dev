@@ -30,16 +30,15 @@ public class MessageBox : MonoBehaviour
     private Animator animator;
     public bool moreText = false;
     private List<TextMeshPro> texts;
-    private List<Animator> textsAnimator;
+    private List<Animator> textsAnimator = new List<Animator>();
     [SerializeField]private TextMeshPro text;
 
 
     private void Awake()
     {
         Initialize();
-        
         //FindTextObject();
-        if(animator == null)
+        if (animator == null)
         {
             if(text != null) 
                 animator = text.GetComponent<Animator>();

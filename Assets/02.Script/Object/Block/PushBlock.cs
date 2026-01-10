@@ -35,18 +35,17 @@ public class PushBlock : Block
     {
         if (IsInLayerMask(collision.gameObject, layerMask))
         {
-            Debug.Log("진입성공");
             animator.SetBool("activate", true);
             BlockState = true;
             if (!popupFlag)
             {
-                Debug.Log("PopUpFlag");
                 RunToggleEvent(true);
                 foreach (var popup in PopUpList)
                 {
                     NormalPopUp sample = popup.GetComponent<NormalPopUp>();
                     if (sample != null)
                     {
+                        sample.ToggleEvent(true); //임시조치 (뇌가 아플때 했던거임)
                         sample.EventOnce = true;
                     }
                 }
