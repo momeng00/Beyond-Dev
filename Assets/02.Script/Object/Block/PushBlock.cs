@@ -17,11 +17,11 @@ public class PushBlock : Block
         spriteRenderer = GetComponent<SpriteRenderer>();
         ToggleEventChildren();
         BlockState = false;
-        RunToggleEvent(false);
     }
     public override void Start()
     {
         base.Start();
+        RunToggleEvent(false);
         //해당 구문은 의도적으로 배치를 늘려서 Matarial이 공용화가 되는 것을 막는것임
         material = this.GetComponent<Renderer>().material;
     }
@@ -69,6 +69,17 @@ public class PushBlock : Block
     {
         base.ResetAction();
         transform.position = startPos;
+
+        foreach (var popup in PopUpList)
+        {
+            NormalPopUp sample = popup.GetComponent<NormalPopUp>();
+            if (sample != null)
+            {
+                sample.EventOnce = false;
+                sample.ToggleEvent(false); //임시조치 (뇌가 아플때 했던거임)
+            }
+        }
+        popupFlag = false;
     }
     public void UDAnimationPlay(bool value)
     {
@@ -79,7 +90,16 @@ public class PushBlock : Block
             gameObject.SetActive(true);
         activeCoroution = StartCoroutine(ReturnAnimation(value));
     }
+    void OnDisable()
+    {
+        // 게임이 종료될 때 꺼지는 건 무시 (안 그러면 종료할 때마다 로그 뜸)
+        if (!this.gameObject.scene.isLoaded) return;
 
+        Debug.LogWarning($"[범인 색출] {gameObject.name}의 컴포넌트가 꺼졌습니다!");
+
+        // 누가 껐는지 호출 스택(경로)을 전부 출력합니다.
+        Debug.Log(System.Environment.StackTrace);
+    }
     private IEnumerator ReturnAnimation(bool value)
     {
         if (value)

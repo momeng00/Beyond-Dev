@@ -99,8 +99,8 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
         {
             if (_currentStat == null)
             {
-                _currentStat = stats.FirstOrDefault();
-                return stats.FirstOrDefault();
+                _currentStat = Instantiate(stats.FirstOrDefault());
+                return _currentStat;
             }
             return _currentStat;
         }
