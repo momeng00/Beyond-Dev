@@ -52,6 +52,7 @@ public class DownloadStationSwtich : Switch, IReset
         base.Interact();
         if (IsSatisfied)
         {
+            AudioManager.Instance.PlayOneShotSFXAudio(AudioName.CameraSwitch);
             foreach (var block in target)
             {
                 block.SwitchOn(true);

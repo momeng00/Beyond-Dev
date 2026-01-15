@@ -46,7 +46,7 @@ public class InputSystem : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        keyState = KeyState.Play_Key;
+        keyState = KeyState.Pause;
     }
 
     // Update is called once per frame

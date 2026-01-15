@@ -109,7 +109,7 @@ AudioMixerSnapshotController:
     efe137840843ca64e945e95cd9fd8d67: 2.04
     842459c89da13f74d9a8337699905022: -20
     1f2d942a694d4164f853049ec58177cc: -51.9
-    0dd3e46e5723e594587714879692846f: 20
+    0dd3e46e5723e594587714879692846f: 0.025578514
     e72cd3de2801768429af359df9357ce0: 0.041713238
   m_TransitionOverrides: {}
 --- !u!241 &24100000
@@ -129,7 +129,11 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: 8c310627710aee246989ce93a7360010
+    name: Music
+  - guid: 0dd3e46e5723e594587714879692846f
+    name: SFX
   m_AudioMixerGroupViews:
   - guids:
     - 9abe1f86071f8264cb47d279cbfec779
@@ -137,7 +141,7 @@ AudioMixerController:
     - 6a6f35f30c081ef41afd0a69828a2a84
     name: View
   m_CurrentViewIndex: 0
-  m_TargetSnapshot: {fileID: 1088038514339336527}
+  m_TargetSnapshot: {fileID: 9208865453772727451}
 --- !u!243 &24300002
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
@@ -199,7 +203,7 @@ AudioMixerSnapshotController:
     5cc1119ccd11c2c40a91f3a47f1ec547: 16
     7f549cdc923f72f44bb56d4c1181bccc: 132
     3b5cb74e66a440246a0d77c683da58f2: 0
-    0dd3e46e5723e594587714879692846f: 20
+    0dd3e46e5723e594587714879692846f: -0.19117308
     e72cd3de2801768429af359df9357ce0: 0.041713238
   m_TransitionOverrides: {}
 --- !u!244 &1892570029116643587
@@ -294,9 +298,9 @@ AudioMixerSnapshotController:
     63ad9f4207d81f9498a3d80f10bfdacf: -0
     efe137840843ca64e945e95cd9fd8d67: 1
     be0ff7152f958334fb0b2d6dd0be2ac1: 0.377
-    8c310627710aee246989ce93a7360010: 20
+    8c310627710aee246989ce93a7360010: 0.025578514
     1f2d942a694d4164f853049ec58177cc: -51.9
     3b5cb74e66a440246a0d77c683da58f2: 0
-    0dd3e46e5723e594587714879692846f: 20
+    0dd3e46e5723e594587714879692846f: 0.025578514
     e72cd3de2801768429af359df9357ce0: 0.23288241
   m_TransitionOverrides: {}

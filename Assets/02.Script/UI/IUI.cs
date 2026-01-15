@@ -8,7 +8,7 @@ public interface IUI
     void InputAction();
     void Show();
     void Hide();
-
+    void SetVisible(bool state);
     event Action onShow;
     event Action onHide;
 }

@@ -7,6 +7,7 @@ public class BlockSwitch : Switch,IReset
 
     public List<ISwitchable> targetBlock = new List<ISwitchable>();
     private bool isSatisfied;
+    public bool isCamera=false;
     public bool IsSatisfied
     {
         get { return isSatisfied; }
@@ -46,6 +47,7 @@ public class BlockSwitch : Switch,IReset
     {
         base.SetSwitch(node);
         targetBlock.Add(node);
+        
     }
 
     public override void Interact()
@@ -53,6 +55,10 @@ public class BlockSwitch : Switch,IReset
         base.Interact();
         if (isSatisfied)
         {
+            if (isCamera)
+            {
+                AudioManager.Instance.PlayOneShotSFXAudio(AudioName.CameraSwitch);
+            }
             SwitchState = !SwitchState;
             foreach (var block in targetBlock)
             {

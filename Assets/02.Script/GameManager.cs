@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -71,7 +70,6 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene(finalClearSceneName);
             Debug.Log("stage ERROR 끝이 났거나 오류가 발생!");
             stage = 0;
         }
@@ -137,7 +135,7 @@ public class GameManager : MonoBehaviour
     {
         RegisterCondition(0,new DummyCondition());
         OnGameStateChanged?.Invoke(currentGameState);
-        InputSystem.Instance.RegisterAction(KeyState.Play_Key,KeyCode.Escape, GamePause); 
+        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Escape, GamePause);
     }
 
     // Update is called once per frame
@@ -148,6 +146,10 @@ public class GameManager : MonoBehaviour
         {
             OnReset?.Invoke();
         }
+    }
+    public void StartGameNow()
+    {
+        currentGameState = GameState.Playing;
     }
 }
 public class DummyCondition : IClearCondition

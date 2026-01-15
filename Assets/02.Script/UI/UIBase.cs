@@ -39,17 +39,16 @@ public class UIBase : MonoBehaviour
     // [핵심 변경] Open/Close는 이제 애니메이션만 신경 씁니다.
     // Manager 등록 로직은 자식 클래스(UIWindow)로 넘어갔습니다.
     // ------------------------------------------------
-
+    private Coroutine currentAnimationCoroutine;
     public virtual void Open()
     {
         gameObject.SetActive(true);
         canvasGroup.alpha = 0f;
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
-        canvasGroup.alpha = 1f;
         onOpen?.Invoke();
-        StopAllCoroutines();
-        StartCoroutine(PlayOpenAnimation());
+        if (currentAnimationCoroutine != null) StopCoroutine(currentAnimationCoroutine);
+        currentAnimationCoroutine = StartCoroutine(PlayOpenAnimation());
     }
 
     public virtual void Close()
@@ -58,10 +57,10 @@ public class UIBase : MonoBehaviour
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
         onClose?.Invoke();
-        StopAllCoroutines();
-        if (!gameObject.activeSelf)
+        if (currentAnimationCoroutine != null) StopCoroutine(currentAnimationCoroutine);
+        if (!gameObject.activeSelf)    
             return;
-        StartCoroutine(PlayCloseAnimation());
+        currentAnimationCoroutine = StartCoroutine(PlayCloseAnimation());
     }
 
 

@@ -8,17 +8,24 @@ public class TimeLineController : MonoBehaviour
     public PlayableDirector director;
     // 현재 입력을 기다리는 중인가?
     private bool isWaitingForInput = false;
+    [SerializeField]private bool EndingEnd = false;
     // Update는 매 프레임 돌지만, if문 하나 체크하는 건 CPU 비용이 거의 0에 가깝습니다.
     private void Update()
     {
         // 1. 기다리는 상태가 아니라면 즉시 리턴 (성능 부하 없음)
-        if (!isWaitingForInput) return;
-
+        if (EndingEnd)
+        {
+            if (Input.anyKeyDown)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+        }
+        if (!isWaitingForInput) return;  
+            
     }
     private void Start()
     {
-        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Mouse0, ResumeTimeline);
-        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Space, ResumeTimeline);
+
     }
     // [Signal Receiver에 연결할 함수]
     public void PauseAndWaitForInput()
@@ -54,5 +61,9 @@ public class TimeLineController : MonoBehaviour
     public void SendNextScene(string name)
     {
         SceneManager.LoadScene(name);
+    }
+    public void EndGame()
+    {
+        EndingEnd = true;
     }
 }

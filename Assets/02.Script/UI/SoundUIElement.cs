@@ -7,8 +7,22 @@ public class SoundUIElement : CarouselUIElement
 {
     public Slider slider;
     public List<Image> images;
-    private float _volume = 0.5f;
-    
+    private float _volume;
+    public SoundType soundType;
+    private void Start()
+    {
+        switch (soundType)
+        {
+            case SoundType.Music:
+                _volume = AudioManager.Instance.MusicVolume;
+                AudioManager.Instance.MusicVolume = _volume;
+                break;
+            case SoundType.SFX:
+                _volume = AudioManager.Instance.SFXVolume;
+                AudioManager.Instance.SFXVolume = _volume;
+                break;
+        }
+    }
     public float Volume
     {
         get
@@ -18,6 +32,15 @@ public class SoundUIElement : CarouselUIElement
         set
         {
             _volume = Mathf.Clamp(value, 0, 1);
+            switch (soundType)
+            {
+                case SoundType.Music:
+                    AudioManager.Instance.MusicVolume = _volume;
+                    break;
+                case SoundType.SFX:
+                    AudioManager.Instance.SFXVolume = _volume;
+                    break;
+            }
         }
 
     }
@@ -51,12 +74,12 @@ public class SoundUIElement : CarouselUIElement
     public override void UnSelected()
     {
         Color color = image.color;
-        color.a = 0.5f;
+        color.a = 0.3f;
         image.color = color;
         foreach (var image in images)
         {
             color = image.color;
-            color.a = 0.5f;
+            color.a = 0.3f;
             image.color = color;
         }
     }

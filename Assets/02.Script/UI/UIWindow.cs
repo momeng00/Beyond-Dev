@@ -64,7 +64,7 @@ public class UIWindow : UIBase, IUI
 
         // 2. 부모의 Close 실행 (애니메이션 재생)
         base.Close();
-        
+
         onHide?.Invoke();
     }
 
@@ -78,21 +78,19 @@ public class UIWindow : UIBase, IUI
         if (keyNavigator != null)
         {
             // 상하좌우 키 로직 분배
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                // 상황에 따라 버튼 이동 vs 캐러셀 조작 분기 가능
                 keyNavigator.NextElement();
             }
-            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 keyNavigator.PreElement();
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
-                // 오른쪽 키를 눌렀을 때 캐러셀 조작을 우선시하고 싶다면:
                 keyNavigator.NextCarouselElement();
             }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            else if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 keyNavigator.PreCarouselElement();
             }
@@ -102,7 +100,12 @@ public class UIWindow : UIBase, IUI
             }
         }
     }
-
+    public virtual void SetVisible(bool state)
+    {
+        canvasGroup.alpha = state ? 1 : 0;
+        canvasGroup.interactable = state;
+        canvasGroup.blocksRaycasts = state;
+    }
     private void Update()
     {
         // 매니저가 허락했을 때만 입력 감지

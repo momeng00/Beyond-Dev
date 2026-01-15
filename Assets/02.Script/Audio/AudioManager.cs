@@ -2,13 +2,22 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
-
+using UnityEngine.Rendering;
+using static UnityEngine.Rendering.DebugUI;
+public enum SoundType
+{
+    Music,
+    SFX
+}
 public enum AudioName
 {
     jump1,
     jump2,
     jump3,
     Walk,
+    Die,
+    Switch,
+    CameraSwitch,
 }
 public enum SnapShotName
 {
@@ -34,11 +43,48 @@ public class AudioManager : MonoBehaviour
     }
     public AudioMixer audioMixer;
     public AudioSource Music;
+    private float _musicVolume = 0.5f;
     public AudioSource SFX;
+    private float _SFXVolume = 0.5f;
     public List<AudioClip> clips;
     public List<AudioMixerSnapshot> snapshots;
     private Dictionary<string, AudioMixerSnapshot> snapShotDic = new Dictionary<string, AudioMixerSnapshot>();
     private Dictionary<string, AudioClip> clipDic = new Dictionary<string, AudioClip>();
+
+    public float MusicVolume
+    {
+        get 
+        { 
+            return _musicVolume;
+        }
+        set
+        {
+            _musicVolume = value;
+            if (_musicVolume <= 0.0001f)
+            {
+                audioMixer.SetFloat("Music", -80f); // 완전 음소거
+            }
+            audioMixer.SetFloat("Music", Mathf.Log10(_musicVolume) * 20);
+        }
+    }
+
+    public float SFXVolume
+    {
+        get
+        {
+            return _SFXVolume;
+        }
+        set
+        {
+            _SFXVolume = value;
+            if (_SFXVolume <= 0.0001f)
+            {
+                audioMixer.SetFloat("SFX", -80f); // 완전 음소거
+            }
+            else
+                audioMixer.SetFloat("SFX", Mathf.Log10(_SFXVolume) * 20);
+        }
+    }
 
     private void Awake()
     {
@@ -50,31 +96,16 @@ public class AudioManager : MonoBehaviour
         foreach (AudioMixerSnapshot snapshot in snapshots)
         {
             if(snapshot ==null) continue;
-            Debug.Log(snapshot.name);
             snapShotDic.Add(snapshot.name,snapshot);
         }
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            PlaySFXAudio(AudioName.Walk);
-        }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            PlaySFXAudio(AudioName.jump2);
-        }
 
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            ChangeSnapShot(SnapShotName.Normal);
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            ChangeSnapShot(SnapShotName.Water);
-        }
-    }
     public void PlaySFXAudio(AudioName name)
+    {
+        SFX.clip = clipDic[name.ToString()];
+        SFX.Play();
+    }
+    public void PlayOneShotSFXAudio(AudioName name)
     {
         SFX.PlayOneShot(clipDic[name.ToString()]);
     }

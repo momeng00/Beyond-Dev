@@ -196,9 +196,10 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
 
     public void ResetAction()
     {
+        MainCameraController.Instance.CameraReset();
         _rb.linearVelocity = Vector2.zero;
         StartCoroutine("RespawnRoutine");
-
+        AudioManager.Instance.PlaySFXAudio(AudioName.Die);
     }
 
     public void OnDetected()

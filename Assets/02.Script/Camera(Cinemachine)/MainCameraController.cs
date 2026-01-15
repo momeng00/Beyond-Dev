@@ -3,6 +3,7 @@ using System.Linq;
 using Unity.Cinemachine;
 using Unity.Cinemachine.Samples;
 using UnityEngine;
+using UnityEngine.Splines;
 using UnityEngine.UIElements;
 using static Unity.Cinemachine.Samples.PlatformerCamera2D;
 
@@ -111,8 +112,17 @@ public class MainCameraController : MonoBehaviour
 
     }
 
+    public Rigidbody2D rb;
+
     public void CameraReset()
     {
+
+        // 1. 보간 끄기 (중요!)
+        RigidbodyInterpolation2D savedInterpolation = rb.interpolation;
+        rb.interpolation = RigidbodyInterpolation2D.None;
+
+        // 4. 보간 다시 켜기 (바로 켜면 안 되고, 물리 연산이 끝난 뒤 켜야 함)
+        //    하지만 보통 바로 켜도 되거나, 1프레임 뒤에 켜야 함.
 
         var brain = Camera.main.GetComponent<CinemachineBrain>();
         var activeCam = brain.ActiveVirtualCamera as CinemachineVirtualCameraBase;
@@ -123,6 +133,7 @@ public class MainCameraController : MonoBehaviour
             // 이렇게 하면 시네머신은 댐핑 계산을 포기하고, 타겟의 현재 위치로 카메라를 즉시 강제 이동시킵니다.
             activeCam.PreviousStateIsValid = false;
         }
+        rb.interpolation = savedInterpolation;
 
     }
 

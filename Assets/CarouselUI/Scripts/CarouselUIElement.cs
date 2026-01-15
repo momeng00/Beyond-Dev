@@ -64,7 +64,7 @@ namespace CarouselUI
         {
             base.UnSelected();
             Color color = image.color;
-            color.a = 0.5f;
+            color.a = 0.3f;
             TMP_Text text = _optionsObjects[_currentIndex].GetComponent<TMP_Text>();
             image.color = color;
             text.color = color;

@@ -16,7 +16,7 @@ public abstract class Switch : MonoBehaviour, IInteract
     }
     public virtual void Interact()
     {
-
+        AudioManager.Instance.PlaySFXAudio(AudioName.Switch);
     }
 
     virtual protected void IsDetected(bool activate)
