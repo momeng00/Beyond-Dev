@@ -13,6 +13,7 @@ public class TimeLineController : MonoBehaviour
     // Update는 매 프레임 돌지만, if문 하나 체크하는 건 CPU 비용이 거의 0에 가깝습니다.
     private void Update()
     {
+        if (isWaitingForInput) return;
         if (director.state != PlayState.Playing) return;
         if (!director.playableGraph.IsValid()) return;
 
@@ -38,7 +39,6 @@ public class TimeLineController : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
         }
-        if (!isWaitingForInput) return;  
             
     }
     private void Start()
@@ -73,6 +73,7 @@ public class TimeLineController : MonoBehaviour
         if (director.playableGraph.IsValid())
         {
             // 타임라인의 재생 속도를 직접 조절
+            isWaitingForInput = false;
             director.playableGraph.GetRootPlayable(0).SetSpeed(speed);
         }
     }
