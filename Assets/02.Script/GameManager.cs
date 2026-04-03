@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,7 +9,7 @@ public class GameManager : MonoBehaviour
     private int stage = 1;
     private Dictionary<int,List<IClearCondition>> condition = new Dictionary<int, List<IClearCondition>>();
     private Dictionary<int, Action> clearAction = new Dictionary<int, Action>();
-    private Action initAction;
+    public Action initAction;
     public Action OnReset;
     public Action<GameState> OnGameStateChanged;
     public GameState currentGameState;
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     private static bool _isQuitting = false;
     public UIBase pauseMenu;
     private UIBase _pauseMenuInstance;
+    public Stage currentStage;
     
     public static GameManager Instance
     {
@@ -74,7 +76,14 @@ public class GameManager : MonoBehaviour
             stage = 0;
         }
     }
+    public void NextStage(Stage nextStage)
+    {
+        currentStage.StageExit();
 
+        currentStage = nextStage;
+
+        currentStage.StageEnter();
+    }
     public void GamePause()
     {
         Debug.Log("GamePause진입");
@@ -137,19 +146,39 @@ public class GameManager : MonoBehaviour
         OnGameStateChanged?.Invoke(currentGameState);
         InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Escape, GamePause);
     }
-
+    private Coroutine holdCoroutine;
+    public float holdTime = 0.7f;
     // Update is called once per frame
     void Update()
     {
         CheckClear();
         if (Input.GetKeyDown(KeyCode.R))
         {
-            OnReset?.Invoke();
+            holdCoroutine = StartCoroutine(HoldReset());
+        }
+
+        if (Input.GetKeyUp(KeyCode.R))
+        {
+            if (holdCoroutine != null)
+            {
+                StopCoroutine(holdCoroutine);
+                holdCoroutine = null;
+            }
         }
     }
     public void StartGameNow()
     {
         currentGameState = GameState.Playing;
+    }
+    IEnumerator HoldReset()
+    {
+        yield return new WaitForSeconds(holdTime);
+        ResetGame();
+    }
+
+    void ResetGame()
+    {
+        OnReset?.Invoke();
     }
 }
 public class DummyCondition : IClearCondition
@@ -159,5 +188,5 @@ public class DummyCondition : IClearCondition
         
     }
 
-    public bool IsSatisfied() => false; // 무조건 클리어 조건 통과
+    public bool IsSatisfied() => false; 
 }
