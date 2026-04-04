@@ -3,18 +3,18 @@ using UnityEngine;
 public class ConditionSpot : ClearCondition
 {
     public Collider2D col;
+    public LayerMask layerMask;
     private bool satisfied = false;
     public bool Satisfied
     {
         get
         {
-            OnCheck?.Invoke();
             return satisfied;
         }
         set
         {
-            OnCheck?.Invoke();
             satisfied = value;
+            OnCheck?.Invoke();
         }
     }
     private void Start()
@@ -32,14 +32,21 @@ public class ConditionSpot : ClearCondition
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Satisfied = true;
+        if (IsInLayerMask(collision.gameObject, layerMask))
+        {
+            Satisfied = true;
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        satisfied = false;
+        Satisfied = false;
     }
     public override bool IsSatisfied()
     {
-        return satisfied;
+        return Satisfied;
+    }
+    virtual protected bool IsInLayerMask(GameObject obj, LayerMask mask)
+    {
+        return ((1 << obj.layer) & mask) != 0;
     }
 }

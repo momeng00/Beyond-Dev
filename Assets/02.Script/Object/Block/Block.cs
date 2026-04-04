@@ -15,7 +15,7 @@ public abstract class Block : MonoBehaviour, IReset
     public Action<bool> blockEvent;
     protected SpriteMask mask;
     [SerializeField]protected List<GameObject> PopUpList;
-    private List<IEventListener> eventListeners = new List<IEventListener>();
+    protected List<IEventListener> eventListeners = new List<IEventListener>();
     public float toggleDelay;
     private Coroutine activateCoroutine;
     [HideInInspector]public SpriteRenderer spriteRenderer;
@@ -103,6 +103,7 @@ public abstract class Block : MonoBehaviour, IReset
         foreach (var listener in eventListeners)
         {
             listener.ToggleEvent(BlockState);
+            Debug.Log($"왜 이상함? 기다리는 초 {toggleDelay}");
             yield return new WaitForSeconds(toggleDelay);
         }
     }

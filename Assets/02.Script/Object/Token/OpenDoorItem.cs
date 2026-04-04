@@ -8,13 +8,12 @@ public class OpenDoorItem : ClearCondition, IReset
     {
         get 
         {
-            OnCheck?.Invoke();
             return satisfied; 
         }
         set
         {
-            OnCheck?.Invoke();
             satisfied = value;
+            OnCheck?.Invoke();
         }
     }
     public LayerMask layerMask;
@@ -33,9 +32,12 @@ public class OpenDoorItem : ClearCondition, IReset
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!gameObject.GetComponent<SpriteRenderer>().enabled)
+            return;
         if (IsInLayerMask(collision.gameObject, layerMask))
         {
             Satisfied = true;
+            AudioManager.Instance.PlayOneShotSFXAudio(AudioName.ItemSound);
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
         }
         

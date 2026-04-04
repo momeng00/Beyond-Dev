@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Diagnostics.Tracing;
 using UnityEngine;
 
 public class PushBlock : Block
@@ -40,15 +41,7 @@ public class PushBlock : Block
             if (!popupFlag)
             {
                 RunToggleEvent(true);
-                foreach (var popup in PopUpList)
-                {
-                    NormalPopUp sample = popup.GetComponent<NormalPopUp>();
-                    if (sample != null)
-                    {
-                        sample.ToggleEvent(true); //임시조치 (뇌가 아플때 했던거임)
-                        sample.EventOnce = true;
-                    }
-                }
+                
                 popupFlag = true;
             }
         }
@@ -100,6 +93,7 @@ public class PushBlock : Block
         // 누가 껐는지 호출 스택(경로)을 전부 출력합니다.
         Debug.Log(System.Environment.StackTrace);
     }
+
     private IEnumerator ReturnAnimation(bool value)
     {
         if (value)

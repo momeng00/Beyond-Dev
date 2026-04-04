@@ -18,6 +18,7 @@ public enum AudioName
     Die,
     Switch,
     CameraSwitch,
+    ItemSound,
 }
 public enum SnapShotName
 {

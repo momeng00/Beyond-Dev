@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    
     private int stage = 1;
     private Dictionary<int,List<IClearCondition>> condition = new Dictionary<int, List<IClearCondition>>();
     private Dictionary<int, Action> clearAction = new Dictionary<int, Action>();
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
     private static bool _isQuitting = false;
     public UIBase pauseMenu;
     private UIBase _pauseMenuInstance;
+    public Stage startStage;
     public Stage currentStage;
     
     public static GameManager Instance
@@ -39,21 +41,21 @@ public class GameManager : MonoBehaviour
             return _instance;
         }
     }
-    
+
     public void CheckClear()
     {
         if (condition.Count <= 1)
             return;
-        if (condition[stage]==null)
+        if (condition[stage] == null)
         {
             return;
         }
         bool clear = true;
-        foreach(var condition in condition[stage])
+        foreach (var condition in condition[stage])
         {
             if (!condition.IsSatisfied())
             {
-                clear = false; 
+                clear = false;
             }
         }
         if (clear)
@@ -63,6 +65,10 @@ public class GameManager : MonoBehaviour
             NextStage();
             initAction?.Invoke();
         }
+    }
+    public void StartStage()
+    {
+        NextStage(startStage);
     }
     public void NextStage() //юс╫ц©К
     {
@@ -76,9 +82,11 @@ public class GameManager : MonoBehaviour
             stage = 0;
         }
     }
+
     public void NextStage(Stage nextStage)
     {
-        currentStage.StageExit();
+        if(currentStage!=null)
+            currentStage.StageExit();
 
         currentStage = nextStage;
 

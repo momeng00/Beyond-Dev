@@ -45,9 +45,20 @@ public class SingleTeleport : Spot
     }
     IEnumerator CamControl()
     {
-        var posComposer = cam.GetComponent<CinemachinePositionComposer>();
-        if (posComposer != null) posComposer.enabled = false;
-        yield return new WaitForSeconds(1.5f);
-        if (posComposer != null) posComposer.enabled = true;
+        if(cam != null)
+        {
+            var posComposer = cam.GetComponent<CinemachinePositionComposer>();
+            if (posComposer == null)
+            {
+                yield return null;
+            }
+            else
+            {
+                if (posComposer != null) posComposer.enabled = false;
+                yield return new WaitForSeconds(1.5f);
+                if (posComposer != null) posComposer.enabled = true;
+            }
+        }
+        
     }
 }

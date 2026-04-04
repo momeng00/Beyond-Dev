@@ -20,7 +20,10 @@ public class Stage : MonoBehaviour
 
     private void NextStage()
     {
-        GameManager.Instance.NextStage(nextStage);
+        if (nextStage != null)
+        {
+            GameManager.Instance.NextStage(nextStage);
+        }
     }
 
     public void StageEnter()
@@ -36,7 +39,7 @@ public class Stage : MonoBehaviour
 
     private void StageSatisfied()
     {
-        foreach(var condition in conditionItems)
+        foreach (var condition in conditionItems)
         {
             if (!condition.IsSatisfied())
             {
