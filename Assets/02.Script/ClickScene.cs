@@ -3,8 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class ClickScene : MonoBehaviour
 {
-    float mustTime = 10f;
-    public float t;
+    float mustTime = 3f;
+    float t;
     void Start()
     {
         t = 0f;
@@ -18,7 +18,7 @@ public class ClickScene : MonoBehaviour
         {
             if (Input.anyKey)
             {
-                SceneManager.LoadScene("Title");
+                SceneManager.LoadScene("Build_Level (0) 1");
             }
         }
     }

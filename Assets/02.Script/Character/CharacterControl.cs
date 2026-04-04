@@ -153,12 +153,12 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
     }
     private void OnEnable()
     {
-        MainCameraController.Instance.Register(_rb);
+        //MainCameraController.Instance.Register(_rb);
     }
 
     private void OnDisable()
     {
-        MainCameraController.Instance.Unregister(_rb);
+        //MainCameraController.Instance.Unregister(_rb);
     }
     private void Move(float horizontal)
     {

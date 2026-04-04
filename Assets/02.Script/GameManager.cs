@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VectorGraphics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,7 +15,7 @@ public class GameManager : MonoBehaviour
     public Action OnReset;
     public Action<GameState> OnGameStateChanged;
     public GameState currentGameState;
-    public string finalClearSceneName = "ClearScene";
+    public string finalClearSceneName = "Ending";
     private static GameManager _instance;
     private static bool _isQuitting = false;
     public UIBase pauseMenu;
@@ -42,54 +43,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void CheckClear()
-    {
-        if (condition.Count <= 1)
-            return;
-        if (condition[stage] == null)
-        {
-            return;
-        }
-        bool clear = true;
-        foreach (var condition in condition[stage])
-        {
-            if (!condition.IsSatisfied())
-            {
-                clear = false;
-            }
-        }
-        if (clear)
-        {
-            clearAction[stage]?.Invoke();
-            //임시용
-            NextStage();
-            initAction?.Invoke();
-        }
-    }
     public void StartStage()
     {
         NextStage(startStage);
     }
-    public void NextStage() //임시용
-    {
-        if (condition.ContainsKey(stage+1))
-        {
-            stage++;
-        }
-        else
-        {
-            Debug.Log("stage ERROR 끝이 났거나 오류가 발생!");
-            stage = 0;
-        }
-    }
+
 
     public void NextStage(Stage nextStage)
     {
-        if(currentStage!=null)
+        if (currentStage != null)
+        {
+            Debug.Log("스테이지 나가는거 실행");
             currentStage.StageExit();
+        }
 
+        Debug.Log("현 스테이지 변경");
         currentStage = nextStage;
-
+        Debug.Log("스테이지 진입 실행");
         currentStage.StageEnter();
     }
     public void GamePause()
@@ -150,7 +120,6 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        RegisterCondition(0,new DummyCondition());
         OnGameStateChanged?.Invoke(currentGameState);
         InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Escape, GamePause);
     }
@@ -159,7 +128,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckClear();
         if (Input.GetKeyDown(KeyCode.R))
         {
             holdCoroutine = StartCoroutine(HoldReset());
@@ -188,13 +156,9 @@ public class GameManager : MonoBehaviour
     {
         OnReset?.Invoke();
     }
-}
-public class DummyCondition : IClearCondition
-{
-    public void ClearAction()
+    public void GoToEnd()
     {
-        
+        Debug.Log("왜 실행됨?");
+        SceneManager.LoadScene(finalClearSceneName);
     }
-
-    public bool IsSatisfied() => false; 
 }
