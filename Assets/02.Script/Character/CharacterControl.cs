@@ -89,7 +89,14 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
     [HideInInspector] public bool hasJump;
     public float coyoteTime;
     public float landingLimit;
+    [Header("카메라 이동 시 멈출시간")]
+    public float stopTime;
     [HideInInspector] public bool canMove;
+
+    public void StopCharacter()
+    {
+        StartCoroutine(IStopCharacter(stopTime));
+    }
     private AerialState _aerialState;
 
     public List<Stat> stats = new List<Stat>();
@@ -253,6 +260,15 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
 
         // 3. 카메라 리셋
         MainCameraController.Instance.CameraReset();
+    }
+
+    private IEnumerator IStopCharacter(float time)
+    {
+        _rb.linearVelocity = Vector2.zero;
+        _axisX = 0f;
+        canMove = false;
+        yield return new WaitForSeconds(time);
+        canMove = true;
     }
 }
 public enum AerialState

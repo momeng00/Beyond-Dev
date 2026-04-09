@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.PackageManager.Requests;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class UploadStation : Spot, ISwitchable, IReset
 {
@@ -51,6 +52,7 @@ public class UploadStation : Spot, ISwitchable, IReset
             {
                 Vector3 comparative = transform.position - ob.transform.position;
                 GameObject clone = PoolingGet(ob);
+                
                 clone.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
                 clone.GetComponent<Collider2D>().enabled = false;
                 if (!clone.activeSelf)
@@ -98,6 +100,10 @@ public class UploadStation : Spot, ISwitchable, IReset
                 ob.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
                 ob.GetComponent<Collider2D>().enabled = false;
             }
+            foreach (DownloadStation ds in partnerStations)
+            {
+                ds.blocks.Clear();
+            }
             invisibleBlock();
         }
         else
@@ -108,10 +114,7 @@ public class UploadStation : Spot, ISwitchable, IReset
                 ob.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                 ob.GetComponent<Collider2D>().enabled = true;
                 ob.GetComponent<SpriteRenderer>().enabled = true;
-                foreach(DownloadStation ds in partnerStations)
-                {
-                    ds.blocks.Clear();
-                }
+
             }
         }
         foreach (DownloadStation ds in partnerStations)
@@ -152,10 +155,11 @@ public class UploadStation : Spot, ISwitchable, IReset
                 pushBlock.UDAnimationPlay(false);
             }
         }
-        activeList.Clear();
+        
     }
     public void GetDetectedObject(GameObject requester)
     {
+        activeList.Clear();
         foreach (DownloadStation ds in partnerStations)
         {
             ds.RefreshVisuals(false);
@@ -241,11 +245,20 @@ public class UploadStation : Spot, ISwitchable, IReset
     public void ResetAction()
     {
         SwitchOn(false);
-        detectedList.Clear();
-        foreach (GameObject ob in uploadList)
+
+        foreach (DownloadStation ds in partnerStations)
         {
-            ob.SetActive(false);
+            foreach (GameObject ob in ds.blocks)
+            {
+
+                Destroy(ob);
+            }
+            ds.blocks.Clear();
         }
+        readyList.Clear();
+        activeList.Clear();
+        detectedList.Clear();
         uploadList.Clear();
+        
     }
 }

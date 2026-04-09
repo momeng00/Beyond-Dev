@@ -83,7 +83,7 @@ public class PushBlock : Block
             gameObject.SetActive(true);
         activeCoroution = StartCoroutine(ReturnAnimation(value));
     }
-    void OnDisable()
+    public void OnDisable()
     {
         // 게임이 종료될 때 꺼지는 건 무시 (안 그러면 종료할 때마다 로그 뜸)
         if (!this.gameObject.scene.isLoaded) return;
@@ -93,7 +93,10 @@ public class PushBlock : Block
         // 누가 껐는지 호출 스택(경로)을 전부 출력합니다.
         Debug.Log(System.Environment.StackTrace);
     }
-
+    public override void OnDestroy()
+    {
+        base.OnDestroy();
+    }
     private IEnumerator ReturnAnimation(bool value)
     {
         if (value)

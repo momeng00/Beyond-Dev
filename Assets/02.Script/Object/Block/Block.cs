@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static MatarialAnim;
 
@@ -34,7 +35,14 @@ public abstract class Block : MonoBehaviour, IReset
         GameManager.Instance.RegisterInitAction(ResetAction);
         GameManager.Instance.OnReset += ResetAction;
     }
-
+    public virtual void OnDestroy()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.OnReset -= ResetAction;
+            GameManager.Instance.initAction -= ResetAction;
+        }
+    }
     public virtual void OnBlockAction()
     {
 
@@ -97,6 +105,7 @@ public abstract class Block : MonoBehaviour, IReset
             StopCoroutine(activateCoroutine);
         }
     }
+    
 
     IEnumerator RunToggleEventDelay(bool state)
     {

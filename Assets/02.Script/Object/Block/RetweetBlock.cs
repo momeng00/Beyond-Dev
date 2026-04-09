@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using static MatarialAnim;
+using static UnityEngine.Rendering.DebugUI;
 public enum MovingwalkDirection
 {
     Stop = 0,  
@@ -39,7 +40,6 @@ public class RetweetBlock : Block, ISwitchable
             _blockState = value;
             mask.enabled = value;
             blockEvent?.Invoke(value);
-            RunToggleEvent(value);
             if (_blockState)
             {
                 Debug.Log((int)movingWalkDirection);
@@ -103,6 +103,7 @@ public class RetweetBlock : Block, ISwitchable
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        RunToggleEvent(true);
         ////1.부딪힌 오브젝트의 경계(bounds)를 가져옵니다.
         //bounds otherbounds = collision.collider.bounds;
 
@@ -162,6 +163,7 @@ public class RetweetBlock : Block, ISwitchable
     {
         base.ResetAction();
         BlockState = false;
+        RunToggleEvent(false);
     }
      
 }

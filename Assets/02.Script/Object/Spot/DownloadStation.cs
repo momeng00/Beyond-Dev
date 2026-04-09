@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class DownloadStation : MonoBehaviour, ISwitchable, IReset
+public class DownloadStation : MonoBehaviour, ISwitchable
 {
     private Material material;
     private SpriteRenderer spriteRenderer;
@@ -25,7 +25,7 @@ public class DownloadStation : MonoBehaviour, ISwitchable, IReset
         {
             sw.SetSwitch(this);
         }
-        GameManager.Instance.OnReset += ResetAction;
+
     }
     public void GetPartnerDate(Vector2 position, Vector2 size)
     {
@@ -77,18 +77,5 @@ public class DownloadStation : MonoBehaviour, ISwitchable, IReset
         }
     }
 
-    public void InitializeReset()
-    {
-        throw new System.NotImplementedException();
-    }
 
-    public void ResetAction()
-    {
-        foreach (GameObject block in blocks)
-        {
-            block.GetComponent<SpriteRenderer>().enabled = false;
-            block.GetComponent<Collider2D>().enabled = false;
-        }
-        blocks.Clear();
-    }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 
 public class MessageBlock : Block, ISwitchable
@@ -20,7 +21,7 @@ public class MessageBlock : Block, ISwitchable
             blockEvent?.Invoke(value);
             _blockState = value;
             MessagerBlock(value);
-            RunToggleEvent(value); 
+            
         }
     }
     private bool _blockState = false;
@@ -50,6 +51,10 @@ public class MessageBlock : Block, ISwitchable
     {
         BlockState = !BlockState;
         return true;
+    }
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        RunToggleEvent(true);
     }
     public void MessagerBlock(bool on)
     {
@@ -236,5 +241,6 @@ public class MessageBlock : Block, ISwitchable
     {
         base.ResetAction();
         BlockState = false;
+        RunToggleEvent(false);
     }
 }
