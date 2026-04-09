@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.PackageManager.Requests;
 using UnityEngine;
 
 public class UploadStation : Spot, ISwitchable, IReset
@@ -37,7 +39,44 @@ public class UploadStation : Spot, ISwitchable, IReset
         stationState = false;
         GameManager.Instance.OnReset += ResetAction;
     }
-
+    public void invisibleBlock()
+    {
+        foreach (GameObject sp in detectedList)
+        {
+            sp.GetComponent<SpriteRenderer>().enabled = false;
+        }
+        foreach (DownloadStation requester in partnerStations)
+        {
+            foreach (GameObject ob in uploadList)
+            {
+                Vector3 comparative = transform.position - ob.transform.position;
+                GameObject clone = PoolingGet(ob);
+                clone.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+                clone.GetComponent<Collider2D>().enabled = false;
+                if (!clone.activeSelf)
+                    clone.SetActive(true);
+                clone.GetComponent<SpriteRenderer>().enabled = true;
+                clone.transform.position = requester.transform.position - comparative;
+                if(!requester.blocks.Contains(clone))
+                    requester.blocks.Add(clone);
+                if (clone.TryGetComponent(out PushBlock clonePushBlock))
+                {
+                    clonePushBlock.UDAnimationPlay(true);
+                    Debug.Log(clonePushBlock);
+                }
+                if (ob.TryGetComponent(out PushBlock pushBlock))
+                {
+                    pushBlock.UDAnimationPlay(false);
+                    Debug.Log(pushBlock);
+                }
+                if (!activeList.Contains(clone))
+                {
+                    activeList.Add(clone);
+                }
+            }
+        }
+        
+    }
     public bool SwitchOn(bool value)
     {
         if(detectedList.Count <= 0)
@@ -59,6 +98,7 @@ public class UploadStation : Spot, ISwitchable, IReset
                 ob.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
                 ob.GetComponent<Collider2D>().enabled = false;
             }
+            invisibleBlock();
         }
         else
         {
@@ -67,6 +107,11 @@ public class UploadStation : Spot, ISwitchable, IReset
             {
                 ob.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                 ob.GetComponent<Collider2D>().enabled = true;
+                ob.GetComponent<SpriteRenderer>().enabled = true;
+                foreach(DownloadStation ds in partnerStations)
+                {
+                    ds.blocks.Clear();
+                }
             }
         }
         foreach (DownloadStation ds in partnerStations)
@@ -94,6 +139,7 @@ public class UploadStation : Spot, ISwitchable, IReset
         }
         foreach (GameObject ob in uploadList)
         {
+            ob.GetComponent<SpriteRenderer>().enabled=true;
             if (ob.TryGetComponent(out PushBlock pushBlock))
             {
                 pushBlock.UDAnimationPlay(true);
@@ -196,6 +242,10 @@ public class UploadStation : Spot, ISwitchable, IReset
     {
         SwitchOn(false);
         detectedList.Clear();
+        foreach (GameObject ob in uploadList)
+        {
+            ob.SetActive(false);
+        }
         uploadList.Clear();
     }
 }

@@ -47,6 +47,7 @@ public class RetweetSwitch : Switch, IReset
         base.Interact();
         if (isSatisfied)
         {
+            AudioManager.Instance.PlaySFXAudio(AudioName.Switch);
             SwitchState = !SwitchState;
             IsDetected(SwitchState);
             OnDirection?.Invoke(targetDirection);

@@ -2,12 +2,13 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class DownloadStation : MonoBehaviour, ISwitchable
+public class DownloadStation : MonoBehaviour, ISwitchable, IReset
 {
     private Material material;
     private SpriteRenderer spriteRenderer;
     [SerializeField]private UploadStation partnerStation;
     public List<DownloadStationSwtich> switches;
+    public List<GameObject> blocks;
     private Animator ani;
     private bool canRecall = false;
     public Switch Switch => throw new System.NotImplementedException();
@@ -24,6 +25,7 @@ public class DownloadStation : MonoBehaviour, ISwitchable
         {
             sw.SetSwitch(this);
         }
+        GameManager.Instance.OnReset += ResetAction;
     }
     public void GetPartnerDate(Vector2 position, Vector2 size)
     {
@@ -34,18 +36,29 @@ public class DownloadStation : MonoBehaviour, ISwitchable
 
     public bool SwitchOn(bool value)
     {
-        if (canRecall)
+        foreach (GameObject block in blocks)
         {
-            partnerStation.PoolingReturn();
-            ani.SetBool("activate", true); 
-            canRecall = false;
+            block.GetComponent<Collider2D>().enabled = true;
+            block.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         }
-        else
-        {
-            partnerStation.GetDetectedObject(this.gameObject);
-            ani.SetBool("activate", false);
-            canRecall = true;
-        }
+        ani.SetBool("activate", false);
+        //if (canRecall)
+        //{
+        //    partnerStation.PoolingReturn();
+        //    ani.SetBool("activate", true); 
+        //    canRecall = false;
+        //}
+        //else
+        //{
+        //    partnerStation.GetDetectedObject(this.gameObject);
+        //    foreach (GameObject block in blocks)
+        //    {
+        //        block.GetComponent<Collider2D>().enabled = true;
+        //        block.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        //    }
+        //    ani.SetBool("activate", false);
+        //    canRecall = true;
+        //}
         return true;
     }
     public void RefreshVisuals(bool state)
@@ -62,5 +75,20 @@ public class DownloadStation : MonoBehaviour, ISwitchable
             dss.isUpload = value;
             dss.anime.SetBool("activate", value);
         }
+    }
+
+    public void InitializeReset()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void ResetAction()
+    {
+        foreach (GameObject block in blocks)
+        {
+            block.GetComponent<SpriteRenderer>().enabled = false;
+            block.GetComponent<Collider2D>().enabled = false;
+        }
+        blocks.Clear();
     }
 }
