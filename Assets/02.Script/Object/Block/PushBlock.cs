@@ -62,7 +62,7 @@ public class PushBlock : Block
     {
         base.ResetAction();
         transform.position = startPos;
-
+        focusAnimation.Play("Default");
         foreach (var popup in PopUpList)
         {
             NormalPopUp sample = popup.GetComponent<NormalPopUp>();
