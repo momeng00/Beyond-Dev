@@ -4,7 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 
-public class NormalPopUp : PopUp, IEventListener
+public class NormalPopUp : PopUp, IEventListener, IReset
 {
     public SmartKey key; //enum을 통해서 전달 받을꺼임.
     public SpriteRenderer image;
@@ -12,6 +12,7 @@ public class NormalPopUp : PopUp, IEventListener
     public TextMeshPro content;
     public TextMeshPro profileID;
     public bool EventOnce = false;
+    private bool eventFlag= false;
     private Animator animator;
     //[SerializeField]private Block Block;
 
@@ -23,9 +24,13 @@ public class NormalPopUp : PopUp, IEventListener
     {
         animator = GetComponent<Animator>();
         FindChildAnimator();
+        ToggleEvent(false);
         //InitPopUpDatas(); 지금은 데이터 테이블이 없어서 주석처리 해둠. 오류문뜨는거 싫어서
     }
-
+    private void Start()
+    {
+        GameManager.Instance.OnReset += ResetAction;
+    }
 
     public void FindChildAnimator()
     {
@@ -42,6 +47,7 @@ public class NormalPopUp : PopUp, IEventListener
 
     public void ToggleEvent(bool state)
     {
+
         if (EventOnce)
             return;
         animator.Play(state ? "In" : "Out");
@@ -62,5 +68,17 @@ public class NormalPopUp : PopUp, IEventListener
         Sprite targetSprite = allSprites.FirstOrDefault(s => s.name == data.profileImage);
         if (targetSprite != null)
             image.sprite = targetSprite;
+    }
+
+    public void InitializeReset()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void ResetAction()
+    {
+        eventFlag = false;
+        ToggleEvent(false);
+        eventFlag = false;
     }
 }

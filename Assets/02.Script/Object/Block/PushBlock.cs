@@ -22,7 +22,6 @@ public class PushBlock : Block
     public override void Start()
     {
         base.Start();
-        RunToggleEvent(false);
         //해당 구문은 의도적으로 배치를 늘려서 Matarial이 공용화가 되는 것을 막는것임
         material = this.GetComponent<Renderer>().material;
     }
