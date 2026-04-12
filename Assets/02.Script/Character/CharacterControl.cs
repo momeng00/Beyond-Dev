@@ -182,7 +182,10 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
         }
         
     }
-
+    public void ZeroVelocity()
+    {
+        _rb.linearVelocity = Vector2.zero;
+    }
     private void Jump()
     {
         jumpTime = jumpBuffetTime;
