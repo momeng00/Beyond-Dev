@@ -1,25 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3907198551224463243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b00045f12942b46c698459096c89274e, type: 3}
-  m_Name: FullScreenPassRendererFeature
-  m_EditorClassIdentifier: 
-  m_Active: 1
-  injectionPoint: 600
-  fetchColorBuffer: 1
-  requirements: 0
-  passMaterial: {fileID: 2100000, guid: fbe675c6d7ce32e44b4985f2b024d52c, type: 2}
-  passIndex: 0
-  bindDepthStencilAttachment: 0
-  m_Version: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45,8 +25,8 @@ MonoBehaviour:
     probeSamplingDebugTexture: {fileID: 0}
     probeVolumeBlendStatesCS: {fileID: 0}
   m_RendererFeatures:
-  - {fileID: -3907198551224463243}
-  m_RendererFeatureMap: 7550586f9ed7c6c9
+  - {fileID: 4254306865455227358}
+  m_RendererFeatureMap: dee1f6c88d550a3b
   m_UseNativeRenderPass: 0
   m_LayerMask:
     serializedVersion: 2
@@ -77,3 +57,19 @@ MonoBehaviour:
   m_PostProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   m_DefaultMaterialType: 0
   m_DefaultCustomMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+--- !u!114 &4254306865455227358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08c4f5513b40c664fb1ce120726d52bb, type: 3}
+  m_Name: GaussianBlur1DRendererFeature
+  m_EditorClassIdentifier: Assembly-CSharp::GaussianBlur1DRendererFeature
+  m_Active: 1
+  m_HorizontalMaterial: {fileID: 2100000, guid: ef750120c97905f479aa6265e1cbea53, type: 2}
+  m_VerticalMaterial: {fileID: 2100000, guid: d121a3ed5c49a3f4d9571ea7b0f7c07a, type: 2}
+  m_Downsample: 4

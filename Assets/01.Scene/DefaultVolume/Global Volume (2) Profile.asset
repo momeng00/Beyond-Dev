@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29fa0085f50d5e54f8144f766051a691, type: 3}
   m_Name: FilmGrain
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.FilmGrain
-  active: 1
+  active: 0
   type:
     m_OverrideState: 1
     m_Value: 8
@@ -140,6 +140,22 @@ MonoBehaviour:
   saturation:
     m_OverrideState: 1
     m_Value: 0
+--- !u!114 &-1168492555585025407
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d028ba3d86c86418327165c457d886, type: 3}
+  m_Name: GaussianBlur1DVolumeComponent
+  m_EditorClassIdentifier: Assembly-CSharp::GaussianBlur1DVolumeComponent
+  active: 1
+  radius:
+    m_OverrideState: 1
+    m_Value: 6.43
 --- !u!114 &-779057744476166626
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -229,6 +245,7 @@ MonoBehaviour:
   - {fileID: -6599401593671076161}
   - {fileID: -1454179333459818169}
   - {fileID: 7065852471098570382}
+  - {fileID: 6322560779611690951}
 --- !u!114 &4996435183232433705
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -324,6 +341,22 @@ MonoBehaviour:
   chromaticAbberationIntensity:
     m_OverrideState: 1
     m_Value: 1
+--- !u!114 &6322560779611690951
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d028ba3d86c86418327165c457d886, type: 3}
+  m_Name: GaussianBlur1DVolumeComponent
+  m_EditorClassIdentifier: Assembly-CSharp::GaussianBlur1DVolumeComponent
+  active: 1
+  radius:
+    m_OverrideState: 1
+    m_Value: 10
 --- !u!114 &7065852471098570382
 MonoBehaviour:
   m_ObjectHideFlags: 3
