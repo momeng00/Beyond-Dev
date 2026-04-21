@@ -8,11 +8,14 @@ using UnityEngine.Rendering.Universal;
 [DisplayInfo(name = "GaussianBlur1D")]
 public sealed class GaussianBlur1DVolumeComponent : VolumeComponent, IPostProcessComponent
 {
-    [Tooltip("Blur radius.")]
-    public ClampedFloatParameter radius = new ClampedFloatParameter(0f, 0f, 10f);
+    [Tooltip("Blur radius. 0~1 normalized, remapped in renderer feature.")]
+    public ClampedFloatParameter radius = new ClampedFloatParameter(0f, 0f, 1f);
+
+    [Tooltip("Final dimming amount. Applied only once in the final composite pass.")]
+    public ClampedFloatParameter dimmed = new ClampedFloatParameter(0f, 0f, 1f);
 
     public bool IsActive()
     {
-        return active && radius.value > 0f;
+        return active && (radius.value > 0f || dimmed.value > 0f);
     }
 }
