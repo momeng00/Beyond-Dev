@@ -9,7 +9,7 @@ using UnityEngine.Rendering.Universal;
 public sealed class GaussianBlur1DVolumeComponent : VolumeComponent, IPostProcessComponent
 {
     [Tooltip("Blur radius.")]
-    public ClampedFloatParameter radius = new ClampedFloatParameter(0f, 0f, 10f);
+    public ClampedFloatParameter radius = new ClampedFloatParameter(0f, 0f, 1f);
 
     public bool IsActive()
     {

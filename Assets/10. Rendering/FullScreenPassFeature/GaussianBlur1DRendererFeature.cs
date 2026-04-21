@@ -9,7 +9,7 @@ public sealed class GaussianBlur1DRendererFeature : ScriptableRendererFeature
     [SerializeField] private Material m_VerticalMaterial;
 
     [SerializeField, Range(1, 4)]
-    private int m_Downsample = 2;
+    private int m_Downsample = 4;
 
     private CustomPostRenderPass m_FullScreenPass;
 
@@ -80,6 +80,13 @@ public sealed class GaussianBlur1DRendererFeature : ScriptableRendererFeature
             public TextureHandle inputTexture;
         }
 
+        private static float GetProcessedRadius(float normalizedRadius)
+        {
+            normalizedRadius = Mathf.Clamp01(normalizedRadius);
+            float easedRadius = Mathf.SmoothStep(0f, 1f, normalizedRadius);
+            return easedRadius * 5f;
+        }
+
         private static void ExecuteBlurPass(BlurPassData data, RasterGraphContext context)
         {
             s_SharedPropertyBlock.Clear();
@@ -136,9 +143,10 @@ public sealed class GaussianBlur1DRendererFeature : ScriptableRendererFeature
             using (new ProfilingScope(cmd, profilingSampler))
             {
                 var source = renderingData.cameraData.renderer.cameraColorTargetHandle;
+                float processedRadius = GetProcessedRadius(volume.radius.value);
 
-                m_HorizontalMaterial.SetFloat(kRadiusPropertyId, volume.radius.value);
-                m_VerticalMaterial.SetFloat(kRadiusPropertyId, volume.radius.value);
+                m_HorizontalMaterial.SetFloat(kRadiusPropertyId, processedRadius);
+                m_VerticalMaterial.SetFloat(kRadiusPropertyId, processedRadius);
 
                 // 1. Downsample copy
                 Blitter.BlitCameraTexture(cmd, source, m_TempPing);
@@ -155,7 +163,13 @@ public sealed class GaussianBlur1DRendererFeature : ScriptableRendererFeature
                 // 5. Vertical blur 2
                 Blitter.BlitCameraTexture(cmd, m_TempPong, m_TempPing, m_VerticalMaterial, 0);
 
-                // 6. Upsample copy back to full resolution
+                // 6. Horizontal blur 3
+                Blitter.BlitCameraTexture(cmd, m_TempPing, m_TempPong, m_HorizontalMaterial, 0);
+
+                // 7. Vertical blur 3
+                Blitter.BlitCameraTexture(cmd, m_TempPong, m_TempPing, m_VerticalMaterial, 0);
+
+                // 8. Upsample copy back to full resolution
                 Blitter.BlitCameraTexture(cmd, m_TempPing, source);
             }
 
@@ -192,6 +206,8 @@ public sealed class GaussianBlur1DRendererFeature : ScriptableRendererFeature
             if (volume == null || !volume.IsActive())
                 return;
 
+            float processedRadius = GetProcessedRadius(volume.radius.value);
+
             UniversalResourceData resourcesData = frameData.Get<UniversalResourceData>();
             TextureHandle source = resourcesData.cameraColor;
 
@@ -223,7 +239,7 @@ public sealed class GaussianBlur1DRendererFeature : ScriptableRendererFeature
             {
                 passData.material = m_HorizontalMaterial;
                 passData.inputTexture = ping;
-                passData.radius = volume.radius.value;
+                passData.radius = processedRadius;
 
                 builder.UseTexture(passData.inputTexture, AccessFlags.Read);
                 builder.SetRenderAttachment(pong, 0, AccessFlags.Write);
@@ -235,7 +251,7 @@ public sealed class GaussianBlur1DRendererFeature : ScriptableRendererFeature
             {
                 passData.material = m_VerticalMaterial;
                 passData.inputTexture = pong;
-                passData.radius = volume.radius.value;
+                passData.radius = processedRadius;
 
                 builder.UseTexture(passData.inputTexture, AccessFlags.Read);
                 builder.SetRenderAttachment(ping, 0, AccessFlags.Write);
@@ -247,7 +263,7 @@ public sealed class GaussianBlur1DRendererFeature : ScriptableRendererFeature
             {
                 passData.material = m_HorizontalMaterial;
                 passData.inputTexture = ping;
-                passData.radius = volume.radius.value;
+                passData.radius = processedRadius;
 
                 builder.UseTexture(passData.inputTexture, AccessFlags.Read);
                 builder.SetRenderAttachment(pong, 0, AccessFlags.Write);
@@ -259,14 +275,38 @@ public sealed class GaussianBlur1DRendererFeature : ScriptableRendererFeature
             {
                 passData.material = m_VerticalMaterial;
                 passData.inputTexture = pong;
-                passData.radius = volume.radius.value;
+                passData.radius = processedRadius;
 
                 builder.UseTexture(passData.inputTexture, AccessFlags.Read);
                 builder.SetRenderAttachment(ping, 0, AccessFlags.Write);
                 builder.SetRenderFunc((BlurPassData data, RasterGraphContext context) => ExecuteBlurPass(data, context));
             }
 
-            // 6. Upsample copy: low-res ping -> full-res source
+            // 6. Horizontal blur 3: ping -> pong
+            using (var builder = renderGraph.AddRasterRenderPass<BlurPassData>("GaussianBlur Horizontal 3", out var passData))
+            {
+                passData.material = m_HorizontalMaterial;
+                passData.inputTexture = ping;
+                passData.radius = processedRadius;
+
+                builder.UseTexture(passData.inputTexture, AccessFlags.Read);
+                builder.SetRenderAttachment(pong, 0, AccessFlags.Write);
+                builder.SetRenderFunc((BlurPassData data, RasterGraphContext context) => ExecuteBlurPass(data, context));
+            }
+
+            // 7. Vertical blur 3: pong -> ping
+            using (var builder = renderGraph.AddRasterRenderPass<BlurPassData>("GaussianBlur Vertical 3", out var passData))
+            {
+                passData.material = m_VerticalMaterial;
+                passData.inputTexture = pong;
+                passData.radius = processedRadius;
+
+                builder.UseTexture(passData.inputTexture, AccessFlags.Read);
+                builder.SetRenderAttachment(ping, 0, AccessFlags.Write);
+                builder.SetRenderFunc((BlurPassData data, RasterGraphContext context) => ExecuteBlurPass(data, context));
+            }
+
+            // 8. Upsample copy: low-res ping -> full-res source
             using (var builder = renderGraph.AddRasterRenderPass<CopyPassData>("GaussianBlur Upsample", out var passData))
             {
                 passData.inputTexture = ping;
