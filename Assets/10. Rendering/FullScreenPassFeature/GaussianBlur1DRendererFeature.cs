@@ -115,7 +115,7 @@ public sealed class GaussianBlur1DRendererFeature : ScriptableRendererFeature
         {
             normalizedRadius = Mathf.Clamp01(normalizedRadius);
             float easedRadius = Mathf.SmoothStep(0f, 1f, normalizedRadius);
-            return easedRadius * 5f;
+            return easedRadius * 7f;
         }
 
         private static float GetProcessedDimmed(float normalizedDimmed)
