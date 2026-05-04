@@ -49,9 +49,9 @@ public class CarouselUIManager
     }
     public void TestAction(CarouselElement carousel)
     {
-        AddCarousel(carousel);
+        AddCarousel(uis[0]);
         RefreshCarousel();
-        carousel.AddMoveTo();
+        uis[^1].AddMoveTo();
     }
     (Vector2 pos, float rot, Vector2 size) GetValue(int index)
     {
