@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+
+    //싱글톤 사용
     private static UIManager _instance;
     public static UIManager instance
     {
@@ -17,8 +19,10 @@ public class UIManager : MonoBehaviour
             return _instance;
         }
     }
-    public Dictionary<Type, IUI> uis = new Dictionary<Type, IUI>(); // 등록된 모든 UI
-    public LinkedList<IUI> showns = new LinkedList<IUI>(); // 현재 보여지고있는 팝업 UI 들
+    // 등록된 모든 UI
+    public Dictionary<Type, IUI> uis = new Dictionary<Type, IUI>();
+    // 현재 보여지고있는 팝업 UI 들
+    public LinkedList<IUI> showns = new LinkedList<IUI>(); 
     
     public T Get<T>()
         where T : IUI

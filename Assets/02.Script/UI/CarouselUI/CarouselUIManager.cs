@@ -49,11 +49,11 @@ public class CarouselUIManager
     }
     public void TestAction(CarouselElement carousel)
     {
-        AddCarousel(carousel);
+        AddCarousel(uis[0]);
         RefreshCarousel();
-        carousel.AddMoveTo();
+        uis[^1].AddMoveTo();
     }
-    (Vector2 pos, float rot, Vector2 size) GetValue(int index)
+    (Vector2 pos, float rot, float size) GetValue(int index)
     {
         int n = index;
         float t = n - 1f;
@@ -68,7 +68,7 @@ public class CarouselUIManager
         float scaleFactor = 1f - 0.15f * Mathf.Log(n);
         scaleFactor = Mathf.Clamp(scaleFactor, 0.7f, 1f);
 
-        return (new Vector2(x, 10f), rot, new Vector2(width * scaleFactor, height * scaleFactor));
+        return (new Vector2(x, 10f), rot, scaleFactor);
     }
     //맨앞에 있는 요소가 아닌 이상 크기를 줄이면서 카메라 요소를 활용해서 Fake2D 기능을 사용해야함
     //좌우에 있는 요소들을 볼 수 있게 현재에 있는 요소 좌우로 크기를 줄여야하기 때문에 좌우 요소를 판별할 수 있어야함.

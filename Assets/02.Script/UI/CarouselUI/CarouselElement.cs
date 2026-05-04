@@ -52,11 +52,11 @@ public class CarouselElement : MonoBehaviour
     {
         StartCoroutine(AddAnimation());
     }
-    public void MoveTo(Vector2 targetX,Vector2 size,float rot, float duration)
+    public void MoveTo(Vector2 targetX,float size,float rot, float duration)
     {
         if (_moveCoroutine != null) StopCoroutine(_moveCoroutine);
         rect.localRotation = Quaternion.Euler(0f, rot, 0f);
-        rect.sizeDelta = size;
+        rect.localScale = new Vector3(size, size, size);
         _moveCoroutine = StartCoroutine(MoveCoroutine(targetX, duration));
     }
 
