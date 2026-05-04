@@ -1,6 +1,8 @@
 using System;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
 
 public class MaterialControl : MonoBehaviour
 {
@@ -43,183 +45,191 @@ public class MaterialControl : MonoBehaviour
 
     private void Awake()
     {
-        material = GetComponent<Material>();
+        material = GetComponent<Image>().material;
+    }
+    private void Update()
+    {
+        Apply();
     }
 
-#if UNITY_EDITOR
     void OnValidate()
+    {
+        material = GetComponent<Image>().material;
+        Apply();
+    }
+
+    public void Apply()
     {
         switch (firstMaterial.type)
         {
             case PropertyType.Float:
-                material.SetFloat(name, firstMaterial.floatValue);
+                material.SetFloat(firstMaterial.name, firstMaterial.floatValue);
                 break;
 
             case PropertyType.Boolean:
-                material.SetFloat(name, firstMaterial.boolValue ? 1f : 0f);
+                material.SetFloat(firstMaterial.name, firstMaterial.boolValue ? 1f : 0f);
                 break;
 
             case PropertyType.Vector2:
-                material.SetVector(name, firstMaterial.vectorValue);
+                material.SetVector(firstMaterial.name, firstMaterial.vectorValue);
                 break;
         }
 
         switch (secondMaterial.type)
         {
             case PropertyType.Float:
-                material.SetFloat(name, secondMaterial.floatValue);
+                material.SetFloat(secondMaterial.name, secondMaterial.floatValue);
                 break;
 
             case PropertyType.Boolean:
-                material.SetFloat(name, secondMaterial.boolValue ? 1f : 0f);
+                material.SetFloat(secondMaterial.name, secondMaterial.boolValue ? 1f : 0f);
                 break;
 
             case PropertyType.Vector2:
-                material.SetVector(name, secondMaterial.vectorValue);
+                material.SetVector(secondMaterial.name, secondMaterial.vectorValue);
                 break;
         }
 
         switch (thirdMaterial.type)
         {
             case PropertyType.Float:
-                material.SetFloat(name, thirdMaterial.floatValue);
+                material.SetFloat(thirdMaterial.name, thirdMaterial.floatValue);
                 break;
 
             case PropertyType.Boolean:
-                material.SetFloat(name, thirdMaterial.boolValue ? 1f : 0f);
+                material.SetFloat(thirdMaterial.name, thirdMaterial.boolValue ? 1f : 0f);
                 break;
 
             case PropertyType.Vector2:
-                material.SetVector(name, thirdMaterial.vectorValue);
+                material.SetVector(thirdMaterial.name, thirdMaterial.vectorValue);
                 break;
         }
 
         switch (fourthMaterial.type)
         {
             case PropertyType.Float:
-                material.SetFloat(name, fourthMaterial.floatValue);
+                material.SetFloat(fourthMaterial.name, fourthMaterial.floatValue);
                 break;
 
             case PropertyType.Boolean:
-                material.SetFloat(name, fourthMaterial.boolValue ? 1f : 0f);
+                material.SetFloat(fourthMaterial.name, fourthMaterial.boolValue ? 1f : 0f);
                 break;
 
             case PropertyType.Vector2:
-                material.SetVector(name, fourthMaterial.vectorValue);
+                material.SetVector(fourthMaterial.name, fourthMaterial.vectorValue);
                 break;
         }
         switch (fifthMaterial.type)
         {
             case PropertyType.Float:
-                material.SetFloat(name, fifthMaterial.floatValue);
+                material.SetFloat(fifthMaterial.name, fifthMaterial.floatValue);
                 break;
 
             case PropertyType.Boolean:
-                material.SetFloat(name, fifthMaterial.boolValue ? 1f : 0f);
+                material.SetFloat(fifthMaterial.name, fifthMaterial.boolValue ? 1f : 0f);
                 break;
 
             case PropertyType.Vector2:
-                material.SetVector(name, fifthMaterial.vectorValue);
+                material.SetVector(fifthMaterial.name, fifthMaterial.vectorValue);
                 break;
         }
         switch (sixthMaterial.type)
         {
             case PropertyType.Float:
-                material.SetFloat(name, sixthMaterial.floatValue);
+                material.SetFloat(sixthMaterial.name, sixthMaterial.floatValue);
                 break;
 
             case PropertyType.Boolean:
-                material.SetFloat(name, sixthMaterial.boolValue ? 1f : 0f);
+                material.SetFloat(sixthMaterial.name, sixthMaterial.boolValue ? 1f : 0f);
                 break;
 
             case PropertyType.Vector2:
-                material.SetVector(name, sixthMaterial.vectorValue);
+                material.SetVector(sixthMaterial.name, sixthMaterial.vectorValue);
                 break;
         }
         switch (seventhMaterial.type)
         {
             case PropertyType.Float:
-                material.SetFloat(name, seventhMaterial.floatValue);
+                material.SetFloat(seventhMaterial.name, seventhMaterial.floatValue);
                 break;
 
             case PropertyType.Boolean:
-                material.SetFloat(name, seventhMaterial.boolValue ? 1f : 0f);
+                material.SetFloat(seventhMaterial.name, seventhMaterial.boolValue ? 1f : 0f);
                 break;
 
             case PropertyType.Vector2:
-                material.SetVector(name, seventhMaterial.vectorValue);
+                material.SetVector(seventhMaterial.name, seventhMaterial.vectorValue);
                 break;
         }
         switch (eighthMaterial.type)
         {
             case PropertyType.Float:
-                material.SetFloat(name, eighthMaterial.floatValue);
+                material.SetFloat(eighthMaterial.name, eighthMaterial.floatValue);
                 break;
 
             case PropertyType.Boolean:
-                material.SetFloat(name, eighthMaterial.boolValue ? 1f : 0f);
+                material.SetFloat(eighthMaterial.name, eighthMaterial.boolValue ? 1f : 0f);
                 break;
 
             case PropertyType.Vector2:
-                material.SetVector(name, eighthMaterial.vectorValue);
+                material.SetVector(eighthMaterial.name, eighthMaterial.vectorValue);
                 break;
         }
         switch (ninthMaterial.type)
         {
             case PropertyType.Float:
-                material.SetFloat(name, ninthMaterial.floatValue);
+                material.SetFloat(ninthMaterial.name, ninthMaterial.floatValue);
                 break;
 
             case PropertyType.Boolean:
-                material.SetFloat(name, ninthMaterial.boolValue ? 1f : 0f);
+                material.SetFloat(ninthMaterial.name, ninthMaterial.boolValue ? 1f : 0f);
                 break;
 
             case PropertyType.Vector2:
-                material.SetVector(name, ninthMaterial.vectorValue);
+                material.SetVector(ninthMaterial.name, ninthMaterial.vectorValue);
                 break;
         }
         switch (tenthMaterial.type)
         {
             case PropertyType.Float:
-                material.SetFloat(name, tenthMaterial.floatValue);
+                material.SetFloat(tenthMaterial.name, tenthMaterial.floatValue);
                 break;
 
             case PropertyType.Boolean:
-                material.SetFloat(name, tenthMaterial.boolValue ? 1f : 0f);
+                material.SetFloat(tenthMaterial.name, tenthMaterial.boolValue ? 1f : 0f);
                 break;
 
             case PropertyType.Vector2:
-                material.SetVector(name, tenthMaterial.vectorValue);
+                material.SetVector(tenthMaterial.name, tenthMaterial.vectorValue);
                 break;
         }
         switch (eleventhMaterial.type)
         {
             case PropertyType.Float:
-                material.SetFloat(name, eleventhMaterial.floatValue);
+                material.SetFloat(eleventhMaterial.name, eleventhMaterial.floatValue);
                 break;
 
             case PropertyType.Boolean:
-                material.SetFloat(name, eleventhMaterial.boolValue ? 1f : 0f);
+                material.SetFloat(eleventhMaterial.name, eleventhMaterial.boolValue ? 1f : 0f);
                 break;
 
             case PropertyType.Vector2:
-                material.SetVector(name, eleventhMaterial.vectorValue);
+                material.SetVector(eleventhMaterial.name, eleventhMaterial.vectorValue);
                 break;
         }
         switch (twelfthMaterial.type)
         {
             case PropertyType.Float:
-                material.SetFloat(name, twelfthMaterial.floatValue);
+                material.SetFloat(twelfthMaterial.name, twelfthMaterial.floatValue);
                 break;
 
             case PropertyType.Boolean:
-                material.SetFloat(name, twelfthMaterial.boolValue ? 1f : 0f);
+                material.SetFloat(twelfthMaterial.name, twelfthMaterial.boolValue ? 1f : 0f);
                 break;
 
             case PropertyType.Vector2:
-                material.SetVector(name, twelfthMaterial.vectorValue);
+                material.SetVector(twelfthMaterial.name, twelfthMaterial.vectorValue);
                 break;
         }
     }
-#endif
 }
