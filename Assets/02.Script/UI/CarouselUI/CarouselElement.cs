@@ -55,26 +55,33 @@ public class CarouselElement : MonoBehaviour
     public void MoveTo(Vector2 targetX,float size,float rot, float duration)
     {
         if (_moveCoroutine != null) StopCoroutine(_moveCoroutine);
-        rect.localRotation = Quaternion.Euler(0f, rot, 0f);
-        rect.localScale = new Vector3(size, size, size);
-        _moveCoroutine = StartCoroutine(MoveCoroutine(targetX, duration));
+        _moveCoroutine = StartCoroutine(MoveCoroutine(targetX, duration,rot,size));
     }
 
-    private IEnumerator MoveCoroutine(Vector2 targetX, float duration)
+    private IEnumerator MoveCoroutine(Vector2 targetX, float duration,float rot,float size)
     {
         float startX = rect.anchoredPosition.x;
         float elapsed = 0f;
 
         while (elapsed < duration)
         {
+            
+
             elapsed += Time.deltaTime;
             float t = Mathf.SmoothStep(0, 1, elapsed / duration);  // 부드러운 이동
+            float currentRot = Mathf.Lerp(rect.localRotation.y, rot, t);
+            float currentSize = Mathf.Lerp(rect.localScale.y, size, t);
+
+            rect.localRotation = Quaternion.Euler(0f, currentRot, 0f);
+            rect.localScale = Vector3.one * currentSize;
             rect.anchoredPosition = new Vector2(Mathf.Lerp(startX, targetX.x, t),
                                                   rect.anchoredPosition.y);
             yield return null;
         }
 
         rect.anchoredPosition = new Vector2(targetX.x, rect.anchoredPosition.y);
+        rect.localRotation = Quaternion.Euler(0f, rot, 0f);
+        rect.localScale = new Vector3(size, size, size);
     }
     IEnumerator AddAnimation(float duration = 0.56f)
     {
