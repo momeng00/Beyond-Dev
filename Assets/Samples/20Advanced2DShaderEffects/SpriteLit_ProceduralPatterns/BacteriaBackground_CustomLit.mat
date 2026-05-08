@@ -57,6 +57,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _ColorMask: 15
     - _EnableExternalAlpha: 0
     - _FillSize: 0
     - _FillThreshold: 0.67
@@ -69,18 +70,27 @@ Material:
     - _NormalStrength: 0
     - _OutlineSize: 0
     - _Sharpness: 1
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
     - _TransitionSmoothness: 10
+    - _UIMaskSoftnessX: 1
+    - _UIMaskSoftnessY: 1
     m_Colors:
+    - White: {r: 1, g: 1, b: 1, a: 1}
+    - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorA: {r: 0.47716, g: 0.7282202, b: 0.755, a: 0}
-    - _ColorB: {r: 0.097068116, g: 0.29559743, b: 0.084589146, a: 0}
+    - _ColorA: {r: 0.9150943, g: 0.78164303, b: 0.6863207, a: 0}
+    - _ColorB: {r: 0.9098039, g: 0.77254903, b: 0.6745098, a: 0}
     - _ColorBottom: {r: 0.7169812, g: 0.6843236, b: 0.60199356, a: 1}
     - _ColorC: {r: 0.526284, g: 0.6866393, b: 0.886, a: 1}
     - _ColorSpeckle: {r: 1, g: 0.34901962, b: 0, a: 1}
     - _ColorTop: {r: 0.8742138, g: 0.8742138, b: 0.8109845, a: 1}
-    - _FillColor: {r: 0.3291206, g: 0.8113208, b: 0.43244916, a: 1}
+    - _FillColor: {r: 0.9098039, g: 0.77254903, b: 0.6745098, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _PatternTiling: {r: 30, g: 30, b: 0, a: 0}
+    - _PatternTiling: {r: 15, g: 8.4375, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
