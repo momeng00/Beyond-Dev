@@ -29,10 +29,12 @@ public class SoundUIElement : CarouselUIElement
             case SoundType.Music:
                 _volume = AudioManager.Instance.MusicVolume;
                 AudioManager.Instance.MusicVolume = _volume;
+                slider.value = _volume;
                 break;
             case SoundType.SFX:
                 _volume = AudioManager.Instance.SFXVolume;
                 AudioManager.Instance.SFXVolume = _volume;
+                slider.value = _volume;
                 break;
         }
     }
