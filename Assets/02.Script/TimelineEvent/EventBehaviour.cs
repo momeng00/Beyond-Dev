@@ -1,21 +1,48 @@
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Playables;
 
 public class EventBehaviour : PlayableBehaviour
 {
-    public UnityEvent onPlay;  // TimelineEvent 대신 UnityEvent 직접 사용
+    public TimelineEventBridge target;
 
-    bool played;
+    private bool _played;
+
+    public override void OnBehaviourPlay(Playable playable, FrameData info)
+    {
+        _played = false;
+    }
 
     public override void ProcessFrame(Playable playable, FrameData info, object playerData)
     {
-        if (played) return;
-        played = true;
-        onPlay?.Invoke();
+        if (_played || target == null) return;
+        _played = true;
+        target.Play();
     }
 
     public override void OnBehaviourPause(Playable playable, FrameData info)
     {
-        played = false;
+        _played = false;
     }
+    //public GameObject targetObject;
+
+    //public UnityEvent onPlay;
+
+    //bool played;
+
+    //public override void ProcessFrame(Playable playable, FrameData info, object playerData)
+    //{
+    //    if (played) return;
+
+    //    played = true;
+
+    //    Debug.Log(targetObject);
+
+    //    onPlay?.Invoke();
+    //}
+
+    //public override void OnBehaviourPause(Playable playable, FrameData info)
+    //{
+    //    played = false;
+    //}
 }
