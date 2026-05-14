@@ -83,12 +83,12 @@ public class UIKeyNavigator : MonoBehaviour
             currentElement.Selected();
         }
 
-        //InputSystem.Instance.RegisterAction(KeyState.Play_Key,KeyCode.RightArrow, NextElement);
-        //InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.DownArrow, NextCarouselElement);
-        //InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.LeftArrow, PreElement);
-        //InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.UpArrow, PreCarouselElement);
-        //InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Return, SelectElement);
-        //InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Escape, () => ChangeGroup(MenuName.Menu_Main.ToString()) );
+        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.RightArrow, NextElement);
+        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.DownArrow, NextCarouselElement);
+        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.LeftArrow, PreElement);
+        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.UpArrow, PreCarouselElement);
+        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Return, SelectElement);
+        //InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Escape, () => ChangeGroup(MenuName.Menu_Main.ToString()));
     }
 
     

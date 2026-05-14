@@ -4198,6 +4198,7 @@ MonoBehaviour:
   animDuration: 0.3
   keyNavigator: {fileID: 468627708}
   uISequenceController: {fileID: 468627707}
+  test: 0
 --- !u!114 &468627707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6797,6 +6798,7 @@ MonoBehaviour:
   animDuration: 0.3
   keyNavigator: {fileID: 775901188}
   uISequenceController: {fileID: 775901187}
+  test: 0
 --- !u!114 &775901187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9529,10 +9531,13 @@ MonoBehaviour:
   _prevButton: {fileID: 162406555}
   _resetDuration: 0.1
   _doesNotCycleBack: 0
-  slider: {fileID: 843140965}
+  targetImage: {fileID: 0}
   images:
-  - {fileID: 1737574591}
-  - {fileID: 1058084491}
+  - state: 0
+    sprite: {fileID: 0}
+  - state: 0
+    sprite: {fileID: 0}
+  slider: {fileID: 843140965}
   soundType: 1
 --- !u!224 &1187502332 stripped
 RectTransform:
@@ -9952,7 +9957,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -49.075073, y: 15}
+  m_AnchoredPosition: {x: -49.075195, y: 15}
   m_SizeDelta: {x: 746.15, y: 600}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1301599036
