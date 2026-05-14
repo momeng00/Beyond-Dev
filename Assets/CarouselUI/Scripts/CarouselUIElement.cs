@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -56,18 +57,26 @@ namespace CarouselUI
             base.Selected();
             Color color = image.color;
             color.a = 1f;
-            TMP_Text text = _optionsObjects[_currentIndex].GetComponent<TMP_Text>();
+            if(_optionsObjects != null && _optionsObjects.Count() > 0)
+            {
+                TMP_Text text = _optionsObjects[_currentIndex].GetComponent<TMP_Text>();
+                text.color = color;
+            }
+
             image.color = color;
-            text.color = color;
+            
         }
         public override void UnSelected()
         {
             base.UnSelected();
             Color color = image.color;
             color.a = 0.3f;
-            TMP_Text text = _optionsObjects[_currentIndex].GetComponent<TMP_Text>();
+            if (_optionsObjects != null && _optionsObjects.Count() > 0)
+            {
+                TMP_Text text = _optionsObjects[_currentIndex].GetComponent<TMP_Text>();
+                text.color = color;
+            }
             image.color = color;
-            text.color = color;
 
         }
         private void UpdateUI()

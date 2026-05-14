@@ -4,18 +4,20 @@ using UnityEngine;
 [RequireComponent(typeof(Canvas))]
 public class UIWindow : UIBase, IUI
 {
-    private Canvas _canvas;
+    //private Canvas _canvas;
     [Header("옵션: 내부 버튼 이동 기능")]
     public UIKeyNavigator keyNavigator; // 인스펙터에서 할당하거나 Awake에서 찾음
     public UISequenceController uISequenceController;
     public event Action onShow;
     public event Action onHide;
-
+    public int test;
     // --- IUI 인터페이스 구현 (매니저와의 약속) ---
     public int sortingOrder
     {
-        get => _canvas.sortingOrder;
-        set => _canvas.sortingOrder = value;
+        get => 0;
+        set => test=value;
+        //get => _canvas.sortingOrder;
+        //set => _canvas.sortingOrder = value;
     }
     public bool inputActionEnabled { get; set; }
 
@@ -24,7 +26,7 @@ public class UIWindow : UIBase, IUI
     protected override void Awake()
     {
         base.Awake(); // 부모(UIBase)의 Awake 실행 (초기 위치 저장 등)
-        _canvas = GetComponent<Canvas>();
+        //_canvas = GetComponent<Canvas>();
     }
 
     protected override void Start()

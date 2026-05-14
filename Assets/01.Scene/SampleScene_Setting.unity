@@ -976,6 +976,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 168165606}
+  - component: {fileID: 168165607}
   m_Layer: 5
   m_Name: BGM
   m_TagString: Untagged
@@ -1005,6 +1006,35 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &168165607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168165605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3787471ffa246940977c7d0deb00f06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundUIElement
+  OnCustomClick:
+    m_PersistentCalls:
+      m_Calls: []
+  image: {fileID: 0}
+  _optionsObjects: []
+  _nextButton: {fileID: 0}
+  _prevButton: {fileID: 0}
+  _resetDuration: 0.1
+  _doesNotCycleBack: 0
+  targetImage: {fileID: 767547062}
+  images:
+  - state: 0
+    sprite: {fileID: -1915469051, guid: 962194056493ec6498e058760799a57d, type: 3}
+  - state: 1
+    sprite: {fileID: -1240225727, guid: 962194056493ec6498e058760799a57d, type: 3}
+  slider: {fileID: 291814637}
+  soundType: 0
 --- !u!1 &171433154
 GameObject:
   m_ObjectHideFlags: 0
@@ -1341,8 +1371,8 @@ GameObject:
   m_Component:
   - component: {fileID: 244972306}
   - component: {fileID: 244972310}
-  - component: {fileID: 244972307}
   - component: {fileID: 244972309}
+  - component: {fileID: 244972311}
   - component: {fileID: 244972308}
   m_Layer: 5
   m_Name: Resolution
@@ -1372,30 +1402,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &244972307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 244972305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b094ed2da754ce8409c472560b44a015, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnCustomClick:
-    m_PersistentCalls:
-      m_Calls: []
-  image: {fileID: 1159558010}
-  _optionsObjects:
-  - {fileID: 406297342}
-  - {fileID: 23909428}
-  - {fileID: 368285839}
-  _nextButton: {fileID: 276308600}
-  _prevButton: {fileID: 1758240943}
-  _resetDuration: 0.1
-  _doesNotCycleBack: 0
 --- !u!114 &244972308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1430,6 +1436,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 244972305}
   m_CullTransparentMesh: 1
+--- !u!114 &244972311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244972305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3a68d59aefb5ac448cadac0e3a22593, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OptionUIElement
+  OnCustomClick:
+    m_PersistentCalls:
+      m_Calls: []
+  image: {fileID: 954320994}
+  _optionsObjects:
+  - {fileID: 406297342}
+  - {fileID: 23909428}
+  - {fileID: 368285839}
+  _nextButton: {fileID: 276308600}
+  _prevButton: {fileID: 1758240943}
+  _resetDuration: 0.1
+  _doesNotCycleBack: 0
+  leftImage: {fileID: 1758240946}
+  leftImages:
+  - state: 0
+    sprite: {fileID: -1280012408, guid: 962194056493ec6498e058760799a57d, type: 3}
+  - state: 1
+    sprite: {fileID: 246154406, guid: 962194056493ec6498e058760799a57d, type: 3}
+  rightImage: {fileID: 276308601}
+  rightImages:
+  - state: 0
+    sprite: {fileID: -387082539, guid: 962194056493ec6498e058760799a57d, type: 3}
+  - state: 1
+    sprite: {fileID: -601941242, guid: 962194056493ec6498e058760799a57d, type: 3}
 --- !u!1 &276308600
 GameObject:
   m_ObjectHideFlags: 0
@@ -1531,7 +1573,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 244972307}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CarouselUI.CarouselUIElement, Assembly-CSharp
         m_MethodName: PressNext
         m_Mode: 1
@@ -1723,7 +1765,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.49
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1944,7 +1986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4256,9 +4298,9 @@ GameObject:
   m_Component:
   - component: {fileID: 647002175}
   - component: {fileID: 647002179}
-  - component: {fileID: 647002178}
   - component: {fileID: 647002177}
   - component: {fileID: 647002176}
+  - component: {fileID: 647002180}
   m_Layer: 5
   m_Name: Resolution
   m_TagString: Untagged
@@ -4313,30 +4355,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &647002178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 647002174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b094ed2da754ce8409c472560b44a015, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnCustomClick:
-    m_PersistentCalls:
-      m_Calls: []
-  image: {fileID: 1159558010}
-  _optionsObjects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _nextButton: {fileID: 0}
-  _prevButton: {fileID: 0}
-  _resetDuration: 0.1
-  _doesNotCycleBack: 0
 --- !u!222 &647002179
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4345,6 +4363,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 647002174}
   m_CullTransparentMesh: 1
+--- !u!114 &647002180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 647002174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48e36355be755364fac615525278e446, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SwitchUIElement
+  OnCustomClick:
+    m_PersistentCalls:
+      m_Calls: []
+  image: {fileID: 508525907}
+  _optionsObjects: []
+  _nextButton: {fileID: 0}
+  _prevButton: {fileID: 0}
+  _resetDuration: 0.1
+  _doesNotCycleBack: 0
+  leftImage: {fileID: 367956006}
+  rightImage: {fileID: 893590305}
 --- !u!1 &651052500
 GameObject:
   m_ObjectHideFlags: 0
@@ -5324,10 +5365,9 @@ MonoBehaviour:
   _prevButton: {fileID: 695019027}
   _resetDuration: 0.1
   _doesNotCycleBack: 0
+  targetImage: {fileID: 0}
+  images: []
   slider: {fileID: 1799720676}
-  images:
-  - {fileID: 745602597}
-  - {fileID: 1427080132}
   soundType: 1
 --- !u!1 &701638895
 GameObject:
@@ -6933,13 +6973,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 954320992}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -7184,8 +7224,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278584324
-  m_fontColor: {r: 0.015686275, g: 0.015686275, b: 0.023529412, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -9855,8 +9895,12 @@ GameObject:
   - component: {fileID: 1494907804}
   - component: {fileID: 1494907806}
   - component: {fileID: 1494907805}
+  - component: {fileID: 1494907810}
+  - component: {fileID: 1494907812}
+  - component: {fileID: 1494907811}
   - component: {fileID: 1494907807}
   - component: {fileID: 1494907808}
+  - component: {fileID: 1494907809}
   m_Layer: 5
   m_Name: Setting
   m_TagString: Untagged
@@ -9958,6 +10002,79 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!223 &1494907809
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494907803}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!114 &1494907810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494907803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a34c0bd9a99ff724a9ac5fe08ec52629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIWindow
+  openAnimation: 1
+  animDuration: 0.3
+  keyNavigator: {fileID: 1494907812}
+  uISequenceController: {fileID: 1494907811}
+  test: 0
+--- !u!114 &1494907811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494907803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f6d56e75756f98489c4a58f95f13c13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UISequenceController
+  playOnStart: 0
+  sequenceList: []
+--- !u!114 &1494907812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494907803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38cc98a93ae14a2478df1d314cea02e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIKeyNavigator
+  uiElements:
+  - {fileID: 168165607}
+  - {fileID: 1846101232}
+  - {fileID: 3890451989211833786}
+  - {fileID: 244972311}
+  - {fileID: 647002180}
+  currentElement: {fileID: 0}
 --- !u!1 &1505976310
 GameObject:
   m_ObjectHideFlags: 0
@@ -11154,7 +11271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a00f4984ec4e13f449d35b64a1ae0b06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestUI
-  window: {fileID: 1730979241}
+  window: {fileID: 1494907810}
   second: {fileID: 2056607933}
 --- !u!114 &1649805060
 MonoBehaviour:
@@ -11257,6 +11374,7 @@ MonoBehaviour:
   animDuration: 0.3
   keyNavigator: {fileID: 1730979243}
   uISequenceController: {fileID: 1730979242}
+  test: 0
 --- !u!114 &1730979242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11557,7 +11675,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 244972307}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CarouselUI, Assembly-CSharp
         m_MethodName: PressPrevious
         m_Mode: 1
@@ -12054,6 +12172,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1846101231}
+  - component: {fileID: 1846101232}
   m_Layer: 5
   m_Name: SFX
   m_TagString: Untagged
@@ -12082,6 +12201,35 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1846101232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1846101230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3787471ffa246940977c7d0deb00f06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundUIElement
+  OnCustomClick:
+    m_PersistentCalls:
+      m_Calls: []
+  image: {fileID: 0}
+  _optionsObjects: []
+  _nextButton: {fileID: 0}
+  _prevButton: {fileID: 0}
+  _resetDuration: 0.1
+  _doesNotCycleBack: 0
+  targetImage: {fileID: 1795696713}
+  images:
+  - state: 0
+    sprite: {fileID: -1915469051, guid: 962194056493ec6498e058760799a57d, type: 3}
+  - state: 1
+    sprite: {fileID: -1240225727, guid: 962194056493ec6498e058760799a57d, type: 3}
+  slider: {fileID: 923207380}
+  soundType: 0
 --- !u!1 &1859403184
 GameObject:
   m_ObjectHideFlags: 0
@@ -12202,6 +12350,63 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1001 &1910590180
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 606111869998102515, guid: ebf4a3fa72906d748bc2376068b74cc2, type: 3}
+      propertyPath: m_Name
+      value: AudioMixer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4669976624666444484, guid: ebf4a3fa72906d748bc2376068b74cc2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4669976624666444484, guid: ebf4a3fa72906d748bc2376068b74cc2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4669976624666444484, guid: ebf4a3fa72906d748bc2376068b74cc2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4669976624666444484, guid: ebf4a3fa72906d748bc2376068b74cc2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4669976624666444484, guid: ebf4a3fa72906d748bc2376068b74cc2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4669976624666444484, guid: ebf4a3fa72906d748bc2376068b74cc2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4669976624666444484, guid: ebf4a3fa72906d748bc2376068b74cc2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4669976624666444484, guid: ebf4a3fa72906d748bc2376068b74cc2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4669976624666444484, guid: ebf4a3fa72906d748bc2376068b74cc2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4669976624666444484, guid: ebf4a3fa72906d748bc2376068b74cc2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ebf4a3fa72906d748bc2376068b74cc2, type: 3}
 --- !u!1 &1920692449
 GameObject:
   m_ObjectHideFlags: 0
@@ -13396,6 +13601,7 @@ MonoBehaviour:
   animDuration: 0.3
   keyNavigator: {fileID: 2056607935}
   uISequenceController: {fileID: 2056607934}
+  test: 0
 --- !u!114 &2056607934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14112,7 +14318,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3890451989211833672}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CarouselUI.CarouselUIElement, Assembly-CSharp
         m_MethodName: PressNext
         m_Mode: 1
@@ -14154,29 +14360,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3890451989211833672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3890451989211833674}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b094ed2da754ce8409c472560b44a015, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnCustomClick:
-    m_PersistentCalls:
-      m_Calls: []
-  image: {fileID: 1159558010}
-  _optionsObjects:
-  - {fileID: 3890451989269842809}
-  - {fileID: 3890451988429294563}
-  _nextButton: {fileID: 3890451988852141641}
-  _prevButton: {fileID: 3890451990049798063}
-  _resetDuration: 0.1
-  _doesNotCycleBack: 0
 --- !u!1 &3890451989211833674
 GameObject:
   m_ObjectHideFlags: 0
@@ -14187,7 +14370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3890451989211833675}
   - component: {fileID: 3890451989211833783}
-  - component: {fileID: 3890451989211833672}
+  - component: {fileID: 3890451989211833786}
   - component: {fileID: 3890451989211833785}
   - component: {fileID: 3890451989211833784}
   m_Layer: 5
@@ -14253,6 +14436,41 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &3890451989211833786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3890451989211833674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3a68d59aefb5ac448cadac0e3a22593, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OptionUIElement
+  OnCustomClick:
+    m_PersistentCalls:
+      m_Calls: []
+  image: {fileID: 171433156}
+  _optionsObjects:
+  - {fileID: 3890451989269842809}
+  - {fileID: 3890451988429294563}
+  _nextButton: {fileID: 3890451988852141641}
+  _prevButton: {fileID: 3890451990049798063}
+  _resetDuration: 0.1
+  _doesNotCycleBack: 0
+  leftImage: {fileID: 3890451990049798058}
+  leftImages:
+  - state: 0
+    sprite: {fileID: -1280012408, guid: 962194056493ec6498e058760799a57d, type: 3}
+  - state: 1
+    sprite: {fileID: 246154406, guid: 962194056493ec6498e058760799a57d, type: 3}
+  rightImage: {fileID: 3890451988852141751}
+  rightImages:
+  - state: 0
+    sprite: {fileID: -387082539, guid: 962194056493ec6498e058760799a57d, type: 3}
+  - state: 1
+    sprite: {fileID: -601941242, guid: 962194056493ec6498e058760799a57d, type: 3}
 --- !u!224 &3890451989269842788
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14491,7 +14709,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3890451989211833672}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CarouselUI, Assembly-CSharp
         m_MethodName: PressPrevious
         m_Mode: 1
@@ -14568,3 +14786,4 @@ SceneRoots:
   - {fileID: 1205118284}
   - {fileID: 860535022}
   - {fileID: 351347572}
+  - {fileID: 1910590180}

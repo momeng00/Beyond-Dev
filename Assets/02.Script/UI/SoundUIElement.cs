@@ -1,12 +1,25 @@
 using CarouselUI;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+[Serializable]
+public enum selectState
+{
+    select,
+    unselect,
+}
 public class SoundUIElement : CarouselUIElement
 {
+    [Serializable]
+    public struct customSelectImage
+    {
+        public selectState state;
+        public Sprite sprite;
+    }
+    public Image targetImage; //바뀔 이미지
+    [SerializeField]public List<customSelectImage> images = new List<customSelectImage>(); //선택대상마다 바뀌는 이미지를 집어넣는 곳
     public Slider slider;
-    public List<Image> images;
     private float _volume;
     public SoundType soundType;
     private void Start()
@@ -44,7 +57,16 @@ public class SoundUIElement : CarouselUIElement
         }
 
     }
-
+    public void ChangeCustomImage(selectState state)
+    {
+        foreach (var image in images)
+        {
+            if(image.state == state)
+            {
+                targetImage.sprite = image.sprite;
+            }
+        }
+    }
 
 
     public override void PressNext()
@@ -60,27 +82,29 @@ public class SoundUIElement : CarouselUIElement
     }
     public override void Selected()
     {
-        Color color = image.color;
-        color.a = 1f;
-        image.color = color;
-        foreach (var image in images)
-        {
-            color = image.color;
-            color.a = 1f;
-            image.color = color;
-        }
-        
+        //Color color = image.color;
+        //color.a = 1f;
+        //image.color = color;
+        ChangeCustomImage(selectState.select);
+        //foreach (var image in images)
+        //{
+        //    color = image.color;
+        //    color.a = 1f;
+        //    image.color = color;
+        //}
+
     }
     public override void UnSelected()
     {
-        Color color = image.color;
-        color.a = 0.3f;
-        image.color = color;
-        foreach (var image in images)
-        {
-            color = image.color;
-            color.a = 0.3f;
-            image.color = color;
-        }
+        //Color color = image.color;
+        //color.a = 0.3f;
+        //image.color = color;
+        ChangeCustomImage(selectState.unselect);
+        //foreach (var image in images)
+        //{
+        //    color = image.color;
+        //    color.a = 0.3f;
+        //    image.color = color;
+        //}
     }
 }
