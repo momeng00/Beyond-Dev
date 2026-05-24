@@ -9,7 +9,7 @@ public class SwitchUIElement : CarouselUIElement
     private Image currentImage;
     private void Start()
     {
-        //기본이 키보드(left위치에 있음)
+        //기본이 키보드(left위치에 있음) << 설정이 패드가 아닌 키보드라는 뜻
         //나중에 설정을 로드하는 기능을 만들면 거기서 가져와서 설정을 시키는 방식으로 변경해야함
         currentImage = leftImage;
         Color color = currentImage.color;

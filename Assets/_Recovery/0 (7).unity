@@ -1148,7 +1148,6 @@ GameObject:
   m_Component:
   - component: {fileID: 76632295}
   - component: {fileID: 76632298}
-  - component: {fileID: 76632299}
   - component: {fileID: 76632297}
   - component: {fileID: 76632296}
   m_Layer: 5
@@ -1239,19 +1238,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 76632294}
   m_CullTransparentMesh: 1
---- !u!114 &76632299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 76632294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38d3c269297a2be42949fed69c62a5ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Todo
-  isClear: 0
 --- !u!1 &131997473
 GameObject:
   m_ObjectHideFlags: 0
@@ -3231,8 +3217,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_AnchoredPosition: {x: 0, y: -270}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &356963336
 GameObject:
@@ -4172,9 +4158,9 @@ GameObject:
   m_Component:
   - component: {fileID: 467578919}
   - component: {fileID: 467578922}
-  - component: {fileID: 467578923}
   - component: {fileID: 467578921}
   - component: {fileID: 467578920}
+  - component: {fileID: 467578923}
   m_Layer: 5
   m_Name: Todo
   m_TagString: Untagged
@@ -4272,10 +4258,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 467578918}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38d3c269297a2be42949fed69c62a5ae, type: 3}
+  m_Script: {fileID: 11500000, guid: 55293fd8547d7f84db72d6fd18de0aa6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Todo
-  isClear: 0
+  m_EditorClassIdentifier: Assembly-CSharp::TodoList
 --- !u!1 &468627705
 GameObject:
   m_ObjectHideFlags: 0
@@ -7056,7 +7041,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 2779, y: 0}
+  m_AnchoredPosition: {x: 1402.8, y: -0}
   m_SizeDelta: {x: 600, y: 778.9}
   m_Pivot: {x: 0, y: 0}
 --- !u!95 &782242065
@@ -10073,7 +10058,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 349, y: 0}
+  m_AnchoredPosition: {x: -49.075195, y: 0}
   m_SizeDelta: {x: 746.15, y: 600}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1301599036
@@ -10221,7 +10206,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1336331063}
-  - component: {fileID: 1336331067}
   - component: {fileID: 1336331066}
   - component: {fileID: 1336331065}
   - component: {fileID: 1336331064}
@@ -10313,22 +10297,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1336331067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1336331062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55293fd8547d7f84db72d6fd18de0aa6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TodoList
-  TodoDelay: 0.2
-  todoes:
-  - {fileID: 467578923}
-  - {fileID: 76632299}
 --- !u!1 &1350807904
 GameObject:
   m_ObjectHideFlags: 0
@@ -14444,11 +14412,11 @@ RectTransform:
   - {fileID: 1212787459}
   m_Father: {fileID: 332269727}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 600, y: 1032}
-  m_Pivot: {x: 0.5, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -24}
+  m_SizeDelta: {x: -1320, y: -48}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1943019713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14541,7 +14509,6 @@ MonoBehaviour:
   enterAnimationName: Card_In
   exitAnimationName: 
   todoEnterDelay: 0.4
-  todoList: {fileID: 1336331067}
 --- !u!1 &1962432003
 GameObject:
   m_ObjectHideFlags: 0

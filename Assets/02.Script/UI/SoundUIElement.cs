@@ -1,5 +1,6 @@
 using CarouselUI;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,6 +23,10 @@ public class SoundUIElement : CarouselUIElement
     public Slider slider;
     private float _volume;
     public SoundType soundType;
+    private void Awake()
+    {
+        UnSelected();
+    }
     private void Start()
     {
         switch (soundType)
@@ -108,5 +113,9 @@ public class SoundUIElement : CarouselUIElement
         //    color.a = 0.3f;
         //    image.color = color;
         //}
+    }
+    IEnumerator CSelectAnimation()
+    {
+        yield return null;
     }
 }

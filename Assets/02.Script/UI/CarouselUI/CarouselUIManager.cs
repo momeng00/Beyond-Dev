@@ -30,7 +30,7 @@ public class CarouselUIManager
         }
         uis.Add(carousel); //Add가 이미 AddLast임.
         Debug.Log("count = " + uis.Count);
-        RefreshCarousel();
+        //RefreshCarousel();
     }
     public void RemoveCarousel(CarouselElement carousel)
     {
