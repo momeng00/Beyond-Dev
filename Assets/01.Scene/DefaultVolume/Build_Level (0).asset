@@ -125,6 +125,26 @@ MonoBehaviour:
   - {fileID: 2682985069944197177}
   - {fileID: -3519559409977157857}
   - {fileID: 7011363238799314229}
+  - {fileID: 1500999774989309134}
+--- !u!114 &1500999774989309134
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d028ba3d86c86418327165c457d886, type: 3}
+  m_Name: GaussianBlur1DVolumeComponent
+  m_EditorClassIdentifier: Assembly-CSharp::GaussianBlur1DVolumeComponent
+  active: 1
+  radius:
+    m_OverrideState: 1
+    m_Value: 0
+  dimmed:
+    m_OverrideState: 0
+    m_Value: 0
 --- !u!114 &2381117829995570839
 MonoBehaviour:
   m_ObjectHideFlags: 3

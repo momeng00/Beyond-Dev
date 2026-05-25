@@ -59,6 +59,9 @@ MonoBehaviour:
   highQualityFiltering:
     m_OverrideState: 0
     m_Value: 0
+  filter:
+    m_OverrideState: 0
+    m_Value: 0
   downscale:
     m_OverrideState: 0
     m_Value: 0
@@ -66,12 +69,31 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 6
   dirtTexture:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: {fileID: 0}
     dimension: 1
   dirtIntensity:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 2.95
+--- !u!114 &-1158797572750141786
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d028ba3d86c86418327165c457d886, type: 3}
+  m_Name: GaussianBlur1DVolumeComponent
+  m_EditorClassIdentifier: Assembly-CSharp::GaussianBlur1DVolumeComponent
+  active: 1
+  radius:
+    m_OverrideState: 1
+    m_Value: 0
+  dimmed:
+    m_OverrideState: 1
+    m_Value: 0
 --- !u!114 &-796242007033264970
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -121,6 +143,7 @@ MonoBehaviour:
   - {fileID: 7719433382484454930}
   - {fileID: 2682985069944197177}
   - {fileID: -3519559409977157857}
+  - {fileID: -1158797572750141786}
 --- !u!114 &2381117829995570839
 MonoBehaviour:
   m_ObjectHideFlags: 3
