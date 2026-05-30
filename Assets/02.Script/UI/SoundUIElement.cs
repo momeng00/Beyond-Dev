@@ -66,15 +66,66 @@ public class SoundUIElement : CarouselUIElement
     }
     public void ChangeCustomImage(selectState state)
     {
+        StartCoroutine(ChangeCustomImageCoroutine(state));
+        //foreach (var image in images)
+        //{
+        //    if(image.state == state)
+        //    {
+        //        targetImage.sprite = image.sprite;
+        //    }
+        //}
+    }
+    private IEnumerator ChangeCustomImageCoroutine(selectState state)
+    {
+        Sprite targetSprite = null;
+
         foreach (var image in images)
         {
-            if(image.state == state)
+            if (image.state == state)
             {
-                targetImage.sprite = image.sprite;
+                targetSprite = image.sprite;
+                break;
             }
         }
-    }
 
+        if (targetSprite == null)
+            yield break;
+
+        // 현재 색상 저장
+        Color color = targetImage.color;
+
+        float duration = 0.2f;
+        float elapsed = 0f;
+
+        // Fade Out
+        while (elapsed < duration * 0.5f)
+        {
+            elapsed += Time.deltaTime;
+
+            float alpha = Mathf.Lerp(1f, 0.7f, elapsed / (duration * 0.5f));
+            targetImage.color = new Color(color.r, color.g, color.b, alpha);
+
+            yield return null;
+        }
+
+        // 스프라이트 교체
+        targetImage.sprite = targetSprite;
+
+        elapsed = 0.1f;
+
+        // Fade In
+        while (elapsed < duration * 0.5f)
+        {
+            elapsed += Time.deltaTime;
+
+            float alpha = Mathf.Lerp(0.7f, 1f, elapsed / (duration * 0.5f));
+            targetImage.color = new Color(color.r, color.g, color.b, alpha);
+
+            yield return null;
+        }
+
+        targetImage.color = new Color(color.r, color.g, color.b, 1f);
+    }
 
     public override void PressNext()
     {

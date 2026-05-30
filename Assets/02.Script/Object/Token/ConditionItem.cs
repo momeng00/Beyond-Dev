@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ConditionItem : ClearCondition, IReset
 {
+    //OpenDoorItem이 대신하고 있음
     public LayerMask layerMask;
     private bool satisfied = false;
     public bool Satisfied

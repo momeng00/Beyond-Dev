@@ -1,5 +1,7 @@
 using CarouselUI;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static SoundUIElement;
@@ -31,10 +33,29 @@ public class OptionUIElement : CarouselUIElement
             }
         }
     }
+    private IEnumerator ChangeCustomImageCoroutine(bool state)
+    {
+        Color color = image.color;
+
+        float startAlpha = color.a;
+        float elapsed = 0f;
+        float targetAlpha = state ? 1f : 0f;
+        while (elapsed < 0.2f)
+        {
+            elapsed += Time.deltaTime;
+
+            float alpha = Mathf.Lerp(startAlpha, targetAlpha, elapsed / 0.2f);
+
+            color.a = alpha;
+            image.color = color;
+
+            yield return null;
+        }
+    }
 
     public override void Selected()
     {
-        base.Selected();
+        StartCoroutine(ChangeCustomImageCoroutine(true));
         //Color color = image.color;
         //color.a = 1f;
         //image.color = color;
@@ -49,7 +70,7 @@ public class OptionUIElement : CarouselUIElement
     }
     public override void UnSelected()
     {
-        base.UnSelected();
+        StartCoroutine(ChangeCustomImageCoroutine(false));
         //Color color = image.color;
         //color.a = 0.3f;
         //image.color = color;

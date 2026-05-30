@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//없어도 작동이 될것같은 OpenDoorItem이 대신하고 있음 (혹시모르니 테스트)
 public class ClearToken : Token, IClearCondition, IReset
 {
     public int stage;
