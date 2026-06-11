@@ -210,10 +210,10 @@ MonoBehaviour:
     m_Value: 0.68
   intensity:
     m_OverrideState: 1
-    m_Value: 0.71
+    m_Value: 2.4
   scatter:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.78
   clamp:
     m_OverrideState: 0
     m_Value: 65463.33
@@ -223,6 +223,9 @@ MonoBehaviour:
   highQualityFiltering:
     m_OverrideState: 1
     m_Value: 1
+  filter:
+    m_OverrideState: 0
+    m_Value: 0
   downscale:
     m_OverrideState: 0
     m_Value: 0
@@ -335,6 +338,26 @@ MonoBehaviour:
   - {fileID: -618862275804064464}
   - {fileID: -5493671041986193545}
   - {fileID: -8561188046402627539}
+  - {fileID: 572801365681323133}
+--- !u!114 &572801365681323133
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d028ba3d86c86418327165c457d886, type: 3}
+  m_Name: GaussianBlur1DVolumeComponent
+  m_EditorClassIdentifier: Assembly-CSharp::GaussianBlur1DVolumeComponent
+  active: 1
+  radius:
+    m_OverrideState: 1
+    m_Value: 1
+  dimmed:
+    m_OverrideState: 1
+    m_Value: 0
 --- !u!114 &849379129802519247
 MonoBehaviour:
   m_ObjectHideFlags: 3

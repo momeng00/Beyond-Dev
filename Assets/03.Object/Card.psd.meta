@@ -58,7 +58,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -93,7 +93,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -125,12 +125,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 422
         width: 602
         height: 602
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 300, y: 300, z: 300, w: 300}
+      border: {x: 300, y: 239, z: 300, w: 361}
       customData: 
       outline: []
       physicsShape: []
@@ -138,6 +138,138 @@ TextureImporter:
       bones: []
       spriteID: cc1d4971a388222c0800000000000000
       internalID: -4457850898058260020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Card_1
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 210
+        width: 567
+        height: 171
+      alignment: 9
+      pivot: {x: 0.13942443, y: 0.48741978}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e29a2280f13017c4f88cf985653528d9
+      internalID: -1202393308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Card_2
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 29
+        width: 468
+        height: 163
+      alignment: 9
+      pivot: {x: 0.18086308, y: 0.5148993}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f65720f0fe0489f4ab925096ed0ba5c0
+      internalID: -171532176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Card_3
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 53
+        width: 399
+        height: 288
+      alignment: 9
+      pivot: {x: 0.805782, y: 0.27406093}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab2d1d7a08863b946b56936e2081fafc
+      internalID: -1873521970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Card_4
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 492
+        width: 151
+        height: 151
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00f6e09b82f470342bee970392c7b89e
+      internalID: 604706907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Card_5
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 701
+        width: 151
+        height: 151
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd73bf428aaf4144691ea007ef7b6ecb
+      internalID: -554053564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Card_6
+      rect:
+        serializedVersion: 2
+        x: 633
+        y: 700
+        width: 171
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eab1a8cbd9c3eb2498535b85ebd1f956
+      internalID: -1592119888
       vertices: []
       indices: 
       edges: []
@@ -159,6 +291,12 @@ TextureImporter:
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":602.0,"y":602.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Card_0: -4457850898058260020
+      Card_1: -1202393308
+      Card_2: -171532176
+      Card_3: -1873521970
+      Card_4: 604706907
+      Card_5: -554053564
+      Card_6: -1592119888
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
