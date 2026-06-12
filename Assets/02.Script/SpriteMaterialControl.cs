@@ -61,7 +61,7 @@ public class SpriteMaterialControl : MonoBehaviour
 
     private void Awake()
     {
-        spriteMaterial.material = GetComponent<SpriteRenderer>().material;
+        spriteMaterial = GetComponent<SpriteRenderer>();
     }
     private void Update()
     {
@@ -70,7 +70,12 @@ public class SpriteMaterialControl : MonoBehaviour
 
     void OnValidate()
     {
-        spriteMaterial.material = GetComponent<SpriteRenderer>().material;
+        if (spriteMaterial == null)
+        {
+            spriteMaterial = GetComponent<SpriteRenderer>();
+            Debug.Log($"{spriteMaterial}ÀÌ µé¾î¿È");
+        }
+        
         Apply();
     }
 
