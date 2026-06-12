@@ -22,15 +22,36 @@ Material:
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - _RenderTexture:
+        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_1af46992260a47b188b00a68378f3fbe_Out_0_Texture2D:
+        m_Texture: {fileID: 2800000, guid: e30faedfb19a802468ea08b0c5753971, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_6c78b4686606433e932a8e7c41ff0a1d_Out_0_Texture2D:
+        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_8a23479008ac433a9964952f70e92dbe_Out_0_Texture2D:
+        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_f42c747706e14293a4e8b721a76a626b_Out_0_Texture2D:
+        m_Texture: {fileID: 2800000, guid: e30faedfb19a802468ea08b0c5753971, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AnimLerp: 1
+    - _AnimLerp: 0
     - _B: 0
-    - _G: 0
+    - _G: 1
     - _IgnoreBaseColor: 0
     - _Lines: 128
     - _Outline_Base: 0
+    - _Outline_Opacity: 1
     - _R: 0
     - _isDottedline: 0
     - _isOutline: 0
@@ -38,8 +59,8 @@ Material:
     - _isPopup: 1
     m_Colors:
     - _BlueColor: {r: 0.024982866, g: 0.19540556, b: 1.0592737, a: 1}
-    - _Color: {r: 0.4882353, g: 0.4882353, b: 0.4882353, a: 1}
-    - _GreenColor: {r: 0.75191975, g: 1.0592737, b: 0, a: 1}
+    - _Color: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
+    - _GreenColor: {r: 0.028431373, g: 0.16470589, b: 0.07156863, a: 1}
     - _RedColor: {r: 1.0592737, g: 0, b: 0, a: 1}
     - _SpriteSize: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
