@@ -1,0 +1,323 @@
+using System;
+using UnityEditor.ShaderGraph.Internal;
+using UnityEngine;
+using UnityEngine.Rendering.Universal;
+using UnityEngine.UI;
+
+public class SpriteMaterialControl : MonoBehaviour
+{
+    private SpriteRenderer spriteMaterial;
+    [Serializable]
+    public struct CustomMaterial
+    {
+        public string name;
+
+        public PropertyType type;
+
+        public Vector2 vectorValue;
+        public float floatValue;
+        public bool boolValue;
+    }
+    [Header("First")]
+    public CustomMaterial firstMaterial;
+    [Header("Second")]
+    public CustomMaterial secondMaterial;
+    [Header("Third")]
+    public CustomMaterial thirdMaterial;
+    [Header("Fourth")]
+    public CustomMaterial fourthMaterial;
+    [Header("Fifth")]
+    public CustomMaterial fifthMaterial;
+    [Header("Sixth")]
+    public CustomMaterial sixthMaterial;
+    [Header("Seventh")]
+    public CustomMaterial seventhMaterial;
+    [Header("Eighth")]
+    public CustomMaterial eighthMaterial;
+    [Header("Ninth")]
+    public CustomMaterial ninthMaterial;
+    [Header("Tenth")]
+    public CustomMaterial tenthMaterial;
+    [Header("Eleventh")]
+    public CustomMaterial eleventhMaterial;
+    [Header("Twelfth")]
+    public CustomMaterial twelfthMaterial;
+    [Header("thirteenth")]
+    public CustomMaterial thirteenthMaterial;
+    [Header("fourteenth")]
+    public CustomMaterial fourteenthMaterial;
+    [Header("fifteenth")]
+    public CustomMaterial fifteenthMaterial;
+    [Header("sixteenth")]
+    public CustomMaterial sixteenthMaterial;
+    [Header("seventeenth")]
+    public CustomMaterial seventeenthMaterial;
+    [Header("eighteenth")]
+    public CustomMaterial eighteenthMaterial;
+    [Header("eighteenth")]
+    public CustomMaterial nineteenthMaterial;
+    [Header("twentieth")]
+    public CustomMaterial twentiethMaterial;
+
+    private void Awake()
+    {
+        spriteMaterial.material = GetComponent<SpriteRenderer>().material;
+    }
+    private void Update()
+    {
+        Apply();
+    }
+
+    void OnValidate()
+    {
+        spriteMaterial.material = GetComponent<SpriteRenderer>().material;
+        Apply();
+    }
+
+    public void Apply()
+    {
+        switch (firstMaterial.type)
+        {
+            case PropertyType.Float:
+                spriteMaterial.material.SetFloat(firstMaterial.name, firstMaterial.floatValue);
+                break;
+            case PropertyType.Boolean:
+                spriteMaterial.material.SetFloat(firstMaterial.name, firstMaterial.boolValue ? 1f : 0f);
+                break;
+            case PropertyType.Vector2:
+                spriteMaterial.material.SetVector(firstMaterial.name, firstMaterial.vectorValue);
+                break;
+        }
+
+        switch (secondMaterial.type)
+        {
+            case PropertyType.Float:
+                spriteMaterial.material.SetFloat(secondMaterial.name, secondMaterial.floatValue);
+                break;
+            case PropertyType.Boolean:
+                spriteMaterial.material.SetFloat(secondMaterial.name, secondMaterial.boolValue ? 1f : 0f);
+                break;
+            case PropertyType.Vector2:
+                spriteMaterial.material.SetVector(secondMaterial.name, secondMaterial.vectorValue);
+                break;
+        }
+
+        switch (thirdMaterial.type)
+        {
+            case PropertyType.Float:
+                spriteMaterial.material.SetFloat(thirdMaterial.name, thirdMaterial.floatValue);
+                break;
+            case PropertyType.Boolean:
+                spriteMaterial.material.SetFloat(thirdMaterial.name, thirdMaterial.boolValue ? 1f : 0f);
+                break;
+            case PropertyType.Vector2:
+                spriteMaterial.material.SetVector(thirdMaterial.name, thirdMaterial.vectorValue);
+                break;
+        }
+
+        switch (fourthMaterial.type)
+        {
+            case PropertyType.Float:
+                spriteMaterial.material.SetFloat(fourthMaterial.name, fourthMaterial.floatValue);
+                break;
+            case PropertyType.Boolean:
+                spriteMaterial.material.SetFloat(fourthMaterial.name, fourthMaterial.boolValue ? 1f : 0f);
+                break;
+            case PropertyType.Vector2:
+                spriteMaterial.material.SetVector(fourthMaterial.name, fourthMaterial.vectorValue);
+                break;
+        }
+        switch (fifthMaterial.type)
+        {
+            case PropertyType.Float:
+                spriteMaterial.material.SetFloat(fifthMaterial.name, fifthMaterial.floatValue);
+                break;
+            case PropertyType.Boolean:
+                spriteMaterial.material.SetFloat(fifthMaterial.name, fifthMaterial.boolValue ? 1f : 0f);
+                break;
+            case PropertyType.Vector2:
+                spriteMaterial.material.SetVector(fifthMaterial.name, fifthMaterial.vectorValue);
+                break;
+        }
+        switch (sixthMaterial.type)
+        {
+            case PropertyType.Float:
+                spriteMaterial.material.SetFloat(sixthMaterial.name, sixthMaterial.floatValue);
+                break;
+            case PropertyType.Boolean:
+                spriteMaterial.material.SetFloat(sixthMaterial.name, sixthMaterial.boolValue ? 1f : 0f);
+                break;
+            case PropertyType.Vector2:
+                spriteMaterial.material.SetVector(sixthMaterial.name, sixthMaterial.vectorValue);
+                break;
+        }
+        switch (seventhMaterial.type)
+        {
+            case PropertyType.Float:
+                spriteMaterial.material.SetFloat(seventhMaterial.name, seventhMaterial.floatValue);
+                break;
+            case PropertyType.Boolean:
+                spriteMaterial.material.SetFloat(seventhMaterial.name, seventhMaterial.boolValue ? 1f : 0f);
+                break;
+            case PropertyType.Vector2:
+                spriteMaterial.material.SetVector(seventhMaterial.name, seventhMaterial.vectorValue);
+                break;
+        }
+        switch (eighthMaterial.type)
+        {
+            case PropertyType.Float:
+                spriteMaterial.material.SetFloat(eighthMaterial.name, eighthMaterial.floatValue);
+                break;
+            case PropertyType.Boolean:
+                spriteMaterial.material.SetFloat(eighthMaterial.name, eighthMaterial.boolValue ? 1f : 0f);
+                break;
+            case PropertyType.Vector2:
+                spriteMaterial.material.SetVector(eighthMaterial.name, eighthMaterial.vectorValue);
+                break;
+        }
+        switch (ninthMaterial.type)
+        {
+            case PropertyType.Float:
+                spriteMaterial.material.SetFloat(ninthMaterial.name, ninthMaterial.floatValue);
+                break;
+            case PropertyType.Boolean:
+                spriteMaterial.material.SetFloat(ninthMaterial.name, ninthMaterial.boolValue ? 1f : 0f);
+                break;
+            case PropertyType.Vector2:
+                spriteMaterial.material.SetVector(ninthMaterial.name, ninthMaterial.vectorValue);
+                break;
+        }
+        switch (tenthMaterial.type)
+        {
+            case PropertyType.Float:
+                spriteMaterial.material.SetFloat(tenthMaterial.name, tenthMaterial.floatValue);
+                break;
+            case PropertyType.Boolean:
+                spriteMaterial.material.SetFloat(tenthMaterial.name, tenthMaterial.boolValue ? 1f : 0f);
+                break;
+            case PropertyType.Vector2:
+                spriteMaterial.material.SetVector(tenthMaterial.name, tenthMaterial.vectorValue);
+                break;
+        }
+        switch (eleventhMaterial.type)
+        {
+            case PropertyType.Float:
+                spriteMaterial.material.SetFloat(eleventhMaterial.name, eleventhMaterial.floatValue);
+                break;
+            case PropertyType.Boolean:
+                spriteMaterial.material.SetFloat(eleventhMaterial.name, eleventhMaterial.boolValue ? 1f : 0f);
+                break;
+            case PropertyType.Vector2:
+                spriteMaterial.material.SetVector(eleventhMaterial.name, eleventhMaterial.vectorValue);
+                break;
+        }
+        switch (twelfthMaterial.type)
+        {
+            case PropertyType.Float:
+                spriteMaterial.material.SetFloat(twelfthMaterial.name, twelfthMaterial.floatValue);
+                break;
+            case PropertyType.Boolean:
+                spriteMaterial.material.SetFloat(twelfthMaterial.name, twelfthMaterial.boolValue ? 1f : 0f);
+                break;
+            case PropertyType.Vector2:
+                spriteMaterial.material.SetVector(twelfthMaterial.name, twelfthMaterial.vectorValue);
+                break;
+        }
+        switch (thirteenthMaterial.type)
+        {
+            case PropertyType.Float:
+                spriteMaterial.material.SetFloat(thirteenthMaterial.name, thirteenthMaterial.floatValue);
+                break;
+            case PropertyType.Boolean:
+                spriteMaterial.material.SetFloat(thirteenthMaterial.name, thirteenthMaterial.boolValue ? 1f : 0f);
+                break;
+            case PropertyType.Vector2:
+                spriteMaterial.material.SetVector(thirteenthMaterial.name, thirteenthMaterial.vectorValue);
+                break;
+        }
+        switch (fourteenthMaterial.type)
+        {
+            case PropertyType.Float:
+                spriteMaterial.material.SetFloat(fourteenthMaterial.name, fourteenthMaterial.floatValue);
+                break;
+            case PropertyType.Boolean:
+                spriteMaterial.material.SetFloat(fourteenthMaterial.name, fourteenthMaterial.boolValue ? 1f : 0f);
+                break;
+            case PropertyType.Vector2:
+                spriteMaterial.material.SetVector(fourteenthMaterial.name, fourteenthMaterial.vectorValue);
+                break;
+        }
+        switch (fifteenthMaterial.type)
+        {
+            case PropertyType.Float:
+                spriteMaterial.material.SetFloat(fifteenthMaterial.name, fifteenthMaterial.floatValue);
+                break;
+            case PropertyType.Boolean:
+                spriteMaterial.material.SetFloat(fifteenthMaterial.name, fifteenthMaterial.boolValue ? 1f : 0f);
+                break;
+            case PropertyType.Vector2:
+                spriteMaterial.material.SetVector(fifteenthMaterial.name, fifteenthMaterial.vectorValue);
+                break;
+        }
+        switch (sixteenthMaterial.type)
+        {
+            case PropertyType.Float:
+                spriteMaterial.material.SetFloat(sixteenthMaterial.name, sixteenthMaterial.floatValue);
+                break;
+            case PropertyType.Boolean:
+                spriteMaterial.material.SetFloat(sixteenthMaterial.name, sixteenthMaterial.boolValue ? 1f : 0f);
+                break;
+            case PropertyType.Vector2:
+                spriteMaterial.material.SetVector(sixteenthMaterial.name, sixteenthMaterial.vectorValue);
+                break;
+        }
+        switch (seventeenthMaterial.type)
+        {
+            case PropertyType.Float:
+                spriteMaterial.material.SetFloat(seventeenthMaterial.name, seventeenthMaterial.floatValue);
+                break;
+            case PropertyType.Boolean:
+                spriteMaterial.material.SetFloat(seventeenthMaterial.name, seventeenthMaterial.boolValue ? 1f : 0f);
+                break;
+            case PropertyType.Vector2:
+                spriteMaterial.material.SetVector(seventeenthMaterial.name, seventeenthMaterial.vectorValue);
+                break;
+        }
+        switch (eighteenthMaterial.type)
+        {
+            case PropertyType.Float:
+                spriteMaterial.material.SetFloat(eighteenthMaterial.name, eighteenthMaterial.floatValue);
+                break;
+            case PropertyType.Boolean:
+                spriteMaterial.material.SetFloat(eighteenthMaterial.name, eighteenthMaterial.boolValue ? 1f : 0f);
+                break;
+            case PropertyType.Vector2:
+                spriteMaterial.material.SetVector(eighteenthMaterial.name, eighteenthMaterial.vectorValue);
+                break;
+        }
+        switch (nineteenthMaterial.type)
+        {
+            case PropertyType.Float:
+                spriteMaterial.material.SetFloat(nineteenthMaterial.name, nineteenthMaterial.floatValue);
+                break;
+            case PropertyType.Boolean:
+                spriteMaterial.material.SetFloat(nineteenthMaterial.name, nineteenthMaterial.boolValue ? 1f : 0f);
+                break;
+            case PropertyType.Vector2:
+                spriteMaterial.material.SetVector(nineteenthMaterial.name, nineteenthMaterial.vectorValue);
+                break;
+        }
+        switch (twentiethMaterial.type)
+        {
+            case PropertyType.Float:
+                spriteMaterial.material.SetFloat(twentiethMaterial.name, twentiethMaterial.floatValue);
+                break;
+            case PropertyType.Boolean:
+                spriteMaterial.material.SetFloat(twentiethMaterial.name, twentiethMaterial.boolValue ? 1f : 0f);
+                break;
+            case PropertyType.Vector2:
+                spriteMaterial.material.SetVector(twentiethMaterial.name, twentiethMaterial.vectorValue);
+                break;
+        }
+    }
+}
