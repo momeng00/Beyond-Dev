@@ -14,8 +14,11 @@ public sealed class GaussianBlur1DVolumeComponent : VolumeComponent, IPostProces
     [Tooltip("Final dimming amount. Applied only once in the final composite pass.")]
     public ClampedFloatParameter dimmed = new ClampedFloatParameter(0f, 0f, 1f);
 
+    [Tooltip("Compound blur mask amount. 0 = uniform blur, 1 = fully masked blur.")]
+    public ClampedFloatParameter compound = new ClampedFloatParameter(0f, 0f, 1f);
+
     public bool IsActive()
     {
-        return active && (radius.value > 0f || dimmed.value > 0f);
+        return active && (radius.value > 0f || dimmed.value > 0f || compound.value > 0f);
     }
 }
