@@ -34,6 +34,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5146188447958622195
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -79,6 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5000
+  m_MaskInteraction: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -88,7 +90,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 1
   m_SpriteSortPoint: 0
 --- !u!1 &4897272067309848532
 GameObject:
@@ -4848,7 +4849,7 @@ ParticleSystem:
     vectorLabel1_3: W
 --- !u!199 &7454894942397986127
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4894,6 +4895,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 828
+  m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -4925,7 +4927,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0
 --- !u!1 &7871200425626052665
 GameObject:
   m_ObjectHideFlags: 0
@@ -4983,6 +4984,7 @@ MonoBehaviour:
   costumeData: {fileID: 11400000, guid: 154c881b94b66c94891b38bac9cc2c12, type: 2}
 --- !u!212 &2083962587889681066
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5028,7 +5030,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 498
-  m_Sprite: {fileID: 69753928, guid: f0043d232dcbb8949ba89be206a035c6, type: 3}
+  m_MaskInteraction: 0
+  m_Sprite: {fileID: 1204122492, guid: f0043d232dcbb8949ba89be206a035c6, type: 3}
   m_Color: {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5037,7 +5040,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &7887694186623325661
 MonoBehaviour:
@@ -5081,6 +5083,7 @@ MonoBehaviour:
   hasJump: 0
   coyoteTime: 0.03
   landingLimit: 10000
+  stopTime: 0
   canMove: 0
   stats:
   - {fileID: 11400000, guid: 6c89c1983902fc44dab2bc5f54f44891, type: 2}

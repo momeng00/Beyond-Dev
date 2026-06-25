@@ -40,7 +40,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 2
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -54,7 +54,7 @@ TextureImporter:
   spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 128
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -75,7 +75,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -106,13 +106,13 @@ TextureImporter:
       name: CloudStations_0
       rect:
         serializedVersion: 2
-        x: 32
-        y: 416
-        width: 64
-        height: 64
+        x: 699
+        y: 539
+        width: 130
+        height: 130
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 29, y: 29, z: 29, w: 29}
+      border: {x: 64, y: 64, z: 64, w: 64}
       customData: 
       outline:
       - - {x: 32, y: 32}
@@ -136,12 +136,12 @@ TextureImporter:
       name: CloudStations_1
       rect:
         serializedVersion: 2
-        x: 160
-        y: 416
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 318
+        y: 829
+        width: 130
+        height: 130
+      alignment: 3
+      pivot: {x: 1, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -158,12 +158,12 @@ TextureImporter:
       name: CloudStations_2
       rect:
         serializedVersion: 2
-        x: 288
-        y: 416
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 576
+        y: 833
+        width: 128
+        height: 128
+      alignment: 3
+      pivot: {x: 1, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -180,12 +180,12 @@ TextureImporter:
       name: CloudStations_3
       rect:
         serializedVersion: 2
-        x: 416
-        y: 416
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 832
+        y: 832
+        width: 128
+        height: 128
+      alignment: 3
+      pivot: {x: 1, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -202,13 +202,13 @@ TextureImporter:
       name: CloudStations_4
       rect:
         serializedVersion: 2
-        x: 32
-        y: 288
-        width: 64
-        height: 64
+        x: 64
+        y: 574
+        width: 130
+        height: 130
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 64, y: 64, z: 64, w: 64}
       customData: 
       outline: []
       physicsShape: []
@@ -224,12 +224,12 @@ TextureImporter:
       name: CloudStations_5
       rect:
         serializedVersion: 2
-        x: 159
-        y: 289
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 320
+        y: 576
+        width: 128
+        height: 128
+      alignment: 3
+      pivot: {x: 1, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -265,7 +265,7 @@ TextureImporter:
       CloudStations_4: 1014054817
       CloudStations_5: -903836589
   mipmapLimitGroupName: 
-  pSDRemoveMatte: 0
+  pSDRemoveMatte: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 
