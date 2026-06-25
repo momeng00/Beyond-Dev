@@ -76,6 +76,7 @@ public sealed class GaussianBlur1DRendererFeature : ScriptableRendererFeature
         private static readonly int kBlitScaleBiasPropertyId = Shader.PropertyToID("_BlitScaleBias");
         private static readonly int kRadiusPropertyId = Shader.PropertyToID("_Radius");
         private static readonly int kDimmedPropertyId = Shader.PropertyToID("_Dimmed");
+        private static readonly int kCompoundPropertyId = Shader.PropertyToID("_Compound");
 
         public CustomPostRenderPass(
             string passName,
@@ -97,6 +98,7 @@ public sealed class GaussianBlur1DRendererFeature : ScriptableRendererFeature
             public Material material;
             public TextureHandle inputTexture;
             public float radius;
+            public float compound;
         }
 
         private class CopyPassData
@@ -123,12 +125,18 @@ public sealed class GaussianBlur1DRendererFeature : ScriptableRendererFeature
             return Mathf.Clamp01(normalizedDimmed);
         }
 
+        private static float GetProcessedCompound(float normalizedCompound)
+        {
+            return Mathf.Clamp01(normalizedCompound);
+        }
+
         private static void ExecuteBlurPass(BlurPassData data, RasterGraphContext context)
         {
             s_SharedPropertyBlock.Clear();
             s_SharedPropertyBlock.SetTexture(kBlitTexturePropertyId, data.inputTexture);
             s_SharedPropertyBlock.SetVector(kBlitScaleBiasPropertyId, new Vector4(1, 1, 0, 0));
             s_SharedPropertyBlock.SetFloat(kRadiusPropertyId, data.radius);
+            s_SharedPropertyBlock.SetFloat(kCompoundPropertyId, data.compound);
 
             context.cmd.DrawProcedural(
                 Matrix4x4.identity,
@@ -200,9 +208,14 @@ public sealed class GaussianBlur1DRendererFeature : ScriptableRendererFeature
 
                 float processedRadius = GetProcessedRadius(volume.radius.value);
                 float processedDimmed = GetProcessedDimmed(volume.dimmed.value);
+                float processedCompound = GetProcessedCompound(volume.compound.value);
 
                 m_HorizontalMaterial.SetFloat(kRadiusPropertyId, processedRadius);
                 m_VerticalMaterial.SetFloat(kRadiusPropertyId, processedRadius);
+
+                m_HorizontalMaterial.SetFloat(kCompoundPropertyId, processedCompound);
+                m_VerticalMaterial.SetFloat(kCompoundPropertyId, processedCompound);
+
                 m_CompositeMaterial.SetFloat(kDimmedPropertyId, processedDimmed);
 
                 // 1. Downsample copy
@@ -270,6 +283,7 @@ public sealed class GaussianBlur1DRendererFeature : ScriptableRendererFeature
 
             float processedRadius = GetProcessedRadius(volume.radius.value);
             float processedDimmed = GetProcessedDimmed(volume.dimmed.value);
+            float processedCompound = GetProcessedCompound(volume.compound.value);
 
             UniversalResourceData resourcesData = frameData.Get<UniversalResourceData>();
             TextureHandle source = resourcesData.cameraColor;
@@ -307,6 +321,7 @@ public sealed class GaussianBlur1DRendererFeature : ScriptableRendererFeature
                     passData.material = m_HorizontalMaterial;
                     passData.inputTexture = ping;
                     passData.radius = processedRadius;
+                    passData.compound = processedCompound;
 
                     builder.UseTexture(passData.inputTexture, AccessFlags.Read);
                     builder.SetRenderAttachment(pong, 0, AccessFlags.Write);
@@ -319,6 +334,7 @@ public sealed class GaussianBlur1DRendererFeature : ScriptableRendererFeature
                     passData.material = m_VerticalMaterial;
                     passData.inputTexture = pong;
                     passData.radius = processedRadius;
+                    passData.compound = processedCompound;
 
                     builder.UseTexture(passData.inputTexture, AccessFlags.Read);
                     builder.SetRenderAttachment(ping, 0, AccessFlags.Write);
@@ -331,6 +347,7 @@ public sealed class GaussianBlur1DRendererFeature : ScriptableRendererFeature
                     passData.material = m_HorizontalMaterial;
                     passData.inputTexture = ping;
                     passData.radius = processedRadius;
+                    passData.compound = processedCompound;
 
                     builder.UseTexture(passData.inputTexture, AccessFlags.Read);
                     builder.SetRenderAttachment(pong, 0, AccessFlags.Write);
@@ -343,6 +360,7 @@ public sealed class GaussianBlur1DRendererFeature : ScriptableRendererFeature
                     passData.material = m_VerticalMaterial;
                     passData.inputTexture = pong;
                     passData.radius = processedRadius;
+                    passData.compound = processedCompound;
 
                     builder.UseTexture(passData.inputTexture, AccessFlags.Read);
                     builder.SetRenderAttachment(ping, 0, AccessFlags.Write);
@@ -355,6 +373,7 @@ public sealed class GaussianBlur1DRendererFeature : ScriptableRendererFeature
                     passData.material = m_HorizontalMaterial;
                     passData.inputTexture = ping;
                     passData.radius = processedRadius;
+                    passData.compound = processedCompound;
 
                     builder.UseTexture(passData.inputTexture, AccessFlags.Read);
                     builder.SetRenderAttachment(pong, 0, AccessFlags.Write);
@@ -367,6 +386,7 @@ public sealed class GaussianBlur1DRendererFeature : ScriptableRendererFeature
                     passData.material = m_VerticalMaterial;
                     passData.inputTexture = pong;
                     passData.radius = processedRadius;
+                    passData.compound = processedCompound;
 
                     builder.UseTexture(passData.inputTexture, AccessFlags.Read);
                     builder.SetRenderAttachment(ping, 0, AccessFlags.Write);
