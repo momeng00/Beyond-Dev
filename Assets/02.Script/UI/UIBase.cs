@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-public enum UIAnimType { None, PopUp, SlideLeft, SlideRight, SlideTop, SlideBottom }
+public enum UIAnimType { None, PopUp, SlideLeft, SlideRight, SlideTop, SlideBottom, OriginPopUp }
 // CanvasGroup과 RectTransform은 애니메이션을 위해 필수
 [RequireComponent(typeof(CanvasGroup), typeof(RectTransform))]
 public class UIBase : MonoBehaviour
@@ -50,7 +50,7 @@ public class UIBase : MonoBehaviour
         if (currentAnimationCoroutine != null) StopCoroutine(currentAnimationCoroutine);
         currentAnimationCoroutine = StartCoroutine(PlayOpenAnimation());
     }
-
+    
     public virtual void Close()
     {
         canvasGroup.alpha = 1f;
@@ -82,8 +82,8 @@ public class UIBase : MonoBehaviour
         yield return null;
 
         // 1프레임 뒤, 정렬된 진짜 위치를 저장
-        originalPosition = rectTransform.anchoredPosition;
-        originalScale = Vector3.one;
+        //originalPosition = rectTransform.anchoredPosition;
+        //originalScale = Vector3.one;
 
         // 시작 위치 계산
         float width = Screen.width;
@@ -129,6 +129,8 @@ public class UIBase : MonoBehaviour
         rectTransform.localScale = originalScale;
         canvasGroup.alpha = 1f; // 완전히 보이게
     }
+
+    
 
     protected IEnumerator PlayCloseAnimation()
     { 

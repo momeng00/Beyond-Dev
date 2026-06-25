@@ -8,6 +8,7 @@ using static MatarialAnim;
 public abstract class Block : MonoBehaviour, IReset
 {
     //원본 데이터
+    public bool isOriginPopUp = false;
     public List<PropertyData> propertyList;
     public float matarialAnimDuration = 0.25f;
     protected MatarialAnim matarialAnim = new MatarialAnim();
@@ -58,6 +59,8 @@ public abstract class Block : MonoBehaviour, IReset
     }
     private void OnValidate()
     {
+        if (PopUpList == null)
+            return;
         for (int i = 0; i < PopUpList.Count; i++)
         {
             if (PopUpList[i] == null) continue;
@@ -98,7 +101,7 @@ public abstract class Block : MonoBehaviour, IReset
         {
             foreach (var listener in eventListeners)
             {
-                listener.ToggleEvent(BlockState);
+                listener.ToggleEvent(BlockState, this.gameObject.GetComponent<Transform>());
             }
             if (activateCoroutine == null)
                 return;
@@ -111,7 +114,7 @@ public abstract class Block : MonoBehaviour, IReset
     {
         foreach (var listener in eventListeners)
         {
-            listener.ToggleEvent(BlockState);
+            listener.ToggleEvent(BlockState, this.gameObject.GetComponent<Transform>());
             Debug.Log($"왜 이상함? 기다리는 초 {toggleDelay}");
             yield return new WaitForSeconds(toggleDelay);
         }

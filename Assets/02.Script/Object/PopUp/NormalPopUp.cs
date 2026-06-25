@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,7 +16,7 @@ public class NormalPopUp : PopUp, IEventListener, IReset
     private bool eventFlag= false;
     private Animator animator;
     //[SerializeField]private Block Block;
-
+    public bool openAnimation = false;
     public int toggleEventPriority;
     public int ToggleEventPriority =>  toggleEventPriority;
     protected List<Animator> childAnimators;
@@ -32,7 +33,7 @@ public class NormalPopUp : PopUp, IEventListener, IReset
         GameManager.Instance.OnReset += ResetAction;
     }
 
-    public void FindChildAnimator()
+    public virtual void FindChildAnimator()
     {
         childAnimators = new List<Animator>();
         Animator[] allAnimators = GetComponentsInChildren<Animator>(true);
@@ -44,13 +45,14 @@ public class NormalPopUp : PopUp, IEventListener, IReset
             }
         }
     }
-
-    public void ToggleEvent(bool state)
+    
+    public virtual void ToggleEvent(bool state, Transform origin = null)
     {
 
         if (EventOnce)
             return;
-        animator.Play(state ? "In" : "Out");
+        if(animator != null)
+            animator.Play(state ? "In" : "Out");
         foreach (Animator anim in childAnimators)
         {
             anim.SetBool("IsActive", state);
@@ -58,7 +60,7 @@ public class NormalPopUp : PopUp, IEventListener, IReset
         
     }
 
-    private void InitPopUpDatas()
+    public void InitPopUpDatas()
     {
         PopUpData data = PopUpDataManager.Instance.GetData(key.key.ToString());
         nickName.text = data.Name.ToString();
