@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class TodoList : MonoBehaviour
 {
+    //예전에 TodoList가 따로 존재할때의 스크립트
+    //Todo가 고양이(Card)안으로 들어갔으니 움직임 스크립트를 다른곳으로 분리함.
+    //고양이 안에 있는 Todo는 변했으니 딜레이를 주는 방식으로만 변경하면 됨.
     protected Vector2 originalPosition;
     protected Coroutine currentAnimationCoroutine;
     protected RectTransform rectTransform;
     public float TodoDelay = 0.2f;
     public List<Todo> todoes;
-    CanvasGroup cg;
+    private CanvasGroup cg;
     private void Awake()
     {
         cg = GetComponent<CanvasGroup>();

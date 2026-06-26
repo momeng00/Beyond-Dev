@@ -68,7 +68,7 @@ public class PushBlock : Block
             if (sample != null)
             {
                 sample.EventOnce = false;
-                sample.ToggleEvent(false); //임시조치 (뇌가 아플때 했던거임)
+                sample.ToggleEvent(false,this.gameObject.GetComponent<Transform>()); //임시조치 (뇌가 아플때 했던거임)
             }
         }
         popupFlag = false;
