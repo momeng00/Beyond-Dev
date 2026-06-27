@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 29d766c8231ad744dbc4c8426b2472c3, type: 2}
+  - {fileID: 5292553044795226636, guid: 91f450ede8ad17649a1d75463386d3fe, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,6 +86,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 876
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &2695374412250003587
 MonoBehaviour:
@@ -109,8 +110,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "#\uADF8\uB8F9\uC2A4\uD130\uB514\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 106297e077295f04d970aae3bba3b080, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 29d766c8231ad744dbc4c8426b2472c3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 91f450ede8ad17649a1d75463386d3fe, type: 2}
+  m_sharedMaterial: {fileID: 5292553044795226636, guid: 91f450ede8ad17649a1d75463386d3fe, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -145,6 +146,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -295,6 +297,7 @@ RectTransform:
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &4669723520608636421
 SpriteRenderer:
+  serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -340,6 +343,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 875
+  m_MaskInteraction: 0
   m_Sprite: {fileID: -1014657298, guid: f2ac3ed0935da4149b8906ccba881b41, type: 3}
   m_Color: {r: 1, g: 0.9575472, b: 0.9575472, a: 1}
   m_FlipX: 0
@@ -349,7 +353,6 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &3055379033955396555
 Animator:
@@ -431,6 +434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a84e262108af7964dbe5d20f86d792b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MultiBlock
+  isOriginPopUp: 0
   propertyList:
   - propertyName: _AnimLerp
     startValue: 1
@@ -492,6 +496,7 @@ SpriteMask:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_Sprite: {fileID: 0}
   m_MaskAlphaCutoff: 0.2
   m_FrontSortingLayerID: 0
@@ -518,4 +523,5 @@ MonoBehaviour:
   localizationKey: 9
   alignment: 514
   fontSize: 0
+  moreText: 0
   text: {fileID: 2695374412250003587}
