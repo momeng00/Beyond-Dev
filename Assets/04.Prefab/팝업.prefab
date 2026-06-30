@@ -639,6 +639,7 @@ MonoBehaviour:
   content: {fileID: 0}
   profileID: {fileID: 0}
   EventOnce: 0
+  openAnimation: 0
   toggleEventPriority: 1
 --- !u!114 &4411474577297728044
 MonoBehaviour:
@@ -1007,7 +1008,6 @@ GameObject:
   - component: {fileID: 8589509426947658199}
   - component: {fileID: 8818707208257279591}
   - component: {fileID: 3004805218317140389}
-  - component: {fileID: 7041895272384699662}
   m_Layer: 5
   m_Name: Text (1)
   m_TagString: Untagged
@@ -1215,18 +1215,6 @@ MonoBehaviour:
   m_HorizontalFit: 2
   m_VerticalFit: 0
 --- !u!114 &3004805218317140389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6338715672678856372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18c9623e4ae8b1b4185fb49fb9da1c07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SortingOrderFollower
---- !u!114 &7041895272384699662
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
