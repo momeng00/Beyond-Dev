@@ -37,17 +37,17 @@ public class UIBaseUpgrade : MonoBehaviour
     public void Open()
     {
         onOpen?.Invoke();
-        canvasGroup.alpha = 0f;
         if (currentCoroutine != null) StopCoroutine(currentCoroutine);
         currentCoroutine = StartCoroutine(OpenCoroutine());
     }
     public void Close()
     {
-
+        if (currentCoroutine != null) StopCoroutine(currentCoroutine);
+        currentCoroutine = StartCoroutine(CloseCoroutine());
     }
     IEnumerator OpenCoroutine()
     {
-        Vector2 startPos = originalPosition;
+        Vector2 startPos = originalPosition; //아무것도 안넣으면 입력이 안되서 넣은 값
         yield return null;
         switch (direction)
         {
@@ -74,5 +74,36 @@ public class UIBaseUpgrade : MonoBehaviour
         rectTransform.anchoredPosition = originalPosition;
         rectTransform.localScale = originalScale;
         canvasGroup.alpha = 1f;
+    }
+
+    IEnumerator CloseCoroutine()
+    {
+        Debug.Log($"UI 원본 위치는 {originalPosition}");
+        Vector2 targetPos = originalPosition;
+        yield return null;
+        switch (direction)
+        {
+            case direction.left: targetPos = new Vector2(originalPosition.x + rectTransform.rect.x * (ratio / 100), originalPosition.y); break;
+            case direction.right: targetPos = new Vector2(originalPosition.x - rectTransform.rect.x * (ratio / 100), originalPosition.y); break;
+            case direction.down: targetPos = new Vector2(originalPosition.x, originalPosition.y + rectTransform.rect.y * (ratio / 100)); break;
+            case direction.up: targetPos = new Vector2(originalPosition.x, originalPosition.y - rectTransform.rect.y * (ratio / 100)); break;
+        }
+
+        float timer = 0f;
+        while (timer < delay)
+        {
+            timer += Time.unscaledDeltaTime;
+            float t = Mathf.Sin((timer / delay) * Mathf.PI * 0.5f);
+
+            rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, targetPos, t);
+            canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
+
+            yield return null;
+        }
+
+        // 끝난 후 확실하게 값 고정
+        canvasGroup.alpha = 0f;
+        rectTransform.anchoredPosition = originalPosition;
+        rectTransform.localScale = originalScale;
     }
 }

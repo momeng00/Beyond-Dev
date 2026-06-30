@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TestHardCoing : MonoBehaviour
 {
-    public UIBaseUpgrade test;
+    public Card test;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -15,7 +15,8 @@ public class TestHardCoing : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            test.Open();
+            Card clone = Instantiate(test, test.gameObject.transform.parent);
+            CardManager.Instance.AddCard(clone);
         }
     }
 }
