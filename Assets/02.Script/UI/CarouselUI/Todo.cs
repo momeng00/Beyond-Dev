@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Todo : MonoBehaviour
 {
-    private bool isClear=false;
+    [SerializeField]private bool isClear=false;
     private InGameTodo gameTodo;
     private Animator ani;
     private TMP_Text content_text; 

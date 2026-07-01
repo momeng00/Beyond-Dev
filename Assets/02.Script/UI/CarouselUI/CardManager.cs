@@ -28,7 +28,7 @@ public class CardManager : MonoBehaviour
     {
         cardList.Clear();
     }
-    [Range(0f, 100f)] public float ratio; //옆으로 움직일 비율 및 크기가 작아질 비율
+    [Range(0f, 100f)] public float ratio; //옆으로 움직일 비율 및 크기가 작아질 비율 카드 끼리 간격에 해당
     public float animDuration = 0.52f;
     public int limit; //카드를 가질 수 있는 최대치.
     public void AddCard(Card card)
@@ -49,7 +49,7 @@ public class CardManager : MonoBehaviour
         while(limit < cardList.Count)
         {
             Card lastCard = cardList[0];
-            lastCard.GetComponent<UIBaseUpgrade>().Close();
+            lastCard.RemoveCard();
             cardList.Remove(lastCard);
         }
         
