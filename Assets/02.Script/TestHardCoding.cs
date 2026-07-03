@@ -2,15 +2,19 @@ using UnityEngine;
 
 public class TestHardCoing : MonoBehaviour
 {
-    public Card test1;
-    public Card test2;
-    public Card test3;
+    public UIBaseUpgrade test1;
+    public UIBaseUpgrade test2;
+    public UIBaseUpgrade test3;
+    public UIBaseUpgrade test4;
+    public UIBaseUpgrade test5;
+    public UIBaseUpgrade test6;
+    public UIBaseUpgrade test7;
+    public UIBaseUpgrade test8;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        test1.RemoveCard();
-        test2.RemoveCard();
-        test3.RemoveCard();
+
     }
 
     // Update is called once per frame
@@ -19,18 +23,42 @@ public class TestHardCoing : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            test1.Open();
 
-            CardManager.Instance.AddCard(test1);
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-
-            CardManager.Instance.AddCard(test2);
+            test2.Open();
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
+            test2.Close();
 
-            CardManager.Instance.AddCard(test3);
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            test1.Close();
+
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            test5.Open();
+
+        }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            test6.Open();
+
+        }
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            test7.Open();
+
+        }
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            test8.Open();
+
         }
     }
 }

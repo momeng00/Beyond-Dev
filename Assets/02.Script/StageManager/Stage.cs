@@ -22,7 +22,6 @@ public class Stage : MonoBehaviour
     {
         if (nextStage != null)
         {
-            Debug.Log("실행되고있음?");
             GameManager.Instance.NextStage(nextStage);
         }
         else

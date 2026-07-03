@@ -33,6 +33,7 @@ public class UIBaseUpgrade : MonoBehaviour
 
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
+        Close();
     }
     public void Open()
     {

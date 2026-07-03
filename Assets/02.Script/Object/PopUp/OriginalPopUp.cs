@@ -6,6 +6,8 @@ using static UnityEngine.UI.Image;
 public class OriginalPopUp : NormalPopUp
 {
     //Canvas가 없으며 RectTransform을 가지고 있는 기준으로 만들어 진거입니다.
+    //Canvas가 없으면 CanvasGroup이 실행이 안됨.
+    //팝업이 BlockStage를 따라감, ToggleEvent가 실행되면 BlockState에 따라서 팝업이 나오고 안나오고 임.
     protected CanvasGroup canvasGroup;
     protected RectTransform rectTransform;
     protected Vector2 originalPosition;
