@@ -18,6 +18,7 @@ public class Stage : MonoBehaviour
         }
     }
 
+
     private void NextStage()
     {
         if (nextStage != null)

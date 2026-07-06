@@ -43,10 +43,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartStage()
-    {
-        NextStage(startStage);
-    }
+
 
 
     public void NextStage(Stage nextStage)
@@ -62,7 +59,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("스테이지 진입 실행");
         currentStage.StageEnter();
     }
-    public void GamePause()
+    public void GamePause() //이거 뭐지??
     {
         Debug.Log("GamePause진입");
         if (InputSystem.Instance.keyState != KeyState.Pause)
@@ -74,15 +71,25 @@ public class GameManager : MonoBehaviour
                 InputSystem.Instance.keyState = KeyState.Pause;
                 if (pauseMenu != null)
                 {
-                    if (_pauseMenuInstance == null)
-                    {
-                        _pauseMenuInstance = Instantiate(pauseMenu); ;
-                        _pauseMenuInstance.name = pauseMenu.name;
-                        Debug.Log("창 생성");
-                    }
-                    _pauseMenuInstance.Open();
+                    //if (_pauseMenuInstance == null)
+                    //{
+                    //    _pauseMenuInstance = Instantiate(pauseMenu); ;
+                    //    _pauseMenuInstance.name = pauseMenu.name;
+                    //    Debug.Log("창 생성");
+                    //}
+                    pauseMenu.Open();
+                    Debug.Log($"UI개수 확인 {UIManager.instance.showns.Count}");
                     Debug.Log("창 오픈");
                 }
+            }
+        }
+        else //해당 else문 임시로 해둔것 UIManager랑 연동시키기
+        {
+            if (UIManager.instance.showns.Count > 0)
+            {
+                InputSystem.Instance.keyState = KeyState.Play_Key;
+                pauseMenu.Close();
+                Debug.Log($"닫기UI개수 확인 {UIManager.instance.showns.Count}");
             }
         }
         Debug.Log("반환");
@@ -122,6 +129,7 @@ public class GameManager : MonoBehaviour
     {
         OnGameStateChanged?.Invoke(currentGameState);
         InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Escape, GamePause);
+        InputSystem.Instance.RegisterAction(KeyState.Pause, KeyCode.Escape, GamePause);
     }
     private Coroutine holdCoroutine;
     public float holdTime = 0.7f;
@@ -145,6 +153,7 @@ public class GameManager : MonoBehaviour
     public void StartGameNow()
     {
         currentGameState = GameState.Playing;
+        NextStage(startStage);
     }
     IEnumerator HoldReset()
     {

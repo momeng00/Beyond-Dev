@@ -34,13 +34,20 @@ public class Move : CharacterStateBase
             {
                 if (machine.characterControl.direction > 0f)
                 {
-                    MainCameraController.Instance.ChangeCamera(PlatformerCamera2D.StateCameras.Right);
-                    MainCameraController.Instance.IsRight = true;
+                    if(MainCameraController.Instance != null)
+                    {
+                        MainCameraController.Instance.ChangeCamera(PlatformerCamera2D.StateCameras.Right);
+                        MainCameraController.Instance.IsRight = true;
+                    }
                 }
                 else if(machine.characterControl.direction < 0f) 
                 {
-                    MainCameraController.Instance.ChangeCamera(PlatformerCamera2D.StateCameras.Left);
-                    MainCameraController.Instance.IsRight = false;
+                    if (MainCameraController.Instance != null)
+                    {
+                        MainCameraController.Instance.ChangeCamera(PlatformerCamera2D.StateCameras.Left);
+                        MainCameraController.Instance.IsRight = false;
+                    }
+                    
                 }
                 next = CharacterStateID.Move;
             }

@@ -1,9 +1,12 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class SaveManager : MonoBehaviour
+public class SaveManager 
 {
     private const string SaveFileName = "save_data.json";
+    private Dictionary<string, Stage> stageList = new Dictionary<string, Stage>();
     public SaveData CurrentData { get; private set; }
     private string SavePath => Path.Combine(Application.persistentDataPath, SaveFileName);
     private static SaveManager _instance;
@@ -13,11 +16,17 @@ public class SaveManager : MonoBehaviour
         {
             if (_instance == null)
             {
-                _instance = FindAnyObjectByType<SaveManager>();
-                if (_instance == null)
-                    Debug.LogError("SaveManager ¾øÀ½");
+                _instance = new SaveManager();
+                _instance.Load();
             }
             return _instance;
+        }
+    }
+    public void RegisterStage(Stage stage)
+    {
+        if (!stageList.ContainsKey(stage.stageName))
+        {
+            stageList.Add(stage.stageName, stage);
         }
     }
     public void Save()
