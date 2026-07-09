@@ -266,8 +266,8 @@ GameObject:
   - component: {fileID: 3055379033955396555}
   - component: {fileID: 2625442407169657179}
   - component: {fileID: 1476017225672795311}
-  - component: {fileID: 7866253431683519998}
   - component: {fileID: 7993337029163313155}
+  - component: {fileID: 4795381212107843108}
   m_Layer: 6
   m_Name: "\uBA54\uC2DC\uC9C0\uBE14\uB85D"
   m_TagString: Untagged
@@ -449,7 +449,24 @@ MonoBehaviour:
   targetLayer:
     serializedVersion: 2
     m_Bits: 256
---- !u!331 &7866253431683519998
+--- !u!114 &7993337029163313155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7199630659841988543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 572622346be186e478598696033220c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MessageBox
+  localizationKey: 9
+  alignment: 514
+  fontSize: 0
+  moreText: 0
+  text: {fileID: 2695374412250003587}
+--- !u!331 &4795381212107843108
 SpriteMask:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -503,25 +520,8 @@ SpriteMask:
   m_BackSortingLayerID: 0
   m_FrontSortingLayer: 0
   m_BackSortingLayer: 0
-  m_FrontSortingOrder: 1001
-  m_BackSortingOrder: 999
-  m_IsCustomRangeActive: 1
+  m_FrontSortingOrder: 0
+  m_BackSortingOrder: 0
+  m_IsCustomRangeActive: 0
   m_SpriteSortPoint: 0
-  m_MaskSource: 1
---- !u!114 &7993337029163313155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7199630659841988543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 572622346be186e478598696033220c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MessageBox
-  localizationKey: 9
-  alignment: 514
-  fontSize: 0
-  moreText: 0
-  text: {fileID: 2695374412250003587}
+  m_MaskSource: 0
