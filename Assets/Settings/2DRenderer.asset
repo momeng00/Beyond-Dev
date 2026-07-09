@@ -26,7 +26,8 @@ MonoBehaviour:
     probeVolumeBlendStatesCS: {fileID: 0}
   m_RendererFeatures:
   - {fileID: 4254306865455227358}
-  m_RendererFeatureMap: dee1f6c88d550a3b
+  - {fileID: 8368361902218995093}
+  m_RendererFeatureMap: dee1f6c88d550a3b95e5ac05d0642274
   m_UseNativeRenderPass: 0
   m_LayerMask:
     serializedVersion: 2
@@ -74,3 +75,20 @@ MonoBehaviour:
   m_VerticalMaterial: {fileID: 2100000, guid: ef750120c97905f479aa6265e1cbea53, type: 2}
   m_CompositeMaterial: {fileID: 2100000, guid: 78d07fa4336606e45a3a45a49213db1a, type: 2}
   m_Downsample: 2
+--- !u!114 &8368361902218995093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2203c7ece689b804fafb080382290193, type: 3}
+  m_Name: FullscreenFocusFeature
+  m_EditorClassIdentifier: Assembly-CSharp::FullscreenFocusFeature
+  m_Active: 1
+  settings:
+    material: {fileID: 2100000, guid: 6b760292ee7224c4ebabf92ad82500d8, type: 2}
+    renderPassEvent: 500
+    showInSceneView: 0
