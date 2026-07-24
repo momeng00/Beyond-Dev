@@ -1148,11 +1148,11 @@ GameObject:
   m_Component:
   - component: {fileID: 76632295}
   - component: {fileID: 76632298}
-  - component: {fileID: 76632299}
   - component: {fileID: 76632297}
   - component: {fileID: 76632296}
+  - component: {fileID: 76632299}
   m_Layer: 5
-  m_Name: Todo (1)
+  m_Name: TodoAlert
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1172,12 +1172,12 @@ RectTransform:
   m_Children:
   - {fileID: 1812261290}
   - {fileID: 1006338749}
-  m_Father: {fileID: 1336331063}
+  m_Father: {fileID: 1427835573}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 934.20496, y: -33}
+  m_SizeDelta: {x: 880, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &76632296
 Animator:
@@ -1239,19 +1239,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 76632294}
   m_CullTransparentMesh: 1
---- !u!114 &76632299
-MonoBehaviour:
+--- !u!225 &76632299
+CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 76632294}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38d3c269297a2be42949fed69c62a5ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Todo
-  isClear: 0
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &131997473
 GameObject:
   m_ObjectHideFlags: 0
@@ -3194,7 +3193,7 @@ SpriteRenderer:
   m_Size: {x: 6.125, y: 13.125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!1 &332269726
 GameObject:
@@ -9927,6 +9926,7 @@ RectTransform:
   - {fileID: 1930655923}
   - {fileID: 332269727}
   - {fileID: 1336331063}
+  - {fileID: 1427835573}
   m_Father: {fileID: 577848510}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -10245,7 +10245,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 467578919}
-  - {fileID: 76632295}
   - {fileID: 1664186759}
   - {fileID: 555687751}
   m_Father: {fileID: 1295904559}
@@ -10328,7 +10327,7 @@ MonoBehaviour:
   TodoDelay: 0.2
   todoes:
   - {fileID: 467578923}
-  - {fileID: 76632299}
+  - {fileID: 0}
 --- !u!1 &1350807904
 GameObject:
   m_ObjectHideFlags: 0
@@ -10800,7 +10799,7 @@ SpriteRenderer:
   m_Size: {x: 5.875, y: 12.8125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1427578187
 GameObject:
@@ -10877,6 +10876,51 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1427578187}
+  m_CullTransparentMesh: 1
+--- !u!1 &1427835572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1427835573}
+  - component: {fileID: 1427835574}
+  m_Layer: 5
+  m_Name: Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1427835573
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427835572}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 76632295}
+  m_Father: {fileID: 1295904559}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1427835574
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1427835572}
   m_CullTransparentMesh: 1
 --- !u!1 &1491736165
 GameObject:
