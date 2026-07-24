@@ -12,4 +12,8 @@ public abstract class UIElement : MonoBehaviour
     {
 
     }
+    virtual public void Action()
+    {
+        OnCustomClick?.Invoke();
+    }
 }

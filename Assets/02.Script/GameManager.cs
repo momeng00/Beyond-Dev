@@ -170,4 +170,9 @@ public class GameManager : MonoBehaviour
         Debug.Log("¿Ö ½ÇÇàµÊ?");
         SceneManager.LoadScene(finalClearSceneName);
     }
+
+    public void SceneChange(string sceneName)
+    {
+
+    }
 }

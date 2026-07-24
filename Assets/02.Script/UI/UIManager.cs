@@ -58,7 +58,7 @@ public class UIManager : MonoBehaviour
         ui.inputActionEnabled = true;
         showns.Remove(ui);
         showns.AddLast(ui);
-
+        Debug.Log($"Open {showns.Count}");
         //커서를 보이게 혹은 안보이게 하는 방법임 삭제 가능.
         //if (showns.Count == 1)
         //{
@@ -103,7 +103,7 @@ public class UIManager : MonoBehaviour
         {
             InputSystem.Instance.keyState = KeyState.Play_Key;
         }
-
+        Debug.Log($"Close {showns.Count}");
     }
     IEnumerator EnableNextUI(IUI nextUI)
     {

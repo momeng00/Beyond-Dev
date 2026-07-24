@@ -11,20 +11,10 @@ public enum MenuName
     Menu_Setting,
 }
 public class UIKeyNavigator : MonoBehaviour
-{
-    private void Update()
-    {
-        
-    }
-
-   
-    
+{  
     public List<UIElement> uiElements;
     [SerializeField]private UIElement currentElement;
-    private void Awake()
-    {
 
-    }
     //public List<UIElementGroup> uiElementGroups;
     //private Dictionary<string, List<UIElement>> uiElements; 그룹 자체를 UI가 관리하게 되므로 없어져도 될것같음
     private void Start()
@@ -83,11 +73,11 @@ public class UIKeyNavigator : MonoBehaviour
             currentElement.Selected();
         }
 
-        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.RightArrow, NextElement);
-        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.DownArrow, NextCarouselElement);
-        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.LeftArrow, PreElement);
-        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.UpArrow, PreCarouselElement);
-        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Return, SelectElement);
+        //InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.RightArrow, NextElement);
+        //InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.DownArrow, NextCarouselElement);
+        //InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.LeftArrow, PreElement);
+        //InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.UpArrow, PreCarouselElement);
+        //InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Return, SelectElement);
         //InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Escape, () => ChangeGroup(MenuName.Menu_Main.ToString()));
     }
 
@@ -103,6 +93,7 @@ public class UIKeyNavigator : MonoBehaviour
 
     public void NextElement()
     {
+        Debug.Log($"{gameObject.name} : 이거 두번 불리냐?");
         //CarouselUIElement 사용
         CarouselUIElement carouselElement = currentElement as CarouselUIElement;
         if(carouselElement != null)
@@ -187,7 +178,7 @@ public class UIKeyNavigator : MonoBehaviour
             Debug.Log("currentElement가 없습니다.");
             return;
         }
-        currentElement.OnCustomClick?.Invoke();
+        currentElement.Action();
         UpdateUIElement();
     }
 
