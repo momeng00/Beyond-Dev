@@ -19,14 +19,15 @@ public class UIWindow : UIBase, IUI
         //get => _canvas.sortingOrder;
         //set => _canvas.sortingOrder = value;
     }
-    public bool inputActionEnabled { get; set; }
-
+    public bool inputActionEnabled { get { return ActionEnabled; } set { ActionEnabled = value; } }
+    private bool ActionEnabled = false;
     // ----------------------------------------
 
     protected override void Awake()
     {
         base.Awake(); // 부모(UIBase)의 Awake 실행 (초기 위치 저장 등)
         //_canvas = GetComponent<Canvas>();
+      
     }
 
     protected override void Start()
@@ -40,8 +41,10 @@ public class UIWindow : UIBase, IUI
             // 보통 Show() 할 때 Push 하므로 여기선 생략 가능하거나
             // 관리용 리스트에만 넣을 수 있습니다.
             // 여기서는 UIManager 구조상 Push 때 등록되므로 비워둡니다.
+            
         }
         // 시작 시 자동으로 꺼두고 싶다면 활성화 (선택)
+        
     }
 
     // UIBase의 Open 기능을 확장(Override)해서 매니저 호출 추가
@@ -56,17 +59,16 @@ public class UIWindow : UIBase, IUI
         {
             uISequenceController.Play();
         }
+       
     }
 
     // UIBase의 Close 기능을 확장
     public override void Close()
     {
-        // 1. 매니저에게 "나 닫혔다" 보고
-        UIManager.instance.Pop(this);
-
-        // 2. 부모의 Close 실행 (애니메이션 재생)
+        // 1. 부모의 Close 실행 (애니메이션 재생)
         base.Close();
-
+        // 2. 매니저에게 "나 닫혔다" 보고
+        UIManager.instance.Pop(this);
         onHide?.Invoke();
     }
 
@@ -104,7 +106,7 @@ public class UIWindow : UIBase, IUI
     }
     public virtual void SetVisible(bool state)
     {
-        canvasGroup.alpha = state ? 1 : 0;
+        //canvasGroup.alpha = state ? 1 : 0;
         canvasGroup.interactable = state;
         canvasGroup.blocksRaycasts = state;
     }

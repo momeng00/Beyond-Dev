@@ -55,6 +55,7 @@ public class UIManager : MonoBehaviour
             showns.Last.Value.SetVisible(false);
         }
         ui.sortingOrder = sortingOrder;
+        ui.SetVisible(true);
         ui.inputActionEnabled = true;
         showns.Remove(ui);
         showns.AddLast(ui);
@@ -69,15 +70,21 @@ public class UIManager : MonoBehaviour
     private Coroutine enableNextUICoroutine;
     public void Pop(IUI ui)
     {
-        if (GameManager.Instance.currentGameState == GameState.Openning && showns.Count <= 1)
+        if (!showns.Contains(ui))
         {
             return;
         }
-        // 빼려는게 하필 마지막꺼면서 마지막꺼 앞에 하나이상 있으면 InputAction 활성화 바톤터치
+        if (showns.Count <= 1)
+        {
+            return;
+        }
+        // 빼려는게 마지막꺼면서 마지막꺼 앞에 하나이상 있으면 InputAction 활성화 바톤터치
         if (showns.Count > 1 &&
             showns.Last.Value == ui)
         {
+            showns.Last.Value.inputActionEnabled = false;
             showns.Last.Value.SetVisible(false);
+            
             showns.Last.Previous.Value.inputActionEnabled = true;
             showns.Last.Previous.Value.SetVisible(true);
             // [변경] 즉시 켜지 않고 코루틴으로 한 프레임 뒤에 켬
@@ -91,7 +98,7 @@ public class UIManager : MonoBehaviour
             enableNextUICoroutine = StartCoroutine(EnableNextUI(showns.Last.Previous.Value));
         }
 
-        ui.SetVisible(false);
+        //ui.SetVisible(false);
         showns.Remove(ui); // ui 뺌
         //마찬가지로 커서를 안보이게 하는 방법임. 삭제 가능
         //if (showns.Count == 0)

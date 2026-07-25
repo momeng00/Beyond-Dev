@@ -42,7 +42,7 @@ public class UIBase : MonoBehaviour
     protected Coroutine currentAnimationCoroutine;
     public virtual void Open()
     {
-        gameObject.SetActive(true);
+        //gameObject.SetActive(true);
         canvasGroup.alpha = 0f;
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
@@ -58,8 +58,8 @@ public class UIBase : MonoBehaviour
         canvasGroup.blocksRaycasts = false;
         onClose?.Invoke();
         if (currentAnimationCoroutine != null) StopCoroutine(currentAnimationCoroutine);
-        if (!gameObject.activeSelf)    
-            return;
+        //if (!gameObject.activeSelf)    
+        //    return;
         currentAnimationCoroutine = StartCoroutine(PlayCloseAnimation());
     }
 
@@ -68,7 +68,7 @@ public class UIBase : MonoBehaviour
     {
         // 이제 Open 코루틴 안에서 초기화를 다 하므로, 
         // 외부에서 강제로 초기화할 때만 이 함수를 쓰면 됩니다.
-        gameObject.SetActive(true);
+        //gameObject.SetActive(true);
         if (openAnimation == UIAnimType.PopUp) rectTransform.localScale = Vector3.zero;
         canvasGroup.alpha = 0f; // 안 보이게
     }
@@ -134,6 +134,7 @@ public class UIBase : MonoBehaviour
 
     protected IEnumerator PlayCloseAnimation()
     { 
+        yield return null;
         float timer = 0f;
         Vector2 startPos = rectTransform.anchoredPosition;
         Vector3 startScale = rectTransform.localScale;
@@ -172,10 +173,11 @@ public class UIBase : MonoBehaviour
 
         // 끝난 후 끄기
         canvasGroup.alpha = 0f; // 완전히 투명하게
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
 
         // 다음 오픈을 위해 원상복구
         rectTransform.anchoredPosition = originalPosition;
         rectTransform.localScale = originalScale;
+        Debug.Log("끝남");
     }
 }
