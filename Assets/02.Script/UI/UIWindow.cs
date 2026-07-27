@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Canvas))]
 public class UIWindow : UIBase, IUI
@@ -10,6 +11,8 @@ public class UIWindow : UIBase, IUI
     public UISequenceController uISequenceController;
     public event Action onShow;
     public event Action onHide;
+    public UnityEvent onShowed;
+    public UnityEvent onHided;
     public int test;
     // --- IUI 인터페이스 구현 (매니저와의 약속) ---
     public int sortingOrder
@@ -33,6 +36,7 @@ public class UIWindow : UIBase, IUI
     protected override void Start()
     {
         base.Start();
+        InitUI();
 
         // 팝업창은 태어나자마자 매니저에 등록해야 함
         if (UIManager.instance != null)
@@ -55,6 +59,7 @@ public class UIWindow : UIBase, IUI
         // 2. 부모의 Open 실행 (애니메이션 재생)
         base.Open();
         onShow?.Invoke();
+        onShowed?.Invoke();
         if (uISequenceController != null)
         {
             uISequenceController.Play();
@@ -70,8 +75,12 @@ public class UIWindow : UIBase, IUI
         // 2. 매니저에게 "나 닫혔다" 보고
         UIManager.instance.Pop(this);
         onHide?.Invoke();
+        onHided?.Invoke();
     }
-
+    public void InitUI()
+    {
+        base.Close();
+    }
     // IUI 구현: 매니저 인터페이스 맞추기용 (이름 통일)
     public void Show() => Open();
     public void Hide() => Close();
@@ -106,6 +115,8 @@ public class UIWindow : UIBase, IUI
     }
     public virtual void SetVisible(bool state)
     {
+        if (canvasGroup == null)
+            return;
         //canvasGroup.alpha = state ? 1 : 0;
         canvasGroup.interactable = state;
         canvasGroup.blocksRaycasts = state;

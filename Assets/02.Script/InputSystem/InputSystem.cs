@@ -10,7 +10,11 @@ public class InputSystem : MonoBehaviour
         {
             if (_instance == null)
             {
-                _instance = new GameObject("InputSystem").AddComponent<InputSystem>();
+                _instance = FindAnyObjectByType<InputSystem>();
+                if (_instance == null)
+                {
+                    _instance = new GameObject("InputSystem").AddComponent<InputSystem>();
+                }
             }
             return _instance;
         }
@@ -84,13 +88,13 @@ public class InputSystem : MonoBehaviour
             return;
         foreach(var pair in currentMap._actionAxis)
         {
-            pair.Value.Invoke(Input.GetAxisRaw(pair.Key));
+            pair.Value?.Invoke(Input.GetAxisRaw(pair.Key));
         }
 
         foreach(var pair in currentMap._actionKey)
         {
             if (Input.GetKeyDown(pair.Key))
-                pair.Value.Invoke();
+                pair.Value?.Invoke();
         }
     }
     public void initialize(KeyState state, KeyCode keyCode)

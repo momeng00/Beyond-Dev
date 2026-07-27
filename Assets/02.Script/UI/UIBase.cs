@@ -32,7 +32,7 @@ public class UIBase : MonoBehaviour
 
     protected virtual void Start()
     {
-        
+
     }
 
     // ------------------------------------------------

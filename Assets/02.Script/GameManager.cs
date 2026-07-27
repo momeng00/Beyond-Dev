@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VectorGraphics;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -18,11 +18,12 @@ public class GameManager : MonoBehaviour
     public string finalClearSceneName = "Ending";
     private static GameManager _instance;
     private static bool _isQuitting = false;
-    public UIBase pauseMenu;
+    public UIWindow pauseMenu;
     private UIBase _pauseMenuInstance;
     public Stage startStage;
     public Stage currentStage;
-    
+    public UnityEvent sceneStart;
+    private bool sceneFlag=false;
     public static GameManager Instance
     {
 
@@ -59,7 +60,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("스테이지 진입 실행");
         currentStage.StageEnter();
     }
-    public void GamePause() //이거 뭐지??
+    public void GamePause() 
     {
         Debug.Log("GamePause진입");
         if (InputSystem.Instance.keyState != KeyState.Pause)
@@ -129,7 +130,11 @@ public class GameManager : MonoBehaviour
     {
         OnGameStateChanged?.Invoke(currentGameState);
         InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Escape, GamePause);
-        InputSystem.Instance.RegisterAction(KeyState.Pause, KeyCode.Escape, GamePause);
+        if (!sceneFlag)
+        {
+            sceneFlag = true;
+            sceneStart?.Invoke();
+        }
     }
     private Coroutine holdCoroutine;
     public float holdTime = 0.7f;
@@ -173,6 +178,7 @@ public class GameManager : MonoBehaviour
 
     public void SceneChange(string sceneName)
     {
-
+        Debug.Log("Scene채인치");
+        SceneManager.LoadScene(sceneName);
     }
 }

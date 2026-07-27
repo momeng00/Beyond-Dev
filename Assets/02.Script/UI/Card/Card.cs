@@ -64,6 +64,20 @@ public class Card : MonoBehaviour
         coroutine = StartCoroutine(CheckCondition());
 
     }
+    public void NextStep()
+    {
+        EffectManager.instance.BlurAnimation(true);
+        RemoveCard();
+    }
+    public void StartGameCardOpen()
+    {
+        animator.Play("In_Start_ForSys");
+    }
+    public void CheckClearCard()
+    {
+        canvasGroup.alpha = 1f;
+        animator.Play("In_Start");
+    }
     IEnumerator CheckCondition()
     {
         foreach (var item in itemInTodoes)
@@ -98,5 +112,19 @@ public class Card : MonoBehaviour
         }
         //rectTransform.localScale = targetScale;
         rectTransform.anchoredPosition = targetPos; // 오차 보정
+    }
+    public IEnumerator CCardRemove()
+    {
+        yield return null;
+        float elapsed = 0f;
+        float t;
+        while (elapsed < 0.3f)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            t = Mathf.Sin((elapsed / 0.3f) * Mathf.PI * 0.5f);
+            //rectTransform.localScale = Vector3.Lerp(rectTransform.localScale, targetScale, t);
+
+            yield return null;
+        }
     }
 }

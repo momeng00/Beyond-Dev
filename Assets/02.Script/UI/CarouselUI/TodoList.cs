@@ -19,12 +19,12 @@ public class TodoList : MonoBehaviour
         cg.alpha = 0f;
         rectTransform = GetComponent<RectTransform>();
         originalPosition = rectTransform.anchoredPosition;
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
     
     public void Open()
     {
-        gameObject.SetActive(true);
+        //gameObject.SetActive(true);
         cg.alpha = 0f;
         if (currentAnimationCoroutine != null) StopCoroutine(currentAnimationCoroutine);
         currentAnimationCoroutine = StartCoroutine(PlayOpenAnimation());

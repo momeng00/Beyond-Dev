@@ -74,19 +74,24 @@ public class UIManager : MonoBehaviour
         {
             return;
         }
-        if (showns.Count <= 1)
+        if (showns.Count < 1)
         {
             return;
         }
+
         // 빼려는게 마지막꺼면서 마지막꺼 앞에 하나이상 있으면 InputAction 활성화 바톤터치
-        if (showns.Count > 1 &&
+        if (showns.Count >= 1 &&
             showns.Last.Value == ui)
         {
             showns.Last.Value.inputActionEnabled = false;
             showns.Last.Value.SetVisible(false);
             
-            showns.Last.Previous.Value.inputActionEnabled = true;
-            showns.Last.Previous.Value.SetVisible(true);
+
+            if(showns.Last.Previous != null)
+            {
+                showns.Last.Previous.Value.inputActionEnabled = true;
+                showns.Last.Previous.Value.SetVisible(true);
+            }
             // [변경] 즉시 켜지 않고 코루틴으로 한 프레임 뒤에 켬
             // [수정 핵심] 기존에 돌고 있던 코루틴이 있다면 강제 종료!
             if (enableNextUICoroutine != null)
@@ -95,11 +100,13 @@ public class UIManager : MonoBehaviour
             }
 
             // 새로운 코루틴을 시작하고 변수에 저장
-            enableNextUICoroutine = StartCoroutine(EnableNextUI(showns.Last.Previous.Value));
+            if(showns.Last.Previous != null)
+                enableNextUICoroutine = StartCoroutine(EnableNextUI(showns.Last.Previous.Value));
         }
 
         //ui.SetVisible(false);
         showns.Remove(ui); // ui 뺌
+        
         //마찬가지로 커서를 안보이게 하는 방법임. 삭제 가능
         //if (showns.Count == 0)
         //{
@@ -125,7 +132,7 @@ public class UIManager : MonoBehaviour
         if (showns.Count <= 0)
             return;
 
-        Pop(showns.Last.Value);
+        showns.Last.Value.Hide();
     }
 
     void Start()
