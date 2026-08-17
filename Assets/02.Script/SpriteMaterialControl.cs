@@ -1,8 +1,5 @@
 using System;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.UI;
 
 public class SpriteMaterialControl : MonoBehaviour
 {
@@ -67,7 +64,7 @@ public class SpriteMaterialControl : MonoBehaviour
     {
         Apply();
     }
-
+#if UNITY_EDITOR
     void OnValidate()
     {
         if (spriteMaterial == null)
@@ -75,10 +72,10 @@ public class SpriteMaterialControl : MonoBehaviour
             spriteMaterial = GetComponent<SpriteRenderer>();
             Debug.Log($"{spriteMaterial}ÀÌ µé¾î¿È");
         }
-        
+
         Apply();
     }
-
+#endif
     public void Apply()
     {
         switch (firstMaterial.type)

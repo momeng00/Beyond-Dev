@@ -1,11 +1,29 @@
 using System;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
-
+public enum PropertyType
+{
+    Color,
+    Texture2D,
+    Texture2DArray,
+    Texture3D,
+    Cubemap,
+    Gradient,
+    Boolean,
+    Float,
+    Vector2,
+    Vector3,
+    Vector4,
+    Matrix2,
+    Matrix3,
+    Matrix4,
+    SamplerState,
+    VirtualTexture,
+    PropertyConnectionState
+}
 public class MaterialControl : MonoBehaviour
 {
+    //PropertyType가 변경이 되면 설정값들이 다 털리는데 좋은 방안이 없을까?
     private Material material;
     [Serializable]
     public struct CustomMaterial

@@ -6,6 +6,8 @@ using static MaterialControl;
 [CustomPropertyDrawer(typeof(CustomMaterial))]
 public class CustomMaterialDrawer : PropertyDrawer
 {
+
+    //MaterialControl 및 SpriteMaterialControl이 인스펙터 창에서 이쁘게 보이게 만들기 위한 스크립트
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         EditorGUI.BeginProperty(position, label, property);
