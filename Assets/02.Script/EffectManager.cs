@@ -1,16 +1,23 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-using static UnityEngine.Rendering.DebugUI;
 
+[Serializable]
+public struct VolumeData
+{
+    public string volumeName;
+    public Volume volume;
+    [HideInInspector]public GaussianBlur1DVolumeComponent blur;
+}
 public class EffectManager : MonoBehaviour
 {
-    public Volume volume;
-    public Volume volume2;
+    public List<VolumeData> volumeList;
+    private Dictionary<string,VolumeData> _volumeList = new Dictionary<string,VolumeData>();
     public float blurDuration = 0.3f;
-    GaussianBlur1DVolumeComponent blur;
-    GaussianBlur1DVolumeComponent blur2;
     private bool isWorking = false;
+
     //싱글톤 사용
     private static EffectManager _instance;
     public static EffectManager instance
@@ -28,29 +35,42 @@ public class EffectManager : MonoBehaviour
     }
     private void Awake()
     {
-        if (volume.profile.TryGet(out blur))
-        {
-            
-        }
-        else
-        {
-            Debug.Log("Blur 못 찾음");
-        }
-
-        if (volume2.profile.TryGet(out blur2))
-        {
-            
-        }
-        else
-        {
-            Debug.Log("Blur2 못 찾음");
-        }
+       
     }
     void Start()
     {
         
     }
+    public void VolumeInit()
+    {
+        foreach (var volume in volumeList)
+        {
+            VolumeData data = volume;
 
+            if (data.volume == null)
+            {
+                Debug.LogWarning($"{data.volumeName}의 Volume이 없습니다.");
+                continue;
+            }
+
+            if (data.volume.profile == null)
+            {
+                Debug.LogWarning($"{data.volumeName}의 Profile이 없습니다.");
+                continue;
+            }
+
+            if (data.volume.profile.TryGet(
+                out GaussianBlur1DVolumeComponent blur))
+            {
+                data.blur = blur;
+            }
+            else
+            {
+                Debug.LogWarning(
+                    $"{data.volumeName}의 Profile에 GaussianBlur1DVolumeComponent가 없습니다.");
+            }
+        }
+    }
     public void BlurAnimation(bool value)
     {
         isWorking = true;
@@ -69,12 +89,12 @@ public class EffectManager : MonoBehaviour
             {
                 timer += Time.unscaledDeltaTime;
                 float t = Mathf.SmoothStep(0f, 1f, timer / blurDuration);
-                blur.radius.value = Mathf.Lerp(1f, 0f, t);
-                blur.dimmed.value = Mathf.Lerp(1f, 0f, t);
+                //blur.radius.value = Mathf.Lerp(1f, 0f, t);
+                //blur.dimmed.value = Mathf.Lerp(1f, 0f, t);
                 yield return null;
             }
-            blur.radius.value = 0f;
-            blur.dimmed.value = 0f;
+            //blur.radius.value = 0f;
+            //blur.dimmed.value = 0f;
         }
         else
         {
@@ -83,12 +103,12 @@ public class EffectManager : MonoBehaviour
             {
                 timer += Time.unscaledDeltaTime;
                 float t = Mathf.SmoothStep(0f, 1f, timer / blurDuration);
-                blur.radius.value = Mathf.Lerp(0f, 1f, t);
-                blur.dimmed.value = Mathf.Lerp(0f, 1f, t);
+                //blur.radius.value = Mathf.Lerp(0f, 1f, t);
+                //blur.dimmed.value = Mathf.Lerp(0f, 1f, t);
                 yield return null;
             }
-            blur.radius.value = 1f;
-            blur.dimmed.value = 1f;
+            //blur.radius.value = 1f;
+            //blur.dimmed.value = 1f;
         }
         isWorking = false;
     }

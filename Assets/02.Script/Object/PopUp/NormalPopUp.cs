@@ -39,7 +39,7 @@ public class NormalPopUp : PopUp, IEventListener, IReset
         Animator[] allAnimators = GetComponentsInChildren<Animator>(true);
         foreach (Animator anim in allAnimators)
         {
-            if (anim.gameObject != this.gameObject)
+            if (anim.gameObject != this.gameObject && anim != null)
             {
                 childAnimators.Add(anim);
             }

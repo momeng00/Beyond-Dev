@@ -66,7 +66,7 @@ public class Card : MonoBehaviour
     }
     public void NextStep()
     {
-        EffectManager.instance.BlurAnimation(true);
+        //EffectManager.instance.BlurAnimation(true);
         RemoveCard();
     }
     public void StartGameCardOpen()
