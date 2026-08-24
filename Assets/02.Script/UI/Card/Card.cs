@@ -12,41 +12,75 @@ public struct ItemInTodo
 [RequireComponent(typeof(CanvasGroup))]
 public class Card : MonoBehaviour
 {
+    //애니메이션이나 키고 꺼짐의 [기능!]을 만들어야함. 기능을 사용하는 것은 Manager에 종속되어야함.
     //고양이카드를 관리하는 스크립트
-    public List<ItemInTodo> itemInTodoes;
+    //카드는 Manager가 Instance로 싱글톤이니 이를 최대한 이용해보자
+    public List<ItemInTodo> itemInTodoes; // 이건 아이템이랑 연결되는 Todo들임
+    public TodoList todoList; //이건 그냥 투두들을 넣을 공간임
+    public Action<Card> OnTodoAnimationFinished;
+    private int completedTodoCount;
+    public void TodoAnimationFinished()
+    {
+        completedTodoCount++;
+
+        if (completedTodoCount >= itemInTodoes.Count)
+        {
+            OnTodoAnimationFinished?.Invoke(this);
+        }
+    }
+    
     public float todoDelay=0.36f; //다음 todo가 체크되는 딜레이
     private CanvasGroup canvasGroup;
-    private Coroutine coroutine;
-    protected Vector2 originalPos; //다 똑같은 위치에 둬야함.
-    protected Vector3 originalScale;
+    public CanvasGroup CanvasGroup => canvasGroup;
     protected RectTransform rectTransform;
+    public RectTransform Rect => rectTransform;
+    public Vector2 OriginalPosition { get; private set; }
+    public Vector3 OriginalScale { get; private set; }
+    private Coroutine coroutine;
     protected Animator animator;
+    public Action Done;
+
+
     private void Awake()
     {
         //병신아 Clone을 만들때는 Start문이 사용이 안되다는 걸 명심해.
         //아니였음. Awake문은 생성직후 Start문은 생성이 된 뒤 업데이트가 실행되기 직전에 실행이 되므로
         //생성한뒤 바로 AddCard를 실행하니 생성- awake문 - AddCard-Start문 - Update문으로 실행이 된거임
         rectTransform = GetComponent<RectTransform>();
-        originalPos = rectTransform.anchoredPosition;
-        originalScale = rectTransform.localScale;
         canvasGroup = GetComponent<CanvasGroup>();
         animator = GetComponent<Animator>();
+
+        OriginalPosition = Rect.anchoredPosition;
+        OriginalScale = Rect.localScale;
     }
     private void Start()
     {
         InitCard();
+        RemoveCard();
     }
     public void InitCard()
     {
         foreach (var item in itemInTodoes)
         {
-            if(item.item !=null )
+            if(item.item != null)
                 item.item.AddOnCheck(item.todo.DoSuccess);
         }
     }
     public void RemoveCard()
     {
         canvasGroup.alpha = 0f;
+    }
+    public void TodoListAnimation()
+    {
+
+    }
+    public void InitTodoList()
+    {
+
+    }
+    public void PlayAnimation(string animationName)
+    {
+        animator.Play(animationName);
     }
     public void MoveCard(int index, float ratio, float animDuration)
     {
@@ -83,7 +117,6 @@ public class Card : MonoBehaviour
         foreach (var item in itemInTodoes)
         {
             item.todo.CheckClear();
-            yield return null;
             yield return new WaitForSeconds(todoDelay);
         }
     }
@@ -97,7 +130,7 @@ public class Card : MonoBehaviour
 
 
         Vector2 startPos = rectTransform.anchoredPosition;
-        Vector2 targetPos = originalPos + new Vector2(targetOffsetX, 0f); // 왼쪽으로 이동
+        Vector2 targetPos = OriginalPosition + new Vector2(targetOffsetX, 0f); // 왼쪽으로 이동
         //Vector3 targetScale = originalScale * (ratio / (100f + (10f * index)));
 
         float elapsed = 0f;
