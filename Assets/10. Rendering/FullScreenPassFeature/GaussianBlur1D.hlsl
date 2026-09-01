@@ -1,8 +1,9 @@
 #ifndef GAUSSIAN_BLUR_1D_INCLUDED
 #define GAUSSIAN_BLUR_1D_INCLUDED
 
-// Shader Graph Custom Function (File mode) 용
-// Texture2D / SamplerState 는 Custom Function의 Texture2D 입력에서 같이 전달됨
+// Shader Graph Custom Function (File mode).
+// Source is a UnityTexture2D so the texture and sampler state travel together.
+// TexelSize must be the texel size of the texture currently being blurred.
 
 void GaussianBlur1D_float(
     UnityTexture2D Source,
@@ -13,15 +14,19 @@ void GaussianBlur1D_float(
     out float4 Out
 )
 {
-    float2 dir = normalize(Direction);
-    float2 offset = TexelSize * dir * Radius;
+    float directionLengthSq = dot(Direction, Direction);
+    float2 dir = directionLengthSq > 1e-8
+        ? Direction * rsqrt(directionLengthSq)
+        : float2(1.0, 0.0);
 
-    // 9-tap Gaussian weights
-    float w0 = 0.2270270270;
-    float w1 = 0.1945945946;
-    float w2 = 0.1216216216;
-    float w3 = 0.0540540541;
-    float w4 = 0.0162162162;
+    float2 offset = TexelSize * dir * max(Radius, 0.0);
+
+    // 9-tap Gaussian weights.
+    const float w0 = 0.2270270270;
+    const float w1 = 0.1945945946;
+    const float w2 = 0.1216216216;
+    const float w3 = 0.0540540541;
+    const float w4 = 0.0162162162;
 
     float4 color = SAMPLE_TEXTURE2D(Source.tex, Source.samplerstate, UV) * w0;
 
@@ -49,14 +54,18 @@ void GaussianBlur1D_half(
     out half4 Out
 )
 {
-    half2 dir = normalize(Direction);
-    half2 offset = TexelSize * dir * Radius;
+    half directionLengthSq = dot(Direction, Direction);
+    half2 dir = directionLengthSq > 1e-4h
+        ? Direction * rsqrt(directionLengthSq)
+        : half2(1.0h, 0.0h);
 
-    half w0 = 0.2270270270h;
-    half w1 = 0.1945945946h;
-    half w2 = 0.1216216216h;
-    half w3 = 0.0540540541h;
-    half w4 = 0.0162162162h;
+    half2 offset = TexelSize * dir * max(Radius, 0.0h);
+
+    const half w0 = 0.2270270270h;
+    const half w1 = 0.1945945946h;
+    const half w2 = 0.1216216216h;
+    const half w3 = 0.0540540541h;
+    const half w4 = 0.0162162162h;
 
     half4 color = SAMPLE_TEXTURE2D(Source.tex, Source.samplerstate, UV) * w0;
 

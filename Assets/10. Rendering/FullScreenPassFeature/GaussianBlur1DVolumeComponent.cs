@@ -8,17 +8,18 @@ using UnityEngine.Rendering.Universal;
 [DisplayInfo(name = "GaussianBlur1D")]
 public sealed class GaussianBlur1DVolumeComponent : VolumeComponent, IPostProcessComponent
 {
-    [Tooltip("Blur radius. 0~1 normalized, remapped in renderer feature.")]
+    [Tooltip("Blur radius. 0~1 normalized, remapped in the renderer feature.")]
     public ClampedFloatParameter radius = new ClampedFloatParameter(0f, 0f, 1f);
 
-    [Tooltip("Final dimming amount. Applied only once in the final composite pass.")]
+    [Tooltip("Final dimming amount. Applied once in the final composite pass.")]
     public ClampedFloatParameter dimmed = new ClampedFloatParameter(0f, 0f, 1f);
 
-    [Tooltip("Compound blur mask amount. 0 = uniform blur, 1 = fully masked blur.")]
+    [Tooltip("Compound masking amount. 0 = uniform full-screen blur, 1 = edge-masked blur. Applied only in the final composite pass.")]
     public ClampedFloatParameter compound = new ClampedFloatParameter(0f, 0f, 1f);
 
     public bool IsActive()
     {
-        return active && (radius.value > 0f || dimmed.value > 0f || compound.value > 0f);
+        // Compound modifies an existing blur; it should not activate the pass by itself.
+        return active && (radius.value > 0f || dimmed.value > 0f);
     }
 }
