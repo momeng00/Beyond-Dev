@@ -6,8 +6,8 @@ using UnityEngine;
 [Serializable]
 public struct ItemInTodo
 {
-    public ClearCondition item;
     public Todo todo;
+    public ClearCondition item;
 }
 [RequireComponent(typeof(CanvasGroup))]
 public class Card : MonoBehaviour
@@ -16,8 +16,8 @@ public class Card : MonoBehaviour
     //고양이카드를 관리하는 스크립트
     //카드는 Manager가 Instance로 싱글톤이니 이를 최대한 이용해보자
     public List<ItemInTodo> itemInTodoes; // 이건 아이템이랑 연결되는 Todo들임
-    public TodoList todoList; //이건 그냥 투두들을 넣을 공간임
-    public Action<Card> OnTodoAnimationFinished;
+    [HideInInspector]public List<Todo> todoList; //이건 그냥 투두들을 넣을 공간임
+    public Action<Card> OnTodoAnimationFinished; //여기에 카드 집어넣는 기능 넣기
     private int completedTodoCount;
     public void TodoAnimationFinished()
     {
@@ -26,6 +26,7 @@ public class Card : MonoBehaviour
         if (completedTodoCount >= itemInTodoes.Count)
         {
             OnTodoAnimationFinished?.Invoke(this);
+            Debug.Log("카드 엔딩 실행됨");
         }
     }
     
@@ -40,7 +41,13 @@ public class Card : MonoBehaviour
     protected Animator animator;
     public Action Done;
 
-
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            CardManager.Instance.AddCard(this);
+        }
+    }
     private void Awake()
     {
         //병신아 Clone을 만들때는 Start문이 사용이 안되다는 걸 명심해.
@@ -60,9 +67,18 @@ public class Card : MonoBehaviour
     }
     public void InitCard()
     {
+        completedTodoCount = 0;
         foreach (var item in itemInTodoes)
         {
-            if(item.item != null)
+            if (item.todo != null)
+            {
+                item.todo.SubscribeTodoAction(TodoAnimationFinished);
+                Debug.Log("구독들어감");
+            }
+            else
+                Debug.LogError("todo가 없음.");
+
+            if (item.item != null)
                 item.item.AddOnCheck(item.todo.DoSuccess);
         }
     }
@@ -70,9 +86,10 @@ public class Card : MonoBehaviour
     {
         canvasGroup.alpha = 0f;
     }
-    public void TodoListAnimation()
-    {
 
+    public void SubscriptCardEnd(Action<Card> action)
+    {
+        OnTodoAnimationFinished += action;
     }
     public void InitTodoList()
     {

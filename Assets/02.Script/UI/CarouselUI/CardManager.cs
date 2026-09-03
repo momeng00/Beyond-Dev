@@ -36,9 +36,12 @@ public class CardManager : MonoBehaviour
     {
         cardList.Clear();
     }
-    
-    
-    
+
+    public void Update()
+    {
+        
+    }
+
     public void AddCard(Card card)
     {
         //card.GetComponent<UIBaseUpgrade>().Open();
@@ -53,15 +56,21 @@ public class CardManager : MonoBehaviour
         RefreshCardList();
     }
 
-    public void RemoveCard() 
+    public void RemoveCard()
     {
-        if(cardList.Count == 0 || cardList ==null)
+        if (cardList.Count == 0 || cardList == null)
         {
             return;
         }
         Card card = cardList[0];
         cardList.RemoveAt(0);
         card.RemoveCard();
+    }
+    public void HideCardList()
+    {
+        foreach (Card card in cardList) {
+            card.RemoveCard();
+        }
     }
     public void RefreshCardList()
     {
@@ -89,6 +98,7 @@ public class CardManager : MonoBehaviour
         //    cardList[index].MoveCard(cardList.Count - index, ratio, animDuration);
         //}
     }
+
     private IEnumerator MoveCardCoroutine(Card card, int index, float ratio, float animDuration)
     {
         RectTransform rect = card.Rect;
@@ -101,7 +111,7 @@ public class CardManager : MonoBehaviour
         float targetOffsetX =
          -rect.rect.width *
          (ratio / 100f) *
-         index;
+         (cardList.Count-index);
 
         Vector2 startPos = card.OriginalPosition; //현재 위치
 
@@ -127,7 +137,12 @@ public class CardManager : MonoBehaviour
     }
     public void ShowTopCard()
     {
-        cardList[^1].CheckClearCard();
+        if(cardList[^1]!=null)
+            cardList[^1].CheckClearCard();
+    }
+    public void HideTopCard(Card card)
+    {
+        
     }
     //Card에 있는 IEnumerator을 가져와서 여기에 종속시키기
     //맨 앞에 있는 카드만 가져와서 ClearCheck하는 기능을 추가

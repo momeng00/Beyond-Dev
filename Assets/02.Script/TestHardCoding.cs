@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class TestHardCoing : MonoBehaviour
 {
-    
+    public Card card1;
+    public Card card2;
+    public Card card3;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,25 +19,24 @@ public class TestHardCoing : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            
+            CardManager.Instance.AddCard(card1);
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            
+            CardManager.Instance.AddCard(card2);
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-           
+            CardManager.Instance.AddCard(card3);
 
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
-            
-
+            CardManager.Instance.HideCardList();
         }
         if (Input.GetKeyDown(KeyCode.T))
         {
-            
+            CardManager.Instance.ShowTopCard();
 
         }
         if (Input.GetKeyDown(KeyCode.Y))
