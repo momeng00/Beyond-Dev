@@ -4,7 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(SpriteRenderer))]
 public class MPB_AnimFloatLerp : MonoBehaviour
 {
-    public string propertyName = "Anim_"; // 변경할 머테리얼 Float 이름
+    public string propertyName = "_AnimLerp"; // 변경할 머테리얼 Float 이름
     public float duration = 1f;           // Lerp 시간
 
     private SpriteRenderer sr;

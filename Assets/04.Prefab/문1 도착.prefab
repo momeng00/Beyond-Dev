@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 262eff478a6b2384083237e2bb21bb8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MPB_AnimFloatLerp
-  propertyName: _Anim
+  propertyName: _AnimLerp
   duration: 0.5
 --- !u!1 &686409592081573177
 GameObject:
@@ -858,7 +858,8 @@ Transform:
   m_LocalPosition: {x: -1.7073803, y: 1.0799856, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7013556590932541426}
   m_Father: {fileID: 3899179684202869636}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5475473690271143441
@@ -918,7 +919,7 @@ SpriteRenderer:
   m_Size: {x: 0.625, y: 0.625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!114 &811383462205487320
 MonoBehaviour:
@@ -1042,7 +1043,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7013556590932541426}
   - {fileID: 4253197782475130438}
   - {fileID: 5660971398483026328}
   - {fileID: 138556522968117520}
@@ -1091,12 +1091,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5334489778521951015}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.69738066, y: 1.0599866, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.0099998, y: -0.019999027, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3899179684202869636}
+  m_Father: {fileID: 6501402092745543642}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 150.6}
 --- !u!114 &3098767347799586760
 MonoBehaviour:

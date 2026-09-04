@@ -1375,6 +1375,20 @@
                 "m_Node": {
                     "m_Id": "5b770e0edab042099b73840c1eff81f9"
                 },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "a2440314a69d46688edd8f3a5577d454"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "5b770e0edab042099b73840c1eff81f9"
+                },
                 "m_SlotId": 7
             },
             "m_InputSlot": {
@@ -1410,20 +1424,6 @@
                     "m_Id": "7e6de2c828cc4d789bbd2410027691f1"
                 },
                 "m_SlotId": 2
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
-                    "m_Id": "6043b7ebf2e74cd0b35a84ec78343d8e"
-                },
-                "m_SlotId": 2
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "a2440314a69d46688edd8f3a5577d454"
-                },
-                "m_SlotId": 0
             }
         },
         {
@@ -5125,8 +5125,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 8083.0,
-            "y": 5966.0,
+            "x": 7729.0,
+            "y": 5473.0,
             "width": 208.0,
             "height": 326.0
         }
@@ -9443,13 +9443,13 @@
     "m_RefNameGeneratedByDisplayName": "QRBOX",
     "m_DefaultReferenceName": "_QRBOX",
     "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
+    "m_GeneratePropertyBlock": false,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
     "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
+    "overrideHLSLDeclaration": true,
+    "hlslDeclarationOverride": 2,
     "m_Hidden": false,
     "m_PerRendererData": false,
     "m_customAttributes": [],
@@ -10025,8 +10025,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 7666.99951171875,
-            "y": 6504.99951171875,
+            "x": 8592.0,
+            "y": 5919.0,
             "width": 208.0,
             "height": 433.0
         }
@@ -10468,8 +10468,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 8783.9990234375,
-            "y": 5989.99951171875,
+            "x": 8430.0,
+            "y": 5497.0,
             "width": 208.0,
             "height": 302.0
         }
@@ -13544,9 +13544,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 8520.0,
-            "y": 5688.0,
-            "width": 208.0009765625,
+            "x": 8166.0,
+            "y": 5195.0,
+            "width": 208.0,
             "height": 278.0
         }
     },
@@ -13582,8 +13582,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 7667.0,
-            "y": 6083.00048828125,
+            "x": 7313.0,
+            "y": 5590.0,
             "width": 208.0,
             "height": 278.0
         }
@@ -17231,8 +17231,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 7538.99951171875,
-            "y": 6522.99951171875,
+            "x": 8464.0,
+            "y": 5937.0,
             "width": 117.0,
             "height": 34.0
         }
@@ -19614,9 +19614,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": 8423.0,
-            "y": 1779.0,
-            "width": 111.0,
+            "x": 8129.99951171875,
+            "y": 2294.0,
+            "width": 110.99951171875,
             "height": 34.0
         }
     },
@@ -19781,13 +19781,13 @@
     "m_RefNameGeneratedByDisplayName": "isBack",
     "m_DefaultReferenceName": "_isBack",
     "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
+    "m_GeneratePropertyBlock": false,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
     "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
+    "overrideHLSLDeclaration": true,
+    "hlslDeclarationOverride": 2,
     "m_Hidden": false,
     "m_PerRendererData": false,
     "m_customAttributes": [],
@@ -22660,13 +22660,13 @@
     "m_RefNameGeneratedByDisplayName": "QR",
     "m_DefaultReferenceName": "_QR",
     "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
+    "m_GeneratePropertyBlock": false,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
     "m_Precision": 0,
-    "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
+    "overrideHLSLDeclaration": true,
+    "hlslDeclarationOverride": 2,
     "m_Hidden": false,
     "m_PerRendererData": false,
     "m_customAttributes": [],

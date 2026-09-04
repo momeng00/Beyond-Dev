@@ -1347,134 +1347,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!21 &297601398
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: MessageBlock (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
-  m_Shader: {fileID: -6465566751694194690, guid: 398ed31b4072a5440ac5d8c0fef0e4c0, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 1
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 962194056493ec6498e058760799a57d, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _RenderTexture:
-        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SDFTexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_4d5372c444274d359834ce70ea9aee7c_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 06ed2d57f983c124fb66378ba28aa782, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_bb3e6b23135d4748b7c399c19a6628fb_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 4f5d81276d2e34e419a3d97bb77cbd40, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_cf938a8501134491bf06c8897055c3b5_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 4f5d81276d2e34e419a3d97bb77cbd40, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_1af46992260a47b188b00a68378f3fbe_Out_0_Texture2D:
-        m_Texture: {fileID: 2800000, guid: e30faedfb19a802468ea08b0c5753971, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_6c78b4686606433e932a8e7c41ff0a1d_Out_0_Texture2D:
-        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_8a23479008ac433a9964952f70e92dbe_Out_0_Texture2D:
-        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_f42c747706e14293a4e8b721a76a626b_Out_0_Texture2D:
-        m_Texture: {fileID: 2800000, guid: e30faedfb19a802468ea08b0c5753971, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_Lightmaps:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_LightmapsInd:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_ShadowMasks:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _Amplitude: 0.1
-    - _AngleOffset: 0
-    - _AnimLerp: 0.29
-    - _AnimationSpeed: 4
-    - _B: 0
-    - _Damping: 4
-    - _DotThickness: 0.5
-    - _FlowDirection: 1
-    - _G: 1
-    - _IgnoreBaseColor: 0
-    - _LineSpeed: 0.05
-    - _Lines: 128
-    - _OutLineSub: 0.42
-    - _OutlineBase: 0
-    - _OutlineCount: 4
-    - _OutlineOpacity: 0
-    - _Outline_Base: 0.24
-    - _Outline_Count: 4
-    - _Outline_Mask: 0.5
-    - _Outline_Opacity: 1
-    - _PhaseOffset: 3
-    - _R: 0
-    - _RGBGradientSpeed: 0.5
-    - _RadialSpin_AngleOffset: 0
-    - _RadialSpin_Speed: 1
-    - _Rate: 0
-    - _Speed: 0.05
-    - _Tile: 9
-    - _TileOffset: 0
-    - _isDotted: 1
-    - _isDottedline: 1
-    - _isOutline: 0
-    - _isPlatform: 1
-    - _isPopup: 1
-    m_Colors:
-    - White: {r: 1, g: 1, b: 1, a: 1}
-    - _BlueColor: {r: 0.024982866, g: 0.19540556, b: 1.0592737, a: 1}
-    - _CellCenterLocal: {r: 0.5, g: 0.5, b: 0, a: 0}
-    - _Color: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
-    - _Direction: {r: 1, g: 1, b: 1, a: 0}
-    - _GreenColor: {r: 0.028431373, g: 0.16470589, b: 0.07156863, a: 1}
-    - _OutlineColor: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 0}
-    - _Outline_Color: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 0}
-    - _PlayerPos: {r: 0.68, g: -1.26, b: 0, a: 0}
-    - _PlayerPos1: {r: 0.02, g: -1.13, b: 0, a: 0}
-    - _PlayerPos2: {r: 0.85, g: 0, b: 0, a: 0}
-    - _RedColor: {r: 1.0592737, g: 0, b: 0, a: 1}
-    - _SpriteSize: {r: 1, g: 1, b: 0, a: 0}
-    - _TileCount: {r: 4, g: 4, b: 0, a: 0}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1001 &476207634
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2115,6 +1987,135 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1777973906}
   m_SourcePrefab: {fileID: 100100000, guid: f3c50455f6c1aeb439c22cedd3dd9f71, type: 3}
+--- !u!21 &769504752
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MessageBlock (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+    (Instance)
+  m_Shader: {fileID: -6465566751694194690, guid: 398ed31b4072a5440ac5d8c0fef0e4c0, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 962194056493ec6498e058760799a57d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RenderTexture:
+        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SDFTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_4d5372c444274d359834ce70ea9aee7c_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 06ed2d57f983c124fb66378ba28aa782, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_bb3e6b23135d4748b7c399c19a6628fb_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 4f5d81276d2e34e419a3d97bb77cbd40, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_cf938a8501134491bf06c8897055c3b5_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 4f5d81276d2e34e419a3d97bb77cbd40, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_1af46992260a47b188b00a68378f3fbe_Out_0_Texture2D:
+        m_Texture: {fileID: 2800000, guid: e30faedfb19a802468ea08b0c5753971, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_6c78b4686606433e932a8e7c41ff0a1d_Out_0_Texture2D:
+        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_8a23479008ac433a9964952f70e92dbe_Out_0_Texture2D:
+        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_f42c747706e14293a4e8b721a76a626b_Out_0_Texture2D:
+        m_Texture: {fileID: 2800000, guid: e30faedfb19a802468ea08b0c5753971, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Amplitude: 0.1
+    - _AngleOffset: 0
+    - _AnimLerp: 0.29
+    - _AnimationSpeed: 4
+    - _B: 0
+    - _Damping: 4
+    - _DotThickness: 0.5
+    - _FlowDirection: 1
+    - _G: 1
+    - _IgnoreBaseColor: 0
+    - _LineSpeed: 0.05
+    - _Lines: 128
+    - _OutLineSub: 0.42
+    - _OutlineBase: 0
+    - _OutlineCount: 4
+    - _OutlineOpacity: 0
+    - _Outline_Base: 0.24
+    - _Outline_Count: 4
+    - _Outline_Mask: 0.5
+    - _Outline_Opacity: 1
+    - _PhaseOffset: 3
+    - _R: 0
+    - _RGBGradientSpeed: 0.5
+    - _RadialSpin_AngleOffset: 0
+    - _RadialSpin_Speed: 1
+    - _Rate: 0
+    - _Speed: 0.05
+    - _Tile: 9
+    - _TileOffset: 0
+    - _isDotted: 1
+    - _isDottedline: 1
+    - _isOutline: 0
+    - _isPlatform: 1
+    - _isPopup: 1
+    m_Colors:
+    - White: {r: 1, g: 1, b: 1, a: 1}
+    - _BlueColor: {r: 0.024982866, g: 0.19540556, b: 1.0592737, a: 1}
+    - _CellCenterLocal: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _Color: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
+    - _Direction: {r: 1, g: 1, b: 1, a: 0}
+    - _GreenColor: {r: 0.028431373, g: 0.16470589, b: 0.07156863, a: 1}
+    - _OutlineColor: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 0}
+    - _Outline_Color: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 0}
+    - _PlayerPos: {r: 0.68, g: -1.26, b: 0, a: 0}
+    - _PlayerPos1: {r: 0.02, g: -1.13, b: 0, a: 0}
+    - _PlayerPos2: {r: 0.85, g: 0, b: 0, a: 0}
+    - _RedColor: {r: 1.0592737, g: 0, b: 0, a: 1}
+    - _SpriteSize: {r: 1, g: 1, b: 0, a: 0}
+    - _TileCount: {r: 4, g: 4, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &857183511
 GameObject:
   m_ObjectHideFlags: 0
@@ -2274,14 +2275,14 @@ MonoBehaviour:
   randomChangeInterval: 0.04
   useEaseIn: 1
   previewInEditor: 0
---- !u!21 &921159722
+--- !u!21 &902046267
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MessageBlock (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+  m_Name: MessageBlock (Instance) (Instance) (Instance) (Instance)
   m_Shader: {fileID: -6465566751694194690, guid: 398ed31b4072a5440ac5d8c0fef0e4c0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -2389,7 +2390,7 @@ Material:
     - White: {r: 1, g: 1, b: 1, a: 1}
     - _BlueColor: {r: 0.024982866, g: 0.19540556, b: 1.0592737, a: 1}
     - _CellCenterLocal: {r: 0.5, g: 0.5, b: 0, a: 0}
-    - _Color: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
+    - _Color: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
     - _Direction: {r: 1, g: 1, b: 1, a: 0}
     - _GreenColor: {r: 0.028431373, g: 0.16470589, b: 0.07156863, a: 1}
     - _OutlineColor: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 0}
@@ -2402,7 +2403,7 @@ Material:
     - _TileCount: {r: 4, g: 4, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!21 &922010460
+--- !u!21 &921159722
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -2410,7 +2411,6 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MessageBlock (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
-    (Instance)
   m_Shader: {fileID: -6465566751694194690, guid: 398ed31b4072a5440ac5d8c0fef0e4c0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -2547,7 +2547,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &922946017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8377,135 +8377,7 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!21 &1088578514
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: MessageBlock (Instance) (Instance) (Instance) (Instance)
-  m_Shader: {fileID: -6465566751694194690, guid: 398ed31b4072a5440ac5d8c0fef0e4c0, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 1
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 962194056493ec6498e058760799a57d, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _RenderTexture:
-        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SDFTexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_4d5372c444274d359834ce70ea9aee7c_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 06ed2d57f983c124fb66378ba28aa782, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_bb3e6b23135d4748b7c399c19a6628fb_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 4f5d81276d2e34e419a3d97bb77cbd40, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_cf938a8501134491bf06c8897055c3b5_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 4f5d81276d2e34e419a3d97bb77cbd40, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_1af46992260a47b188b00a68378f3fbe_Out_0_Texture2D:
-        m_Texture: {fileID: 2800000, guid: e30faedfb19a802468ea08b0c5753971, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_6c78b4686606433e932a8e7c41ff0a1d_Out_0_Texture2D:
-        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_8a23479008ac433a9964952f70e92dbe_Out_0_Texture2D:
-        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_f42c747706e14293a4e8b721a76a626b_Out_0_Texture2D:
-        m_Texture: {fileID: 2800000, guid: e30faedfb19a802468ea08b0c5753971, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_Lightmaps:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_LightmapsInd:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_ShadowMasks:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _Amplitude: 0.1
-    - _AngleOffset: 0
-    - _AnimLerp: 0.29
-    - _AnimationSpeed: 4
-    - _B: 0
-    - _Damping: 4
-    - _DotThickness: 0.5
-    - _FlowDirection: 1
-    - _G: 1
-    - _IgnoreBaseColor: 0
-    - _LineSpeed: 0.05
-    - _Lines: 128
-    - _OutLineSub: 0.42
-    - _OutlineBase: 0
-    - _OutlineCount: 4
-    - _OutlineOpacity: 0
-    - _Outline_Base: 0.24
-    - _Outline_Count: 4
-    - _Outline_Mask: 0.5
-    - _Outline_Opacity: 1
-    - _PhaseOffset: 3
-    - _R: 0
-    - _RGBGradientSpeed: 0.5
-    - _RadialSpin_AngleOffset: 0
-    - _RadialSpin_Speed: 1
-    - _Rate: 0
-    - _Speed: 0.05
-    - _Tile: 9
-    - _TileOffset: 0
-    - _isDotted: 1
-    - _isDottedline: 1
-    - _isOutline: 0
-    - _isPlatform: 1
-    - _isPopup: 1
-    m_Colors:
-    - White: {r: 1, g: 1, b: 1, a: 1}
-    - _BlueColor: {r: 0.024982866, g: 0.19540556, b: 1.0592737, a: 1}
-    - _CellCenterLocal: {r: 0.5, g: 0.5, b: 0, a: 0}
-    - _Color: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
-    - _Direction: {r: 1, g: 1, b: 1, a: 0}
-    - _GreenColor: {r: 0.028431373, g: 0.16470589, b: 0.07156863, a: 1}
-    - _OutlineColor: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 0}
-    - _Outline_Color: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 0}
-    - _PlayerPos: {r: 0.68, g: -1.26, b: 0, a: 0}
-    - _PlayerPos1: {r: 0.02, g: -1.13, b: 0, a: 0}
-    - _PlayerPos2: {r: 0.85, g: 0, b: 0, a: 0}
-    - _RedColor: {r: 1.0592737, g: 0, b: 0, a: 1}
-    - _SpriteSize: {r: 1, g: 1, b: 0, a: 0}
-    - _TileCount: {r: 4, g: 4, b: 0, a: 0}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
---- !u!21 &1316889853
+--- !u!21 &1173952410
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -8692,134 +8564,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!21 &1344059057
-Material:
-  serializedVersion: 8
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: MessageBlock (Instance) (Instance) (Instance) (Instance)
-  m_Shader: {fileID: -6465566751694194690, guid: 398ed31b4072a5440ac5d8c0fef0e4c0, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 1
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_LockedProperties: 
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 962194056493ec6498e058760799a57d, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _RenderTexture:
-        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SDFTexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_4d5372c444274d359834ce70ea9aee7c_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 06ed2d57f983c124fb66378ba28aa782, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_bb3e6b23135d4748b7c399c19a6628fb_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 4f5d81276d2e34e419a3d97bb77cbd40, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_cf938a8501134491bf06c8897055c3b5_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 4f5d81276d2e34e419a3d97bb77cbd40, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_1af46992260a47b188b00a68378f3fbe_Out_0_Texture2D:
-        m_Texture: {fileID: 2800000, guid: e30faedfb19a802468ea08b0c5753971, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_6c78b4686606433e932a8e7c41ff0a1d_Out_0_Texture2D:
-        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_8a23479008ac433a9964952f70e92dbe_Out_0_Texture2D:
-        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2DAsset_f42c747706e14293a4e8b721a76a626b_Out_0_Texture2D:
-        m_Texture: {fileID: 2800000, guid: e30faedfb19a802468ea08b0c5753971, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_Lightmaps:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_LightmapsInd:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_ShadowMasks:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Ints: []
-    m_Floats:
-    - _Amplitude: 0.1
-    - _AngleOffset: 0
-    - _AnimLerp: 0.29
-    - _AnimationSpeed: 4
-    - _B: 0
-    - _Damping: 4
-    - _DotThickness: 0.5
-    - _FlowDirection: 1
-    - _G: 1
-    - _IgnoreBaseColor: 0
-    - _LineSpeed: 0.05
-    - _Lines: 128
-    - _OutLineSub: 0.42
-    - _OutlineBase: 0
-    - _OutlineCount: 4
-    - _OutlineOpacity: 0
-    - _Outline_Base: 0.24
-    - _Outline_Count: 4
-    - _Outline_Mask: 0.5
-    - _Outline_Opacity: 1
-    - _PhaseOffset: 3
-    - _R: 0
-    - _RGBGradientSpeed: 0.5
-    - _RadialSpin_AngleOffset: 0
-    - _RadialSpin_Speed: 1
-    - _Rate: 0
-    - _Speed: 0.05
-    - _Tile: 9
-    - _TileOffset: 0
-    - _isDotted: 1
-    - _isDottedline: 1
-    - _isOutline: 0
-    - _isPlatform: 1
-    - _isPopup: 1
-    m_Colors:
-    - White: {r: 1, g: 1, b: 1, a: 1}
-    - _BlueColor: {r: 0.024982866, g: 0.19540556, b: 1.0592737, a: 1}
-    - _CellCenterLocal: {r: 0.5, g: 0.5, b: 0, a: 0}
-    - _Color: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
-    - _Direction: {r: 1, g: 1, b: 1, a: 0}
-    - _GreenColor: {r: 0.028431373, g: 0.16470589, b: 0.07156863, a: 1}
-    - _OutlineColor: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 0}
-    - _Outline_Color: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 0}
-    - _PlayerPos: {r: 0.68, g: -1.26, b: 0, a: 0}
-    - _PlayerPos1: {r: 0.02, g: -1.13, b: 0, a: 0}
-    - _PlayerPos2: {r: 0.85, g: 0, b: 0, a: 0}
-    - _RedColor: {r: 1.0592737, g: 0, b: 0, a: 1}
-    - _SpriteSize: {r: 1, g: 1, b: 0, a: 0}
-    - _TileCount: {r: 4, g: 4, b: 0, a: 0}
-  m_BuildTextureStacks: []
-  m_AllowLocking: 1
 --- !u!1 &1350774062
 GameObject:
   m_ObjectHideFlags: 0
@@ -8995,6 +8739,134 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &1418466264
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MessageBlock (Instance) (Instance) (Instance) (Instance) (Instance) (Instance)
+  m_Shader: {fileID: -6465566751694194690, guid: 398ed31b4072a5440ac5d8c0fef0e4c0, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 962194056493ec6498e058760799a57d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RenderTexture:
+        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SDFTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_4d5372c444274d359834ce70ea9aee7c_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 06ed2d57f983c124fb66378ba28aa782, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_bb3e6b23135d4748b7c399c19a6628fb_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 4f5d81276d2e34e419a3d97bb77cbd40, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_cf938a8501134491bf06c8897055c3b5_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 4f5d81276d2e34e419a3d97bb77cbd40, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_1af46992260a47b188b00a68378f3fbe_Out_0_Texture2D:
+        m_Texture: {fileID: 2800000, guid: e30faedfb19a802468ea08b0c5753971, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_6c78b4686606433e932a8e7c41ff0a1d_Out_0_Texture2D:
+        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_8a23479008ac433a9964952f70e92dbe_Out_0_Texture2D:
+        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_f42c747706e14293a4e8b721a76a626b_Out_0_Texture2D:
+        m_Texture: {fileID: 2800000, guid: e30faedfb19a802468ea08b0c5753971, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Amplitude: 0.1
+    - _AngleOffset: 0
+    - _AnimLerp: 0.29
+    - _AnimationSpeed: 4
+    - _B: 0
+    - _Damping: 4
+    - _DotThickness: 0.5
+    - _FlowDirection: 1
+    - _G: 1
+    - _IgnoreBaseColor: 0
+    - _LineSpeed: 0.05
+    - _Lines: 128
+    - _OutLineSub: 0.42
+    - _OutlineBase: 0
+    - _OutlineCount: 4
+    - _OutlineOpacity: 0
+    - _Outline_Base: 0.24
+    - _Outline_Count: 4
+    - _Outline_Mask: 0.5
+    - _Outline_Opacity: 1
+    - _PhaseOffset: 3
+    - _R: 0
+    - _RGBGradientSpeed: 0.5
+    - _RadialSpin_AngleOffset: 0
+    - _RadialSpin_Speed: 1
+    - _Rate: 0
+    - _Speed: 0.05
+    - _Tile: 9
+    - _TileOffset: 0
+    - _isDotted: 1
+    - _isDottedline: 1
+    - _isOutline: 0
+    - _isPlatform: 1
+    - _isPopup: 1
+    m_Colors:
+    - White: {r: 1, g: 1, b: 1, a: 1}
+    - _BlueColor: {r: 0.024982866, g: 0.19540556, b: 1.0592737, a: 1}
+    - _CellCenterLocal: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _Color: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
+    - _Direction: {r: 1, g: 1, b: 1, a: 0}
+    - _GreenColor: {r: 0.028431373, g: 0.16470589, b: 0.07156863, a: 1}
+    - _OutlineColor: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 0}
+    - _Outline_Color: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 0}
+    - _PlayerPos: {r: 0.68, g: -1.26, b: 0, a: 0}
+    - _PlayerPos1: {r: 0.02, g: -1.13, b: 0, a: 0}
+    - _PlayerPos2: {r: 0.85, g: 0, b: 0, a: 0}
+    - _RedColor: {r: 1.0592737, g: 0, b: 0, a: 1}
+    - _SpriteSize: {r: 1, g: 1, b: 0, a: 0}
+    - _TileCount: {r: 4, g: 4, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &1436886374
 GameObject:
   m_ObjectHideFlags: 0
@@ -32752,6 +32624,134 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!21 &1979083584
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MessageBlock (Instance) (Instance) (Instance) (Instance)
+  m_Shader: {fileID: -6465566751694194690, guid: 398ed31b4072a5440ac5d8c0fef0e4c0, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 1
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 962194056493ec6498e058760799a57d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _RenderTexture:
+        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SDFTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_4d5372c444274d359834ce70ea9aee7c_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 06ed2d57f983c124fb66378ba28aa782, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_bb3e6b23135d4748b7c399c19a6628fb_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 4f5d81276d2e34e419a3d97bb77cbd40, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_cf938a8501134491bf06c8897055c3b5_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 4f5d81276d2e34e419a3d97bb77cbd40, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_1af46992260a47b188b00a68378f3fbe_Out_0_Texture2D:
+        m_Texture: {fileID: 2800000, guid: e30faedfb19a802468ea08b0c5753971, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_6c78b4686606433e932a8e7c41ff0a1d_Out_0_Texture2D:
+        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_8a23479008ac433a9964952f70e92dbe_Out_0_Texture2D:
+        m_Texture: {fileID: 8400000, guid: ebdb855955162854db3621c3fe72c8fe, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_f42c747706e14293a4e8b721a76a626b_Out_0_Texture2D:
+        m_Texture: {fileID: 2800000, guid: e30faedfb19a802468ea08b0c5753971, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Amplitude: 0.1
+    - _AngleOffset: 0
+    - _AnimLerp: 0.29
+    - _AnimationSpeed: 4
+    - _B: 0
+    - _Damping: 4
+    - _DotThickness: 0.5
+    - _FlowDirection: 1
+    - _G: 1
+    - _IgnoreBaseColor: 0
+    - _LineSpeed: 0.05
+    - _Lines: 128
+    - _OutLineSub: 0.42
+    - _OutlineBase: 0
+    - _OutlineCount: 4
+    - _OutlineOpacity: 0
+    - _Outline_Base: 0.24
+    - _Outline_Count: 4
+    - _Outline_Mask: 0.5
+    - _Outline_Opacity: 1
+    - _PhaseOffset: 3
+    - _R: 0
+    - _RGBGradientSpeed: 0.5
+    - _RadialSpin_AngleOffset: 0
+    - _RadialSpin_Speed: 1
+    - _Rate: 0
+    - _Speed: 0.05
+    - _Tile: 9
+    - _TileOffset: 0
+    - _isDotted: 1
+    - _isDottedline: 1
+    - _isOutline: 0
+    - _isPlatform: 1
+    - _isPopup: 1
+    m_Colors:
+    - White: {r: 1, g: 1, b: 1, a: 1}
+    - _BlueColor: {r: 0.024982866, g: 0.19540556, b: 1.0592737, a: 1}
+    - _CellCenterLocal: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _Color: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
+    - _Direction: {r: 1, g: 1, b: 1, a: 0}
+    - _GreenColor: {r: 0.028431373, g: 0.16470589, b: 0.07156863, a: 1}
+    - _OutlineColor: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 0}
+    - _Outline_Color: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 0}
+    - _PlayerPos: {r: 0.68, g: -1.26, b: 0, a: 0}
+    - _PlayerPos1: {r: 0.02, g: -1.13, b: 0, a: 0}
+    - _PlayerPos2: {r: 0.85, g: 0, b: 0, a: 0}
+    - _RedColor: {r: 1.0592737, g: 0, b: 0, a: 1}
+    - _SpriteSize: {r: 1, g: 1, b: 0, a: 0}
+    - _TileCount: {r: 4, g: 4, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &2093660244 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4842979566217157199, guid: f3c50455f6c1aeb439c22cedd3dd9f71, type: 3}
