@@ -37122,6 +37122,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 5846
       objectReference: {fileID: 0}
+    - target: {fileID: 3434987859006466522, guid: 066f290bebc4cbe47b3dbfc233d2972b, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5753
+      objectReference: {fileID: 0}
     - target: {fileID: 4180240353328511491, guid: 066f290bebc4cbe47b3dbfc233d2972b, type: 3}
       propertyPath: m_Mass
       value: 0.1
@@ -37161,6 +37165,10 @@ PrefabInstance:
     - target: {fileID: 7791705975484252856, guid: 066f290bebc4cbe47b3dbfc233d2972b, type: 3}
       propertyPath: m_GravityScale
       value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 7812267125193468276, guid: 066f290bebc4cbe47b3dbfc233d2972b, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5753
       objectReference: {fileID: 0}
     - target: {fileID: 7903748542499513914, guid: 066f290bebc4cbe47b3dbfc233d2972b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -48852,7 +48860,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 960.00006, y: -244}
+  m_AnchoredPosition: {x: 960, y: -244}
   m_SizeDelta: {x: 536, y: 288}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1158231507005717791
@@ -58485,7 +58493,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 960.00006, y: -562}
+  m_AnchoredPosition: {x: 960, y: -562}
   m_SizeDelta: {x: 536, y: 288}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &6946371143508418876
@@ -60648,7 +60656,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 960.00006, y: -820}
+  m_AnchoredPosition: {x: 960, y: -820}
   m_SizeDelta: {x: 536, y: 168}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &7891782982942343809
@@ -63283,7 +63291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d68ee4bc6f09342a0eebde694979d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardManager
-  limit: 3
+  limit: 2
   animDuration: 0.52
   ratio: 15
 --- !u!114 &9182401991851805059

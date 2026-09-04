@@ -53,9 +53,12 @@ public class NormalPopUp : PopUp, IEventListener, IReset
             return;
         if(animator != null)
             animator.Play(state ? "In" : "Out");
+        if (childAnimators == null)
+            return;
         foreach (Animator anim in childAnimators)
         {
-            anim.SetBool("IsActive", state);
+            if(anim != null)
+                anim.SetBool("IsActive", state);
         }
         
     }
