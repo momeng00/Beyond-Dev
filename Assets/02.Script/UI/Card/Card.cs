@@ -16,38 +16,24 @@ public class Card : MonoBehaviour
     //고양이카드를 관리하는 스크립트
     //카드는 Manager가 Instance로 싱글톤이니 이를 최대한 이용해보자
     public List<ItemInTodo> itemInTodoes; // 이건 아이템이랑 연결되는 Todo들임
-    [HideInInspector]public List<Todo> todoList; //이건 그냥 투두들을 넣을 공간임
-    public Action<Card> OnTodoAnimationFinished; //여기에 카드 집어넣는 기능 넣기
+    [HideInInspector] public List<Todo> todoList; //이건 그냥 투두들을 넣을 공간임
     private int completedTodoCount;
-    public void TodoAnimationFinished()
-    {
-        completedTodoCount++;
 
-        if (completedTodoCount >= itemInTodoes.Count)
-        {
-            OnTodoAnimationFinished?.Invoke(this);
-            Debug.Log("카드 엔딩 실행됨");
-        }
-    }
-    
-    public float todoDelay=0.36f; //다음 todo가 체크되는 딜레이
+
+    public Action<Card> OnTodoAnimationFinished; //여기에 카드 집어넣는 기능 넣기
+
+    public float todoDelay = 0.36f; //다음 todo가 체크되는 딜레이
+    #region 기본 선언
+    protected Animator animator;
     private CanvasGroup canvasGroup;
     public CanvasGroup CanvasGroup => canvasGroup;
     protected RectTransform rectTransform;
     public RectTransform Rect => rectTransform;
     public Vector2 OriginalPosition { get; private set; }
     public Vector3 OriginalScale { get; private set; }
+    #endregion
     private Coroutine coroutine;
-    protected Animator animator;
-    public Action Done;
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            CardManager.Instance.AddCard(this);
-        }
-    }
     private void Awake()
     {
         //병신아 Clone을 만들때는 Start문이 사용이 안되다는 걸 명심해.
@@ -63,13 +49,15 @@ public class Card : MonoBehaviour
     private void Start()
     {
         InitCard();
-        RemoveCard();
+        RemoveCard(this);
     }
+    #region 초기화 기능 및 초기화에 넣을 기능
     public void InitCard()
     {
         completedTodoCount = 0;
         foreach (var item in itemInTodoes)
         {
+            todoList.Add(item.todo);
             if (item.todo != null)
             {
                 item.todo.SubscribeTodoAction(TodoAnimationFinished);
@@ -82,30 +70,47 @@ public class Card : MonoBehaviour
                 item.item.AddOnCheck(item.todo.DoSuccess);
         }
     }
-    public void RemoveCard()
-    {
-        canvasGroup.alpha = 0f;
-    }
-
+    //여기에 뭐 넣을라고 했는지 체크해보기
+    //여기안에 종료시키는 걸 넣을라고 했음
     public void SubscriptCardEnd(Action<Card> action)
     {
+        Debug.Log("추가");
         OnTodoAnimationFinished += action;
     }
-    public void InitTodoList()
-    {
 
+
+    //카드안에있는 모든 Todo가 완료되었는지 확인하기
+    //Todo들에 있는 Action에 이걸 등록시켜서 애니메이션이 이걸 호출함
+    public void TodoAnimationFinished()
+    {
+        completedTodoCount++;
+
+        if (completedTodoCount >= itemInTodoes.Count)
+        {
+            RemoveCard(this);
+            OnTodoAnimationFinished?.Invoke(this);
+            Debug.Log("카드 엔딩 실행됨");
+        }
     }
+    #endregion
+
     public void PlayAnimation(string animationName)
     {
         animator.Play(animationName);
     }
-    public void MoveCard(int index, float ratio, float animDuration)
+
+    public void RemoveCard(Card card = null)
     {
-        animator.Play("In");
-        //gameObject.GetComponent<UIBaseUpgrade>().Open(targetPos, originalScale); //안이뻐서 제거
-        //레이어 순서는 미리미리 지정해놔야함.
-        StartCoroutine(MoveCardCoroutine(index, ratio, animDuration));
+        card.PlayAnimation("Default");
+        foreach(Todo todo in todoList)
+        {
+            todo.Close();
+        }
+        canvasGroup.alpha = 0f;
+        Debug.Log("카드종료");
     }
+
+    //클리어 가 실행되면 실행될 애니메이션 중간에 타이밍을 조절해야함
     public void SuccessClearStage()
     {
         //해당 todoList안에 있는 content를 체크해서 isClear 및 체크 및 InGameTodo를 띄워줄 수 있도록 한다. (Todo에게 이전함)
@@ -115,6 +120,7 @@ public class Card : MonoBehaviour
         coroutine = StartCoroutine(CheckCondition());
 
     }
+    //Card 진입이 진행되면 실행될 메서드
     public void NextStep()
     {
         //EffectManager.instance.BlurAnimation(true);
@@ -122,13 +128,14 @@ public class Card : MonoBehaviour
     }
     public void StartGameCardOpen()
     {
-        animator.Play("In_Start_ForSys");
+        PlayAnimation("In_Start_ForSys");
     }
     public void CheckClearCard()
     {
         canvasGroup.alpha = 1f;
-        animator.Play("In_Start");
+        PlayAnimation("In_Clear");
     }
+    #region 코루틴
     IEnumerator CheckCondition()
     {
         foreach (var item in itemInTodoes)
@@ -137,44 +144,7 @@ public class Card : MonoBehaviour
             yield return new WaitForSeconds(todoDelay);
         }
     }
-    IEnumerator MoveCardCoroutine(int index, float ratio, float animDuration)
-    {
-        canvasGroup.alpha = 1f;
-        yield return null;
-
-        float targetOffsetX = rectTransform.rect.x * (ratio / 100) * (index - 1);
-        // ratio(0~100)를 0~1로 정규화해서 목표 X 오프셋 계산
-
-
-        Vector2 startPos = rectTransform.anchoredPosition;
-        Vector2 targetPos = OriginalPosition + new Vector2(targetOffsetX, 0f); // 왼쪽으로 이동
-        //Vector3 targetScale = originalScale * (ratio / (100f + (10f * index)));
-
-        float elapsed = 0f;
-        float t;
-        while (elapsed < animDuration)
-        {
-            elapsed += Time.unscaledDeltaTime;
-            t = Mathf.Sin((elapsed / animDuration) * Mathf.PI * 0.5f);
-            //rectTransform.localScale = Vector3.Lerp(rectTransform.localScale, targetScale, t);
-            rectTransform.anchoredPosition = Vector2.Lerp(startPos, targetPos, t);
-            yield return null;
-        }
-        //rectTransform.localScale = targetScale;
-        rectTransform.anchoredPosition = targetPos; // 오차 보정
-    }
-    public IEnumerator CCardRemove()
-    {
-        yield return null;
-        float elapsed = 0f;
-        float t;
-        while (elapsed < 0.3f)
-        {
-            elapsed += Time.unscaledDeltaTime;
-            t = Mathf.Sin((elapsed / 0.3f) * Mathf.PI * 0.5f);
-            //rectTransform.localScale = Vector3.Lerp(rectTransform.localScale, targetScale, t);
-
-            yield return null;
-        }
-    }
+    
+    
+    #endregion
 }

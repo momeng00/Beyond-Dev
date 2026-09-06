@@ -31,46 +31,19 @@ public class CardManager : MonoBehaviour
     [Range(0f, 100f)] public float ratio; //옆으로 움직일 비율 및 크기가 작아질 비율 카드 끼리 간격에 해당
     private Coroutine coroutine;
 
-    
-    private void Start()
-    {
-        cardList.Clear();
-    }
-
-    public void Update()
-    {
-        
-    }
-
+    #region 카드 추가
     public void AddCard(Card card)
     {
         //card.GetComponent<UIBaseUpgrade>().Open();
-        if (cardList.Contains(card))
+        if (cardList.Contains(card)) //자기 자신이 이미 있으면 넘어가기
             return;
 
-        cardList.Add(card);
-        if (cardList.Count > limit)
+        cardList.Add(card); 
+        if (cardList.Count > limit) //카드 수가 너무 많으면 삭제당함
         {
             RemoveCard();
         }
         RefreshCardList();
-    }
-
-    public void RemoveCard()
-    {
-        if (cardList.Count == 0 || cardList == null)
-        {
-            return;
-        }
-        Card card = cardList[0];
-        cardList.RemoveAt(0);
-        card.RemoveCard();
-    }
-    public void HideCardList()
-    {
-        foreach (Card card in cardList) {
-            card.RemoveCard();
-        }
     }
     public void RefreshCardList()
     {
@@ -78,7 +51,7 @@ public class CardManager : MonoBehaviour
         {
             Card lastCard = cardList[0]; // 처음 들어온 카드 제거
             lastCard.RemoveCard(); //삭제 애니메이션은 필요없을듯 그냥 안보이게만 하는 용도
-            cardList.Remove(lastCard); 
+            cardList.Remove(lastCard);
         }
         for (int i = 0; i < cardList.Count; i++)
         {
@@ -91,14 +64,47 @@ public class CardManager : MonoBehaviour
                 )
             );
         }
-        
-        
+
+
         //for (int index=0; index< cardList.Count; index++) // 0 1 2 / 3 1 2 3 위에 기능으로 이전 됨
         //{
         //    cardList[index].MoveCard(cardList.Count - index, ratio, animDuration);
         //}
     }
+    #endregion
 
+    #region 카드 삭제
+    public void HideCardList()
+    {
+        foreach (Card card in cardList) {
+            card.RemoveCard(card);
+        }
+
+    }
+    public void RemoveCard()
+    {
+        if (cardList.Count == 0 || cardList == null)
+        {
+            return;
+        }
+        Card card = cardList[0];
+        cardList.RemoveAt(0);
+        card.RemoveCard();
+    }
+    public void ShowTopCard()
+    {
+        if (cardList[^1] != null)
+            cardList[^1].CheckClearCard();
+    }
+    public void HideTopCard(Card card)
+    {
+
+    }
+    #endregion
+    //Card에 있는 IEnumerator을 가져와서 여기에 종속시키기
+    //맨 앞에 있는 카드만 가져와서 ClearCheck하는 기능을 추가
+    //맨 앞에 있는 카드의 TodoList를 PauseMenu에 동기화 시키는 방식
+    #region 코루틴 애니메이션
     private IEnumerator MoveCardCoroutine(Card card, int index, float ratio, float animDuration)
     {
         RectTransform rect = card.Rect;
@@ -135,16 +141,6 @@ public class CardManager : MonoBehaviour
 
         rect.anchoredPosition = targetPos;
     }
-    public void ShowTopCard()
-    {
-        if(cardList[^1]!=null)
-            cardList[^1].CheckClearCard();
-    }
-    public void HideTopCard(Card card)
-    {
-        
-    }
-    //Card에 있는 IEnumerator을 가져와서 여기에 종속시키기
-    //맨 앞에 있는 카드만 가져와서 ClearCheck하는 기능을 추가
-    //맨 앞에 있는 카드의 TodoList를 PauseMenu에 동기화 시키는 방식
+    #endregion 
+
 }
