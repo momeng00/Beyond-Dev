@@ -1,95 +1,135 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class UploadStation : Spot, ISwitchable, IReset
 {
     public List<DownloadStation> partnerStations;
     public List<Switch> switches;
+
     private BoxCollider2D col;
     private Animator ani;
     private Material material;
     private SpriteRenderer spriteRenderer;
+
     private bool stationState;
+
     private List<GameObject> detectedList = new List<GameObject>();
-    [SerializeField]private List<GameObject> uploadList = new List<GameObject>();
+
+    [SerializeField]
+    private List<GameObject> uploadList = new List<GameObject>();
+
     private List<GameObject> activeList = new List<GameObject>();
     private Dictionary<GameObject, GameObject> readyList = new Dictionary<GameObject, GameObject>();
+
     private bool isUploading = false;
 
     public Switch Switch => throw new System.NotImplementedException();
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+
         material = spriteRenderer.material;
         material.SetVector("_Size", spriteRenderer.size);
+
         col = GetComponent<BoxCollider2D>();
         ani = GetComponentInChildren<Animator>();
     }
+
     private void Start()
     {
         partnerInit();
+
         foreach (Switch sw in switches)
         {
             sw.SetSwitch(this);
         }
+
         col.isTrigger = true;
+
+        // SpriteRenderer의 크기에 Collider 크기 맞추기
         col.size = spriteRenderer.size;
+
+        // Sprite Pivot이 우측 상단이므로
+        // Collider 중심을 좌측 아래로 Size의 절반만큼 이동
+        col.offset = new Vector2(
+            -spriteRenderer.size.x * 0.5f,
+            -spriteRenderer.size.y * 0.5f
+        );
+
         stationState = false;
+
         GameManager.Instance.OnReset += ResetAction;
     }
+
     public void invisibleBlock()
     {
         foreach (GameObject sp in detectedList)
         {
             sp.GetComponent<SpriteRenderer>().enabled = false;
         }
+
         foreach (DownloadStation requester in partnerStations)
         {
             foreach (GameObject ob in uploadList)
             {
                 Vector3 comparative = transform.position - ob.transform.position;
+
                 GameObject clone = PoolingGet(ob);
-                
+
                 clone.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
                 clone.GetComponent<Collider2D>().enabled = false;
+
                 if (!clone.activeSelf)
+                {
                     clone.SetActive(true);
+                }
+
                 clone.GetComponent<SpriteRenderer>().enabled = true;
-                clone.transform.position = requester.transform.position - comparative;
-                if(!requester.blocks.Contains(clone))
+
+                clone.transform.position =
+                    requester.transform.position - comparative;
+
+                if (!requester.blocks.Contains(clone))
+                {
                     requester.blocks.Add(clone);
+                }
+
                 if (clone.TryGetComponent(out PushBlock clonePushBlock))
                 {
                     clonePushBlock.UDAnimationPlay(true);
                     Debug.Log(clonePushBlock);
                 }
+
                 if (ob.TryGetComponent(out PushBlock pushBlock))
                 {
                     pushBlock.UDAnimationPlay(false);
                     Debug.Log(pushBlock);
                 }
+
                 if (!activeList.Contains(clone))
                 {
                     activeList.Add(clone);
                 }
             }
         }
-        
     }
+
     public bool SwitchOn(bool value)
     {
-        if(detectedList.Count <= 0)
+        if (detectedList.Count <= 0)
         {
             return false;
         }
+
         stationState = value;
         isUploading = true;
+
         if (value)
         {
             uploadList.Clear();
-            foreach (GameObject go in detectedList) 
+
+            foreach (GameObject go in detectedList)
             {
                 uploadList.Add(go);
             }
@@ -99,54 +139,67 @@ public class UploadStation : Spot, ISwitchable, IReset
                 ob.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
                 ob.GetComponent<Collider2D>().enabled = false;
             }
+
             foreach (DownloadStation ds in partnerStations)
             {
                 ds.blocks.Clear();
             }
+
             invisibleBlock();
         }
         else
         {
             PoolingReturn();
+
             foreach (GameObject ob in uploadList)
             {
                 ob.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                 ob.GetComponent<Collider2D>().enabled = true;
                 ob.GetComponent<SpriteRenderer>().enabled = true;
-
             }
         }
+
         foreach (DownloadStation ds in partnerStations)
         {
             ds.UploadComplete(value);
         }
+
         isUploading = false;
+
         return true;
     }
+
     public void partnerInit()
     {
-        foreach(DownloadStation partner in partnerStations)
+        foreach (DownloadStation partner in partnerStations)
         {
-            if(partner != null)
+            if (partner != null)
             {
-                partner.GetPartnerDate(transform.position, spriteRenderer.size);
+                partner.GetPartnerDate(
+                    transform.position,
+                    spriteRenderer.size
+                );
             }
         }
     }
+
     public void PoolingReturn()
     {
         foreach (DownloadStation ds in partnerStations)
         {
             ds.RefreshVisuals(true);
         }
+
         foreach (GameObject ob in uploadList)
         {
-            ob.GetComponent<SpriteRenderer>().enabled=true;
+            ob.GetComponent<SpriteRenderer>().enabled = true;
+
             if (ob.TryGetComponent(out PushBlock pushBlock))
             {
                 pushBlock.UDAnimationPlay(true);
             }
         }
+
         foreach (GameObject ob in activeList)
         {
             if (ob.TryGetComponent(out PushBlock pushBlock))
@@ -154,91 +207,133 @@ public class UploadStation : Spot, ISwitchable, IReset
                 pushBlock.UDAnimationPlay(false);
             }
         }
-        
     }
+
     public void GetDetectedObject(GameObject requester)
     {
         activeList.Clear();
+
         foreach (DownloadStation ds in partnerStations)
         {
             ds.RefreshVisuals(false);
         }
+
         foreach (GameObject ob in uploadList)
         {
-            Vector3 comparative = transform.position - ob.transform.position;
+            Vector3 comparative =
+                transform.position - ob.transform.position;
+
             GameObject clone = PoolingGet(ob);
+
             if (!clone.activeSelf)
+            {
                 clone.SetActive(true);
-            clone.transform.position = requester.transform.position - comparative;
+            }
+
+            clone.transform.position =
+                requester.transform.position - comparative;
+
             if (clone.TryGetComponent(out PushBlock clonePushBlock))
             {
                 clonePushBlock.UDAnimationPlay(true);
                 Debug.Log(clonePushBlock);
             }
+
             if (ob.TryGetComponent(out PushBlock pushBlock))
             {
                 pushBlock.UDAnimationPlay(false);
                 Debug.Log(pushBlock);
             }
+
             if (!activeList.Contains(clone))
             {
                 activeList.Add(clone);
             }
         }
     }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (isUploading) return;
+        if (isUploading)
+        {
+            return;
+        }
+
         if (IsFullyContained(collision.bounds))
         {
-            if (IsInLayerMask(collision.gameObject, layerMask) && !detectedList.Contains(collision.gameObject))
+            if (
+                IsInLayerMask(collision.gameObject, layerMask) &&
+                !detectedList.Contains(collision.gameObject)
+            )
             {
-                collision.gameObject.GetComponent<Block>().OnBlockAction();
+                collision.gameObject
+                    .GetComponent<Block>()
+                    .OnBlockAction();
+
                 detectedList.Add(collision.gameObject);
             }
+
             if (detectedList.Count > 0)
             {
                 ani.SetBool("IsDetected", true);
             }
         }
     }
+
     private bool IsFullyContained(Bounds blockBounds)
     {
-        return col.bounds.Contains(blockBounds.min) &&
-               col.bounds.Contains(blockBounds.max);
+        return
+            col.bounds.Contains(blockBounds.min) &&
+            col.bounds.Contains(blockBounds.max);
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (isUploading) return;
+        if (isUploading)
+        {
+            return;
+        }
+
         if (detectedList.Contains(collision.gameObject))
         {
             detectedList.Remove(collision.gameObject);
-
         }
+
         if (detectedList.Count <= 0)
         {
             ani.SetBool("IsDetected", false);
         }
     }
+
     private GameObject PoolingGet(GameObject original)
     {
         if (!readyList.ContainsKey(original))
         {
             GameObject clone = Instantiate(original);
+
             readyList[original] = clone;
-            clone.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-            Debug.Log(clone.GetComponent<Rigidbody2D>().linearVelocityY);
+
+            clone.GetComponent<Rigidbody2D>().bodyType =
+                RigidbodyType2D.Dynamic;
+
+            Debug.Log(
+                clone.GetComponent<Rigidbody2D>().linearVelocityY
+            );
+
             clone.GetComponent<Collider2D>().enabled = true;
         }
-        else 
+        else
         {
-            readyList[original].GetComponent<Rigidbody2D>().linearVelocityY = 0f;
+            readyList[original]
+                .GetComponent<Rigidbody2D>()
+                .linearVelocityY = 0f;
         }
+
         return readyList[original];
     }
+
     public void InitializeReset()
     {
-        
     }
 
     public void ResetAction()
@@ -249,15 +344,15 @@ public class UploadStation : Spot, ISwitchable, IReset
         {
             foreach (GameObject ob in ds.blocks)
             {
-
                 Destroy(ob);
             }
+
             ds.blocks.Clear();
         }
+
         readyList.Clear();
         activeList.Clear();
         detectedList.Clear();
         uploadList.Clear();
-        
     }
 }
