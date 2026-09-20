@@ -14,7 +14,13 @@ public class Hazard : Block
     {
         if (IsInLayerMask(collision.gameObject, layerMask))
         {
-            GameManager.Instance.OnReset?.Invoke();
+            Debug.Log("찍힘");
+            //GameManager.Instance.OnReset?.Invoke(); 이제 이게 아니라 다른곳에서 호출
+            CharacterControl characterControl = collision.gameObject.GetComponent<CharacterControl>();
+            if (characterControl != null)
+            {
+                EffectManager.instance.FocusOnPosition(characterControl);
+            }
         }
     }
 

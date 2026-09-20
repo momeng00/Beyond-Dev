@@ -21,7 +21,7 @@ public class Card : MonoBehaviour
 
 
     public Action<Card> OnTodoAnimationFinished; //여기에 카드 집어넣는 기능 넣기
-
+    public float animDuration = 3.2f;
     public float todoDelay = 0.36f; //다음 todo가 체크되는 딜레이
     #region 기본 선언
     protected Animator animator;
@@ -50,6 +50,7 @@ public class Card : MonoBehaviour
     {
         InitCard();
         RemoveCard(this);
+        SubscriptCardEnd(RemoveCard);
     }
     #region 초기화 기능 및 초기화에 넣을 기능
     public void InitCard()
@@ -87,7 +88,6 @@ public class Card : MonoBehaviour
 
         if (completedTodoCount >= itemInTodoes.Count)
         {
-            RemoveCard(this);
             OnTodoAnimationFinished?.Invoke(this);
             Debug.Log("카드 엔딩 실행됨");
         }
@@ -101,13 +101,14 @@ public class Card : MonoBehaviour
 
     public void RemoveCard(Card card = null)
     {
+        //이건 삭제 애니메이션 용
         card.PlayAnimation("Default");
-        foreach(Todo todo in todoList)
-        {
-            todo.Close();
-        }
-        canvasGroup.alpha = 0f;
+        coroutine = StartCoroutine(PlayCloseAnimation(card));
         Debug.Log("카드종료");
+    }
+    public void HideCard()
+    {
+        //이건 그냥 숨기기 용
     }
 
     //클리어 가 실행되면 실행될 애니메이션 중간에 타이밍을 조절해야함
@@ -144,7 +145,41 @@ public class Card : MonoBehaviour
             yield return new WaitForSeconds(todoDelay);
         }
     }
-    
-    
+    protected IEnumerator PlayCloseAnimation(Card card)
+    {
+        float timer = 0f;
+        Vector3 startScale = card.Rect.localScale;
+        Vector3 targetScale;
+        targetScale = Vector3.zero;
+
+
+        while (timer < animDuration)
+        {
+            timer += Time.unscaledDeltaTime;
+            float t = Mathf.Sin((timer / animDuration) * Mathf.PI * 0.5f);
+            // 크기, 투명도 변화
+            card.Rect.localScale = Vector3.Lerp(startScale, targetScale, t);
+            card.CanvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
+            Debug.Log("실행되는중임?");
+            yield return null;
+        }
+        card.CanvasGroup.alpha = 0f;
+        card.Rect.localScale = OriginalScale;
+        foreach (Todo todo in todoList)
+        {
+            todo.Close();
+        }
+        yield return null;
+        //nickName.enabled = false;
+        //content.enabled = false;
+        //profileID.enabled = false;
+        // 끝난 후 끄기
+        //canvasGroup.alpha = 0f; // 완전히 투명하게 캔버스가 canvas안에 있어야지만 적용
+        // 다음 오픈을 위해 원상복구
+        //rectTransform.anchoredPosition = originalPosition;
+        //rectTransform.localScale = originalScale;
+        //gameObject.SetActive(false);
+    }
+
     #endregion
 }

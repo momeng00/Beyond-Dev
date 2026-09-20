@@ -56,7 +56,7 @@ public class CardManager : MonoBehaviour
         for (int i = 0; i < cardList.Count; i++)
         {
             StartCoroutine(
-                MoveCardCoroutine(
+                RefreshCardCoroutine(
                     cardList[i],
                     i,
                     ratio,
@@ -76,9 +76,6 @@ public class CardManager : MonoBehaviour
     #region 카드 삭제
     public void HideCardList()
     {
-        foreach (Card card in cardList) {
-            card.RemoveCard(card);
-        }
 
     }
     public void RemoveCard()
@@ -105,7 +102,7 @@ public class CardManager : MonoBehaviour
     //맨 앞에 있는 카드만 가져와서 ClearCheck하는 기능을 추가
     //맨 앞에 있는 카드의 TodoList를 PauseMenu에 동기화 시키는 방식
     #region 코루틴 애니메이션
-    private IEnumerator MoveCardCoroutine(Card card, int index, float ratio, float animDuration)
+    private IEnumerator RefreshCardCoroutine(Card card, int index, float ratio, float animDuration)
     {
         RectTransform rect = card.Rect;
         CanvasGroup canvas = card.CanvasGroup;
@@ -141,6 +138,7 @@ public class CardManager : MonoBehaviour
 
         rect.anchoredPosition = targetPos;
     }
+   
     #endregion 
 
 }

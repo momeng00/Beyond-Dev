@@ -156,6 +156,8 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
     }
     private void FixedUpdate()
     {
+        if (!canMove)
+            return;
         _rb.linearVelocity = new Vector2((_axisX) * currentStat.moveSpeed + extraVelocity.x, _rb.linearVelocityY + extraVelocity.y);
     }
     private void OnEnable()
@@ -198,7 +200,19 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
         if (dust != null)
             dust.Play();
     }
-
+    public void PauseCharacter()
+    {
+        canMove = false;
+        StopCharacter();
+        _rb.bodyType = RigidbodyType2D.Static;
+    }
+    public void UnPauseCharacter()
+    {
+        ZeroVelocity();
+        _rb.bodyType = RigidbodyType2D.Dynamic;
+        ZeroVelocity();
+        canMove = true;
+    }
     public void InitializeReset()
     {
         startPos = transform.position;
@@ -206,10 +220,11 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
 
     public void ResetAction()
     {
-        MainCameraController.Instance.CameraReset();
+        //MainCameraController.Instance.CameraReset(); Å×½ºÆ®ÇÒ¶§ ÀÓ½Ã·Î »©µÒ
         _rb.linearVelocity = Vector2.zero;
         StartCoroutine("RespawnRoutine");
-        AudioManager.Instance.PlaySFXAudio(AudioName.Die);
+        //AudioManager.Instance.PlaySFXAudio(AudioName.Die); Å×½ºÆ®ÇÒ¶§ ÀÓ½Ã·Î »©µÒ
+        
     }
 
     public void OnDetected()

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UIElements;
 
 [Serializable]
 public struct VolumeData
@@ -17,7 +18,7 @@ public class EffectManager : MonoBehaviour
     private Dictionary<string,VolumeData> _volumeList = new Dictionary<string,VolumeData>();
     public float blurDuration = 0.3f;
     private bool isWorking = false;
-
+    public FocusMaskController focusMaskController; //죽을때 호출할 대상
     //싱글톤 사용
     private static EffectManager _instance;
     public static EffectManager instance
@@ -41,6 +42,7 @@ public class EffectManager : MonoBehaviour
     {
         
     }
+    
     public void VolumeInit()
     {
         _volumeList.Clear();
@@ -87,7 +89,43 @@ public class EffectManager : MonoBehaviour
         isWorking = true;
         StartCoroutine(BlurSet(false, name));
     }
+    private bool isFocusWorking = false;
+    public void FocusOnPosition(CharacterControl control)
+    {
+        if (!isFocusWorking)
+        {
+            isFocusWorking = true;
+            focusMaskController.ShowAtWorld(control.gameObject.transform.position, 5.0f);
+            StartCoroutine(FocusOnPositionCoroutine(control));
+        }
+    }
+    public void TurnOffFocus()
+    {
+        
+    }
 
+    public IEnumerator FocusOnPositionCoroutine(CharacterControl control)
+    {
+        control.PauseCharacter();
+        //Scale을 처음크기에서 0.5까지 이동시키기
+        float startScale = focusMaskController.ReturnScale();
+        float timer = 0f;
+        yield return null;
+        while (timer < 1.8f)
+        {
+            timer += Time.unscaledDeltaTime;
+            float t = Mathf.Sin((timer / 1.8f) * Mathf.PI * 0.5f);
+            float offsetScale = Mathf.Lerp(startScale, focusMaskController.DefaultScale, t);
+            focusMaskController.SetScale(offsetScale);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(1.8f);
+        focusMaskController.InitFocusMaskMaterial();
+        control.UnPauseCharacter();
+        GameManager.Instance.ResetGame();
+        isFocusWorking = false;
+    }
     //0이 잘보이는거 1이 안보이는거
     //false가 1이 됨(안보임)/ture가 0이 됨 (보임)
     public IEnumerator BlurSet(bool value, string name)

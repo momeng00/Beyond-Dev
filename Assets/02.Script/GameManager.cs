@@ -166,7 +166,7 @@ public class GameManager : MonoBehaviour
         ResetGame();
     }
 
-    void ResetGame()
+    public void ResetGame()
     {
         OnReset?.Invoke();
     }
