@@ -45,7 +45,7 @@ public class OriginalPopUp : NormalPopUp
             Close();
         }
     }
-
+    
     public virtual void Open(Transform original)
     {
         if (original == null)
@@ -78,25 +78,26 @@ public class OriginalPopUp : NormalPopUp
         rectTransform.localScale = Vector3.zero;
 
         // 애니메이션 루프
-        yield return UIAnimationRoutine.Run(
-            animDuration,
-            progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
-            t =>
-            {
+        float timer = 0f;
+        while (timer < animDuration)
+        {
+            timer += Time.unscaledDeltaTime;
+            float t = Mathf.Sin((timer / animDuration) * Mathf.PI * 0.5f);
 
-                //움직임/크기 변화
-                rectTransform.localScale = Vector3.Lerp(Vector3.zero, originalScale, t);
-                rectTransform.anchoredPosition = Vector2.Lerp(startPos, originalPosition, t);
+            //움직임/크기 변화
+            rectTransform.localScale = Vector3.Lerp(Vector3.zero, originalScale, t);
+            rectTransform.anchoredPosition = Vector2.Lerp(startPos, originalPosition, t);
 
-                //투명도: 0(안보임) -> 1(잘보임) 로 서서히 변화
-                canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
-                //if (timer < animDuration * 2 && nickName.enabled == false)
-                //{
-                //    nickName.enabled = true;
-                //    content.enabled = true;
-                //    profileID.enabled = true;
-                //} 위치값이 이상해지는 버그가있음 중간에 꺼서 그런듯
-            });
+            //투명도: 0(안보임) -> 1(잘보임) 로 서서히 변화
+            canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
+            //if (timer < animDuration * 2 && nickName.enabled == false)
+            //{
+            //    nickName.enabled = true;
+            //    content.enabled = true;
+            //    profileID.enabled = true;
+            //} 위치값이 이상해지는 버그가있음 중간에 꺼서 그런듯
+            yield return null;
+        }
 
         // 끝난 후 확실하게 값 고정
         rectTransform.anchoredPosition = originalPosition;
@@ -114,6 +115,7 @@ public class OriginalPopUp : NormalPopUp
     }
     protected IEnumerator PlayCloseAnimation()
     {
+        float timer = 0f;
         Vector3 startScale = rectTransform.localScale;
         Vector3 targetScale;
         float width = Screen.width;
@@ -121,15 +123,15 @@ public class OriginalPopUp : NormalPopUp
         targetScale = Vector3.zero;
 
 
-        yield return UIAnimationRoutine.Run(
-            animDuration,
-            progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
-            t =>
-            {
-                // 크기, 투명도 변화
-                rectTransform.localScale = Vector3.Lerp(startScale, targetScale, t);
-                canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
-            });
+        while (timer < animDuration)
+        {
+            timer += Time.unscaledDeltaTime;
+            float t = Mathf.Sin((timer / animDuration) * Mathf.PI * 0.5f);
+            // 크기, 투명도 변화
+            rectTransform.localScale = Vector3.Lerp(startScale, targetScale, t);
+            canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
+            yield return null;
+        }
         //nickName.enabled = false;
         //content.enabled = false;
         //profileID.enabled = false;

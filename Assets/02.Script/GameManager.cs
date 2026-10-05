@@ -7,6 +7,18 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    private InputSystem _registeredInputSystem;
+
+    private void OnDestroy()
+    {
+        if (_registeredInputSystem == null)
+            return;
+
+        _registeredInputSystem.DeregisterAction(KeyState.Play_Key, KeyCode.Escape, GamePause);
+
+        _registeredInputSystem = null;
+    }
+
     
     private int stage = 1;
     private Dictionary<int,List<IClearCondition>> condition = new Dictionary<int, List<IClearCondition>>();
@@ -129,7 +141,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         OnGameStateChanged?.Invoke(currentGameState);
-        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Escape, GamePause);
+        _registeredInputSystem = InputSystem.Instance;
+        _registeredInputSystem.RegisterAction(KeyState.Play_Key, KeyCode.Escape, GamePause);
         if (!sceneFlag)
         {
             sceneFlag = true;

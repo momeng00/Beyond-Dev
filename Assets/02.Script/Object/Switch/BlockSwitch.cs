@@ -5,6 +5,18 @@ using UnityEngine;
 
 public class BlockSwitch : Switch,IReset
 {
+    private InputSystem _registeredInputSystem;
+
+    private void OnDestroy()
+    {
+        if (_registeredInputSystem == null)
+            return;
+
+        _registeredInputSystem.DeregisterAction(KeyState.Play_Key,KeyCode.E,Interact);
+
+        _registeredInputSystem = null;
+    }
+
 
     public List<ISwitchable> targetBlock = new List<ISwitchable>();
     private bool isSatisfied;
@@ -43,7 +55,8 @@ public class BlockSwitch : Switch,IReset
     {
         SwitchState = false;
         GameManager.Instance.OnReset += ResetAction;
-        InputSystem.Instance.RegisterAction(KeyState.Play_Key,KeyCode.E,Interact);
+        _registeredInputSystem = InputSystem.Instance;
+        _registeredInputSystem.RegisterAction(KeyState.Play_Key,KeyCode.E,Interact);
     }
     public void InitializeReset()
     {
@@ -94,11 +107,11 @@ public class BlockSwitch : Switch,IReset
                     downloadStationSwitch.activiteCoroutine = StartCoroutine(downloadStationSwitch.RotateBackRoutine());
                 }
             }
-            foreach (var block in targetBlock)
+            ApplyToTargets(targetBlock, SwitchState, accepted =>
             {
-                if(block.SwitchOn(SwitchState))
+                if (accepted)
                     IsDetected(SwitchState);
-            }
+            });
         }
     }
 

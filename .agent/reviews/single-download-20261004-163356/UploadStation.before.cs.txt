@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class UploadStation : Spot, ISwitchable, IReset
 {
-    public List<DownloadStation> partnerStations = new List<DownloadStation>();
+    public List<DownloadStation> partnerStations;
     public List<Switch> switches;
 
     private BoxCollider2D col;
@@ -19,8 +19,7 @@ public class UploadStation : Spot, ISwitchable, IReset
     private List<GameObject> uploadList = new List<GameObject>();
 
     private List<GameObject> activeList = new List<GameObject>();
-    private Dictionary<(GameObject original, DownloadStation station), GameObject> readyList = new Dictionary<(GameObject original, DownloadStation station), GameObject>();
-    private DownloadStation selectedDownloadStation;
+    private Dictionary<GameObject, GameObject> readyList = new Dictionary<GameObject, GameObject>();
 
     private bool isUploading = false;
 
@@ -65,9 +64,6 @@ public class UploadStation : Spot, ISwitchable, IReset
 
     public void invisibleBlock()
     {
-        if (!stationState || !object.ReferenceEquals(selectedDownloadStation, null))
-            return;
-
         foreach (GameObject sp in detectedList)
         {
             sp.GetComponent<SpriteRenderer>().enabled = false;
@@ -75,14 +71,11 @@ public class UploadStation : Spot, ISwitchable, IReset
 
         foreach (DownloadStation requester in partnerStations)
         {
-            if (requester == null)
-                continue;
-
             foreach (GameObject ob in uploadList)
             {
                 Vector3 comparative = transform.position - ob.transform.position;
 
-                GameObject clone = PoolingGet(ob, requester);
+                GameObject clone = PoolingGet(ob);
 
                 clone.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
                 clone.GetComponent<Collider2D>().enabled = false;
@@ -124,66 +117,54 @@ public class UploadStation : Spot, ISwitchable, IReset
 
     public bool SwitchOn(bool value)
     {
-        if (!value)
+        if (detectedList.Count <= 0)
+        {
+            return false;
+        }
+
+        stationState = value;
+        isUploading = true;
+
+        if (value)
+        {
+            uploadList.Clear();
+
+            foreach (GameObject go in detectedList)
+            {
+                uploadList.Add(go);
+            }
+
+            foreach (GameObject ob in uploadList)
+            {
+                ob.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+                ob.GetComponent<Collider2D>().enabled = false;
+            }
+
+            foreach (DownloadStation ds in partnerStations)
+            {
+                ds.blocks.Clear();
+            }
+
+            invisibleBlock();
+        }
+        else
         {
             PoolingReturn();
-            return true;
-        }
 
-        detectedList.RemoveAll(ob => ob == null);
-        if (stationState || detectedList.Count == 0)
-            return false;
-
-        stationState = true;
-        isUploading = true;
-        uploadList.Clear();
-        uploadList.AddRange(detectedList);
-
-        foreach (GameObject ob in uploadList)
-        {
-            ob.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-            ob.GetComponent<Collider2D>().enabled = false;
+            foreach (GameObject ob in uploadList)
+            {
+                ob.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+                ob.GetComponent<Collider2D>().enabled = true;
+                ob.GetComponent<SpriteRenderer>().enabled = true;
+            }
         }
 
         foreach (DownloadStation ds in partnerStations)
         {
-            if (ds != null)
-                ds.blocks.Clear();
-        }
-
-        invisibleBlock();
-
-        foreach (DownloadStation ds in partnerStations)
-        {
-            if (ds != null)
-                ds.UploadComplete(true);
+            ds.UploadComplete(value);
         }
 
         isUploading = false;
-        return true;
-    }
-
-    public bool TrySelectDownload(DownloadStation requester)
-    {
-        if (!stationState || isUploading || requester == null
-            || !object.ReferenceEquals(selectedDownloadStation, null)
-            || !partnerStations.Contains(requester) || uploadList.Count == 0)
-            return false;
-
-        foreach (GameObject original in uploadList)
-        {
-            if (original == null
-                || !readyList.TryGetValue((original, requester), out GameObject clone)
-                || clone == null || !requester.blocks.Contains(clone))
-                return false;
-        }
-
-        selectedDownloadStation = requester;
-        foreach (DownloadStation ds in partnerStations)
-        {
-            if (ds != null)
-                ds.UploadComplete(false);
-        }
 
         return true;
     }
@@ -204,56 +185,71 @@ public class UploadStation : Spot, ISwitchable, IReset
 
     public void PoolingReturn()
     {
-        isUploading = true;
-        stationState = false;
-        selectedDownloadStation = null;
-
         foreach (DownloadStation ds in partnerStations)
         {
-            if (ds == null)
-                continue;
-
-            ds.UploadComplete(false);
-            ds.blocks.Clear();
+            ds.RefreshVisuals(true);
         }
 
         foreach (GameObject ob in uploadList)
         {
-            if (ob == null)
-                continue;
-
-            ob.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-            ob.GetComponent<Collider2D>().enabled = true;
             ob.GetComponent<SpriteRenderer>().enabled = true;
 
             if (ob.TryGetComponent(out PushBlock pushBlock))
+            {
                 pushBlock.UDAnimationPlay(true);
+            }
         }
 
         foreach (GameObject ob in activeList)
         {
-            if (ob == null)
-                continue;
-
-            ob.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-            ob.GetComponent<Collider2D>().enabled = false;
             if (ob.TryGetComponent(out PushBlock pushBlock))
+            {
                 pushBlock.UDAnimationPlay(false);
-            else
-                ob.SetActive(false);
+            }
         }
-
-        activeList.Clear();
-        uploadList.Clear();
-        isUploading = false;
     }
 
     public void GetDetectedObject(GameObject requester)
     {
-        if (requester != null
-            && requester.TryGetComponent(out DownloadStation station)
-            && partnerStations.Contains(station))
-            station.SwitchOn(true);
+        activeList.Clear();
+
+        foreach (DownloadStation ds in partnerStations)
+        {
+            ds.RefreshVisuals(false);
+        }
+
+        foreach (GameObject ob in uploadList)
+        {
+            Vector3 comparative =
+                transform.position - ob.transform.position;
+
+            GameObject clone = PoolingGet(ob);
+
+            if (!clone.activeSelf)
+            {
+                clone.SetActive(true);
+            }
+
+            clone.transform.position =
+                requester.transform.position - comparative;
+
+            if (clone.TryGetComponent(out PushBlock clonePushBlock))
+            {
+                clonePushBlock.UDAnimationPlay(true);
+                Debug.Log(clonePushBlock);
+            }
+
+            if (ob.TryGetComponent(out PushBlock pushBlock))
+            {
+                pushBlock.UDAnimationPlay(false);
+                Debug.Log(pushBlock);
+            }
+
+            if (!activeList.Contains(clone))
+            {
+                activeList.Add(clone);
+            }
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -309,18 +305,31 @@ public class UploadStation : Spot, ISwitchable, IReset
         }
     }
 
-    private GameObject PoolingGet(GameObject original, DownloadStation requester)
+    private GameObject PoolingGet(GameObject original)
     {
-        var key = (original, requester);
-        if (!readyList.TryGetValue(key, out GameObject clone) || clone == null)
+        if (!readyList.ContainsKey(original))
         {
-            clone = Instantiate(original);
-            readyList[key] = clone;
+            GameObject clone = Instantiate(original);
+
+            readyList[original] = clone;
+
+            clone.GetComponent<Rigidbody2D>().bodyType =
+                RigidbodyType2D.Dynamic;
+
+            Debug.Log(
+                clone.GetComponent<Rigidbody2D>().linearVelocityY
+            );
+
+            clone.GetComponent<Collider2D>().enabled = true;
+        }
+        else
+        {
+            readyList[original]
+                .GetComponent<Rigidbody2D>()
+                .linearVelocityY = 0f;
         }
 
-        clone.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
-        clone.GetComponent<Rigidbody2D>().angularVelocity = 0f;
-        return clone;
+        return readyList[original];
     }
 
     public void InitializeReset()
@@ -329,15 +338,21 @@ public class UploadStation : Spot, ISwitchable, IReset
 
     public void ResetAction()
     {
-        PoolingReturn();
+        SwitchOn(false);
 
-        foreach (GameObject clone in readyList.Values)
+        foreach (DownloadStation ds in partnerStations)
         {
-            if (clone != null)
-                Destroy(clone);
+            foreach (GameObject ob in ds.blocks)
+            {
+                Destroy(ob);
+            }
+
+            ds.blocks.Clear();
         }
 
         readyList.Clear();
+        activeList.Clear();
         detectedList.Clear();
+        uploadList.Clear();
     }
 }

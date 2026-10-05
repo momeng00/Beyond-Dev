@@ -1,0 +1,27 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><title>CardManager 수정 전·후</title>
+<style>body{font:16px system-ui;margin:32px;color:#202938;background:#f5f7fa}table{width:100%;table-layout:fixed;border-collapse:collapse}th,td{padding:18px;border:1px solid #ccd4df;text-align:left;vertical-align:top;background:white}pre{font:14px/1.6 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere}th{background:#e8eef6}li{margin:8px 0}</style>
+<h1>CardManager.RefreshCardCoroutine 수정 전·후</h1>
+<p>이번 적용 범위: 카드 재배치의 시간 진행·보간 반복문 한 곳. 수정 전 파일은 이번 작업 직전의 작업 트리를 보존합니다.</p>
+<table><tr><th>수정 전</th><th>수정 후</th></tr><tr><td><pre>        float elapsed = 0f; 
+
+        while (elapsed &lt; animDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+
+            float t = Mathf.Sin(
+                elapsed / animDuration * Mathf.PI * 0.5f
+            );
+
+            rect.anchoredPosition =
+                Vector2.Lerp(startPos, targetPos, t);
+
+            yield return null;
+        }</pre></td><td><pre>        yield return UIAnimationRoutine.Run(
+            animDuration,
+            progress =&gt; Mathf.Sin(progress * Mathf.PI * 0.5f),
+            t =&gt; rect.anchoredPosition = Vector2.Lerp(startPos, targetPos, t));</pre></td></tr></table>
+<ul><li>유지: 첫 프레임 대기, 카드 간격·목표 위치 계산, unscaled 시간, Sin 곡선, 최종 위치 보정.</li>
+<li>차이: 공통 함수는 시작값을 적용한 뒤 대기합니다. 기존은 시간을 증가시켜 적용한 뒤 대기합니다.</li>
+<li>차이: 진행률을 0~1로 제한하고 최종값을 적용합니다. 기존 반복문의 초과 진행률과는 다릅니다.</li>
+<li>기존 동시 재배치 코루틴의 중복 실행·취소 정책은 변경하지 않았습니다. Unity 실행 검증은 별도 필요합니다.</li></ul>
+<p><a href="CardManager.before.cs.txt">수정 전 전체 원본</a> · <a href="CardManager.after.cs.txt">수정 후 전체 원본</a></p></html>

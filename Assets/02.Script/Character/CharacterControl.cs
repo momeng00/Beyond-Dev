@@ -5,6 +5,19 @@ using UnityEngine;
 
 public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
 {
+    private InputSystem _registeredInputSystem;
+
+    private void OnDestroy()
+    {
+        if (_registeredInputSystem == null)
+            return;
+
+        _registeredInputSystem.DeregisterAction(KeyState.Play_Key, "Horizontal", Move);
+        _registeredInputSystem.DeregisterAction(KeyState.Play_Key, KeyCode.Space, Jump);
+
+        _registeredInputSystem = null;
+    }
+
     public enum Direction
     {
         Left = -1, Right = 1,
@@ -131,8 +144,9 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
     }
     private void Initialize()
     {
-        InputSystem.Instance.RegisterAction(KeyState.Play_Key, "Horizontal", Move);
-        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.Space, Jump);
+        _registeredInputSystem = InputSystem.Instance;
+        _registeredInputSystem.RegisterAction(KeyState.Play_Key, "Horizontal", Move);
+        _registeredInputSystem.RegisterAction(KeyState.Play_Key, KeyCode.Space, Jump);
         GameManager.Instance.RegisterInitAction(InitializeReset);
         GameManager.Instance.OnReset += ResetAction;
         InitializeReset();

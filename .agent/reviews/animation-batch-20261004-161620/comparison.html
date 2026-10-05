@@ -1,0 +1,478 @@
+<!doctype html><html lang='ko'><meta charset='utf-8'><title>애니메이션 공통화 비교</title><style>body{font:16px system-ui;margin:32px;background:#f5f7fa;color:#182438}pre{background:white;border:1px solid #ccd4df;padding:20px;white-space:pre-wrap;font:13px/1.6 Consolas,monospace}h2{margin-top:40px}</style><h1>애니메이션 공통화 수정 비교</h1><p>6개 파일, 11개 코루틴. diff의 -는 수정 전, +는 수정 후입니다. 전체 원본은 기존 인코딩을 보존했습니다.</p><p>시작값 적용·프레임 대기 순서·진행률 제한·끝값 적용은 UIAnimationRoutine 정책을 따릅니다. unscaled 시간 기준과 기존 시작·중단 책임은 유지했습니다.</p><p>검증: 실제 코루틴 추출 코드와 공통 함수로 격리 실행 39개 시나리오 완료. Unity 실행 검증은 미완료입니다.</p><h2>UI/UIBase.cs</h2><p><a href='UIBase.before.cs.txt'>수정 전 전체 원본</a> · <a href='UIBase.after.cs.txt'>수정 후 전체 원본</a></p><pre>diff --git &quot;a/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\UIBase.before.cs.txt&quot; &quot;b/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\UIBase.after.cs.txt&quot;
+index 753b9ca..59b3062 100644
+--- &quot;a/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\UIBase.before.cs.txt&quot;
++++ &quot;b/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\UIBase.after.cs.txt&quot;
+@@ -50,7 +50,7 @@ public class UIBase : MonoBehaviour
+         if (currentAnimationCoroutine != null) StopCoroutine(currentAnimationCoroutine);
+         currentAnimationCoroutine = StartCoroutine(PlayOpenAnimation());
+     }
+-    
++
+     public virtual void Close()
+     {
+         canvasGroup.alpha = 1f;
+@@ -106,23 +106,21 @@ public class UIBase : MonoBehaviour
+             rectTransform.localScale = Vector3.zero;
+ 
+         // �ִϸ��̼� ����
+-        float timer = 0f;
+-        while (timer &lt; animDuration)
+-        {
+-            timer += Time.unscaledDeltaTime;
+-            float t = Mathf.Sin((timer / animDuration) * Mathf.PI * 0.5f);
+-
+-            // 1. ������/ũ�� ��ȭ
+-            if (openAnimation == UIAnimType.PopUp)
+-                rectTransform.localScale = Vector3.Lerp(Vector3.zero, originalScale, t);
+-            else if (openAnimation != UIAnimType.None)
+-                rectTransform.anchoredPosition = Vector2.Lerp(startPos, originalPosition, t);
+-
+-            // 2. [�߰���] ������: 0(�Ⱥ���) -&gt; 1(�ߺ���) �� ������ ��ȭ
+-            canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
+-
+-            yield return null;
+-        }
++        yield return UIAnimationRoutine.Run(
++            animDuration,
++            progress =&gt; Mathf.Sin(progress * Mathf.PI * 0.5f),
++            t =&gt;
++            {
++
++                // 1. ������/ũ�� ��ȭ
++                if (openAnimation == UIAnimType.PopUp)
++                    rectTransform.localScale = Vector3.Lerp(Vector3.zero, originalScale, t);
++                else if (openAnimation != UIAnimType.None)
++                    rectTransform.anchoredPosition = Vector2.Lerp(startPos, originalPosition, t);
++
++                // 2. [�߰���] ������: 0(�Ⱥ���) -&gt; 1(�ߺ���) �� ������ ��ȭ
++                canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
++            });
+ 
+         // ���� �� Ȯ���ϰ� �� ����
+         rectTransform.anchoredPosition = originalPosition;
+@@ -130,12 +128,11 @@ public class UIBase : MonoBehaviour
+         canvasGroup.alpha = 1f; // ������ ���̰�
+     }
+ 
+-    
++
+ 
+     protected IEnumerator PlayCloseAnimation()
+     { 
+         yield return null;
+-        float timer = 0f;
+         Vector2 startPos = rectTransform.anchoredPosition;
+         Vector3 startScale = rectTransform.localScale;
+ 
+@@ -154,22 +151,21 @@ public class UIBase : MonoBehaviour
+             case UIAnimType.SlideBottom: targetPos = new Vector2(originalPosition.x, -height); break;
+         }
+ 
+-        while (timer &lt; animDuration)
+-        {
+-            timer += Time.unscaledDeltaTime;
+-            float t = Mathf.Sin((timer / animDuration) * Mathf.PI * 0.5f);
+-
+-            // 1. ������/ũ�� ��ȭ
+-            if (openAnimation == UIAnimType.PopUp)
+-                rectTransform.localScale = Vector3.Lerp(startScale, targetScale, t);
+-            else if (openAnimation != UIAnimType.None)
+-                rectTransform.anchoredPosition = Vector2.Lerp(startPos, targetPos, t);
+-
+-            // 2. [�߰���] ������: 1(�ߺ���) -&gt; 0(�Ⱥ���) �� ������ ��ȭ
+-            canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
+-
+-            yield return null;
+-        }
++        yield return UIAnimationRoutine.Run(
++            animDuration,
++            progress =&gt; Mathf.Sin(progress * Mathf.PI * 0.5f),
++            t =&gt;
++            {
++
++                // 1. ������/ũ�� ��ȭ
++                if (openAnimation == UIAnimType.PopUp)
++                    rectTransform.localScale = Vector3.Lerp(startScale, targetScale, t);
++                else if (openAnimation != UIAnimType.None)
++                    rectTransform.anchoredPosition = Vector2.Lerp(startPos, targetPos, t);
++
++                // 2. [�߰���] ������: 1(�ߺ���) -&gt; 0(�Ⱥ���) �� ������ ��ȭ
++                canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
++            });
+ 
+         // ���� �� ����
+         canvasGroup.alpha = 0f; // ������ �����ϰ�
+</pre>
+<h2>UI/UIBaseUpgrade.cs</h2><p><a href='UIBaseUpgrade.before.cs.txt'>수정 전 전체 원본</a> · <a href='UIBaseUpgrade.after.cs.txt'>수정 후 전체 원본</a></p><pre>diff --git &quot;a/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\UIBaseUpgrade.before.cs.txt&quot; &quot;b/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\UIBaseUpgrade.after.cs.txt&quot;
+index 75f6906..2bc755a 100644
+--- &quot;a/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\UIBaseUpgrade.before.cs.txt&quot;
++++ &quot;b/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\UIBaseUpgrade.after.cs.txt&quot;
+@@ -65,17 +65,15 @@ public class UIBaseUpgrade : MonoBehaviour
+         }
+ 
+         rectTransform.anchoredPosition = startPos;
+-        float timer = 0f;
+-        while (timer &lt; delay)
+-        {
+-            timer += Time.unscaledDeltaTime;
+-            float t = Mathf.Sin((timer / delay) * Mathf.PI * 0.5f);
+-
+-            rectTransform.anchoredPosition = Vector2.Lerp(startPos, originalPosition, t);
+-            canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
++        yield return UIAnimationRoutine.Run(
++            delay,
++            progress =&gt; Mathf.Sin(progress * Mathf.PI * 0.5f),
++            t =&gt;
++            {
+ 
+-            yield return null;
+-        }
++                rectTransform.anchoredPosition = Vector2.Lerp(startPos, originalPosition, t);
++                canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
++            });
+ 
+         // ���� �� Ȯ���ϰ� �� ����
+         rectTransform.anchoredPosition = originalPosition;
+@@ -95,17 +93,15 @@ public class UIBaseUpgrade : MonoBehaviour
+         }
+ 
+         rectTransform.anchoredPosition = startPos;
+-        float timer = 0f;
+-        while (timer &lt; delay)
+-        {
+-            timer += Time.unscaledDeltaTime;
+-            float t = Mathf.Sin((timer / delay) * Mathf.PI * 0.5f);
++        yield return UIAnimationRoutine.Run(
++            delay,
++            progress =&gt; Mathf.Sin(progress * Mathf.PI * 0.5f),
++            t =&gt;
++            {
+ 
+-            rectTransform.anchoredPosition = Vector2.Lerp(startPos, pos, t);
+-            canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
+-
+-            yield return null;
+-        }
++                rectTransform.anchoredPosition = Vector2.Lerp(startPos, pos, t);
++                canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
++            });
+ 
+         // ���� �� Ȯ���ϰ� �� ����
+         rectTransform.anchoredPosition = pos;
+@@ -125,17 +121,15 @@ public class UIBaseUpgrade : MonoBehaviour
+             case direction.up: targetPos = new Vector2(originalPosition.x, originalPosition.y - rectTransform.rect.y * (ratio / 100)); break;
+         }
+ 
+-        float timer = 0f;
+-        while (timer &lt; delay)
+-        {
+-            timer += Time.unscaledDeltaTime;
+-            float t = Mathf.Sin((timer / delay) * Mathf.PI * 0.5f);
+-
+-            rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, targetPos, t);
+-            canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
++        yield return UIAnimationRoutine.Run(
++            delay,
++            progress =&gt; Mathf.Sin(progress * Mathf.PI * 0.5f),
++            t =&gt;
++            {
+ 
+-            yield return null;
+-        }
++                rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, targetPos, t);
++                canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
++            });
+ 
+         // ���� �� Ȯ���ϰ� �� ����
+         canvasGroup.alpha = 0f;
+</pre>
+<h2>Object/PopUp/OriginalPopUp.cs</h2><p><a href='OriginalPopUp.before.cs.txt'>수정 전 전체 원본</a> · <a href='OriginalPopUp.after.cs.txt'>수정 후 전체 원본</a></p><pre>diff --git &quot;a/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\OriginalPopUp.before.cs.txt&quot; &quot;b/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\OriginalPopUp.after.cs.txt&quot;
+index 1537ae5..83862a2 100644
+--- &quot;a/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\OriginalPopUp.before.cs.txt&quot;
++++ &quot;b/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\OriginalPopUp.after.cs.txt&quot;
+@@ -45,7 +45,7 @@ public class OriginalPopUp : NormalPopUp
+             Close();
+         }
+     }
+-    
++
+     public virtual void Open(Transform original)
+     {
+         if (original == null)
+@@ -78,26 +78,25 @@ public class OriginalPopUp : NormalPopUp
+         rectTransform.localScale = Vector3.zero;
+ 
+         // �ִϸ��̼� ����
+-        float timer = 0f;
+-        while (timer &lt; animDuration)
+-        {
+-            timer += Time.unscaledDeltaTime;
+-            float t = Mathf.Sin((timer / animDuration) * Mathf.PI * 0.5f);
+-
+-            //������/ũ�� ��ȭ
+-            rectTransform.localScale = Vector3.Lerp(Vector3.zero, originalScale, t);
+-            rectTransform.anchoredPosition = Vector2.Lerp(startPos, originalPosition, t);
+-
+-            //������: 0(�Ⱥ���) -&gt; 1(�ߺ���) �� ������ ��ȭ
+-            canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
+-            //if (timer &lt; animDuration * 2 &amp;&amp; nickName.enabled == false)
+-            //{
+-            //    nickName.enabled = true;
+-            //    content.enabled = true;
+-            //    profileID.enabled = true;
+-            //} ��ġ���� �̻������� ���װ����� �߰��� ���� �׷���
+-            yield return null;
+-        }
++        yield return UIAnimationRoutine.Run(
++            animDuration,
++            progress =&gt; Mathf.Sin(progress * Mathf.PI * 0.5f),
++            t =&gt;
++            {
++
++                //������/ũ�� ��ȭ
++                rectTransform.localScale = Vector3.Lerp(Vector3.zero, originalScale, t);
++                rectTransform.anchoredPosition = Vector2.Lerp(startPos, originalPosition, t);
++
++                //������: 0(�Ⱥ���) -&gt; 1(�ߺ���) �� ������ ��ȭ
++                canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
++                //if (timer &lt; animDuration * 2 &amp;&amp; nickName.enabled == false)
++                //{
++                //    nickName.enabled = true;
++                //    content.enabled = true;
++                //    profileID.enabled = true;
++                //} ��ġ���� �̻������� ���װ����� �߰��� ���� �׷���
++            });
+ 
+         // ���� �� Ȯ���ϰ� �� ����
+         rectTransform.anchoredPosition = originalPosition;
+@@ -115,7 +114,6 @@ public class OriginalPopUp : NormalPopUp
+     }
+     protected IEnumerator PlayCloseAnimation()
+     {
+-        float timer = 0f;
+         Vector3 startScale = rectTransform.localScale;
+         Vector3 targetScale;
+         float width = Screen.width;
+@@ -123,15 +121,15 @@ public class OriginalPopUp : NormalPopUp
+         targetScale = Vector3.zero;
+ 
+ 
+-        while (timer &lt; animDuration)
+-        {
+-            timer += Time.unscaledDeltaTime;
+-            float t = Mathf.Sin((timer / animDuration) * Mathf.PI * 0.5f);
+-            // ũ��, ������ ��ȭ
+-            rectTransform.localScale = Vector3.Lerp(startScale, targetScale, t);
+-            canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
+-            yield return null;
+-        }
++        yield return UIAnimationRoutine.Run(
++            animDuration,
++            progress =&gt; Mathf.Sin(progress * Mathf.PI * 0.5f),
++            t =&gt;
++            {
++                // ũ��, ������ ��ȭ
++                rectTransform.localScale = Vector3.Lerp(startScale, targetScale, t);
++                canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
++            });
+         //nickName.enabled = false;
+         //content.enabled = false;
+         //profileID.enabled = false;
+</pre>
+<h2>UI/Card/Card.cs</h2><p><a href='Card.before.cs.txt'>수정 전 전체 원본</a> · <a href='Card.after.cs.txt'>수정 후 전체 원본</a></p><pre>diff --git &quot;a/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\Card.before.cs.txt&quot; &quot;b/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\Card.after.cs.txt&quot;
+index d6cacd4..45e9357 100644
+--- &quot;a/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\Card.before.cs.txt&quot;
++++ &quot;b/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\Card.after.cs.txt&quot;
+@@ -150,22 +150,21 @@ public class Card : MonoBehaviour
+     }
+     protected IEnumerator PlayCloseAnimation(Card card)
+     {
+-        float timer = 0f;
+         Vector3 startScale = card.Rect.localScale;
+         Vector3 targetScale;
+         targetScale = Vector3.zero;
+ 
+ 
+-        while (timer &lt; animDuration)
+-        {
+-            timer += Time.unscaledDeltaTime;
+-            float t = Mathf.Sin((timer / animDuration) * Mathf.PI * 0.5f);
+-            // ũ��, ������ ��ȭ
+-            card.Rect.localScale = Vector3.Lerp(startScale, targetScale, t);
+-            card.CanvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
+-            Debug.Log(&quot;����Ǵ�����?&quot;);
+-            yield return null;
+-        }
++        yield return UIAnimationRoutine.Run(
++            animDuration,
++            progress =&gt; Mathf.Sin(progress * Mathf.PI * 0.5f),
++            t =&gt;
++            {
++                // ũ��, ������ ��ȭ
++                card.Rect.localScale = Vector3.Lerp(startScale, targetScale, t);
++                card.CanvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
++                Debug.Log(&quot;����Ǵ�����?&quot;);
++            });
+         card.CanvasGroup.alpha = 0f;
+         card.Rect.localScale = OriginalScale;
+         foreach (Todo todo in todoList)
+</pre>
+<h2>EffectManager.cs</h2><p><a href='EffectManager.before.cs.txt'>수정 전 전체 원본</a> · <a href='EffectManager.after.cs.txt'>수정 후 전체 원본</a></p><pre>diff --git &quot;a/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\EffectManager.before.cs.txt&quot; &quot;b/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\EffectManager.after.cs.txt&quot;
+index f4ef80a..bd71fbc 100644
+--- &quot;a/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\EffectManager.before.cs.txt&quot;
++++ &quot;b/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\EffectManager.after.cs.txt&quot;
+@@ -42,7 +42,7 @@ public class EffectManager : MonoBehaviour
+     {
+         
+     }
+-    
++
+     public void VolumeInit()
+     {
+         _volumeList.Clear();
+@@ -109,16 +109,15 @@ public class EffectManager : MonoBehaviour
+         control.PauseCharacter();
+         //Scale�� &#243;��ũ�⿡�� 0.5���� �̵���Ű��
+         float startScale = focusMaskController.ReturnScale();
+-        float timer = 0f;
+         yield return null;
+-        while (timer &lt; 1.8f)
+-        {
+-            timer += Time.unscaledDeltaTime;
+-            float t = Mathf.Sin((timer / 1.8f) * Mathf.PI * 0.5f);
+-            float offsetScale = Mathf.Lerp(startScale, focusMaskController.DefaultScale, t);
+-            focusMaskController.SetScale(offsetScale);
+-            yield return null;
+-        }
++        yield return UIAnimationRoutine.Run(
++            1.8f,
++            progress =&gt; Mathf.Sin(progress * Mathf.PI * 0.5f),
++            t =&gt;
++            {
++                float offsetScale = Mathf.Lerp(startScale, focusMaskController.DefaultScale, t);
++                focusMaskController.SetScale(offsetScale);
++            });
+ 
+         yield return new WaitForSeconds(1.8f);
+         focusMaskController.InitFocusMaskMaterial();
+@@ -144,50 +143,17 @@ public class EffectManager : MonoBehaviour
+ 
+         GaussianBlur1DVolumeComponent blur = data.blur;
+ 
+-        float timer = 0f;
++        float startValue = value ? 1f : 0f;
++        float targetValue = value ? 0f : 1f;
+ 
+-        if (value)
+-        {
+-            while (timer &lt; blurDuration)
++        yield return UIAnimationRoutine.Run(
++            blurDuration,
++            progress =&gt; Mathf.SmoothStep(0f, 1f, progress),
++            t =&gt;
+             {
+-                timer += Time.unscaledDeltaTime;
+-
+-                float t = Mathf.SmoothStep(
+-                    0f,
+-                    1f,
+-                    timer / blurDuration
+-                );
+-
+-                blur.radius.value = Mathf.Lerp(1f, 0f, t);
+-                blur.dimmed.value = Mathf.Lerp(1f, 0f, t);
+-
+-                yield return null;
+-            }
+-
+-            blur.radius.value = 0f;
+-            blur.dimmed.value = 0f;
+-        }
+-        else
+-        {
+-            while (timer &lt; blurDuration)
+-            {
+-                timer += Time.unscaledDeltaTime;
+-
+-                float t = Mathf.SmoothStep(
+-                    0f,
+-                    1f,
+-                    timer / blurDuration
+-                );
+-
+-                blur.radius.value = Mathf.Lerp(0f, 1f, t);
+-                blur.dimmed.value = Mathf.Lerp(0f, 1f, t);
+-
+-                yield return null;
+-            }
+-
+-            blur.radius.value = 1f;
+-            blur.dimmed.value = 1f;
+-        }
++                blur.radius.value = Mathf.Lerp(startValue, targetValue, t);
++                blur.dimmed.value = Mathf.Lerp(startValue, targetValue, t);
++            });
+ 
+         isWorking = false;
+     }
+</pre>
+<h2>TestBlur.cs</h2><p><a href='TestBlur.before.cs.txt'>수정 전 전체 원본</a> · <a href='TestBlur.after.cs.txt'>수정 후 전체 원본</a></p><pre>diff --git &quot;a/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\TestBlur.before.cs.txt&quot; &quot;b/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\TestBlur.after.cs.txt&quot;
+index 612ddd1..210ee31 100644
+--- &quot;a/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\TestBlur.before.cs.txt&quot;
++++ &quot;b/C:\\Users\\tjtjd\\Documents\\GitHub\\Beyond-Dev\\.agent\\reviews\\animation-batch-20261004-161620\\TestBlur.after.cs.txt&quot;
+@@ -9,7 +9,7 @@ public class TestBlur : MonoBehaviour
+     public float blurDuration = 0.3f;
+     GaussianBlur1DVolumeComponent blur;
+     GaussianBlur1DVolumeComponent blur2;
+-    
++
+     // Start is called once before the first execution of Update after the MonoBehaviour is created
+     void Start()
+     {
+@@ -46,32 +46,19 @@ public class TestBlur : MonoBehaviour
+     //0�� �ߺ��̴&#176;� 1�� �Ⱥ��̴&#176;�
+     public IEnumerator BlurSet(bool value)
+     {
+-        float timer = 0f;
+-        if (value)
+-        {
+-            // �ִϸ��̼� ����
+-            while (timer &lt; blurDuration)
+-            {
+-                timer += Time.unscaledDeltaTime;
+-                float t = Mathf.Sin((timer / blurDuration) * Mathf.PI * 0.5f);
+-                blur.radius.value = Mathf.Lerp(1f, 0f, t);
+-                blur.dimmed.value = Mathf.Lerp(1f, 0f, t);
+-                yield return null;
+-            }
+-        }
+-        else
+-        {
+-            // �ִϸ��̼� ����
+-            while (timer &lt; blurDuration)
++        float startValue = value ? 1f : 0f;
++        float targetValue = value ? 0f : 1f;
++
++        yield return UIAnimationRoutine.Run(
++            blurDuration,
++            progress =&gt; Mathf.Sin(progress * Mathf.PI * 0.5f),
++            t =&gt;
+             {
+-                timer += Time.unscaledDeltaTime;
+-                float t = Mathf.Sin((timer / blurDuration) * Mathf.PI * 0.5f);
+-                blur.radius.value = Mathf.Lerp(0f, 1f, t);
+-                blur.dimmed.value = Mathf.Lerp(0f, 1f, t);
+-                yield return null;
+-            }
+-        }
+-        
++                blur.radius.value = Mathf.Lerp(startValue, targetValue, t);
++                blur.dimmed.value = Mathf.Lerp(startValue, targetValue, t);
++            });
++
++
+     }
+-    
++
+ }
+</pre></html>

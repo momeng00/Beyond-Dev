@@ -5,6 +5,18 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    private InputSystem _registeredInputSystem;
+
+    private void OnDestroy()
+    {
+        if (_registeredInputSystem == null)
+            return;
+
+        _registeredInputSystem.DeregisterAction(KeyState.Pause,KeyCode.Escape,HideLast);
+
+        _registeredInputSystem = null;
+    }
+
 
     //½Ì±ÛÅæ »ç¿ë
     private static UIManager _instance;
@@ -137,7 +149,8 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        InputSystem.Instance.RegisterAction(KeyState.Pause,KeyCode.Escape,HideLast);
+        _registeredInputSystem = InputSystem.Instance;
+        _registeredInputSystem.RegisterAction(KeyState.Pause,KeyCode.Escape,HideLast);
     }
 
 }

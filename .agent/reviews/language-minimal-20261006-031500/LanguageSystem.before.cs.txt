@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.Networking;
 public enum Language
 {
     Korean,
@@ -27,6 +29,7 @@ public class LanguageSystem : MonoBehaviour
                 {
                     GameObject singletonObject = new GameObject("LanguageSystem");
                     _instance = singletonObject.AddComponent<LanguageSystem>();
+                    _instance.LoadLocalizationData();
                 }
             }
             return _instance;
@@ -104,6 +107,36 @@ public class LanguageSystem : MonoBehaviour
             {
                 Debug.LogError($"Cannot find localization file: {fileName}");
             }
+        }
+    }
+    // 안드로이드뿐만 아니라 WebGL에서도 사용하므로 함수 이름 변경
+    private IEnumerator LoadDataWithWebRequest(string path)
+    {
+        // UnityWebRequest를 사용하여 서버(또는 로컬 데이터)에 파일 요청
+        UnityWebRequest www = UnityWebRequest.Get(path);
+        yield return www.SendWebRequest(); // 요청이 끝날 때까지 대기
+
+        if (www.result == UnityWebRequest.Result.Success)
+        {
+            // 성공적으로 텍스트를 다운로드하면 파싱 실행
+            ParseCSV(www.downloadHandler.text);
+        }
+        else
+        {
+            Debug.LogError($"Failed to load localization file: {path} | Error: {www.error}");
+        }
+    }
+    private IEnumerator LoadDataForAndroid(string path)
+    {
+        UnityWebRequest www = UnityWebRequest.Get(path);
+        yield return www.SendWebRequest();
+        if (www.result == UnityWebRequest.Result.Success)
+        {
+            ParseCSV(www.downloadHandler.text);
+        }
+        else
+        {
+            Debug.LogError($"Failed to load localization file on Android: {path} | Error: {www.error}");
         }
     }
 

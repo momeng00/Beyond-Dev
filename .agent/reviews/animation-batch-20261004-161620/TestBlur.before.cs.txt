@@ -9,7 +9,7 @@ public class TestBlur : MonoBehaviour
     public float blurDuration = 0.3f;
     GaussianBlur1DVolumeComponent blur;
     GaussianBlur1DVolumeComponent blur2;
-
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -46,19 +46,32 @@ public class TestBlur : MonoBehaviour
     //0이 잘보이는거 1이 안보이는거
     public IEnumerator BlurSet(bool value)
     {
-        float startValue = value ? 1f : 0f;
-        float targetValue = value ? 0f : 1f;
-
-        yield return UIAnimationRoutine.Run(
-            blurDuration,
-            progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
-            t =>
+        float timer = 0f;
+        if (value)
+        {
+            // 애니메이션 루프
+            while (timer < blurDuration)
             {
-                blur.radius.value = Mathf.Lerp(startValue, targetValue, t);
-                blur.dimmed.value = Mathf.Lerp(startValue, targetValue, t);
-            });
-
-
+                timer += Time.unscaledDeltaTime;
+                float t = Mathf.Sin((timer / blurDuration) * Mathf.PI * 0.5f);
+                blur.radius.value = Mathf.Lerp(1f, 0f, t);
+                blur.dimmed.value = Mathf.Lerp(1f, 0f, t);
+                yield return null;
+            }
+        }
+        else
+        {
+            // 애니메이션 루프
+            while (timer < blurDuration)
+            {
+                timer += Time.unscaledDeltaTime;
+                float t = Mathf.Sin((timer / blurDuration) * Mathf.PI * 0.5f);
+                blur.radius.value = Mathf.Lerp(0f, 1f, t);
+                blur.dimmed.value = Mathf.Lerp(0f, 1f, t);
+                yield return null;
+            }
+        }
+        
     }
-
+    
 }

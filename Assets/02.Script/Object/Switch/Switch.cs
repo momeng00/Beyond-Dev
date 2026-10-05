@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Switch : MonoBehaviour, IInteract
@@ -18,7 +19,14 @@ public abstract class Switch : MonoBehaviour, IInteract
     {
         
     }
-
+    protected void ApplyToTargets(IEnumerable<ISwitchable> targets, bool state, Action<bool> onResult = null)
+    {
+        foreach (var target in targets)
+        {
+            bool accepted = target.SwitchOn(state);
+            onResult?.Invoke(accepted);
+        }
+    }
     virtual protected void IsDetected(bool activate)
     {
         ani.SetBool("activate", activate );

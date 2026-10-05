@@ -39,6 +39,8 @@ public class InputSystem : MonoBehaviour
     }
     private KeyBinding currentMap;
     private Dictionary<KeyState, KeyBinding> maps = new Dictionary<KeyState, KeyBinding>();
+    private readonly List<string> axisKeys = new List<string>();
+    private readonly List<KeyCode> keyCodes = new List<KeyCode>();
     private void Awake()
     {
         foreach(KeyState state in Enum.GetValues(typeof(KeyState)))
@@ -61,40 +63,82 @@ public class InputSystem : MonoBehaviour
 
     public void RegisterAction(KeyState state, KeyCode keyCode, Action act)
     {
-        
-        if (!maps[state]._actionKey.ContainsKey(keyCode))
-        {
-            maps[state]._actionKey.Add(keyCode, act);
+        if (act == null)
             return;
-        }
-        maps[state]._actionKey[keyCode] += act;
+
+        KeyBinding map = maps[state];
+        map._actionKey.TryGetValue(keyCode, out Action registered);
+        map._actionKey[keyCode] = registered + act;
     }
     public void RegisterAction(KeyState state, string axis, Action<float> act)
     {
-        if (!maps[state]._actionAxis.ContainsKey(axis))
-        {
-            maps[state]._actionAxis.Add(axis, act);
+        if (act == null)
             return;
-        }
-        maps[state]._actionAxis[axis] += act;
+
+        KeyBinding map = maps[state];
+        map._actionAxis.TryGetValue(axis, out Action<float> registered);
+        map._actionAxis[axis] = registered + act;
     }
     public void DeregisterAction(KeyState state, KeyCode keyCode, Action act)
     {
+        if (act == null ||
+            !maps.TryGetValue(state, out KeyBinding map) ||
+            !map._actionKey.TryGetValue(keyCode, out Action registered))
+        {
+            return;
+        }
 
+        registered -= act;
+        if (registered == null)
+            map._actionKey.Remove(keyCode);
+        else
+            map._actionKey[keyCode] = registered;
+    }
+    public void DeregisterAction(KeyState state, string axis, Action<float> act)
+    {
+        if (act == null ||
+            !maps.TryGetValue(state, out KeyBinding map) ||
+            !map._actionAxis.TryGetValue(axis, out Action<float> registered))
+        {
+            return;
+        }
+
+        registered -= act;
+        if (registered == null)
+            map._actionAxis.Remove(axis);
+        else
+            map._actionAxis[axis] = registered;
     }
     private void DoAction()
     {
-        if (currentMap == null)
+        KeyBinding map = currentMap;
+        if (map == null)
             return;
-        foreach(var pair in currentMap._actionAxis)
+
+        axisKeys.Clear();
+        keyCodes.Clear();
+        axisKeys.AddRange(map._actionAxis.Keys);
+        keyCodes.AddRange(map._actionKey.Keys);
+
+        foreach (string axis in axisKeys)
         {
-            pair.Value?.Invoke(Input.GetAxisRaw(pair.Key));
+            if (currentMap != map)
+                return;
+
+            if (map._actionAxis.TryGetValue(axis, out Action<float> action))
+                action?.Invoke(Input.GetAxisRaw(axis));
         }
 
-        foreach(var pair in currentMap._actionKey)
+        foreach (KeyCode keyCode in keyCodes)
         {
-            if (Input.GetKeyDown(pair.Key))
-                pair.Value?.Invoke();
+            if (currentMap != map)
+                return;
+
+            if (Input.GetKeyDown(keyCode) &&
+                map._actionKey.TryGetValue(keyCode, out Action action))
+            {
+                action?.Invoke();
+            }
         }
     }
     public void initialize(KeyState state, KeyCode keyCode)

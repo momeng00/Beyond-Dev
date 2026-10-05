@@ -11,7 +11,7 @@ public static class CharacterStateSheet
             { CharacterStateID.Move, new Move(machine) },
             { CharacterStateID.Jump, new Jump(machine) },
             { CharacterStateID.Falling, new Falling(machine) },
-            { CharacterStateID.Landing,new Landing() },
+            { CharacterStateID.Landing,new Landing(machine) },
             { CharacterStateID.Slow, new Slow() },
             { CharacterStateID.Idle, new Idle(machine) },
             { CharacterStateID.Push, new Push(machine) },

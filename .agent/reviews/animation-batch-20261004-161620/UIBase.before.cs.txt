@@ -50,7 +50,7 @@ public class UIBase : MonoBehaviour
         if (currentAnimationCoroutine != null) StopCoroutine(currentAnimationCoroutine);
         currentAnimationCoroutine = StartCoroutine(PlayOpenAnimation());
     }
-
+    
     public virtual void Close()
     {
         canvasGroup.alpha = 1f;
@@ -106,21 +106,23 @@ public class UIBase : MonoBehaviour
             rectTransform.localScale = Vector3.zero;
 
         // 애니메이션 루프
-        yield return UIAnimationRoutine.Run(
-            animDuration,
-            progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
-            t =>
-            {
+        float timer = 0f;
+        while (timer < animDuration)
+        {
+            timer += Time.unscaledDeltaTime;
+            float t = Mathf.Sin((timer / animDuration) * Mathf.PI * 0.5f);
 
-                // 1. 움직임/크기 변화
-                if (openAnimation == UIAnimType.PopUp)
-                    rectTransform.localScale = Vector3.Lerp(Vector3.zero, originalScale, t);
-                else if (openAnimation != UIAnimType.None)
-                    rectTransform.anchoredPosition = Vector2.Lerp(startPos, originalPosition, t);
+            // 1. 움직임/크기 변화
+            if (openAnimation == UIAnimType.PopUp)
+                rectTransform.localScale = Vector3.Lerp(Vector3.zero, originalScale, t);
+            else if (openAnimation != UIAnimType.None)
+                rectTransform.anchoredPosition = Vector2.Lerp(startPos, originalPosition, t);
 
-                // 2. [추가됨] 투명도: 0(안보임) -> 1(잘보임) 로 서서히 변화
-                canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
-            });
+            // 2. [추가됨] 투명도: 0(안보임) -> 1(잘보임) 로 서서히 변화
+            canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
+
+            yield return null;
+        }
 
         // 끝난 후 확실하게 값 고정
         rectTransform.anchoredPosition = originalPosition;
@@ -128,11 +130,12 @@ public class UIBase : MonoBehaviour
         canvasGroup.alpha = 1f; // 완전히 보이게
     }
 
-
+    
 
     protected IEnumerator PlayCloseAnimation()
     { 
         yield return null;
+        float timer = 0f;
         Vector2 startPos = rectTransform.anchoredPosition;
         Vector3 startScale = rectTransform.localScale;
 
@@ -151,21 +154,22 @@ public class UIBase : MonoBehaviour
             case UIAnimType.SlideBottom: targetPos = new Vector2(originalPosition.x, -height); break;
         }
 
-        yield return UIAnimationRoutine.Run(
-            animDuration,
-            progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
-            t =>
-            {
+        while (timer < animDuration)
+        {
+            timer += Time.unscaledDeltaTime;
+            float t = Mathf.Sin((timer / animDuration) * Mathf.PI * 0.5f);
 
-                // 1. 움직임/크기 변화
-                if (openAnimation == UIAnimType.PopUp)
-                    rectTransform.localScale = Vector3.Lerp(startScale, targetScale, t);
-                else if (openAnimation != UIAnimType.None)
-                    rectTransform.anchoredPosition = Vector2.Lerp(startPos, targetPos, t);
+            // 1. 움직임/크기 변화
+            if (openAnimation == UIAnimType.PopUp)
+                rectTransform.localScale = Vector3.Lerp(startScale, targetScale, t);
+            else if (openAnimation != UIAnimType.None)
+                rectTransform.anchoredPosition = Vector2.Lerp(startPos, targetPos, t);
 
-                // 2. [추가됨] 투명도: 1(잘보임) -> 0(안보임) 로 서서히 변화
-                canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
-            });
+            // 2. [추가됨] 투명도: 1(잘보임) -> 0(안보임) 로 서서히 변화
+            canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
+
+            yield return null;
+        }
 
         // 끝난 후 끄기
         canvasGroup.alpha = 0f; // 완전히 투명하게

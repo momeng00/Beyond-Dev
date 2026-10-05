@@ -150,21 +150,22 @@ public class Card : MonoBehaviour
     }
     protected IEnumerator PlayCloseAnimation(Card card)
     {
+        float timer = 0f;
         Vector3 startScale = card.Rect.localScale;
         Vector3 targetScale;
         targetScale = Vector3.zero;
 
 
-        yield return UIAnimationRoutine.Run(
-            animDuration,
-            progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
-            t =>
-            {
-                // 크기, 투명도 변화
-                card.Rect.localScale = Vector3.Lerp(startScale, targetScale, t);
-                card.CanvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
-                Debug.Log("실행되는중임?");
-            });
+        while (timer < animDuration)
+        {
+            timer += Time.unscaledDeltaTime;
+            float t = Mathf.Sin((timer / animDuration) * Mathf.PI * 0.5f);
+            // 크기, 투명도 변화
+            card.Rect.localScale = Vector3.Lerp(startScale, targetScale, t);
+            card.CanvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
+            Debug.Log("실행되는중임?");
+            yield return null;
+        }
         card.CanvasGroup.alpha = 0f;
         card.Rect.localScale = OriginalScale;
         foreach (Todo todo in todoList)

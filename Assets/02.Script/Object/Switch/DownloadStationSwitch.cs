@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class DownloadStationSwtich : Switch, IReset
 {
+    private InputSystem _registeredInputSystem;
+
+    private void OnDestroy()
+    {
+        if (_registeredInputSystem == null)
+            return;
+
+        _registeredInputSystem.DeregisterAction(KeyState.Play_Key, KeyCode.E, Interact);
+
+        _registeredInputSystem = null;
+    }
+
     public List<ISwitchable> target = new List<ISwitchable>();
     private bool isEnter;
     [HideInInspector] public bool isUpload;
@@ -33,7 +45,8 @@ public class DownloadStationSwtich : Switch, IReset
     private void Start()
     {
         GameManager.Instance.OnReset += ResetAction;
-        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.E, Interact);
+        _registeredInputSystem = InputSystem.Instance;
+        _registeredInputSystem.RegisterAction(KeyState.Play_Key, KeyCode.E, Interact);
     }
 
     public override void SetSwitch(ISwitchable node)

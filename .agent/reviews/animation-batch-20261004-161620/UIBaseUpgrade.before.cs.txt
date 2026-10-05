@@ -65,15 +65,17 @@ public class UIBaseUpgrade : MonoBehaviour
         }
 
         rectTransform.anchoredPosition = startPos;
-        yield return UIAnimationRoutine.Run(
-            delay,
-            progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
-            t =>
-            {
+        float timer = 0f;
+        while (timer < delay)
+        {
+            timer += Time.unscaledDeltaTime;
+            float t = Mathf.Sin((timer / delay) * Mathf.PI * 0.5f);
 
-                rectTransform.anchoredPosition = Vector2.Lerp(startPos, originalPosition, t);
-                canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
-            });
+            rectTransform.anchoredPosition = Vector2.Lerp(startPos, originalPosition, t);
+            canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
+
+            yield return null;
+        }
 
         // 끝난 후 확실하게 값 고정
         rectTransform.anchoredPosition = originalPosition;
@@ -93,15 +95,17 @@ public class UIBaseUpgrade : MonoBehaviour
         }
 
         rectTransform.anchoredPosition = startPos;
-        yield return UIAnimationRoutine.Run(
-            delay,
-            progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
-            t =>
-            {
+        float timer = 0f;
+        while (timer < delay)
+        {
+            timer += Time.unscaledDeltaTime;
+            float t = Mathf.Sin((timer / delay) * Mathf.PI * 0.5f);
 
-                rectTransform.anchoredPosition = Vector2.Lerp(startPos, pos, t);
-                canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
-            });
+            rectTransform.anchoredPosition = Vector2.Lerp(startPos, pos, t);
+            canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
+
+            yield return null;
+        }
 
         // 끝난 후 확실하게 값 고정
         rectTransform.anchoredPosition = pos;
@@ -121,15 +125,17 @@ public class UIBaseUpgrade : MonoBehaviour
             case direction.up: targetPos = new Vector2(originalPosition.x, originalPosition.y - rectTransform.rect.y * (ratio / 100)); break;
         }
 
-        yield return UIAnimationRoutine.Run(
-            delay,
-            progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
-            t =>
-            {
+        float timer = 0f;
+        while (timer < delay)
+        {
+            timer += Time.unscaledDeltaTime;
+            float t = Mathf.Sin((timer / delay) * Mathf.PI * 0.5f);
 
-                rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, targetPos, t);
-                canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
-            });
+            rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, targetPos, t);
+            canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
+
+            yield return null;
+        }
 
         // 끝난 후 확실하게 값 고정
         canvasGroup.alpha = 0f;

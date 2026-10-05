@@ -5,6 +5,18 @@ using UnityEngine;
 
 public class TagRetweetSwitch : Switch, IReset  
 {
+    private InputSystem _registeredInputSystem;
+
+    private void OnDestroy()
+    {
+        if (_registeredInputSystem == null)
+            return;
+
+        _registeredInputSystem.DeregisterAction(KeyState.Play_Key, KeyCode.E, Interact);
+
+        _registeredInputSystem = null;
+    }
+
     public Renderer tagRenderer;
     public Renderer retweetRenderer;
     private Material tagMaterial;
@@ -38,7 +50,8 @@ public class TagRetweetSwitch : Switch, IReset
     {
         col.isTrigger = true;
         SwitchState = false;
-        InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.E, Interact);
+        _registeredInputSystem = InputSystem.Instance;
+        _registeredInputSystem.RegisterAction(KeyState.Play_Key, KeyCode.E, Interact);
         GameManager.Instance.OnReset += ResetAction;
     }
     public override void SetSwitch(ISwitchable node)

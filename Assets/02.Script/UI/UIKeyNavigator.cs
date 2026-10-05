@@ -63,14 +63,20 @@ public class UIKeyNavigator : MonoBehaviour
     //}
     public void Initialize()
     {
-        if (uiElements.Count > 0)
+        if (uiElements == null || uiElements.Count == 0)
+            return;
+
+        foreach (UIElement element in uiElements)
         {
-            // 기존 선택 해제
-            if (currentElement != null) currentElement.UnSelected();
-            
-            // 첫 번째 요소 선택
-            currentElement = uiElements[0];
+            if (element == null)
+                continue;
+
+            if (currentElement != null)
+                currentElement.UnSelected();
+
+            currentElement = element;
             currentElement.Selected();
+            return;
         }
 
         //InputSystem.Instance.RegisterAction(KeyState.Play_Key, KeyCode.RightArrow, NextElement);
@@ -93,84 +99,72 @@ public class UIKeyNavigator : MonoBehaviour
 
     public void NextElement()
     {
-        Debug.Log($"{gameObject.name} : 이거 두번 불리냐?");
-        //CarouselUIElement 사용
-        CarouselUIElement carouselElement = currentElement as CarouselUIElement;
-        if(carouselElement != null)
+        if (currentElement is CarouselUIElement carouselElement
+            && carouselElement != null)
         {
             carouselElement.PressNext();
             UpdateUIElement();
             return;
         }
-        UIElement nextElement;
-        //아닐경우
-        if ( (uiElements.IndexOf(currentElement) + 1) >= uiElements.Count)
-        {
-            nextElement = uiElements[0];
-        }
-        else
-        {
-            nextElement = uiElements[uiElements.IndexOf(currentElement) + 1];
-        }
-        currentElement.UnSelected();
-        currentElement = nextElement;
-        currentElement.Selected();
+
+        MoveSelection(1);
     }
+
     public void PreElement()
     {
-        //CarouselUIElement 사용
-        CarouselUIElement carouselElement = currentElement as CarouselUIElement;
-        if (carouselElement != null)
+        if (currentElement is CarouselUIElement carouselElement
+            && carouselElement != null)
         {
             carouselElement.PressPrevious();
             UpdateUIElement();
             return;
         }
-        UIElement nextElement;
-        //아닐경우
-        if (uiElements.IndexOf(currentElement) <= 0)
-        {
-            nextElement = uiElements[uiElements.Count - 1];
-        }
-        else
-        {
-            nextElement = uiElements[uiElements.IndexOf(currentElement) - 1];
-        }
-        currentElement.UnSelected();
-        currentElement = nextElement;
-        currentElement.Selected();
 
+        MoveSelection(-1);
     }
+
     public void NextCarouselElement()
     {
-        UIElement nextElement;
-        if ((uiElements.IndexOf(currentElement) + 1) >= uiElements.Count)
-        {
-            nextElement = uiElements[0];
-        }
-        else
-        {
-            nextElement = uiElements[uiElements.IndexOf(currentElement) + 1];
-        }
-        currentElement.UnSelected();
-        currentElement = nextElement;
-        currentElement.Selected();
+        MoveSelection(1);
     }
+
     public void PreCarouselElement()
     {
-        UIElement nextElement;
-        if (uiElements.IndexOf(currentElement) <= 0)
-        {
-            nextElement = uiElements[uiElements.Count - 1];
-        }
-        else
-        {
-            nextElement = uiElements[uiElements.IndexOf(currentElement) - 1];
-        }
-        currentElement.UnSelected();
-        currentElement = nextElement;
-        currentElement.Selected();
+        MoveSelection(-1);
     }
+
+    private void MoveSelection(int direction)
+    {
+        if (uiElements == null || uiElements.Count == 0)
+            return;
+
+        int count = uiElements.Count;
+        int currentIndex = currentElement != null
+            ? uiElements.IndexOf(currentElement)
+            : -1;
+
+        if (currentIndex < 0)
+            currentIndex = direction > 0 ? -1 : count;
+
+        int nextIndex = currentIndex;
+
+        for (int i = 0; i < count; i++)
+        {
+            nextIndex = (nextIndex + direction + count) % count;
+
+            UIElement nextElement = uiElements[nextIndex];
+            if (nextElement == null)
+                continue;
+
+            if (currentElement != null)
+                currentElement.UnSelected();
+
+            currentElement = nextElement;
+            currentElement.Selected();
+            return;
+        }
+    }
+
     public void SelectElement()
     {
         if (currentElement == null)

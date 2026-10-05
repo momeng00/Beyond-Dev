@@ -1,0 +1,4 @@
+        yield return UIAnimationRoutine.Run(
+            animDuration,
+            progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
+            t => rect.anchoredPosition = Vector2.Lerp(startPos, targetPos, t));

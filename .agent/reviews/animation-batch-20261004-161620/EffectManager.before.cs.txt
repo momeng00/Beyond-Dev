@@ -42,7 +42,7 @@ public class EffectManager : MonoBehaviour
     {
         
     }
-
+    
     public void VolumeInit()
     {
         _volumeList.Clear();
@@ -109,15 +109,16 @@ public class EffectManager : MonoBehaviour
         control.PauseCharacter();
         //Scale을 처음크기에서 0.5까지 이동시키기
         float startScale = focusMaskController.ReturnScale();
+        float timer = 0f;
         yield return null;
-        yield return UIAnimationRoutine.Run(
-            1.8f,
-            progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
-            t =>
-            {
-                float offsetScale = Mathf.Lerp(startScale, focusMaskController.DefaultScale, t);
-                focusMaskController.SetScale(offsetScale);
-            });
+        while (timer < 1.8f)
+        {
+            timer += Time.unscaledDeltaTime;
+            float t = Mathf.Sin((timer / 1.8f) * Mathf.PI * 0.5f);
+            float offsetScale = Mathf.Lerp(startScale, focusMaskController.DefaultScale, t);
+            focusMaskController.SetScale(offsetScale);
+            yield return null;
+        }
 
         yield return new WaitForSeconds(1.8f);
         focusMaskController.InitFocusMaskMaterial();
@@ -143,17 +144,50 @@ public class EffectManager : MonoBehaviour
 
         GaussianBlur1DVolumeComponent blur = data.blur;
 
-        float startValue = value ? 1f : 0f;
-        float targetValue = value ? 0f : 1f;
+        float timer = 0f;
 
-        yield return UIAnimationRoutine.Run(
-            blurDuration,
-            progress => Mathf.SmoothStep(0f, 1f, progress),
-            t =>
+        if (value)
+        {
+            while (timer < blurDuration)
             {
-                blur.radius.value = Mathf.Lerp(startValue, targetValue, t);
-                blur.dimmed.value = Mathf.Lerp(startValue, targetValue, t);
-            });
+                timer += Time.unscaledDeltaTime;
+
+                float t = Mathf.SmoothStep(
+                    0f,
+                    1f,
+                    timer / blurDuration
+                );
+
+                blur.radius.value = Mathf.Lerp(1f, 0f, t);
+                blur.dimmed.value = Mathf.Lerp(1f, 0f, t);
+
+                yield return null;
+            }
+
+            blur.radius.value = 0f;
+            blur.dimmed.value = 0f;
+        }
+        else
+        {
+            while (timer < blurDuration)
+            {
+                timer += Time.unscaledDeltaTime;
+
+                float t = Mathf.SmoothStep(
+                    0f,
+                    1f,
+                    timer / blurDuration
+                );
+
+                blur.radius.value = Mathf.Lerp(0f, 1f, t);
+                blur.dimmed.value = Mathf.Lerp(0f, 1f, t);
+
+                yield return null;
+            }
+
+            blur.radius.value = 1f;
+            blur.dimmed.value = 1f;
+        }
 
         isWorking = false;
     }
