@@ -126,6 +126,9 @@ public class UploadStation : Spot, ISwitchable, IReset
     {
         if (!value)
         {
+            if (!stationState)
+                return false;
+
             PoolingReturn();
             return true;
         }
@@ -259,29 +262,25 @@ public class UploadStation : Spot, ISwitchable, IReset
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (isUploading)
-        {
             return;
-        }
 
-        if (IsFullyContained(collision.bounds))
+        GameObject target = collision.gameObject;
+
+        if (IsInLayerMask(target, layerMask) &&
+            IsFullyContained(collision.bounds))
         {
-            if (
-                IsInLayerMask(collision.gameObject, layerMask) &&
-                !detectedList.Contains(collision.gameObject)
-            )
+            if (!detectedList.Contains(target))
             {
-                collision.gameObject
-                    .GetComponent<Block>()
-                    .OnBlockAction();
-
-                detectedList.Add(collision.gameObject);
-            }
-
-            if (detectedList.Count > 0)
-            {
-                ani.SetBool("IsDetected", true);
+                target.GetComponent<Block>().OnBlockAction();
+                detectedList.Add(target);
             }
         }
+        else
+        {
+            detectedList.Remove(target);
+        }
+
+        ani.SetBool("IsDetected", detectedList.Count > 0);
     }
 
     private bool IsFullyContained(Bounds blockBounds)

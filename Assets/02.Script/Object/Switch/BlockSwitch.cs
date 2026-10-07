@@ -71,48 +71,62 @@ public class BlockSwitch : Switch,IReset
 
     public override void Interact()
     {
-        if (isSatisfied)
+        if (!isSatisfied)
+            return;
+        bool nextState = !SwitchState;
+        bool anyAccepted = false;
+
+        ApplyToTargets(targetBlock, nextState, accepted =>
         {
-            AudioManager.Instance.PlaySFXAudio(AudioName.Switch);
-            SwitchState = !SwitchState;
-            if (isCamera)
+            if (accepted)
+                anyAccepted = true;
+        });
+        if (!anyAccepted)
+            return;
+        SwitchState = nextState;
+
+        AudioManager.Instance.PlaySFXAudio(AudioName.Switch);
+        if (isCamera)
+        {
+            AudioManager.Instance.PlayOneShotSFXAudio(AudioName.CameraSwitch);
+
+            if (SwitchState)
             {
-                AudioManager.Instance.PlayOneShotSFXAudio(AudioName.CameraSwitch);
-                if (SwitchState)
+                if (activiteCoroutine != null)
                 {
-                    if (activiteCoroutine != null)
-                    {
-                        StopCoroutine(activiteCoroutine);
-                    }
-                    activiteCoroutine = StartCoroutine(FaceEachOther());
-
-                    if (downloadStationSwitch.activiteCoroutine != null)
-                    {
-                        StopCoroutine(downloadStationSwitch.activiteCoroutine);
-                    }
-                    downloadStationSwitch.activiteCoroutine = StartCoroutine(downloadStationSwitch.FaceEachOther());
+                    StopCoroutine(activiteCoroutine);
                 }
-                else
+
+                activiteCoroutine = StartCoroutine(FaceEachOther());
+
+                if (downloadStationSwitch.activiteCoroutine != null)
                 {
-                    if (activiteCoroutine != null)
-                    {
-                        StopCoroutine(activiteCoroutine);
-                    }
-                    activiteCoroutine = StartCoroutine(RotateBackRoutine());
-
-                    if (downloadStationSwitch.activiteCoroutine != null)
-                    {
-                        StopCoroutine(downloadStationSwitch.activiteCoroutine);
-                    }
-                    downloadStationSwitch.activiteCoroutine = StartCoroutine(downloadStationSwitch.RotateBackRoutine());
+                    StopCoroutine(downloadStationSwitch.activiteCoroutine);
                 }
+
+                downloadStationSwitch.activiteCoroutine =
+                    StartCoroutine(downloadStationSwitch.FaceEachOther());
             }
-            ApplyToTargets(targetBlock, SwitchState, accepted =>
+            else
             {
-                if (accepted)
-                    IsDetected(SwitchState);
-            });
+                if (activiteCoroutine != null)
+                {
+                    StopCoroutine(activiteCoroutine);
+                }
+
+                activiteCoroutine = StartCoroutine(RotateBackRoutine());
+
+                if (downloadStationSwitch.activiteCoroutine != null)
+                {
+                    StopCoroutine(downloadStationSwitch.activiteCoroutine);
+                }
+
+                downloadStationSwitch.activiteCoroutine =
+                    StartCoroutine(downloadStationSwitch.RotateBackRoutine());
+            }
         }
+
+        IsDetected(SwitchState);
     }
 
     public void ResetAction()

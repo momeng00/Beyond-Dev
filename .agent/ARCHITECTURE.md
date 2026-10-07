@@ -20,7 +20,7 @@
 | [FACT] | `UI/UIManager.cs` | 타입별 IUI 등록 사전과 열린 UI의 LinkedList를 관리한다. Push/Pop으로 입력 권한을 전환하고 마지막 창 닫기 및 Play_Key 복귀를 처리한다. |
 | [FACT] | `UI/UIBase.cs`, `UI/UIWindow.cs` | UIBase는 CanvasGroup·RectTransform 열기/닫기 애니메이션을 담당한다. UIWindow는 IUI 구현, 매니저 Push/Pop, 키 탐색, 표시 이벤트와 시퀀스 실행을 추가한다. |
 | [FACT] | `UI/CarouselUI/CardManager.cs` | Card 목록·개수 제한·배치 애니메이션을 관리하고 최상단 카드의 완료 확인을 요청한다. RefreshCardCoroutine의 시간 진행·보간은 UIAnimationRoutine.Run에 위임하며 위치 계산·적용은 CardManager가 담당한다. |
-| [FACT] | `Object/Switch/Switch.cs`, `BlockSwitch.cs` | 스위치 공통 기반과 E 입력 상호작용을 제공한다. BlockSwitch는 트리거 범위 조건을 검사하고 등록된 ISwitchable 대상의 SwitchOn을 호출한다. |
+| [FACT] | `Object/Switch/Switch.cs`, `BlockSwitch.cs` | 스위치 공통 기반과 E 입력 상호작용을 제공한다. BlockSwitch는 범위 조건 검사 후 ISwitchable 대상의 SwitchOn을 실행하고, 하나 이상 성공한 경우에만 자신의 상태·OnSwitchAction·효과음·회전·표시를 확정한다. 대상이 없거나 모두 거절하면 실행하지 않으며 일부 성공을 되돌리지는 않는다. D-013 참조. |
 | [FACT] | `Object/Block/Block.cs` | 블록 공통 리셋 구독, 머티리얼 애니메이션, 연결된 IEventListener 목록 및 우선순위별 토글 실행을 담당한다. |
 | [FACT] | `Object/Spot/UploadStation.cs`, `DownloadStation.cs` | UploadStation이 원본·지점별 미리보기 캐시와 업로드별 단일 다운로드 선택을 소유한다. DownloadStation은 partnerStation의 TrySelectDownload 승인 후 자기 블록의 물리를 활성화한다. 회수는 선택과 현재 목록을 정리하고, 리셋은 전체 캐시를 파괴한다. 선택되지 않은 지점의 미리보기는 물리 비활성으로 유지한다. D-009 참조. |
 | [FACT] | `Interface/ClearCondition.cs`, `Object/Spot/Door.cs` | ClearCondition은 조건 확인 콜백의 기반이다. Door는 OpenDoorItem 목록의 만족 여부에 따라 문 Collider를 활성화한다. |
