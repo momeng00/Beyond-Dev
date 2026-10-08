@@ -1,5 +1,61 @@
 프로젝트 결정 기록
 
+## D-018 — 포커스 축소 후 알파 페이드, 이후 크기 초기화
+
+날짜: 2026-10-08 (Asia/Seoul)
+
+상태: Accepted — 사용자가 완전히 축소한 뒤 Color.alpha를 서서히 0으로 변경하고 크기를 복원하도록 지시했다.
+
+- [FACT] EffectManager는 기존 0.72초 축소·0.18초 대기·0.36초 축소 이후 Scale=0을 유지하며 현재 머티리얼 알파에서 0으로 선형 보간한다. FocusMaskController.ReturnAlpha로 현재 _OverlayColor.a를 읽고 기존 SetAlpha로 적용한다.
+- [FACT] 페이드가 끝난 후 InitFocusMaskMaterial로 크기를 10, 알파를 0으로 초기화하고 기존 캐릭터 재개 → ResetGame 순서를 실행한다. 페이드 중에도 isFocusWorking을 유지한다.
+- 이유: 축소 직후 크기·알파를 즉시 초기화하던 동작을 점진적인 투명화로 변경한다. RGB와 기존 축소 곡선은 유지한다.
+- [INFERENCE] 사용자가 페이드 길이를 지정하지 않아 두 번째 축소와 같은 0.36초를 기본값으로 선택했다. EffectManager.focusFadeDuration 공개 필드로 Inspector에서 조절할 수 있다. UIAnimationRoutine의 unscaled 시간과 종료 시 apply(1) 처리를 사용한다.
+- 검증: 호출 순서, 현재 알파 사용, UIAnimationRoutine의 최종값 적용 및 변경 코드의 git diff --check를 확인했다. Unity 컴파일·실제 시각 연출은 미검증이다.
+- 재검토 조건: 화면이 가려진 동안 리스폰한 뒤 페이드로 새 위치를 보여주려면 리셋 시점도 별도 변경해야 한다. 이번 요청에서는 리셋 순서를 변경하지 않았다.
+
+## D-017 — Hazard에서 사망 상태 진입, Die에서 사운드 재생
+
+날짜: 2026-10-08 (Asia/Seoul)
+
+상태: Accepted — 사용자가 사망 상태 전환 위치를 FocusOnPosition 대신 Hazard로 지정했다.
+
+- [FACT] Hazard는 레이어·CharacterControl·CharacterAnimation을 확인하고 ChangeState(Die)가 성공한 경우에만 기존 FocusOnPosition을 호출한다. Die.EnterState는 사망 사운드를 재생하며 OnUpdateState는 Die를 반환하여 리스폰까지 유지한다.
+- 이유: ResetAction의 사망 사운드는 포커스 연출 종료 뒤 재생되며 일반 리셋에도 발생했다. 사망 진입 이벤트로 옮겨 사운드 재생 요청 → 포커스 시작 → 리셋 순서를 만든다. 사운드 종료를 기다리지는 않는다.
+- [FACT] CharacterControl.ResetAction에서 사망 사운드를 제거했다. RespawnRoutine은 위치 복원 직후 현재 상태가 Die이면 Idle로 전환하며 기존 한 프레임 대기와 카메라 리셋을 유지한다. 일반 리셋의 다른 상태를 강제로 Idle로 바꾸지는 않는다.
+- [FACT] 같은 Die 상태로 ChangeState하면 false이므로 반복 접촉은 사운드와 포커스를 재요청하지 않는다. EffectManager에는 사망 전환이나 사운드를 추가하지 않았다.
+- 대안: FocusOnPosition 내부에서 상태를 전환하는 안은 사용자 지시로 제외했다. Hazard에서 사운드를 직접 재생하면 상태 진입과 재생 책임이 분리되므로 채택하지 않았다.
+- 검증: 실제 Hazard, Die, CharacterAnimation, CharacterStateBase를 Unity 대체 타입과 함께 컴파일하여 7개 검증을 통과했다. 소리→포커스 순서, Die 유지, 중복 접촉 차단, Idle 복귀 뒤 재사망, 레이어 제외를 확인했다. 리스폰 삽입 위치는 정적으로 검토했다. Unity 컴파일·Play Mode·실제 사운드는 미검증이다.
+- [UNCERTAIN] EffectManager의 포커스 잠금은 전역이다. 여러 캐릭터가 동시에 사망하거나 다른 포커스가 진행 중인 경우에는 사망 상태 진입과 포커스 수락이 일치하지 않을 수 있다. 기존 수동 리셋 중 연출 취소 정책도 이번 범위에 포함하지 않았다. 해당 요구가 생기면 별도 검토한다.
+
+## D-016 — 이름별 오디오 그룹과 공통 랜덤 선택
+
+날짜: 2026-10-08 (Asia/Seoul)
+
+상태: Accepted — 사용자가 그룹 구조 변경을 승인하고 AudioName의 숫자 명시는 제외하도록 지시했다.
+
+- [FACT] AudioName은 Jump, Walk, Die, Switch, CameraSwitch, ItemSound를 자동 번호로 사용한다. AudioGroup은 그룹 이름과 AudioClip 목록을 저장하고 AudioManager.audioGroups에서 Inspector 등록을 받는다.
+- [FACT] Awake에서 Dictionary<AudioName, List<AudioClip>>을 구성하며 null 그룹·클립은 제외하고 중복 이름은 경고 후 첫 그룹을 유지한다. 빈 그룹과 미등록 그룹의 재생 요청은 무시한다.
+- [FACT] 두 SFX 재생 메서드는 GetRandomClip을 공유하고 UnityEngine.Random.Range로 목록 인덱스를 선택한다. 기존 Play/PlayOneShot 방식, 믹서·스냅샷 처리는 유지한다. 연속 반복을 허용하며 같은 클립을 여러 번 등록하면 그만큼 선택 빈도가 높아진다.
+- 이유: 개별 파일명 대신 Jump 등의 용도로 요청하고, 여러 종류의 사운드에서 동일한 그룹 선택 기능을 재사용한다. 점프 전용 목록과 이름 접두사 자동 분류는 사용하지 않는다.
+- [FACT] Assets/01.Scene 아래 7개 씬의 프리팹 인스턴스 10곳을 이전했다. 기존 39개 클립 참조를 보존하며 확인된 파일 이름에 따라 Die/Switch/CameraSwitch/ItemSound 그룹을 지정했다. Assets C#에서 jump1/2/3 호출이나 별도 AudioName 필드는 발견되지 않았고, 씬·프리팹의 두 재생 메서드 UnityEvent 및 애니메이션 이벤트 연결도 검색에서 발견되지 않았다.
+- [UNCERTAIN] AudioMixer.prefab과 SampleScene.unity의 기존 클립 GUID 8114a8cae8416694f85dc4d267de3e6a는 Assets 메타에서 찾지 못했다. 두 파일의 예전 clips 직렬화 텍스트는 보존하고 audioGroups는 빈 목록으로 두었다. 예전 필드는 현재 코드에서 읽지 않으며 Unity 재저장 시 보존을 보장하지 않는다. 원본 에셋과 그룹을 확인한 뒤 등록해야 한다. _Recovery 백업 씬은 이전하지 않았다.
+- 검증: 실제 AudioManager 코드를 Unity 대체 타입으로 컴파일하여 10개 검증을 통과했다. 후보 인덱스별 재생, null 제외, 첫 중복 그룹 유지, 단일·빈·미등록 그룹, 재초기화 및 enum 자동 번호를 확인했다. 씬 이전 전후 39개 클립 참조의 일치와 변경 코드·씬의 git diff --check를 확인했다. Unity 컴파일·Play Mode와 실제 난수 분포·오디오 출력은 검증하지 않았다.
+- 재검토 조건: 런타임 그룹 편집, 무반복 재생, 가중치, 백업 씬 복구 또는 기존 enum 직렬화 데이터를 추가 발견할 때 이전 및 선택 정책을 재검토한다.
+
+## D-015 — 포커스 마스크의 두 단계 축소
+
+날짜: 2026-10-08 (Asia/Seoul)
+
+상태: Accepted — 사용자가 첫 축소 0.72초, 대기 0.18초, 두 번째 축소 0.36초로 적용을 지시했다.
+
+- [FACT] EffectManager.FocusOnPositionCoroutine은 현재 크기에서 DefaultScale(현재 0.5)까지 0.72초 동안 축소하고 0.18초 대기한 다음 0까지 0.36초 동안 축소한다. 두 축소 모두 기존 UIAnimationRoutine과 사인 보간을 사용한다.
+- 이유: 기존 연출은 0.5까지 축소 후 대기하고 바로 마스크를 초기화했다. 사용자가 요청한 완전 축소 단계를 추가한다.
+- [FACT] 최종 SetScale(0) 이후 한 프레임을 기다리고 기존 마스크 초기화 → 캐릭터 재개 → 게임 리셋 순서를 유지한다. FocusMaskController와 셰이더는 변경하지 않는다. 셰이더 내부 크기 하한은 기존 0.0001이다.
+- 대안: 즉시 0으로 설정하면 두 번째 축소 시간을 표현하지 못하므로 연속 보간을 선택했다. SetScale에 대기 책임을 추가하지 않고 EffectManager에서 연출 순서를 관리한다.
+- [FACT] 시간 기준은 기존 방식대로 축소는 unscaled, 중간 대기는 WaitForSeconds의 scaled 시간이다. timeScale=1에서 지정된 구간 합은 1.26초이며 프레임 대기·프레임 단위 진행에 따른 시간이 추가된다.
+- 검증: 변경 diff와 호출 흐름을 정적으로 확인했다. Unity 컴파일·Play Mode 실행은 수행하지 않았다.
+- 재검토 조건: timeScale 변경 중에도 대기를 실제 시간 0.18초로 유지해야 하면 대기의 시간 기준을 재검토한다.
+
 ## D-014 — 업로드 감지 영역의 부분 이탈 시 감지 목록 정리
 
 날짜: 2026-10-07 (Asia/Seoul)

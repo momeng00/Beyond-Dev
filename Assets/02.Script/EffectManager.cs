@@ -89,6 +89,7 @@ public class EffectManager : MonoBehaviour
         isWorking = true;
         StartCoroutine(BlurSet(false, name));
     }
+    public float focusFadeDuration = 0.36f;
     private bool isFocusWorking = false;
     public void FocusOnPosition(CharacterControl control)
     {
@@ -111,7 +112,7 @@ public class EffectManager : MonoBehaviour
         float startScale = focusMaskController.ReturnScale();
         yield return null;
         yield return UIAnimationRoutine.Run(
-            1.8f,
+            0.72f,
             progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
             t =>
             {
@@ -119,7 +120,24 @@ public class EffectManager : MonoBehaviour
                 focusMaskController.SetScale(offsetScale);
             });
 
-        yield return new WaitForSeconds(1.8f);
+        yield return new WaitForSeconds(0.18f);
+
+        float closeStartScale = focusMaskController.ReturnScale();
+        yield return UIAnimationRoutine.Run(
+            0.36f,
+            progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
+            t => focusMaskController.SetScale(
+                Mathf.Lerp(closeStartScale, 0.0f, t)));
+
+        focusMaskController.SetScale(0.0f);
+        yield return null;
+
+        float startAlpha = focusMaskController.ReturnAlpha();
+        yield return UIAnimationRoutine.Run(
+            focusFadeDuration,
+            progress => progress,
+            t => focusMaskController.SetAlpha(Mathf.Lerp(startAlpha, 0.0f, t)));
+
         focusMaskController.InitFocusMaskMaterial();
         control.UnPauseCharacter();
         GameManager.Instance.ResetGame();

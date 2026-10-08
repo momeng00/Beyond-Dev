@@ -11,9 +11,7 @@ public enum SoundType
 }
 public enum AudioName
 {
-    jump1,
-    jump2,
-    jump3,
+    Jump,
     Walk,
     Die,
     Switch,
@@ -26,6 +24,13 @@ public enum SnapShotName
     Normal,
     Cave
 }
+[Serializable]
+public class AudioGroup
+{
+    public AudioName name;
+    public List<AudioClip> clips = new List<AudioClip>();
+}
+
 public class AudioManager : MonoBehaviour
 {
     private static AudioManager _instance;
@@ -47,10 +52,11 @@ public class AudioManager : MonoBehaviour
     private float _musicVolume = 0.5f;
     public AudioSource SFX;
     private float _SFXVolume = 0.5f;
-    public List<AudioClip> clips;
+    public List<AudioGroup> audioGroups = new List<AudioGroup>();
     public List<AudioMixerSnapshot> snapshots;
     private Dictionary<string, AudioMixerSnapshot> snapShotDic = new Dictionary<string, AudioMixerSnapshot>();
-    private Dictionary<string, AudioClip> clipDic = new Dictionary<string, AudioClip>();
+    private readonly Dictionary<AudioName, List<AudioClip>> clipDic
+        = new Dictionary<AudioName, List<AudioClip>>();
 
     public float MusicVolume
     {
@@ -89,11 +95,7 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        foreach (AudioClip clip in clips) 
-        {
-            if (clip == null) continue;
-            clipDic.Add(clip.name, clip);
-        }
+        InitializeAudioGroups();
         foreach (AudioMixerSnapshot snapshot in snapshots)
         {
             if(snapshot ==null) continue;
@@ -101,14 +103,62 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    private void InitializeAudioGroups()
+    {
+        clipDic.Clear();
+        if (audioGroups == null)
+            return;
+
+        foreach (AudioGroup group in audioGroups)
+        {
+            if (group == null)
+                continue;
+
+            if (clipDic.ContainsKey(group.name))
+            {
+                Debug.LogWarning($"Duplicate audio group: {group.name}");
+                continue;
+            }
+
+            var validClips = new List<AudioClip>();
+            if (group.clips != null)
+            {
+                foreach (AudioClip clip in group.clips)
+                {
+                    if (clip != null)
+                        validClips.Add(clip);
+                }
+            }
+            clipDic.Add(group.name, validClips);
+        }
+    }
+
+    private AudioClip GetRandomClip(AudioName name)
+    {
+        if (!clipDic.TryGetValue(name, out var candidates) || candidates.Count == 0)
+            return null;
+
+        int index = UnityEngine.Random.Range(0, candidates.Count);
+        return candidates[index];
+    }
+
     public void PlaySFXAudio(AudioName name)
     {
-        SFX.clip = clipDic[name.ToString()];
+        AudioClip clip = GetRandomClip(name);
+        if (clip == null)
+            return;
+
+        SFX.clip = clip;
         SFX.Play();
     }
+
     public void PlayOneShotSFXAudio(AudioName name)
     {
-        SFX.PlayOneShot(clipDic[name.ToString()]);
+        AudioClip clip = GetRandomClip(name);
+        if (clip == null)
+            return;
+
+        SFX.PlayOneShot(clip);
     }
     public void ChangeSnapShot(SnapShotName name)
     {

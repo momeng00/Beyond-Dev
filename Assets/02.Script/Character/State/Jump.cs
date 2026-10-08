@@ -12,6 +12,7 @@ public class Jump : CharacterStateBase
         base.EnterState();
         machine.GetComponent<Animator>().Play("Jump");
         machine.characterControl.hasJump = true;
+        AudioManager.Instance.PlayOneShotSFXAudio(AudioName.Jump);
     }
 
     public override void ExitState()

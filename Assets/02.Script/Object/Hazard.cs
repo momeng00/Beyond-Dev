@@ -17,7 +17,9 @@ public class Hazard : Block
             Debug.Log("찍힘");
             //GameManager.Instance.OnReset?.Invoke(); 이제 이게 아니라 다른곳에서 호출
             CharacterControl characterControl = collision.gameObject.GetComponent<CharacterControl>();
-            if (characterControl != null)
+            if (characterControl != null &&
+                characterControl.TryGetComponent(out CharacterAnimation stateMachine) &&
+                stateMachine.ChangeState(CharacterStateID.Die))
             {
                 EffectManager.instance.FocusOnPosition(characterControl);
             }

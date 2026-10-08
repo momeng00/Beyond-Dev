@@ -26,7 +26,7 @@
 | [FACT] | `Interface/ClearCondition.cs`, `Object/Spot/Door.cs` | ClearCondition은 조건 확인 콜백의 기반이다. Door는 OpenDoorItem 목록의 만족 여부에 따라 문 Collider를 활성화한다. |
 | [FACT] | `Camera(Cinemachine)/MainCameraController.cs` | 캐릭터 상태가 요청하는 카메라 선택을 모아 LateUpdate에서 PlatformerCamera2D에 전달한다. 리셋 시 활성 가상 카메라의 이전 상태를 무효화한다. |
 | [FACT] | `EffectManager.cs` | Volume별 blur 설정과 FocusMaskController를 관리한다. 포커스 연출에서 CharacterControl 정지·재개 후 GameManager.ResetGame을 호출한다. |
-| [FACT] | `Audio/AudioManager.cs` | AudioClip·AudioMixerSnapshot 이름 사전, Music/SFX 볼륨 및 효과음 재생을 관리한다. enum의 문자열과 에셋 이름으로 조회한다. |
+| [FACT] | `Audio/AudioManager.cs` | AudioGroup의 이름(AudioName)과 클립 목록을 등록하고 Dictionary<AudioName, List<AudioClip>>에서 그룹별 랜덤 선택 후 효과음을 재생한다. 클립 파일명은 조회 키로 사용하지 않는다. Music/SFX 볼륨과 AudioMixerSnapshot 이름 사전은 유지한다. D-016 참조. |
 | [FACT] | `LanguageSystem.cs` | StreamingAssets/textSetting.csv를 언어별 사전으로 파싱하고 키 조회·언어 변경 이벤트를 제공한다. WebGL 조건부 코드에 한국어 생성 데이터 시트 로딩이 있다. |
 | [FACT] | `Object/PopUp/PopUpDataManager.cs` | StreamingAssets/PopupData.json을 읽어 키별 PopUpData 사전을 생성한다. |
 | [FACT] | `SaveSystem/SaveManager.cs`, `SaveData.cs` | 순수 C# 싱글턴이 설정·진행 데이터 모델을 소유하며 persistentDataPath/save_data.json에 JsonUtility와 File API로 저장·로드한다. |
@@ -48,6 +48,7 @@
 
 ### 캐릭터 입력·상태·카메라
 
+- [FACT] Hazard는 CharacterAnimation.ChangeState(Die)가 성공하면 포커스를 요청한다. Die 진입에서 사망 사운드를 재생하고 해당 상태를 유지한다. CharacterControl.RespawnRoutine은 위치 복원 후 Die인 경우 Idle로 복귀시킨다. ResetAction 자체는 사망 사운드를 재생하지 않는다. D-017 참조.
 - [FACT] CharacterControl.Awake가 물리·애니메이터 참조를 얻고, Start가 입력·초기화·리셋 콜백을 등록한다. FixedUpdate에서 수평 속도와 추가 속도를 적용한다.
 - [FACT] CharacterAnimation.Start는 CharacterStateSheet로 상태 객체들을 생성한다. Update는 현재 상태를 갱신하고 전환 가능한 경우 Exit→Enter를 호출한다.
 - [FACT] 예를 들어 Move 상태는 접지·벽 감지·속도를 확인하고 MainCameraController에 좌우 카메라 선택을 전달한다.

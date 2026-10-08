@@ -3,6 +3,7 @@ public class Die : CharacterStateBase
     public override void EnterState()
     {
         base.EnterState();
+        AudioManager.Instance.PlaySFXAudio(AudioName.Die);
     }
     public override void ExitState()
     {
@@ -10,6 +11,6 @@ public class Die : CharacterStateBase
     }
     public override CharacterStateID OnUpdateState()
     {
-        return base.OnUpdateState();
+        return CharacterStateID.Die;
     }
 }

@@ -69,6 +69,11 @@ public class FocusMaskController : MonoBehaviour
         focusMaskMaterial.SetFloat(ScaleId, scale);
     }
 
+    public float ReturnAlpha()
+    {
+        return focusMaskMaterial.GetColor(OverlayColorId).a;
+    }
+
     public void SetAlpha(float alpha)
     {
         overlayColor.a = alpha;

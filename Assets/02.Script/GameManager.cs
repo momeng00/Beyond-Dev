@@ -140,6 +140,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+       
         OnGameStateChanged?.Invoke(currentGameState);
         _registeredInputSystem = InputSystem.Instance;
         _registeredInputSystem.RegisterAction(KeyState.Play_Key, KeyCode.Escape, GamePause);

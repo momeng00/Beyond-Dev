@@ -237,7 +237,6 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
         //MainCameraController.Instance.CameraReset(); 테스트할때 임시로 빼둠
         _rb.linearVelocity = Vector2.zero;
         StartCoroutine("RespawnRoutine");
-        AudioManager.Instance.PlaySFXAudio(AudioName.Die); 
         
     }
 
@@ -286,6 +285,12 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
     {
         // 1. 플레이어 이동
         transform.position = startPos;
+
+        if (TryGetComponent(out CharacterAnimation stateMachine) &&
+            stateMachine.currentCharacterStateID == CharacterStateID.Die)
+        {
+            stateMachine.ChangeState(CharacterStateID.Idle);
+        }
 
         // 2. 아주 중요한 대기! (유니티가 이동을 처리할 시간을 줌)
         yield return null;
