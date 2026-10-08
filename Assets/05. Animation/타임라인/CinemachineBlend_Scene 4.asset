@@ -13,6 +13,35 @@ MonoBehaviour:
   m_Name: CinemachineBlend_Scene 4
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineBlenderSettings
   CustomBlends:
+  - From: Camera_Stage1 Start
+    To: Camera_Stage 1
+    Blend:
+      Style: 1
+      Time: 1.5
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 2
+          outSlope: 2
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
   - From: Camera_Stage 1
     To: "Camera_Stage1 \uC778\uD130\uBBF8\uC158"
     Blend:
@@ -74,8 +103,8 @@ MonoBehaviour:
   - From: Camera_Stage 2
     To: Camera_Stage 3
     Blend:
-      Style: 0
-      Time: 4
+      Style: 1
+      Time: 1.5
       CustomCurve:
         serializedVersion: 2
         m_Curve:
@@ -88,6 +117,53 @@ MonoBehaviour:
           weightedMode: 0
           inWeight: 0
           outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+  - From: Camera_Stage 3
+    To: Camera_Stage 4
+    Blend:
+      Style: 7
+      Time: 4
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0.0041656494
+          value: 0
+          inSlope: 4.051858
+          outSlope: 4.051858
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.29642698
+        - serializedVersion: 3
+          time: 0.17962426
+          value: 0.4830748
+          inSlope: 0.068592906
+          outSlope: 0.068592906
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33717188
+        - serializedVersion: 3
+          time: 0.81268317
+          value: 0.516607
+          inSlope: 0.081998646
+          outSlope: 0.081998646
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.8606
+          outWeight: 1
         - serializedVersion: 3
           time: 1
           value: 1
