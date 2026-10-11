@@ -10,6 +10,9 @@
 
 ## 시스템별 책임과 의존관계
 
+- [FACT] 연출용 건물 스크롤(D-030): `BuildingBlock.cs`는 지정 SpriteRenderer 하나의 위·아래 연결점을 제공한다. `BuildingScroller.cs`는 등록 프리팹의 섞은 묶음 선택, 종류별 재사용, 위쪽 이동, 명시적 상·하 경계 채우기·회수를 담당한다. 기존 카메라·게임 매니저 직접 의존은 없으며 씬·프리팹 연결은 아직 하지 않았다. 자식 장식은 연결 계산에서 제외하지만 이동·회수에는 함께 따른다.
+- [FACT] 입구 전환(D-031): 외부 클릭/UI는 BuildingScroller.RequestEntrance를 호출한다. 현재 묶음 잔여와 최소 추가 수를 만족하는 경로를 고정하고 지수 감속으로 이동하면서 풀을 재사용한다. 별도 입구 프리팹의 BuildingBlock.entranceStopPoint가 지정 목표 Y에 도달하면 정지한다. ResetScroll은 입구·경로 상태도 초기화한다. 카메라와 직접 입력 감지는 Scroller 책임에 포함하지 않는다.
+
 | 상태 | 요소 / 근거 파일 | 현재 책임 및 직접 연결 |
 | --- | --- | --- |
 | [FACT] | `GameManager.cs` | 현재·시작 Stage, 게임 상태 필드, 씬 전환, 초기화·리셋 콜백을 소유한다. `InputSystem`, `UIManager`, `UIWindow`, `Stage`, `SceneManager`를 참조한다. |
@@ -17,15 +20,16 @@
 | [FACT] | `Character/CharacterControl.cs` | 플레이어 역할의 이동·점프·접지 검사·방향·추가 속도·리셋을 처리한다. `Rigidbody2D`, `Stat`, 자체 입력, GameManager, 카메라에 의존한다. |
 | [FACT] | `Character/CharacterAnimation.cs`, `Character/State/*` | 상태 ID→상태 객체 사전을 소유하며 `OnUpdateState` 결과에 따라 Exit/Enter를 호출한다. 상태는 이동·점프·낙하 등 캐릭터 값을 읽고 Animator와 카메라를 제어한다. |
 | [FACT] | `InputSystem/InputSystem.cs`, `KeyBinding.cs` | 입력 상태별 KeyCode→Action, 축 이름→Action<float> 매핑을 보관하고 Update에서 현재 맵만 실행한다. |
-| [FACT] | `UI/UIManager.cs` | 타입별 IUI 등록 사전과 열린 UI의 LinkedList를 관리한다. Push/Pop으로 입력 권한을 전환하고 마지막 창 닫기 및 Play_Key 복귀를 처리한다. |
+| [FACT] | `UI/UIManager.cs` | 타입별 IUI 사전과 열린 UI LinkedList를 관리한다. Push 시 Pause, Pop 후 다음 프레임에 최상단 입력 인계 또는 빈 목록이면 Play_Key 복귀를 처리한다. 카드·Todo에 대한 직접 참조는 없다. D-024 참조. |
 | [FACT] | `UI/UIBase.cs`, `UI/UIWindow.cs` | UIBase는 CanvasGroup·RectTransform 열기/닫기 애니메이션을 담당한다. UIWindow는 IUI 구현, 매니저 Push/Pop, 키 탐색, 표시 이벤트와 시퀀스 실행을 추가한다. |
-| [FACT] | `UI/CarouselUI/CardManager.cs` | Card 목록·개수 제한·배치 애니메이션을 관리하고 최상단 카드의 완료 확인을 요청한다. RefreshCardCoroutine의 시간 진행·보간은 UIAnimationRoutine.Run에 위임하며 위치 계산·적용은 CardManager가 담당한다. |
+| [FACT] | `UI/CarouselUI/CardManager.cs` | 보관 카드 목록·Limit·배치·그룹 표시를 관리한다. 일반 닫힘은 보관을 유지하고 새 Add에서 기존 카드를 배경으로 재표시한다. Limit 초과 카드만 보관에서 제외하고 outgoingCards로 닫기 이동을 추적한다. Card의 Closing/Closed를 구독하며 UIManager/InputSystem 직접 참조는 없다. D-026 참조. |
+| [FACT] | `UI/Card/Card.cs` | IUI 구현 및 자신의 UI 등록·등장·Todo 점검·입력 대기·닫기를 소유한다. Background 상태는 UI 등록 및 Todo 재점검 없이 표시한다. Closing/Closed로 표시 수명을 통지한다. CardManager 직접 참조는 없다. D-026 참조. |
 | [FACT] | `Object/Switch/Switch.cs`, `BlockSwitch.cs` | 스위치 공통 기반과 E 입력 상호작용을 제공한다. BlockSwitch는 범위 조건 검사 후 ISwitchable 대상의 SwitchOn을 실행하고, 하나 이상 성공한 경우에만 자신의 상태·OnSwitchAction·효과음·회전·표시를 확정한다. 대상이 없거나 모두 거절하면 실행하지 않으며 일부 성공을 되돌리지는 않는다. D-013 참조. |
 | [FACT] | `Object/Block/Block.cs` | 블록 공통 리셋 구독, 머티리얼 애니메이션, 연결된 IEventListener 목록 및 우선순위별 토글 실행을 담당한다. |
 | [FACT] | `Object/Spot/UploadStation.cs`, `DownloadStation.cs` | UploadStation이 원본·지점별 미리보기 캐시와 업로드별 단일 다운로드 선택을 소유한다. DownloadStation은 partnerStation의 TrySelectDownload 승인 후 자기 블록의 물리를 활성화한다. 회수는 선택과 현재 목록을 정리하고, 리셋은 전체 캐시를 파괴한다. 선택되지 않은 지점의 미리보기는 물리 비활성으로 유지한다. D-009 참조. |
 | [FACT] | `Interface/ClearCondition.cs`, `Object/Spot/Door.cs` | ClearCondition은 조건 확인 콜백의 기반이다. Door는 OpenDoorItem 목록의 만족 여부에 따라 문 Collider를 활성화한다. |
 | [FACT] | `Camera(Cinemachine)/MainCameraController.cs` | 캐릭터 상태가 요청하는 카메라 선택을 모아 LateUpdate에서 PlatformerCamera2D에 전달한다. 리셋 시 활성 가상 카메라의 이전 상태를 무효화한다. |
-| [FACT] | `EffectManager.cs` | Volume별 blur 설정과 FocusMaskController를 관리한다. 포커스 연출에서 CharacterControl 정지·재개 후 GameManager.ResetGame을 호출한다. |
+| [FACT] | `EffectManager.cs` | Volume별 blur 설정과 FocusMaskController를 관리한다. 캐릭터 정지 후 포커스를 두 단계로 축소하고 ResetGame을 호출한다. CharacterControl.RespawnCoroutine 완료를 기다려 알파를 0으로 페이드한 뒤 마스크를 초기화하고 캐릭터를 재개한다. D-019 참조. |
 | [FACT] | `Audio/AudioManager.cs` | AudioGroup의 이름(AudioName)과 클립 목록을 등록하고 Dictionary<AudioName, List<AudioClip>>에서 그룹별 랜덤 선택 후 효과음을 재생한다. 클립 파일명은 조회 키로 사용하지 않는다. Music/SFX 볼륨과 AudioMixerSnapshot 이름 사전은 유지한다. D-016 참조. |
 | [FACT] | `LanguageSystem.cs` | StreamingAssets/textSetting.csv를 언어별 사전으로 파싱하고 키 조회·언어 변경 이벤트를 제공한다. WebGL 조건부 코드에 한국어 생성 데이터 시트 로딩이 있다. |
 | [FACT] | `Object/PopUp/PopUpDataManager.cs` | StreamingAssets/PopupData.json을 읽어 키별 PopUpData 사전을 생성한다. |
@@ -57,8 +61,11 @@
 
 ### UI 및 일시정지
 
-- [FACT] UIBase·UIBaseUpgrade·OriginalPopUp·Card·EffectManager·TestBlur의 열기·닫기 또는 효과 코루틴 11개와 CardManager의 재배치 코루틴은 UIAnimationRoutine.Run에 unscaled 시간 진행·진행률 처리를 위임한다. 보간 곡선과 값 적용, 초기·종료 처리 및 코루틴 관리 책임은 호출 클래스에 남는다. D-007·D-008 참조.
-- [FACT] GameManager.GamePause는 열린 UI 수를 확인하고 입력 상태를 Pause로 바꾼 뒤 pauseMenu.Open을 호출한다.
+- [FACT] 현재 새 Card만 UI 목록에 등록되며, 연출 완료 후 다음 프레임부터 아무 키로 전체 카드 표시를 닫는다. 기존 카드는 배경 표시만 하고 보관은 유지한다. 닫기 페이드 완료까지 UI 목록에 남고, 비활성화 시에도 등록을 정리한다. Todo 0개는 바로 입력 대기로 전환한다. 카드의 StartGameCardOpen 경로는 NextStep Animation Event를 기다린다. D-024 참조.
+- [FACT] InputSystem은 Awake에서 맵을 초기화하며 Start에서 Play를 덮어쓰지 않는다. 상태 전환 프레임에는 입력 처리를 건너뛴다. CharacterControl은 플레이 입력이 차단된 동안 이전 이동 축·점프 버퍼를 비운다. 중력·외부 속도·Time.timeScale은 정지하지 않는다.
+
+- [FACT] UIBase·UIBaseUpgrade·OriginalPopUp·Card·EffectManager·TestBlur의 열기·닫기 또는 효과 코루틴과 CardManager의 재배치 코루틴은 UIAnimationRoutine.Run에 unscaled 시간 진행·진행률 처리를 위임한다. 보간 곡선과 값 적용, 초기·종료 처리 및 코루틴 관리 책임은 호출 클래스에 남는다. D-007·D-008 참조.
+- [FACT] GameManager.GamePause는 열린 UI가 있으면 HideLast, 없으면 pauseMenu.Open을 요청한다. 입력 상태 전환은 UIManager에 모았으며 GameManager는 UI 입력 상태에서 R 리셋을 차단한다.
 - [FACT] UIWindow.Open/Close는 UIManager.Push/Pop과 UIBase 애니메이션을 호출한다. Pause 상태의 Escape는 UIManager.HideLast에 연결된다.
 - [FACT] UIBase 애니메이션은 Time.unscaledDeltaTime을 사용한다. UIWindow.SetVisible은 현재 interactable·blocksRaycasts만 바꾸며 alpha 변경은 주석 처리되어 있다.
 - [FACT] GamePause 본문에는 Time.timeScale 변경이나 모든 물리 정지 처리가 없다. [UNCERTAIN] 씬에 연결된 UnityEvent를 포함한 최종 일시정지 범위.
@@ -67,7 +74,7 @@
 
 - [FACT] 조사한 Assets C# 검색에서 중앙 `EventBus` 구현은 확인되지 않았다. `EventType.cs`는 빈 클래스다.
 - [FACT] GameManager의 공개 Action, Stage/UI/Timeline의 UnityEvent, Switch의 Action 및 Block의 IEventListener 호출이 각각 존재한다. 단일 메시지 버스로 통합된 구조로 기록하지 않는다.
-- [FACT] GameManager와 InputSystem은 정적 접근 시 씬 객체를 찾고 없으면 생성한다. UIManager는 정적 참조가 없으면 새 GameObject를 생성한다. AudioManager와 MainCameraController는 찾지 못하면 로그를 남긴다.
+- [FACT] GameManager와 InputSystem은 정적 접근 시 씬 객체를 찾고 없으면 생성한다. UIManager와 CardManager도 기존 씬 객체를 찾고 없을 때 GameObject와 컴포넌트를 생성한다. AudioManager와 MainCameraController는 찾지 못하면 로그를 남긴다.
 - [FACT] `Assets/02.Script` 검색에서 DontDestroyOnLoad 호출은 확인되지 않았다. 매니저가 모두 씬 간 영속한다고 가정하지 않는다.
 - [FACT] Block.OnDestroy는 GameManager 구독을 해제한다. CharacterControl의 리셋 관련 구독 해제는 아직 없다. 2026-10-03 InputSystem에 키·축 DeregisterAction을 구현했다. 마지막 콜백 제거 시 해당 항목을 삭제하며 null 콜백 등록은 무시한다.
 - [FACT] CharacterControl, GameManager, UIManager 및 BlockSwitch·RetweetSwitch·TagRetweetSwitch·DownloadStationSwtich는 Start 경로에서 등록한 입력 8개를 OnDestroy에서 해제한다. 등록 당시 InputSystem 참조를 보관하며 해제 시 싱글턴 접근자를 호출하지 않는다. 비활성화 시 해제하지 않는 기존 동작은 유지한다. DECISIONS.md D-005 참조.

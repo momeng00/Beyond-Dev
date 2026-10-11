@@ -132,6 +132,10 @@ public class EffectManager : MonoBehaviour
         focusMaskController.SetScale(0.0f);
         yield return null;
 
+        GameManager.Instance.ResetGame();
+        if (control.RespawnCoroutine != null)
+            yield return control.RespawnCoroutine;
+
         float startAlpha = focusMaskController.ReturnAlpha();
         yield return UIAnimationRoutine.Run(
             focusFadeDuration,
@@ -140,7 +144,6 @@ public class EffectManager : MonoBehaviour
 
         focusMaskController.InitFocusMaskMaterial();
         control.UnPauseCharacter();
-        GameManager.Instance.ResetGame();
         isFocusWorking = false;
     }
     //0이 잘보이는거 1이 안보이는거

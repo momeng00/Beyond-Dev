@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.Rendering.GPUSort;
@@ -20,7 +21,7 @@ public class CardManager : MonoBehaviour
             {
                 _instance = FindAnyObjectByType<CardManager>();
                 if (_instance == null)
-                    _instance = new CardManager();
+                    _instance = new GameObject("CardManager").AddComponent<CardManager>();
             }
             return _instance;
         }
@@ -30,107 +31,221 @@ public class CardManager : MonoBehaviour
     public float animDuration = 0.52f;
     [Range(0f, 100f)] public float ratio; //옆으로 움직일 비율 및 크기가 작아질 비율 카드 끼리 간격에 해당
     private Coroutine coroutine;
+    private Card currentCard;
+    private readonly List<Card> outgoingCards = new List<Card>();
+    private readonly HashSet<Card> enteringCards = new HashSet<Card>();
+    private readonly Dictionary<Card, Vector2> layoutTargets = new Dictionary<Card, Vector2>();
+
+    private void OnCardClosing(Card card)
+    {
+        if (card != currentCard) return;
+        StopLayout();
+        foreach (Card other in DisplayCards())
+            if (other != card) other.HideAsBackground(card.animDuration);
+    }
+
+    private void OnCardClosed(Card card)
+    {
+        enteringCards.Remove(card);
+        if (outgoingCards.Remove(card))
+        {
+            card.Closing -= OnCardClosing;
+            card.Closed -= OnCardClosed;
+            layoutTargets.Remove(card);
+        }
+        // Closing the display does not remove retained cards.
+        if (card == currentCard)
+        {
+            currentCard = null;
+            StopLayout();
+            foreach (Card other in DisplayCards()) other.HideAsBackground(0f);
+            return;
+        }
+        if (!isActiveAndEnabled || currentCard == null || currentCard.IsClosing) return;
+        if (coroutine != null && layoutTargets.Count == 0) return;
+        if (LayoutTargetsChanged()) RefreshCardList();
+    }
+
+    private Card[] DisplayCards()
+    {
+        return outgoingCards.Concat(cardList)
+            .Where(card => card != null && card.IsDisplayed).ToArray();
+    }
+
+    private void StopLayout()
+    {
+        if (coroutine != null) StopCoroutine(coroutine);
+        coroutine = null;
+    }
+
+    private Vector2 GetTargetPosition(Card card, int index, int count)
+    {
+        float offsetX = -card.Rect.rect.width * (ratio / 100f) * (count - 1 - index);
+        return card.OriginalPosition + new Vector2(offsetX, 0f);
+    }
+
+    private bool LayoutTargetsChanged()
+    {
+        Card[] cards = DisplayCards();
+        for (int i = 0; i < cards.Length; i++)
+        {
+            if (!layoutTargets.TryGetValue(cards[i], out Vector2 target) ||
+                target != GetTargetPosition(cards[i], i, cards.Length))
+                return true;
+        }
+        return false;
+    }
+
+    private void OnDisable()
+    {
+        StopLayout();
+        currentCard = null;
+        foreach (Card card in DisplayCards()) card.HideAsBackground(0f);
+    }
+
+    private void OnDestroy()
+    {
+        foreach (Card card in cardList.Concat(outgoingCards))
+        {
+            if (card == null) continue;
+            card.Closing -= OnCardClosing;
+            card.Closed -= OnCardClosed;
+        }
+        if (_instance == this) _instance = null;
+    }
 
     #region 카드 추가
     public void AddCard(Card card)
     {
-        //card.GetComponent<UIBaseUpgrade>().Open();
-        if (cardList.Contains(card)) //자기 자신이 이미 있으면 넘어가기
+        if (!isActiveAndEnabled || card == null || limit <= 0 || cardList.Contains(card) || outgoingCards.Contains(card))
             return;
 
-        cardList.Add(card); 
-        if (cardList.Count > limit) //카드 수가 너무 많으면 삭제당함
+        card.Closing += OnCardClosing;
+        card.Closed += OnCardClosed;
+        if (!card.BeginEntrance(animDuration))
         {
-            RemoveCard();
+            card.Closing -= OnCardClosing;
+            card.Closed -= OnCardClosed;
+            Debug.LogWarning("Cannot show a card under an inactive parent or with a disabled Card component.", card);
+            return;
         }
+        currentCard = card;
+        cardList.RemoveAll(stored => stored == null);
+        foreach (Card stored in cardList)
+        {
+            enteringCards.Remove(stored);
+            stored.ShowAsBackground();
+        }
+        float entryOffset = card.Rect.rect.width * (ratio / 100f);
+        card.Rect.anchoredPosition = card.OriginalPosition + new Vector2(entryOffset, 0f);
+        enteringCards.Add(card);
+        card.Rect.SetAsLastSibling();
+        cardList.Add(card);
         RefreshCardList();
     }
+
     public void RefreshCardList()
     {
-        while (limit < cardList.Count)
+        StopLayout();
+        layoutTargets.Clear();
+        cardList.RemoveAll(card => card == null);
+        outgoingCards.RemoveAll(card => card == null);
+        enteringCards.RemoveWhere(card => card == null || !cardList.Contains(card));
+        int maxCards = Mathf.Max(0, limit);
+        while (cardList.Count > maxCards)
         {
-            Card lastCard = cardList[0]; // 처음 들어온 카드 제거
-            lastCard.RemoveCard(); //삭제 애니메이션은 필요없을듯 그냥 안보이게만 하는 용도
-            cardList.Remove(lastCard);
+            Card oldest = cardList[0];
+            cardList.RemoveAt(0);
+            enteringCards.Remove(oldest);
+            if (oldest.IsDisplayed)
+            {
+                outgoingCards.Add(oldest);
+                oldest.RemoveCard();
+            }
+            else
+            {
+                oldest.Closing -= OnCardClosing;
+                oldest.Closed -= OnCardClosed;
+            }
         }
-        for (int i = 0; i < cardList.Count; i++)
-        {
-            StartCoroutine(
-                RefreshCardCoroutine(
-                    cardList[i],
-                    i,
-                    ratio,
-                    animDuration
-                )
-            );
-        }
-
-
-        //for (int index=0; index< cardList.Count; index++) // 0 1 2 / 3 1 2 3 위에 기능으로 이전 됨
-        //{
-        //    cardList[index].MoveCard(cardList.Count - index, ratio, animDuration);
-        //}
+        if (currentCard != null && !currentCard.IsClosing && DisplayCards().Length > 0)
+            coroutine = StartCoroutine(RefreshCardCoroutine());
     }
     #endregion
 
     #region 카드 삭제
     public void HideCardList()
     {
-
-    }
-    public void RemoveCard()
-    {
-        if (cardList == null || cardList.Count == 0)
+        if (currentCard != null && currentCard.IsDisplayed)
+            currentCard.RemoveCard();
+        else
         {
-            return;
+            StopLayout();
+            foreach (Card card in DisplayCards()) card.HideAsBackground(animDuration);
         }
-        Card card = cardList[0];
-        cardList.RemoveAt(0);
-        card.RemoveCard();
     }
+
+    // Legacy entry point: hide the presentation, keep retained history.
+    public void RemoveCard() => HideCardList();
     public void ShowTopCard()
     {
-        if (cardList == null || cardList.Count == 0)
-            return;
-
-        if (cardList[^1] != null)
-            cardList[^1].CheckClearCard();
+        if (currentCard != null && !enteringCards.Contains(currentCard) && !currentCard.IsClosing)
+            currentCard.CheckClearCard();
     }
     public void HideTopCard(Card card)
     {
-
+        if (card == currentCard) HideCardList();
     }
     #endregion
     //Card에 있는 IEnumerator을 가져와서 여기에 종속시키기
     //맨 앞에 있는 카드만 가져와서 ClearCheck하는 기능을 추가
     //맨 앞에 있는 카드의 TodoList를 PauseMenu에 동기화 시키는 방식
     #region 코루틴 애니메이션
-    private IEnumerator RefreshCardCoroutine(Card card, int index, float ratio, float animDuration)
+    private IEnumerator RefreshCardCoroutine()
     {
-        RectTransform rect = card.Rect;
-        CanvasGroup canvas = card.CanvasGroup;
-
-        canvas.alpha = 1f; //보이게 하고
-
+        // Let the UI layout settle before reading card widths.
         yield return null;
 
-        float targetOffsetX =
-         -rect.rect.width *
-         (ratio / 100f) *
-         (cardList.Count-index);
+        Card[] cards = DisplayCards();
+        Vector2[] startPositions = new Vector2[cards.Length];
+        Vector2[] targetPositions = new Vector2[cards.Length];
+        bool[] entering = new bool[cards.Length];
+        for (int i = 0; i < cards.Length; i++)
+        {
+            Card card = cards[i];
+            if (card == null)
+                continue;
 
-        Vector2 startPos = card.OriginalPosition; //현재 위치
-
-        Vector2 targetPos = card.OriginalPosition + new Vector2(targetOffsetX, 0f); // 이동될 위치
+            startPositions[i] = card.Rect.anchoredPosition;
+            entering[i] = enteringCards.Contains(card);
+            targetPositions[i] = GetTargetPosition(card, i, cards.Length);
+            layoutTargets[card] = targetPositions[i];
+        }
 
         yield return UIAnimationRoutine.Run(
             animDuration,
-            progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
-            t => rect.anchoredPosition = Vector2.Lerp(startPos, targetPos, t));
+            progress => progress * progress,
+            t =>
+            {
+                for (int i = 0; i < cards.Length; i++)
+                {
+                    if (cards[i] != null && cards[i].IsDisplayed)
+                    {
+                        cards[i].Rect.anchoredPosition = Vector2.Lerp(
+                            startPositions[i], targetPositions[i], t);
+                    }
+                }
+            });
 
-        rect.anchoredPosition = targetPos;
+        coroutine = null;
+        for (int i = 0; i < cards.Length; i++)
+        {
+            Card card = cards[i];
+            if (card != null && !card.IsClosing && entering[i] && enteringCards.Remove(card))
+                card.OnEntranceCompleted();
+        }
     }
-   
+
     #endregion 
 
 }

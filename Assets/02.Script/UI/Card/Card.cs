@@ -10,7 +10,7 @@ public struct ItemInTodo
     public ClearCondition item;
 }
 [RequireComponent(typeof(CanvasGroup))]
-public class Card : MonoBehaviour
+public class Card : MonoBehaviour, IUI
 {
     //애니메이션이나 키고 꺼짐의 [기능!]을 만들어야함. 기능을 사용하는 것은 Manager에 종속되어야함.
     //고양이카드를 관리하는 스크립트
@@ -23,6 +23,114 @@ public class Card : MonoBehaviour
     public Action<Card> OnTodoAnimationFinished; //여기에 카드 집어넣는 기능 넣기
     public float animDuration = 3.2f;
     public float todoDelay = 0.36f; //다음 todo가 체크되는 딜레이
+
+    public bool BeginEntrance(float duration)
+    {
+        ShowForLayout();
+        if (!isActiveAndEnabled || !displayRequested) return false;
+        canvasGroup.alpha = 0f;
+        coroutine = StartCoroutine(FadeEntrance(duration));
+        return true;
+    }
+
+    private IEnumerator FadeEntrance(float duration)
+    {
+        yield return null;
+        yield return UIAnimationRoutine.Run(duration,
+            progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
+            t => canvasGroup.alpha = t);
+        coroutine = null;
+        fadeFinished = true;
+        TryFinishEntrance();
+    }
+
+    public void OnEntranceCompleted()
+    {
+        layoutFinished = true;
+        TryFinishEntrance();
+    }
+
+    private void TryFinishEntrance()
+    {
+        if (displayState == DisplayState.Entering && layoutFinished && fadeFinished)
+            SuccessClearStage();
+    }
+
+    private void OnTodoFinished(Todo todo)
+    {
+        if (displayState != DisplayState.Checking || !pendingTodos.Remove(todo)) return;
+        completedTodoCount++;
+        if (pendingTodos.Count == 0)
+        {
+            BeginWaitForInput();
+            OnTodoAnimationFinished?.Invoke(this);
+        }
+    }
+
+    private void BeginWaitForInput()
+    {
+        if (!displayRequested || (displayState != DisplayState.Entering &&
+            displayState != DisplayState.Checking)) return;
+        displayState = DisplayState.Waiting;
+        readyFrame = Time.frameCount;
+    }
+
+    public void Show() => StartGameCardOpen();
+
+    public void Hide()
+    {
+        if (inputActionEnabled && displayState == DisplayState.Waiting &&
+            Time.frameCount > readyFrame)
+            RemoveCard();
+    }
+
+    public void InputAction()
+    {
+        if (Input.anyKeyDown) Hide();
+    }
+
+    public void SetVisible(bool state)
+    {
+        if (canvasGroup == null) return;
+        canvasGroup.interactable = state;
+        canvasGroup.blocksRaycasts = state;
+    }
+
+    private void Update()
+    {
+        if (inputActionEnabled) InputAction();
+    }
+
+    private void FinishClose()
+    {
+        if (!displayRequested) return;
+        displayRequested = false;
+        displayState = DisplayState.Hidden;
+        inputActionEnabled = false;
+        pendingTodos.Clear();
+        coroutine = null;
+        canvasGroup.alpha = 0f;
+        if (uiManager != null) uiManager.Pop(this);
+        Closed?.Invoke(this);
+        onHide?.Invoke();
+    }
+
+    private void OnDisable()
+    {
+        if (coroutine != null) StopCoroutine(coroutine);
+        FinishClose();
+    }
+
+    private void OnDestroy()
+    {
+        FinishClose();
+        foreach (var pair in todoCallbacks)
+            if (pair.Key != null) pair.Key.OnAnimationFinished -= pair.Value;
+        foreach (var item in registeredItems)
+            if (item.item != null && item.todo != null)
+                item.item.OnCheck -= item.todo.DoSuccess;
+    }
+
     #region 기본 선언
     protected Animator animator;
     private CanvasGroup canvasGroup;
@@ -33,6 +141,25 @@ public class Card : MonoBehaviour
     public Vector3 OriginalScale { get; private set; }
     #endregion
     private Coroutine coroutine;
+    private bool displayRequested;
+    private enum DisplayState { Hidden, Entering, Checking, Waiting, Background, Closing }
+    private DisplayState displayState;
+    private UIManager uiManager;
+    private bool initialized;
+    private bool layoutFinished;
+    private bool fadeFinished;
+    private int readyFrame;
+    private readonly HashSet<Todo> pendingTodos = new HashSet<Todo>();
+    private readonly Dictionary<Todo, Action> todoCallbacks = new Dictionary<Todo, Action>();
+    private readonly List<ItemInTodo> registeredItems = new List<ItemInTodo>();
+    public bool IsDisplayed => displayRequested;
+    public bool IsClosing => displayState == DisplayState.Closing;
+    public int sortingOrder { get; set; }
+    public bool inputActionEnabled { get; set; }
+    public event Action onShow;
+    public event Action onHide;
+    public event Action<Card> Closing;
+    public event Action<Card> Closed;
 
     private void Awake()
     {
@@ -49,26 +176,43 @@ public class Card : MonoBehaviour
     private void Start()
     {
         InitCard();
-        RemoveCard(this);
-        SubscriptCardEnd(RemoveCard);
+        if (!displayRequested)
+        {
+            canvasGroup.alpha = 0f;
+            foreach (Todo todo in todoList)
+            {
+                if (todo != null)
+                    todo.Close();
+            }
+        }
+
     }
     #region 초기화 기능 및 초기화에 넣을 기능
     public void InitCard()
     {
+        if (initialized)
+            return;
+        initialized = true;
         completedTodoCount = 0;
+        if (todoList == null) todoList = new List<Todo>();
+        todoList.Clear();
+        if (itemInTodoes == null) return;
         foreach (var item in itemInTodoes)
         {
-            todoList.Add(item.todo);
-            if (item.todo != null)
+            if (item.todo == null) continue;
+            if (!todoCallbacks.ContainsKey(item.todo))
             {
-                item.todo.SubscribeTodoAction(TodoAnimationFinished);
-                Debug.Log("구독들어감");
+                Todo todo = item.todo;
+                Action callback = () => OnTodoFinished(todo);
+                todoCallbacks.Add(todo, callback);
+                todo.SubscribeTodoAction(callback);
+                todoList.Add(todo);
             }
-            else
-                Debug.LogError("todo가 없음.");
-
             if (item.item != null)
+            {
                 item.item.AddOnCheck(item.todo.DoSuccess);
+                registeredItems.Add(item);
+            }
         }
     }
     //여기에 뭐 넣을라고 했는지 체크해보기
@@ -84,12 +228,12 @@ public class Card : MonoBehaviour
     //Todo들에 있는 Action에 이걸 등록시켜서 애니메이션이 이걸 호출함
     public void TodoAnimationFinished()
     {
+        if (displayState != DisplayState.Checking) return;
         completedTodoCount++;
-
-        if (completedTodoCount >= itemInTodoes.Count)
+        if (completedTodoCount >= todoList.Count)
         {
+            BeginWaitForInput();
             OnTodoAnimationFinished?.Invoke(this);
-            Debug.Log("카드 엔딩 실행됨");
         }
     }
     #endregion
@@ -99,88 +243,133 @@ public class Card : MonoBehaviour
         animator.Play(animationName);
     }
 
+    public void ShowForLayout()
+    {
+        if (!gameObject.activeSelf) gameObject.SetActive(true);
+        if (!isActiveAndEnabled) return;
+        InitCard();
+        displayRequested = true;
+        displayState = DisplayState.Entering;
+        layoutFinished = false;
+        fadeFinished = false;
+        pendingTodos.Clear();
+        if (coroutine != null) StopCoroutine(coroutine);
+        coroutine = null;
+        foreach (Todo todo in todoList)
+            if (todo != null) todo.Close();
+        PlayAnimation("Default");
+        canvasGroup.alpha = 1f;
+        rectTransform.SetAsLastSibling();
+        uiManager = UIManager.instance;
+        bool wasOpen = uiManager.showns.Contains(this);
+        uiManager.Push(this);
+        if (!wasOpen) onShow?.Invoke();
+    }
+
+    public void ShowAsBackground()
+    {
+        if (!gameObject.activeSelf) gameObject.SetActive(true);
+        if (!isActiveAndEnabled) return;
+        InitCard();
+        if (coroutine != null) StopCoroutine(coroutine);
+        coroutine = null;
+        pendingTodos.Clear();
+        displayRequested = true;
+        displayState = DisplayState.Background;
+        inputActionEnabled = false;
+        canvasGroup.alpha = 1f;
+        if (uiManager != null) uiManager.Pop(this);
+        SetVisible(false);
+        rectTransform.SetAsLastSibling();
+    }
+
+    public void HideAsBackground(float duration)
+    {
+        if (!displayRequested) return;
+        if (coroutine != null) StopCoroutine(coroutine);
+        coroutine = null;
+        displayState = DisplayState.Closing;
+        pendingTodos.Clear();
+        inputActionEnabled = false;
+        SetVisible(false);
+        if (duration <= 0f)
+            FinishClose();
+        else
+            coroutine = StartCoroutine(PlayCloseAnimation(this, duration));
+    }
+
     public void RemoveCard(Card card = null)
     {
-        if (card == null)
-            card = this;
-
-        //이건 삭제 애니메이션 용
+        if (card == null) card = this;
+        if (!card.displayRequested || card.IsClosing) return;
+        card.displayState = DisplayState.Closing;
+        card.pendingTodos.Clear();
+        if (card.coroutine != null) card.StopCoroutine(card.coroutine);
         card.PlayAnimation("Default");
-        coroutine = StartCoroutine(PlayCloseAnimation(card));
-        Debug.Log("카드종료");
+        card.Closing?.Invoke(card);
+        card.coroutine = card.StartCoroutine(card.PlayCloseAnimation(card, card.animDuration));
     }
     public void HideCard()
     {
-        //이건 그냥 숨기기 용
+        Hide();
     }
 
     //클리어 가 실행되면 실행될 애니메이션 중간에 타이밍을 조절해야함
     public void SuccessClearStage()
     {
-        //해당 todoList안에 있는 content를 체크해서 isClear 및 체크 및 InGameTodo를 띄워줄 수 있도록 한다. (Todo에게 이전함)
-        //안에 든 모든 Todo를 완료시키는 스크립트가 존재해야함.
-        //이거는 카드안에 있는 애니메이션을 통해서 타이밍을 조절한다.
-        //카드안에 있는 애니메이션에 이 메서드를 집어넣는다.
+        if (!displayRequested || displayState != DisplayState.Entering) return;
+        InitCard();
+        if (coroutine != null) StopCoroutine(coroutine);
+        coroutine = null;
+        completedTodoCount = 0;
+        displayState = DisplayState.Checking;
+        pendingTodos.Clear();
+        foreach (Todo todo in todoList)
+            if (todo != null) pendingTodos.Add(todo);
+        if (pendingTodos.Count == 0)
+        {
+            BeginWaitForInput();
+            OnTodoAnimationFinished?.Invoke(this);
+            return;
+        }
         coroutine = StartCoroutine(CheckCondition());
-
     }
     //Card 진입이 진행되면 실행될 메서드
     public void NextStep()
     {
-        //EffectManager.instance.BlurAnimation(true);
-        RemoveCard();
+        BeginWaitForInput();
     }
     public void StartGameCardOpen()
     {
+        ShowForLayout();
         PlayAnimation("In_Start_ForSys");
     }
     public void CheckClearCard()
     {
-        canvasGroup.alpha = 1f;
+        ShowForLayout();
         PlayAnimation("In_Clear");
     }
     #region 코루틴
     IEnumerator CheckCondition()
     {
-        foreach (var item in itemInTodoes)
-        {
-            item.todo.CheckClear();
-            yield return new WaitForSeconds(todoDelay);
-        }
-    }
-    protected IEnumerator PlayCloseAnimation(Card card)
-    {
-        Vector3 startScale = card.Rect.localScale;
-        Vector3 targetScale;
-        targetScale = Vector3.zero;
-
-
-        yield return UIAnimationRoutine.Run(
-            animDuration,
-            progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
-            t =>
-            {
-                // 크기, 투명도 변화
-                card.Rect.localScale = Vector3.Lerp(startScale, targetScale, t);
-                card.CanvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
-                Debug.Log("실행되는중임?");
-            });
-        card.CanvasGroup.alpha = 0f;
-        card.Rect.localScale = OriginalScale;
         foreach (Todo todo in todoList)
         {
-            todo.Close();
+            if (displayState != DisplayState.Checking) yield break;
+            if (todo != null) todo.CheckClear();
+            yield return new WaitForSecondsRealtime(todoDelay);
         }
+    }
+    protected IEnumerator PlayCloseAnimation(Card card, float duration)
+    {
+        float startAlpha = card.CanvasGroup.alpha;
         yield return null;
-        //nickName.enabled = false;
-        //content.enabled = false;
-        //profileID.enabled = false;
-        // 끝난 후 끄기
-        //canvasGroup.alpha = 0f; // 완전히 투명하게 캔버스가 canvas안에 있어야지만 적용
-        // 다음 오픈을 위해 원상복구
-        //rectTransform.anchoredPosition = originalPosition;
-        //rectTransform.localScale = originalScale;
-        //gameObject.SetActive(false);
+        yield return UIAnimationRoutine.Run(
+            duration,
+            progress => progress * progress,
+            t => card.CanvasGroup.alpha = Mathf.Lerp(startAlpha, 0f, t));
+
+        card.CanvasGroup.alpha = 0f;
+        card.FinishClose();
     }
 
     #endregion

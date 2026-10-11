@@ -170,6 +170,11 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
     }
     private void FixedUpdate()
     {
+        if (!InputSystem.Instance.CanProcessGameplayInput)
+        {
+            _axisX = 0f;
+            jumpTime = -1f;
+        }
         if (!canMove)
             return;
         _rb.linearVelocity = new Vector2((_axisX) * currentStat.moveSpeed + extraVelocity.x, _rb.linearVelocityY + extraVelocity.y);
@@ -232,11 +237,13 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
         startPos = transform.position;
     }
 
+    public Coroutine RespawnCoroutine { get; private set; }
+
     public void ResetAction()
     {
         //MainCameraController.Instance.CameraReset(); Å×½ºÆ®ÇÒ¶§ ÀÓ½Ã·Î »©µÒ
         _rb.linearVelocity = Vector2.zero;
-        StartCoroutine("RespawnRoutine");
+        RespawnCoroutine = StartCoroutine(RespawnRoutine());
         
     }
 

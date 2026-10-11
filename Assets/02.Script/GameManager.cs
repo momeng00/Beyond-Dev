@@ -72,40 +72,12 @@ public class GameManager : MonoBehaviour
         Debug.Log("스테이지 진입 실행");
         currentStage.StageEnter();
     }
-    public void GamePause() 
+    public void GamePause()
     {
-        Debug.Log("GamePause진입");
-        if (InputSystem.Instance.keyState != KeyState.Pause)
-        {
-            Debug.Log("키타입 확인");
-            if (UIManager.instance.showns.Count <= 0)
-            {
-                Debug.Log("보여지고있는 UI 없음 확인");
-                InputSystem.Instance.keyState = KeyState.Pause;
-                if (pauseMenu != null)
-                {
-                    //if (_pauseMenuInstance == null)
-                    //{
-                    //    _pauseMenuInstance = Instantiate(pauseMenu); ;
-                    //    _pauseMenuInstance.name = pauseMenu.name;
-                    //    Debug.Log("창 생성");
-                    //}
-                    pauseMenu.Open();
-                    Debug.Log($"UI개수 확인 {UIManager.instance.showns.Count}");
-                    Debug.Log("창 오픈");
-                }
-            }
-        }
-        else //해당 else문 임시로 해둔것 UIManager랑 연동시키기
-        {
-            if (UIManager.instance.showns.Count > 0)
-            {
-                InputSystem.Instance.keyState = KeyState.Play_Key;
-                pauseMenu.Close();
-                Debug.Log($"닫기UI개수 확인 {UIManager.instance.showns.Count}");
-            }
-        }
-        Debug.Log("반환");
+        if (UIManager.instance.showns.Count > 0)
+            UIManager.instance.HideLast();
+        else if (pauseMenu != null && InputSystem.Instance.CanProcessGameplayInput)
+            pauseMenu.Open();
     }
     public void RegisterCondition(int stage, IClearCondition condition)
     {
@@ -155,6 +127,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!InputSystem.Instance.CanProcessGameplayInput)
+        {
+            if (holdCoroutine != null) StopCoroutine(holdCoroutine);
+            holdCoroutine = null;
+            return;
+        }
         if (Input.GetKeyDown(KeyCode.R))
         {
             holdCoroutine = StartCoroutine(HoldReset());
@@ -177,7 +155,8 @@ public class GameManager : MonoBehaviour
     IEnumerator HoldReset()
     {
         yield return new WaitForSeconds(holdTime);
-        ResetGame();
+        holdCoroutine = null;
+        if (InputSystem.Instance.CanProcessGameplayInput) ResetGame();
     }
 
     public void ResetGame()

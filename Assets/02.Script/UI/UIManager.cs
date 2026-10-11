@@ -26,7 +26,9 @@ public class UIManager : MonoBehaviour
         {
             if (_instance == null)
             {
-                _instance = new GameObject("UIManagement").AddComponent<UIManager>();
+                _instance = FindAnyObjectByType<UIManager>();
+                if (_instance == null)
+                    _instance = new GameObject("UIManagement").AddComponent<UIManager>();
             }
             return _instance;
         }
@@ -51,100 +53,73 @@ public class UIManager : MonoBehaviour
             throw new Exception($"[UIManager] : {type} already registered but you tried to add it again..!");
         Debug.Log($"[UIManager] : Registered {type}.");
     }
+    private Coroutine enableNextUICoroutine;
+
     public void Push(IUI ui)
     {
-        
-        // 이미 젤 뒤에있으면 안함
-        if (showns.Count > 0 && showns.Last.Value == ui)
-            return;
-
-        // 가장뒤에있던 UI 보다 뒤로 보내기 
-        int sortingOrder = 0;
-        if (showns.Last?.Value != null)
+        if (ui == null) return;
+        InputSystem.Instance.keyState = KeyState.Pause;
+        if (showns.Last?.Value == ui) return;
+        int order;
+        if (showns.Last == null)
         {
-            sortingOrder = showns.Last.Value.sortingOrder + 1;
+            order = 0;
+        }
+        else
+        {
+            order = showns.Last.Value.sortingOrder + 1;
+        }
+        if (showns.Last != null)
+        {
             showns.Last.Value.inputActionEnabled = false;
             showns.Last.Value.SetVisible(false);
         }
-        ui.sortingOrder = sortingOrder;
-        ui.SetVisible(true);
-        ui.inputActionEnabled = true;
         showns.Remove(ui);
         showns.AddLast(ui);
-        Debug.Log($"Open {showns.Count}");
-        //커서를 보이게 혹은 안보이게 하는 방법임 삭제 가능.
-        //if (showns.Count == 1)
-        //{
-        //    Cursor.visible = true;
-        //    Cursor.lockState = CursorLockMode.Confined;
-        //}
+        ui.sortingOrder = order;
+        ui.inputActionEnabled = false;
+        ui.SetVisible(true);
+        ScheduleInputHandoff();
     }
-    private Coroutine enableNextUICoroutine;
+
     public void Pop(IUI ui)
     {
-        if (!showns.Contains(ui))
+        if (!showns.Contains(ui)) return;
+        bool wasTop = showns.Last.Value == ui;
+        ui.inputActionEnabled = false;
+        ui.SetVisible(false);
+        showns.Remove(ui);
+        if (wasTop)
         {
-            return;
+            if (showns.Last != null)
+                showns.Last.Value.SetVisible(true);
+            ScheduleInputHandoff();
         }
-        if (showns.Count < 1)
-        {
-            return;
-        }
-
-        // 빼려는게 마지막꺼면서 마지막꺼 앞에 하나이상 있으면 InputAction 활성화 바톤터치
-        if (showns.Count >= 1 &&
-            showns.Last.Value == ui)
-        {
-            showns.Last.Value.inputActionEnabled = false;
-            showns.Last.Value.SetVisible(false);
-            
-
-            if(showns.Last.Previous != null)
-            {
-                showns.Last.Previous.Value.inputActionEnabled = true;
-                showns.Last.Previous.Value.SetVisible(true);
-            }
-            // [변경] 즉시 켜지 않고 코루틴으로 한 프레임 뒤에 켬
-            // [수정 핵심] 기존에 돌고 있던 코루틴이 있다면 강제 종료!
-            if (enableNextUICoroutine != null)
-            {
-                StopCoroutine(enableNextUICoroutine);
-            }
-
-            // 새로운 코루틴을 시작하고 변수에 저장
-            if(showns.Last.Previous != null)
-                enableNextUICoroutine = StartCoroutine(EnableNextUI(showns.Last.Previous.Value));
-        }
-
-        //ui.SetVisible(false);
-        showns.Remove(ui); // ui 뺌
-        
-        //마찬가지로 커서를 안보이게 하는 방법임. 삭제 가능
-        //if (showns.Count == 0)
-        //{
-        //    Cursor.visible = false;
-        //    Cursor.lockState = CursorLockMode.Locked;
-        //}
-        if (showns.Count <= 0)
-        {
-            InputSystem.Instance.keyState = KeyState.Play_Key;
-        }
-        Debug.Log($"Close {showns.Count}");
     }
-    IEnumerator EnableNextUI(IUI nextUI)
+
+    private void ScheduleInputHandoff()
     {
-        // 한 프레임 대기 (이 사이에 GetKeyDown 상태가 꺼짐)
-        yield return null;
-
-        if (nextUI != null)
-            nextUI.inputActionEnabled = true;
+        if (enableNextUICoroutine != null) StopCoroutine(enableNextUICoroutine);
+        if (showns.Last != null) showns.Last.Value.inputActionEnabled = false;
+        // Keep UI input selected until the closing key's frame has passed.
+        InputSystem.Instance.keyState = KeyState.Pause;
+        enableNextUICoroutine = StartCoroutine(EnableNextUI());
     }
+
+    private IEnumerator EnableNextUI()
+    {
+        yield return null;
+        enableNextUICoroutine = null;
+        if (showns.Last != null)
+            showns.Last.Value.inputActionEnabled = true;
+        else
+            InputSystem.Instance.keyState = KeyState.Play_Key;
+    }
+
     public void HideLast()
     {
-        if (showns.Count <= 0)
-            return;
-
-        showns.Last.Value.Hide();
+        if (showns.Last != null && showns.Last.Value.inputActionEnabled)
+            showns.Last.Value.Hide();
     }
 
     void Start()

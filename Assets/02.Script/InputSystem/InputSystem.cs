@@ -20,6 +20,9 @@ public class InputSystem : MonoBehaviour
         }
     }
 
+    private int stateChangedFrame = -1;
+    public bool CanProcessGameplayInput => _keyState == KeyState.Play_Key &&
+        Time.frameCount > stateChangedFrame;
     private KeyState _keyState;
     public KeyState keyState
     {
@@ -29,6 +32,7 @@ public class InputSystem : MonoBehaviour
         }
         set
         {
+            if (_keyState != value) stateChangedFrame = Time.frameCount;
             _keyState = value;
             Debug.Log(InputSystem.Instance.keyState);
             if (maps.ContainsKey(value))
@@ -47,12 +51,7 @@ public class InputSystem : MonoBehaviour
         {
             maps.Add(state, new KeyBinding());
         }
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        keyState = KeyState.Play_Key; 
+        currentMap = maps[_keyState];
     }
 
     // Update is called once per frame
@@ -111,6 +110,7 @@ public class InputSystem : MonoBehaviour
     }
     private void DoAction()
     {
+        if (Time.frameCount <= stateChangedFrame) return;
         KeyBinding map = currentMap;
         if (map == null)
             return;
