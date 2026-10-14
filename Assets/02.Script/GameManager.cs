@@ -8,9 +8,64 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private InputSystem _registeredInputSystem;
+    private readonly HashSet<CharacterControl> characters = new HashSet<CharacterControl>();
+    private readonly HashSet<CharacterControl> pausedCharacters = new HashSet<CharacterControl>();
+    private bool charactersPaused;
+
+    public void RegisterCharacter(CharacterControl character)
+    {
+        if (character == null) return;
+        characters.Add(character);
+        if (charactersPaused && character.isActiveAndEnabled && pausedCharacters.Add(character))
+            character.PauseCharacter(this);
+    }
+
+    public void UnregisterCharacter(CharacterControl character)
+    {
+        characters.Remove(character);
+        if (pausedCharacters.Remove(character) && character != null)
+            character.UnPauseCharacter(this);
+    }
+
+    public void PauseCharacters()
+    {
+        if (charactersPaused) return;
+        charactersPaused = true;
+        foreach (CharacterControl character in characters)
+        {
+            if (character == null || !character.isActiveAndEnabled) continue;
+            if (pausedCharacters.Add(character)) character.PauseCharacter(this);
+        }
+    }
+
+    public void ResumeCharacters()
+    {
+        foreach (CharacterControl character in pausedCharacters)
+            if (character != null) character.UnPauseCharacter(this);
+        pausedCharacters.Clear();
+        charactersPaused = false;
+    }
+
+    public IEnumerator WaitForCharactersRespawn()
+    {
+        var pending = new List<Coroutine>();
+        foreach (CharacterControl character in pausedCharacters)
+        {
+            if (character != null && character.isActiveAndEnabled &&
+                character.RespawnCoroutine != null)
+                pending.Add(character.RespawnCoroutine);
+        }
+        foreach (Coroutine respawn in pending) yield return respawn;
+    }
+
+    private void OnDisable()
+    {
+        ResumeCharacters();
+    }
 
     private void OnDestroy()
     {
+        ResumeCharacters();
         if (_registeredInputSystem == null)
             return;
 

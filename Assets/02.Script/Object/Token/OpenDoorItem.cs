@@ -4,6 +4,7 @@ using UnityEngine.Events;
 
 public class OpenDoorItem : ClearCondition, IReset
 {
+    [SerializeField] private NormalPopUp pickupPopUp;
     private bool satisfied = false;
     public bool Satisfied
     {
@@ -40,6 +41,11 @@ public class OpenDoorItem : ClearCondition, IReset
             Satisfied = true;
             AudioManager.Instance.PlayOneShotSFXAudio(AudioName.ItemSound);
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
+
+            if (pickupPopUp != null)
+            {
+                pickupPopUp.ToggleEvent(true);
+            }
         }
         
     }

@@ -6,9 +6,20 @@ using UnityEngine;
 public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
 {
     private InputSystem _registeredInputSystem;
+    private GameManager registeredGameManager;
+    private readonly HashSet<object> pauseOwners = new HashSet<object>();
+    private RigidbodyType2D bodyTypeBeforePause;
+    private bool canMoveBeforePause;
+    public bool IsPaused => pauseOwners.Count > 0;
 
     private void OnDestroy()
     {
+        if (registeredGameManager != null)
+        {
+            registeredGameManager.UnregisterCharacter(this);
+            registeredGameManager.initAction -= InitializeReset;
+            registeredGameManager.OnReset -= ResetAction;
+        }
         if (_registeredInputSystem == null)
             return;
 
@@ -147,9 +158,11 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
         _registeredInputSystem = InputSystem.Instance;
         _registeredInputSystem.RegisterAction(KeyState.Play_Key, "Horizontal", Move);
         _registeredInputSystem.RegisterAction(KeyState.Play_Key, KeyCode.Space, Jump);
-        GameManager.Instance.RegisterInitAction(InitializeReset);
-        GameManager.Instance.OnReset += ResetAction;
+        registeredGameManager = GameManager.Instance;
+        registeredGameManager.RegisterInitAction(InitializeReset);
+        registeredGameManager.OnReset += ResetAction;
         InitializeReset();
+        registeredGameManager.RegisterCharacter(this);
         
     }
     private void Awake()
@@ -175,12 +188,14 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
             _axisX = 0f;
             jumpTime = -1f;
         }
-        if (!canMove)
+        if (IsPaused || !canMove)
             return;
         _rb.linearVelocity = new Vector2((_axisX) * currentStat.moveSpeed + extraVelocity.x, _rb.linearVelocityY + extraVelocity.y);
     }
     private void OnEnable()
     {
+        if (registeredGameManager != null)
+            registeredGameManager.RegisterCharacter(this);
         //MainCameraController.Instance.Register(_rb);
     }
 
@@ -190,7 +205,7 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
     }
     private void Move(float horizontal)
     {
-        if(!canMove)
+        if (IsPaused || !canMove)
             return;
         _axisX = horizontal;
         if (horizontal > 0f)
@@ -209,6 +224,11 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
     }
     private void Jump()
     {
+        if (IsPaused)
+        {
+            jumpTime = -1f;
+            return;
+        }
         jumpTime = jumpBuffetTime;
         if (!canJump)
             return;
@@ -221,16 +241,37 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
     }
     public void PauseCharacter()
     {
-        canMove = false;
-        StopCharacter();
-        _rb.bodyType = RigidbodyType2D.Static;
+        PauseCharacter(this);
     }
+
+    public void PauseCharacter(object owner)
+    {
+        if (owner == null || !pauseOwners.Add(owner)) return;
+        if (pauseOwners.Count == 1)
+        {
+            bodyTypeBeforePause = _rb.bodyType;
+            canMoveBeforePause = canMove;
+            ZeroVelocity();
+            _rb.bodyType = RigidbodyType2D.Static;
+        }
+        canMove = false;
+        _axisX = 0f;
+        jumpTime = -1f;
+    }
+
     public void UnPauseCharacter()
     {
+        UnPauseCharacter(this);
+    }
+
+    public void UnPauseCharacter(object owner)
+    {
+        if (owner == null || !pauseOwners.Remove(owner) || IsPaused) return;
+        _rb.bodyType = bodyTypeBeforePause;
         ZeroVelocity();
-        _rb.bodyType = RigidbodyType2D.Dynamic;
-        ZeroVelocity();
-        canMove = true;
+        _axisX = 0f;
+        jumpTime = -1f;
+        canMove = canMoveBeforePause;
     }
     public void InitializeReset()
     {
@@ -308,11 +349,15 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
 
     private IEnumerator IStopCharacter(float time)
     {
+        if (IsPaused) canMoveBeforePause = false;
         _rb.linearVelocity = Vector2.zero;
         _axisX = 0f;
         canMove = false;
         yield return new WaitForSeconds(time);
-        canMove = true;
+        if (IsPaused)
+            canMoveBeforePause = true;
+        else
+            canMove = true;
     }
 }
 public enum AerialState

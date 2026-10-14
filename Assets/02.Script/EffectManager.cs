@@ -91,14 +91,35 @@ public class EffectManager : MonoBehaviour
     }
     public float focusFadeDuration = 0.36f;
     private bool isFocusWorking = false;
+    private Coroutine focusCoroutine;
+    private GameManager focusGameManager;
+
+    private void FinishFocus()
+    {
+        try
+        {
+            if (isFocusWorking && focusMaskController != null)
+                focusMaskController.InitFocusMaskMaterial();
+        }
+        finally
+        {
+            if (focusGameManager != null) focusGameManager.ResumeCharacters();
+            focusGameManager = null;
+            isFocusWorking = false;
+            focusCoroutine = null;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (focusCoroutine != null) StopCoroutine(focusCoroutine);
+        FinishFocus();
+    }
     public void FocusOnPosition(CharacterControl control)
     {
-        if (!isFocusWorking)
-        {
-            isFocusWorking = true;
-            focusMaskController.ShowAtWorld(control.gameObject.transform.position, 5.0f);
-            StartCoroutine(FocusOnPositionCoroutine(control));
-        }
+        if (isFocusWorking || !isActiveAndEnabled || control == null || focusMaskController == null)
+            return;
+        focusCoroutine = StartCoroutine(FocusOnPositionCoroutine(control));
     }
     public void TurnOffFocus()
     {
@@ -107,44 +128,53 @@ public class EffectManager : MonoBehaviour
 
     public IEnumerator FocusOnPositionCoroutine(CharacterControl control)
     {
-        control.PauseCharacter();
-        //Scale을 처음크기에서 0.5까지 이동시키기
-        float startScale = focusMaskController.ReturnScale();
-        yield return null;
-        yield return UIAnimationRoutine.Run(
-            0.72f,
-            progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
-            t =>
-            {
-                float offsetScale = Mathf.Lerp(startScale, focusMaskController.DefaultScale, t);
-                focusMaskController.SetScale(offsetScale);
-            });
+        if (isFocusWorking || !isActiveAndEnabled || control == null || focusMaskController == null)
+            yield break;
+        focusGameManager = GameManager.Instance;
+        if (focusGameManager == null) yield break;
+        isFocusWorking = true;
+        try
+        {
+            focusGameManager.PauseCharacters();
+            focusMaskController.ShowAtWorld(control.transform.position, 5.0f);
+            //Scale을 처음크기에서 0.5까지 이동시키기
+            float startScale = focusMaskController.ReturnScale();
+            yield return null;
+            yield return UIAnimationRoutine.Run(
+                0.72f,
+                progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
+                t =>
+                {
+                    float offsetScale = Mathf.Lerp(startScale, focusMaskController.DefaultScale, t);
+                    focusMaskController.SetScale(offsetScale);
+                });
 
-        yield return new WaitForSeconds(0.18f);
+            yield return new WaitForSeconds(0.18f);
 
-        float closeStartScale = focusMaskController.ReturnScale();
-        yield return UIAnimationRoutine.Run(
-            0.36f,
-            progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
-            t => focusMaskController.SetScale(
-                Mathf.Lerp(closeStartScale, 0.0f, t)));
+            float closeStartScale = focusMaskController.ReturnScale();
+            yield return UIAnimationRoutine.Run(
+                0.36f,
+                progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
+                t => focusMaskController.SetScale(
+                    Mathf.Lerp(closeStartScale, 0.0f, t)));
 
-        focusMaskController.SetScale(0.0f);
-        yield return null;
+            focusMaskController.SetScale(0.0f);
+            yield return null;
 
-        GameManager.Instance.ResetGame();
-        if (control.RespawnCoroutine != null)
-            yield return control.RespawnCoroutine;
+            focusGameManager.ResetGame();
+            yield return focusGameManager.WaitForCharactersRespawn();
 
-        float startAlpha = focusMaskController.ReturnAlpha();
-        yield return UIAnimationRoutine.Run(
-            focusFadeDuration,
-            progress => progress,
-            t => focusMaskController.SetAlpha(Mathf.Lerp(startAlpha, 0.0f, t)));
+            float startAlpha = focusMaskController.ReturnAlpha();
+            yield return UIAnimationRoutine.Run(
+                focusFadeDuration,
+                progress => progress,
+                t => focusMaskController.SetAlpha(Mathf.Lerp(startAlpha, 0.0f, t)));
 
-        focusMaskController.InitFocusMaskMaterial();
-        control.UnPauseCharacter();
-        isFocusWorking = false;
+        }
+        finally
+        {
+            FinishFocus();
+        }
     }
     //0이 잘보이는거 1이 안보이는거
     //false가 1이 됨(안보임)/ture가 0이 됨 (보임)
