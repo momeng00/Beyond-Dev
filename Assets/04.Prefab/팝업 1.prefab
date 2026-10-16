@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4976314373046860932}
   - component: {fileID: 8460989088261699200}
   - component: {fileID: 6964313094527201680}
+  - component: {fileID: 7049889344617864044}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -232,6 +233,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c9623e4ae8b1b4185fb49fb9da1c07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SortingOrderFollower
+--- !u!114 &7049889344617864044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715125289919287960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b03d3095af6fc874fa0a09f03e40053b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SimpleTMPTextEffect
+  wave: 0
+  shake: 0
+  rainbow: 0
+  waveHeight: 5
+  waveSpeed: 5
+  waveSpacing: 0.5
+  shakeAmount: 1
+  shakeSpeed: 20
+  rainbowSpeed: 0.5
+  rainbowSpacing: 0.08
+  typingProgress: 1
+  sourceText: 
 --- !u!1 &4410724164617471661
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,6 +334,7 @@ GameObject:
   - component: {fileID: 2216732850924174094}
   - component: {fileID: 369320300203895377}
   - component: {fileID: 3489958811844476996}
+  - component: {fileID: 2683246557221001259}
   m_Layer: 6
   m_Name: "\uD31D\uC5C5 1"
   m_TagString: Untagged
@@ -453,6 +479,138 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &2683246557221001259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5845678819193518919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8441b6f0b204d4d4f9adb7eade43a83a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteMaterialControl
+  firstMaterial:
+    name: _AnimLerp
+    type: 7
+    vectorValue: {x: 0, y: 0}
+    floatValue: 0
+    boolValue: 0
+  secondMaterial:
+    name: 
+    type: 0
+    vectorValue: {x: 0, y: 0}
+    floatValue: 0
+    boolValue: 0
+  thirdMaterial:
+    name: 
+    type: 0
+    vectorValue: {x: 0, y: 0}
+    floatValue: 0
+    boolValue: 0
+  fourthMaterial:
+    name: 
+    type: 0
+    vectorValue: {x: 0, y: 0}
+    floatValue: 0
+    boolValue: 0
+  fifthMaterial:
+    name: 
+    type: 0
+    vectorValue: {x: 0, y: 0}
+    floatValue: 0
+    boolValue: 0
+  sixthMaterial:
+    name: 
+    type: 0
+    vectorValue: {x: 0, y: 0}
+    floatValue: 0
+    boolValue: 0
+  seventhMaterial:
+    name: 
+    type: 0
+    vectorValue: {x: 0, y: 0}
+    floatValue: 0
+    boolValue: 0
+  eighthMaterial:
+    name: 
+    type: 0
+    vectorValue: {x: 0, y: 0}
+    floatValue: 0
+    boolValue: 0
+  ninthMaterial:
+    name: 
+    type: 0
+    vectorValue: {x: 0, y: 0}
+    floatValue: 0
+    boolValue: 0
+  tenthMaterial:
+    name: 
+    type: 0
+    vectorValue: {x: 0, y: 0}
+    floatValue: 0
+    boolValue: 0
+  eleventhMaterial:
+    name: 
+    type: 0
+    vectorValue: {x: 0, y: 0}
+    floatValue: 0
+    boolValue: 0
+  twelfthMaterial:
+    name: 
+    type: 0
+    vectorValue: {x: 0, y: 0}
+    floatValue: 0
+    boolValue: 0
+  thirteenthMaterial:
+    name: 
+    type: 0
+    vectorValue: {x: 0, y: 0}
+    floatValue: 0
+    boolValue: 0
+  fourteenthMaterial:
+    name: 
+    type: 0
+    vectorValue: {x: 0, y: 0}
+    floatValue: 0
+    boolValue: 0
+  fifteenthMaterial:
+    name: 
+    type: 0
+    vectorValue: {x: 0, y: 0}
+    floatValue: 0
+    boolValue: 0
+  sixteenthMaterial:
+    name: 
+    type: 0
+    vectorValue: {x: 0, y: 0}
+    floatValue: 0
+    boolValue: 0
+  seventeenthMaterial:
+    name: 
+    type: 0
+    vectorValue: {x: 0, y: 0}
+    floatValue: 0
+    boolValue: 0
+  eighteenthMaterial:
+    name: 
+    type: 0
+    vectorValue: {x: 0, y: 0}
+    floatValue: 0
+    boolValue: 0
+  nineteenthMaterial:
+    name: 
+    type: 0
+    vectorValue: {x: 0, y: 0}
+    floatValue: 0
+    boolValue: 0
+  twentiethMaterial:
+    name: 
+    type: 0
+    vectorValue: {x: 0, y: 0}
+    floatValue: 0
+    boolValue: 0
 --- !u!1 &6152745196900359711
 GameObject:
   m_ObjectHideFlags: 0
