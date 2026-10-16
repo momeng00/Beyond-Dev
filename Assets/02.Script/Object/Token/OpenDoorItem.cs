@@ -1,10 +1,10 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class OpenDoorItem : ClearCondition, IReset
 {
-    [SerializeField] private NormalPopUp pickupPopUp;
+    [SerializeField] private List<NormalPopUp> pickupPopUps;
     private bool satisfied = false;
     public bool Satisfied
     {
@@ -39,12 +39,17 @@ public class OpenDoorItem : ClearCondition, IReset
         if (IsInLayerMask(collision.gameObject, layerMask))
         {
             Satisfied = true;
-            AudioManager.Instance.PlayOneShotSFXAudio(AudioName.ItemSound);
+            //AudioManager.Instance.PlayOneShotSFXAudio(AudioName.ItemSound);
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
-            if (pickupPopUp != null)
+            if (pickupPopUps != null)
             {
-                pickupPopUp.ToggleEvent(true);
+                foreach(NormalPopUp popup in pickupPopUps)
+                {
+                    popup.ToggleEvent(true);
+                }
+                    
+
             }
         }
         
