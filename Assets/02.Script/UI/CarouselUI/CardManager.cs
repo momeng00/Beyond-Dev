@@ -27,7 +27,7 @@ public class CardManager : MonoBehaviour
         }
     }
     private List<Card> cardList = new List<Card>(); //기본적으로 AddLast로 들어감. Count를 통해서 뒤로 정렬을 해야함.
-    public int limit; //카드를 가질 수 있는 최대치.
+    public int limit = 1; //카드를 가질 수 있는 최대치.
     public float animDuration = 0.52f;
     [Range(0f, 100f)] public float ratio; //옆으로 움직일 비율 및 크기가 작아질 비율 카드 끼리 간격에 해당
     private Coroutine coroutine;
@@ -187,10 +187,40 @@ public class CardManager : MonoBehaviour
 
     // Legacy entry point: hide the presentation, keep retained history.
     public void RemoveCard() => HideCardList();
+    private Card GetTopStoredCard()
+    {
+        for (int i = cardList.Count - 1; i >= 0; i--)
+        {
+            if (cardList[i] != null)
+                return cardList[i];
+        }
+
+        return null;
+    }
+
+    public void CheckClearCard()
+    {
+        if (!isActiveAndEnabled)
+            return;
+
+        Card topCard = GetTopStoredCard();
+        if (topCard == null)
+            return;
+
+        if (!topCard.CanStartClearCheck)
+            return;
+
+        topCard.ShowForLayout();
+        if (!topCard.isActiveAndEnabled || !topCard.IsDisplayed)
+            return;
+
+        currentCard = topCard;
+        topCard.PlayAnimation("In_Clear");
+    }
+
     public void ShowTopCard()
     {
-        if (currentCard != null && !enteringCards.Contains(currentCard) && !currentCard.IsClosing)
-            currentCard.CheckClearCard();
+        CheckClearCard();
     }
     public void HideTopCard(Card card)
     {

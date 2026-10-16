@@ -127,8 +127,10 @@ public class Card : MonoBehaviour, IUI
         foreach (var pair in todoCallbacks)
             if (pair.Key != null) pair.Key.OnAnimationFinished -= pair.Value;
         foreach (var item in registeredItems)
-            if (item.item != null && item.todo != null)
-                item.item.OnCheck -= item.todo.DoSuccess;
+        {
+            if (item.condition != null)
+                item.condition.OnCheck -= item.callback;
+        }
     }
 
     #region 기본 선언
@@ -151,9 +153,27 @@ public class Card : MonoBehaviour, IUI
     private int readyFrame;
     private readonly HashSet<Todo> pendingTodos = new HashSet<Todo>();
     private readonly Dictionary<Todo, Action> todoCallbacks = new Dictionary<Todo, Action>();
-    private readonly List<ItemInTodo> registeredItems = new List<ItemInTodo>();
+    private readonly List<(ClearCondition condition, Action callback)>
+        registeredItems = new List<(ClearCondition condition, Action callback)>();
     public bool IsDisplayed => displayRequested;
     public bool IsClosing => displayState == DisplayState.Closing;
+    public bool CanStartClearCheck
+    {
+        get
+        {
+            if (displayState == DisplayState.Entering)
+                return false;
+
+            if (displayState == DisplayState.Checking)
+                return false;
+
+            if (displayState == DisplayState.Closing)
+                return false;
+
+            return true;
+        }
+    }
+
     public int sortingOrder { get; set; }
     public bool inputActionEnabled { get; set; }
     public event Action onShow;
@@ -210,8 +230,19 @@ public class Card : MonoBehaviour, IUI
             }
             if (item.item != null)
             {
-                item.item.AddOnCheck(item.todo.DoSuccess);
-                registeredItems.Add(item);
+                Action callback = () =>
+                {
+                    if (item.item == null || item.todo == null)
+                        return;
+
+                    if (!item.item.IsSatisfied())
+                        return;
+
+                    item.todo.DoSuccess();
+                };
+
+                item.item.AddOnCheck(callback);
+                registeredItems.Add((item.item, callback));
             }
         }
     }
@@ -346,8 +377,7 @@ public class Card : MonoBehaviour, IUI
     }
     public void CheckClearCard()
     {
-        ShowForLayout();
-        PlayAnimation("In_Clear");
+        CardManager.Instance.CheckClearCard();
     }
     #region 코루틴
     IEnumerator CheckCondition()

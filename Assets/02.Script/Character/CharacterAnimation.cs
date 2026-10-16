@@ -29,6 +29,9 @@ public class CharacterAnimation : MonoBehaviour
     }
     public void UpdateState()
     {
+        if (characterControl.IsRespawning)
+            return;
+
         CharacterStateID next = stateData[currentCharacterStateID].OnUpdateState();
         ChangeState(next);
     }

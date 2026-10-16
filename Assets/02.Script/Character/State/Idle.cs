@@ -38,7 +38,7 @@ public class Idle: CharacterStateBase
             {
                 next = CharacterStateID.Jump;
             }
-            else if (machine.rb.linearVelocityY < 0.03f)
+            else if (machine.rb.linearVelocityY < -0.03f)
             {
                 next = CharacterStateID.Falling;
             }

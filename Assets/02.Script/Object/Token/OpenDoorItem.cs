@@ -1,10 +1,13 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class OpenDoorItem : ClearCondition, IReset
 {
     [SerializeField] private List<NormalPopUp> pickupPopUps;
+    [SerializeField, Min(0f)] private float pickupPopUpDelay = 0.2f;
+    private Coroutine pickupPopUpCoroutine;
     private bool satisfied = false;
     public bool Satisfied
     {
@@ -42,18 +45,42 @@ public class OpenDoorItem : ClearCondition, IReset
             //AudioManager.Instance.PlayOneShotSFXAudio(AudioName.ItemSound);
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
 
-            if (pickupPopUps != null)
+            if (pickupPopUps != null && pickupPopUps.Exists(popup => popup != null))
             {
-                foreach(NormalPopUp popup in pickupPopUps)
-                {
-                    popup.ToggleEvent(true);
-                }
-                    
-
+                StopPickupPopUps();
+                pickupPopUpCoroutine = StartCoroutine(ShowPickupPopUps());
             }
         }
         
     }
+    private IEnumerator ShowPickupPopUps()
+    {
+        foreach (NormalPopUp popup in pickupPopUps)
+        {
+            if (popup == null)
+                continue;
+
+            popup.ToggleEvent(true);
+            yield return new WaitForSeconds(pickupPopUpDelay);
+        }
+
+        pickupPopUpCoroutine = null;
+    }
+
+    private void StopPickupPopUps()
+    {
+        if (pickupPopUpCoroutine == null)
+            return;
+
+        StopCoroutine(pickupPopUpCoroutine);
+        pickupPopUpCoroutine = null;
+    }
+
+    private void OnDisable()
+    {
+        StopPickupPopUps();
+    }
+
     virtual protected bool IsInLayerMask(GameObject obj, LayerMask mask)
     {
         return ((1 << obj.layer) & mask) != 0;
@@ -66,6 +93,7 @@ public class OpenDoorItem : ClearCondition, IReset
 
     public void ResetAction()
     {
+        StopPickupPopUps();
         Satisfied = false;
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
     }

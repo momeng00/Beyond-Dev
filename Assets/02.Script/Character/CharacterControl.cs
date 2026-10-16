@@ -92,19 +92,16 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
             
         }
     }
+    private Collider2D ground;
     public bool isGrounded
     {
         get
         {
-            _col = Physics2D.OverlapBox((Vector2)transform.position + footOffset,
+            ground = Physics2D.OverlapBox((Vector2)transform.position + footOffset,
                 footSizeOffset,
                 0.0f,
                 groundMask);
-//            if (_col != null)
-   //         {
-   //             return !_col.isTrigger;
-        //    }
-            return _col;
+            return ground;
         }
     }
     public float jumpBuffetTime;
@@ -146,6 +143,9 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
     private List<IInteract> interacts = new List<IInteract>();
     
     public LayerMask groundMask;
+
+    private readonly object respawnPauseOwner = new object();
+    public bool IsRespawning { get; private set; }
 
     private Collider2D _col;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -201,6 +201,12 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
 
     private void OnDisable()
     {
+        if (IsRespawning)
+        {
+            if (RespawnCoroutine != null)
+                StopCoroutine(RespawnCoroutine);
+            FinishRespawn();
+        }
         //MainCameraController.Instance.Unregister(_rb);
     }
     private void Move(float horizontal)
@@ -282,10 +288,10 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
 
     public void ResetAction()
     {
-        //MainCameraController.Instance.CameraReset(); 테스트할때 임시로 빼둠
-        _rb.linearVelocity = Vector2.zero;
+        if (IsRespawning || !isActiveAndEnabled)
+            return;
+
         RespawnCoroutine = StartCoroutine(RespawnRoutine());
-        
     }
 
     public void OnDetected()
@@ -331,20 +337,139 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
     #endregion
     private IEnumerator RespawnRoutine()
     {
-        // 1. 플레이어 이동
-        transform.position = startPos;
-
-        if (TryGetComponent(out CharacterAnimation stateMachine) &&
-            stateMachine.currentCharacterStateID == CharacterStateID.Die)
+        IsRespawning = true;
+        try
         {
-            stateMachine.ChangeState(CharacterStateID.Idle);
+            PauseCharacter(respawnPauseOwner);
+
+            // 바닥 보정 성공 여부와 관계없이 기존 부활 위치로 먼저 복귀한다.
+            transform.position = startPos;
+
+            // 같은 OnReset 호출의 다른 구독자가 실행된 뒤 검사한다.
+            yield return null;
+            Physics2D.SyncTransforms();
+
+            if (!TryPlaceOnRespawnGround(out string failureReason))
+            {
+                //NeedToDo 바닥을 못 찾거나 몸이 벽에 겹칠 때 사용할 대체 부활 위치 구현해야함
+                Debug.LogWarning($"{name}: 부활 위치의 바닥 보정에 실패했습니다. {failureReason} 저장된 시작 위치에서 기본 부활을 진행합니다.", this);
+            }
+
+            _rb.linearVelocity = Vector2.zero;
+            _axisX = 0f;
+            jumpTime = -1f;
+            _extraVelocityList.Clear();
+            extraVelocity = Vector2.zero;
+            hasJump = false;
+            canJump = true;
+
+            if (TryGetComponent(out CharacterAnimation stateMachine))
+                stateMachine.ChangeState(CharacterStateID.Idle);
+
+            yield return null;
+            MainCameraController.Instance.CameraReset();
+        }
+        finally
+        {
+            FinishRespawn();
+        }
+    }
+
+    private bool TryPlaceOnRespawnGround(out string failureReason)
+    {
+        failureReason = "탐색 거리 내에서 groundMask에 해당하는 바닥을 찾지 못했습니다.";
+        if (_col == null || !_col.enabled || _col.isTrigger || !_rb.simulated)
+        {
+            failureReason = "캐릭터 Collider2D의 활성화/Trigger 또는 Rigidbody2D의 Simulated 설정을 확인하세요.";
+            return false;
         }
 
-        // 2. 아주 중요한 대기! (유니티가 이동을 처리할 시간을 줌)
-        yield return null;
+        ContactFilter2D groundFilter = new ContactFilter2D();
+        groundFilter.SetLayerMask(groundMask);
+        groundFilter.useTriggers = false;
+        Vector2 groundOrigin = new Vector2(startPos.x + footOffset.x, startPos.y);
+        RaycastHit2D hit = Physics2D.defaultPhysicsScene.Raycast(
+            groundOrigin, Vector2.down, 10f, groundFilter);
+        if (hit.collider == null)
+            return false;
 
-        // 3. 카메라 리셋
-        MainCameraController.Instance.CameraReset();
+        if (hit.collider.attachedRigidbody == _rb || Physics2D.GetIgnoreCollision(_col, hit.collider))
+        {
+            failureReason = "검출된 첫 콜라이더는 캐릭터 자신이거나 충돌을 무시하도록 설정된 대상입니다.";
+            return false;
+        }
+
+        if (hit.fraction <= 0f)
+        {
+            failureReason = $"Raycast 시작점이 {hit.collider.name} 내부 또는 표면에 있습니다.";
+            return false;
+        }
+        if (hit.normal.y <= 0f)
+        {
+            failureReason = $"{hit.collider.name}에서 설 수 있는 바닥 윗면을 찾지 못했습니다.";
+            return false;
+        }
+
+        Vector3 previousPosition = transform.position;
+        // 발밑 검사 영역의 중심을 바닥 표면에 맞춘다.
+        float respawnY = hit.point.y - footOffset.y;
+        Vector3 respawnPosition = new Vector3(startPos.x, respawnY, previousPosition.z);
+
+        if (!IsRespawnPositionClear(respawnPosition, out failureReason))
+            return false;
+
+        transform.position = respawnPosition;
+        Physics2D.SyncTransforms();
+        if (isGrounded)
+        {
+            failureReason = null;
+            return true;
+        }
+
+        failureReason = "배치 후 isGrounded가 false입니다. footOffset, footSizeOffset, 콜라이더 크기를 확인하세요.";
+        // 발밑 판정에 실패하면 검사 전 시작 위치로 되돌린다.
+        transform.position = previousPosition;
+        Physics2D.SyncTransforms();
+        ground = null;
+        return false;
+    }
+
+    private bool IsRespawnPositionClear(Vector3 respawnPosition, out string failureReason)
+    {
+        failureReason = null;
+        ContactFilter2D bodyFilter = new ContactFilter2D();
+        bodyFilter.SetLayerMask(groundMask);
+        bodyFilter.useTriggers = false;
+
+        Bounds expectedBounds = _col.bounds;
+        expectedBounds.center += respawnPosition - transform.position;
+        Collider2D candidate = Physics2D.defaultPhysicsScene.OverlapBox(
+            expectedBounds.center, expectedBounds.size, 0f, bodyFilter);
+        if (candidate == null)
+            return true;
+
+        // 겹침 가능성이 있을 때만 결과 목록을 만들고 실제 몸체 모양으로 확인한다.
+        List<Collider2D> overlaps = new List<Collider2D>(8);
+        Vector2 bodyPosition = _rb.position + (Vector2)(respawnPosition - transform.position);
+        int overlapCount = _col.Overlap(bodyPosition, _rb.rotation, bodyFilter, overlaps);
+        for (int i = 0; i < overlapCount; i++)
+        {
+            Collider2D other = overlaps[i];
+            if (other == _col || other.attachedRigidbody == _rb || Physics2D.GetIgnoreCollision(_col, other))
+                continue;
+
+            failureReason = $"부활 위치에서 캐릭터가 {other.name}과 겹칩니다.";
+            return false;
+        }
+
+        return true;
+    }
+
+    private void FinishRespawn()
+    {
+        IsRespawning = false;
+        RespawnCoroutine = null;
+        UnPauseCharacter(respawnPauseOwner);
     }
 
     private IEnumerator IStopCharacter(float time)
