@@ -1,7 +1,5 @@
 using CarouselUI;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static SoundUIElement;
@@ -33,53 +31,15 @@ public class OptionUIElement : CarouselUIElement
             }
         }
     }
-    private IEnumerator ChangeCustomImageCoroutine(bool state)
-    {
-        Color color = image.color;
-
-        float startAlpha = color.a;
-        float elapsed = 0f;
-        float targetAlpha = state ? 1f : 0f;
-        while (elapsed < 0.2f)
-        {
-            elapsed += Time.deltaTime;
-
-            float alpha = Mathf.Lerp(startAlpha, targetAlpha, elapsed / 0.2f);
-
-            color.a = alpha;
-            image.color = color;
-
-            yield return null;
-        }
-    }
-
     public override void Selected()
     {
-        StartCoroutine(ChangeCustomImageCoroutine(true));
-        //Color color = image.color;
-        //color.a = 1f;
-        //image.color = color;
+        PlaySelectionAnimation(FadeSelectionImage(image, 1f, 0.2f));
         ChangeCustomImage(selectState.select);
-        //foreach (var image in images)
-        //{
-        //    color = image.color;
-        //    color.a = 1f;
-        //    image.color = color;
-        //}
-
     }
+
     public override void UnSelected()
     {
-        StartCoroutine(ChangeCustomImageCoroutine(false));
-        //Color color = image.color;
-        //color.a = 0.3f;
-        //image.color = color;
+        PlaySelectionAnimation(FadeSelectionImage(image, 0f, 0.2f));
         ChangeCustomImage(selectState.unselect);
-        //foreach (var image in images)
-        //{
-        //    color = image.color;
-        //    color.a = 0.3f;
-        //    image.color = color;
-        //}
     }
 }

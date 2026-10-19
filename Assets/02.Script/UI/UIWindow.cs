@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(Canvas))]
-public class UIWindow : UIBase, IUI
+public class UIWindow : UIBase, IUI, IUIInputHandler
 {
-    //private Canvas _canvas;
+    private Canvas _canvas;
     [Header("옵션: 내부 버튼 이동 기능")]
     public UIKeyNavigator keyNavigator; // 인스펙터에서 할당하거나 Awake에서 찾음
     public UISequenceController uISequenceController;
@@ -13,14 +13,22 @@ public class UIWindow : UIBase, IUI
     public event Action onHide;
     public UnityEvent onShowed;
     public UnityEvent onHided;
-    public int test;
     // --- IUI 인터페이스 구현 (매니저와의 약속) ---
     public int sortingOrder
     {
-        get => 0;
-        set => test=value;
-        //get => _canvas.sortingOrder;
-        //set => _canvas.sortingOrder = value;
+        get
+        {
+            if (_canvas == null)
+                _canvas = GetComponent<Canvas>();
+            return _canvas.sortingOrder;
+        }
+        set
+        {
+            if (_canvas == null)
+                _canvas = GetComponent<Canvas>();
+            _canvas.overrideSorting = true;
+            _canvas.sortingOrder = value;
+        }
     }
     public bool inputActionEnabled { get { return ActionEnabled; } set { ActionEnabled = value; } }
     private bool ActionEnabled = false;
@@ -29,7 +37,7 @@ public class UIWindow : UIBase, IUI
     protected override void Awake()
     {
         base.Awake(); // 부모(UIBase)의 Awake 실행 (초기 위치 저장 등)
-        //_canvas = GetComponent<Canvas>();
+        _canvas = GetComponent<Canvas>();
       
     }
 
@@ -85,32 +93,30 @@ public class UIWindow : UIBase, IUI
     public void Show() => Open();
     public void Hide() => Close();
 
-    // 입력 감지 (ESC 등)
-    public void InputAction()
+    // UIManager가 전달한 명령을 내부 선택기로 넘긴다.
+    public void HandleInput(KeyCode key)
     {
-        if (keyNavigator != null)
+        if (!inputActionEnabled || keyNavigator == null)
+            return;
+
+        keyNavigator.SynchronizePointerSelection();
+        switch (key)
         {
-            // 상하좌우 키 로직 분배
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
+            case KeyCode.RightArrow:
                 keyNavigator.NextElement();
-            }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
+                break;
+            case KeyCode.LeftArrow:
                 keyNavigator.PreElement();
-            }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
+                break;
+            case KeyCode.DownArrow:
                 keyNavigator.NextCarouselElement();
-            }
-            else if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
+                break;
+            case KeyCode.UpArrow:
                 keyNavigator.PreCarouselElement();
-            }
-            else if (Input.GetKeyDown(KeyCode.Return))
-            {
+                break;
+            case KeyCode.Return:
                 keyNavigator.SelectElement();
-            }
+                break;
         }
     }
     public virtual void SetVisible(bool state)
@@ -120,13 +126,5 @@ public class UIWindow : UIBase, IUI
         //canvasGroup.alpha = state ? 1 : 0;
         canvasGroup.interactable = state;
         canvasGroup.blocksRaycasts = state;
-    }
-    private void Update()
-    {
-        // 매니저가 허락했을 때만 입력 감지
-        if (inputActionEnabled)
-        {
-            InputAction();
-        }
     }
 }

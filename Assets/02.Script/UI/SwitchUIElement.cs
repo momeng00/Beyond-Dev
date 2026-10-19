@@ -1,6 +1,4 @@
 using CarouselUI;
-using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,34 +41,16 @@ public class SwitchUIElement : CarouselUIElement
 
         }
     }
-    private IEnumerator ChangeCustomImageCoroutine(bool state)
-    {
-        Color color = image.color;
-
-        float startAlpha = color.a;
-        float elapsed = 0f;
-        float targetAlpha = state ? 1f : 0f;
-        while (elapsed < 0.2f)
-        {
-            elapsed += Time.deltaTime;
-
-            float alpha = Mathf.Lerp(startAlpha, targetAlpha, elapsed / 0.2f);
-
-            color.a = alpha;
-            image.color = color;
-
-            yield return null;
-        }
-    }
-
     public override void Selected()
     {
-        StartCoroutine(ChangeCustomImageCoroutine(true));
+        PlaySelectionAnimation(FadeSelectionImage(image, 1f, 0.2f));
     }
+
     public override void UnSelected()
     {
-        StartCoroutine(ChangeCustomImageCoroutine(false));
+        PlaySelectionAnimation(FadeSelectionImage(image, 0f, 0.2f));
     }
+
     public void SwitchSelected()
     {
         Color color = currentImage.color;

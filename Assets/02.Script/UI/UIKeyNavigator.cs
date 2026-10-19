@@ -71,11 +71,7 @@ public class UIKeyNavigator : MonoBehaviour
             if (element == null)
                 continue;
 
-            if (currentElement != null)
-                currentElement.UnSelected();
-
-            currentElement = element;
-            currentElement.Selected();
+            SetSelectedElement(element);
             return;
         }
 
@@ -156,13 +152,46 @@ public class UIKeyNavigator : MonoBehaviour
             if (nextElement == null)
                 continue;
 
-            if (currentElement != null)
-                currentElement.UnSelected();
-
-            currentElement = nextElement;
-            currentElement.Selected();
+            SetSelectedElement(nextElement);
             return;
         }
+    }
+
+    private void SetSelectedElement(UIElement element)
+    {
+        if (currentElement != null)
+            currentElement.UnSelected();
+
+        currentElement = element;
+        currentElement.Selected();
+        // 값 조절 항목으로 이동했을 때 이전 Button의 포커스를 남기지 않는다.
+        if (!(currentElement is ButtonUIElement) && GetPointerSelectedButton() != null)
+            EventSystem.current.SetSelectedGameObject(null);
+    }
+
+    public void SynchronizePointerSelection()
+    {
+        ButtonUIElement button = GetPointerSelectedButton();
+        if (button != null && currentElement != button)
+            SetSelectedElement(button);
+    }
+
+    private ButtonUIElement GetPointerSelectedButton()
+    {
+        if (EventSystem.current == null || uiElements == null)
+            return null;
+
+        GameObject selected = EventSystem.current.currentSelectedGameObject;
+        if (selected == null)
+            return null;
+
+        foreach (UIElement element in uiElements)
+        {
+            if (element is ButtonUIElement button && button.btn != null &&
+                button.btn.gameObject == selected)
+                return button;
+        }
+        return null;
     }
 
     public void SelectElement()

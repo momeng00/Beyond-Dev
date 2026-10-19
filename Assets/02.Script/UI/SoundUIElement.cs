@@ -66,19 +66,15 @@ public class SoundUIElement : CarouselUIElement
     }
     public void ChangeCustomImage(selectState state)
     {
-        StartCoroutine(ChangeCustomImageCoroutine(state));
-        //foreach (var image in images)
-        //{
-        //    if(image.state == state)
-        //    {
-        //        targetImage.sprite = image.sprite;
-        //    }
-        //}
+        PlaySelectionAnimation(ChangeCustomImageCoroutine(state));
     }
+
     private IEnumerator ChangeCustomImageCoroutine(selectState state)
     {
-        Sprite targetSprite = null;
+        if (targetImage == null)
+            yield break;
 
+        Sprite targetSprite = null;
         foreach (var image in images)
         {
             if (image.state == state)
@@ -91,40 +87,9 @@ public class SoundUIElement : CarouselUIElement
         if (targetSprite == null)
             yield break;
 
-        // 현재 색상 저장
-        Color color = targetImage.color;
-
-        float duration = 0.2f;
-        float elapsed = 0f;
-
-        // Fade Out
-        while (elapsed < duration * 0.5f)
-        {
-            elapsed += Time.deltaTime;
-
-            float alpha = Mathf.Lerp(1f, 0.7f, elapsed / (duration * 0.5f));
-            targetImage.color = new Color(color.r, color.g, color.b, alpha);
-
-            yield return null;
-        }
-
-        // 스프라이트 교체
+        yield return FadeSelectionImage(targetImage, 0.7f, 0.1f);
         targetImage.sprite = targetSprite;
-
-        elapsed = 0.1f;
-
-        // Fade In
-        while (elapsed < duration * 0.5f)
-        {
-            elapsed += Time.deltaTime;
-
-            float alpha = Mathf.Lerp(0.7f, 1f, elapsed / (duration * 0.5f));
-            targetImage.color = new Color(color.r, color.g, color.b, alpha);
-
-            yield return null;
-        }
-
-        targetImage.color = new Color(color.r, color.g, color.b, 1f);
+        yield return FadeSelectionImage(targetImage, 1f, 0.1f);
     }
 
     public override void PressNext()
@@ -140,33 +105,11 @@ public class SoundUIElement : CarouselUIElement
     }
     public override void Selected()
     {
-        //Color color = image.color;
-        //color.a = 1f;
-        //image.color = color;
         ChangeCustomImage(selectState.select);
-        //foreach (var image in images)
-        //{
-        //    color = image.color;
-        //    color.a = 1f;
-        //    image.color = color;
-        //}
-
     }
+
     public override void UnSelected()
     {
-        //Color color = image.color;
-        //color.a = 0.3f;
-        //image.color = color;
         ChangeCustomImage(selectState.unselect);
-        //foreach (var image in images)
-        //{
-        //    color = image.color;
-        //    color.a = 0.3f;
-        //    image.color = color;
-        //}
-    }
-    IEnumerator CSelectAnimation()
-    {
-        yield return null;
     }
 }
