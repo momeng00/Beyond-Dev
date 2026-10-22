@@ -1,10 +1,10 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.Rendering;
 
 [RequireComponent(typeof(Camera))]
 public class ExpandCameraCullingArea : MonoBehaviour
 {
-    [Header("È­¸é ¹ÛÀ¸·Î Ãß°¡ÇÒ ¿ùµå ÁÂÇ¥ ¹üÀ§")]
+    [Header("í™”ë©´ ë°–ìœ¼ë¡œ ì¶”ê°€í•  ì›”ë“œ ì¢Œí‘œ ë²”ìœ„")]
     [Min(0f)] public float horizontalPadding = 5f;
     [Min(0f)] public float verticalPadding = 5f;
 

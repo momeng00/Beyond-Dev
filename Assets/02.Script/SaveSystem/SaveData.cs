@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 
 [Serializable]
@@ -10,7 +10,7 @@ public class SaveData
 }
 
 [Serializable]
-public class SettingData //À¯Àú°¡ ¼¼ÆÃÇÏ´Â °ªÀ» ÀúÀåÇÒ °÷.
+public class SettingData //ìœ ì €ê°€ ì„¸íŒ…í•˜ëŠ” ê°’ì„ ì €ì¥í•  ê³³.
 {
     public float bgmVolume = 0.5f;
     public float sfxVolume = 0.5f;
@@ -25,7 +25,7 @@ public class SettingData //À¯Àú°¡ ¼¼ÆÃÇÏ´Â °ªÀ» ÀúÀåÇÒ °÷.
 
 
 [System.Serializable]
-public class ProgressData //°ÔÀÓ ³»ºÎÀûÀ¸·Î ÇÊ¿äÇÑ ¼¼ÆÃÀ» ÀúÀåÇÒ °÷
+public class ProgressData //ê²Œì„ ë‚´ë¶€ì ìœ¼ë¡œ í•„ìš”í•œ ì„¸íŒ…ì„ ì €ì¥í•  ê³³
 {
     public string currentStageId = "stage_01";
     public bool flag = false;

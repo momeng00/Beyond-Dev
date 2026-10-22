@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -7,7 +7,7 @@ using static MatarialAnim;
 
 public abstract class Block : MonoBehaviour, IReset
 {
-    //¿øº» µ¥ÀÌÅÍ
+    //ì›ë³¸ ë°ì´í„°
     public bool isOriginPopUp = false;
     public List<PropertyData> propertyList;
     public float matarialAnimDuration = 0.25f;
@@ -65,11 +65,11 @@ public abstract class Block : MonoBehaviour, IReset
         {
             if (PopUpList[i] == null) continue;
 
-            // IMovableÀÌ ¾øÀ¸¸é?
+            // IMovableì´ ì—†ìœ¼ë©´?
             if (PopUpList[i].GetComponent<IEventListener>() == null)
             {
-                Debug.LogError($"{PopUpList[i].name}Àº(´Â) IEventListener ¾ø½À´Ï´Ù! ¸®½ºÆ®¿¡¼­ Á¦°ÅÇÕ´Ï´Ù.");
-                PopUpList[i] = null; // °­Á¦·Î »©¹ö¸²
+                Debug.LogError($"{PopUpList[i].name}ì€(ëŠ”) IEventListener ì—†ìŠµë‹ˆë‹¤! ë¦¬ìŠ¤íŠ¸ì—ì„œ ì œê±°í•©ë‹ˆë‹¤.");
+                PopUpList[i] = null; // ê°•ì œë¡œ ë¹¼ë²„ë¦¼
             }
         }
     }
@@ -79,14 +79,14 @@ public abstract class Block : MonoBehaviour, IReset
         //eventListeners = new List<IEventListener>(listeners);
         foreach (var obj in PopUpList)
         {
-            // GameObject¿¡¼­ ÀÎÅÍÆäÀÌ½º ÃßÃâ (TryGetComponent°¡ È¿À²Àû)
+            // GameObjectì—ì„œ ì¸í„°í˜ì´ìŠ¤ ì¶”ì¶œ (TryGetComponentê°€ íš¨ìœ¨ì )
             if (obj.TryGetComponent(out IEventListener evt))
             {
                 eventListeners.Add(evt);
             }
             else
             {
-                Debug.LogError($"{obj.name}¿¡´Â IEventListenerÀÌ ¾ø½À´Ï´Ù!");
+                Debug.LogError($"{obj.name}ì—ëŠ” IEventListenerì´ ì—†ìŠµë‹ˆë‹¤!");
             }
         }
         eventListeners.Sort((a, b) => a.ToggleEventPriority.CompareTo(b.ToggleEventPriority));
@@ -115,7 +115,9 @@ public abstract class Block : MonoBehaviour, IReset
         foreach (var listener in eventListeners)
         {
             listener.ToggleEvent(BlockState, this.gameObject.GetComponent<Transform>());
-            Debug.Log($"¿Ö ÀÌ»óÇÔ? ±â´Ù¸®´Â ÃÊ {toggleDelay}");
+#if UNITY_EDITOR
+            Debug.Log($"ì™œ ì´ìƒí•¨? ê¸°ë‹¤ë¦¬ëŠ” ì´ˆ {toggleDelay}");
+#endif
             yield return new WaitForSeconds(toggleDelay);
         }
     }

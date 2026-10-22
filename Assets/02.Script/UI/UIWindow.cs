@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -6,14 +6,14 @@ using UnityEngine.Events;
 public class UIWindow : UIBase, IUI, IUIInputHandler
 {
     private Canvas _canvas;
-    [Header("¿É¼Ç: ³»ºÎ ¹öÆ° ÀÌµ¿ ±â´É")]
-    public UIKeyNavigator keyNavigator; // ÀÎ½ºÆåÅÍ¿¡¼­ ÇÒ´çÇÏ°Å³ª Awake¿¡¼­ Ã£À½
+    [Header("ì˜µì…˜: ë‚´ë¶€ ë²„íŠ¼ ì´ë™ ê¸°ëŠ¥")]
+    public UIKeyNavigator keyNavigator; // ì¸ìŠ¤í™í„°ì—ì„œ í• ë‹¹í•˜ê±°ë‚˜ Awakeì—ì„œ ì°¾ìŒ
     public UISequenceController uISequenceController;
     public event Action onShow;
     public event Action onHide;
     public UnityEvent onShowed;
     public UnityEvent onHided;
-    // --- IUI ÀÎÅÍÆäÀÌ½º ±¸Çö (¸Å´ÏÀú¿ÍÀÇ ¾à¼Ó) ---
+    // --- IUI ì¸í„°í˜ì´ìŠ¤ êµ¬í˜„ (ë§¤ë‹ˆì €ì™€ì˜ ì•½ì†) ---
     public int sortingOrder
     {
         get
@@ -36,7 +36,7 @@ public class UIWindow : UIBase, IUI, IUIInputHandler
 
     protected override void Awake()
     {
-        base.Awake(); // ºÎ¸ğ(UIBase)ÀÇ Awake ½ÇÇà (ÃÊ±â À§Ä¡ ÀúÀå µî)
+        base.Awake(); // ë¶€ëª¨(UIBase)ì˜ Awake ì‹¤í–‰ (ì´ˆê¸° ìœ„ì¹˜ ì €ì¥ ë“±)
         _canvas = GetComponent<Canvas>();
       
     }
@@ -46,25 +46,25 @@ public class UIWindow : UIBase, IUI, IUIInputHandler
         base.Start();
         InitUI();
 
-        // ÆË¾÷Ã¢Àº ÅÂ¾î³ªÀÚ¸¶ÀÚ ¸Å´ÏÀú¿¡ µî·ÏÇØ¾ß ÇÔ
+        // íŒì—…ì°½ì€ íƒœì–´ë‚˜ìë§ˆì ë§¤ë‹ˆì €ì— ë“±ë¡í•´ì•¼ í•¨
         if (UIManager.instance != null)
         {
-            // Register ·ÎÁ÷Àº UIManager°¡ ÀÚµ¿À¸·Î Ã³¸®ÇÏÁö ¾Ê´Â´Ù¸é 
-            // º¸Åë Show() ÇÒ ¶§ Push ÇÏ¹Ç·Î ¿©±â¼± »ı·« °¡´ÉÇÏ°Å³ª
-            // °ü¸®¿ë ¸®½ºÆ®¿¡¸¸ ³ÖÀ» ¼ö ÀÖ½À´Ï´Ù.
-            // ¿©±â¼­´Â UIManager ±¸Á¶»ó Push ¶§ µî·ÏµÇ¹Ç·Î ºñ¿öµÓ´Ï´Ù.
+            // Register ë¡œì§ì€ UIManagerê°€ ìë™ìœ¼ë¡œ ì²˜ë¦¬í•˜ì§€ ì•ŠëŠ”ë‹¤ë©´ 
+            // ë³´í†µ Show() í•  ë•Œ Push í•˜ë¯€ë¡œ ì—¬ê¸°ì„  ìƒëµ ê°€ëŠ¥í•˜ê±°ë‚˜
+            // ê´€ë¦¬ìš© ë¦¬ìŠ¤íŠ¸ì—ë§Œ ë„£ì„ ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+            // ì—¬ê¸°ì„œëŠ” UIManager êµ¬ì¡°ìƒ Push ë•Œ ë“±ë¡ë˜ë¯€ë¡œ ë¹„ì›Œë‘¡ë‹ˆë‹¤.
             
         }
-        // ½ÃÀÛ ½Ã ÀÚµ¿À¸·Î ²¨µÎ°í ½Í´Ù¸é È°¼ºÈ­ (¼±ÅÃ)
+        // ì‹œì‘ ì‹œ ìë™ìœ¼ë¡œ êº¼ë‘ê³  ì‹¶ë‹¤ë©´ í™œì„±í™” (ì„ íƒ)
         
     }
 
-    // UIBaseÀÇ Open ±â´ÉÀ» È®Àå(Override)ÇØ¼­ ¸Å´ÏÀú È£Ãâ Ãß°¡
+    // UIBaseì˜ Open ê¸°ëŠ¥ì„ í™•ì¥(Override)í•´ì„œ ë§¤ë‹ˆì € í˜¸ì¶œ ì¶”ê°€
     public override void Open()
     {
-        // 1. ¸Å´ÏÀú¿¡°Ô "³ª ¿­·È´Ù" º¸°í (¼ø¼­ Á¤¸®)
+        // 1. ë§¤ë‹ˆì €ì—ê²Œ "ë‚˜ ì—´ë ¸ë‹¤" ë³´ê³  (ìˆœì„œ ì •ë¦¬)
         UIManager.instance.Push(this);
-        // 2. ºÎ¸ğÀÇ Open ½ÇÇà (¾Ö´Ï¸ŞÀÌ¼Ç Àç»ı)
+        // 2. ë¶€ëª¨ì˜ Open ì‹¤í–‰ (ì• ë‹ˆë©”ì´ì…˜ ì¬ìƒ)
         base.Open();
         onShow?.Invoke();
         onShowed?.Invoke();
@@ -75,12 +75,12 @@ public class UIWindow : UIBase, IUI, IUIInputHandler
        
     }
 
-    // UIBaseÀÇ Close ±â´ÉÀ» È®Àå
+    // UIBaseì˜ Close ê¸°ëŠ¥ì„ í™•ì¥
     public override void Close()
     {
-        // 1. ºÎ¸ğÀÇ Close ½ÇÇà (¾Ö´Ï¸ŞÀÌ¼Ç Àç»ı)
+        // 1. ë¶€ëª¨ì˜ Close ì‹¤í–‰ (ì• ë‹ˆë©”ì´ì…˜ ì¬ìƒ)
         base.Close();
-        // 2. ¸Å´ÏÀú¿¡°Ô "³ª ´İÇû´Ù" º¸°í
+        // 2. ë§¤ë‹ˆì €ì—ê²Œ "ë‚˜ ë‹«í˜”ë‹¤" ë³´ê³ 
         UIManager.instance.Pop(this);
         onHide?.Invoke();
         onHided?.Invoke();
@@ -89,11 +89,11 @@ public class UIWindow : UIBase, IUI, IUIInputHandler
     {
         base.Close();
     }
-    // IUI ±¸Çö: ¸Å´ÏÀú ÀÎÅÍÆäÀÌ½º ¸ÂÃß±â¿ë (ÀÌ¸§ ÅëÀÏ)
+    // IUI êµ¬í˜„: ë§¤ë‹ˆì € ì¸í„°í˜ì´ìŠ¤ ë§ì¶”ê¸°ìš© (ì´ë¦„ í†µì¼)
     public void Show() => Open();
     public void Hide() => Close();
 
-    // UIManager°¡ Àü´ŞÇÑ ¸í·ÉÀ» ³»ºÎ ¼±ÅÃ±â·Î ³Ñ±ä´Ù.
+    // UIManagerê°€ ì „ë‹¬í•œ ëª…ë ¹ì„ ë‚´ë¶€ ì„ íƒê¸°ë¡œ ë„˜ê¸´ë‹¤.
     public void HandleInput(KeyCode key)
     {
         if (!inputActionEnabled || keyNavigator == null)

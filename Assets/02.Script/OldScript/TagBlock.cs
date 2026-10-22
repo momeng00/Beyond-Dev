@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,15 +9,15 @@ public class TagBlock : Block
     private Collider2D myCollider;
     [HideInInspector] public TagBlockController controller;
 
-    [Header("ÇÊ¼ö")]
+    [Header("í•„ìˆ˜")]
     public string groupName;
     public LayerMask detectedLayer;
-    private bool isActivated = false; // ÀÚ½ÅÀÇ ON/OFF »óÅÂ
-    private bool isTransitioning = false; // »óÅÂ ÀüÈ¯ ÁßÀÎÁö
+    private bool isActivated = false; // ìì‹ ì˜ ON/OFF ìƒíƒœ
+    private bool isTransitioning = false; // ìƒíƒœ ì „í™˜ ì¤‘ì¸ì§€
 
     public TagContent content;
 
-    //¾Ö´Ï¸ŞÀÌ¼ÇÀÌ¶ó¸é Ãß°¡ÀûÀ¸·Î event¿ë actionÀ» Ãß°¡ÇØ¼­ ÁøÇà. (»óÅÂÀüÈ¯ÀÇ ³¡À» ¾Ë·ÁÁÙ °÷)
+    //ì• ë‹ˆë©”ì´ì…˜ì´ë¼ë©´ ì¶”ê°€ì ìœ¼ë¡œ eventìš© actionì„ ì¶”ê°€í•´ì„œ ì§„í–‰. (ìƒíƒœì „í™˜ì˜ ëì„ ì•Œë ¤ì¤„ ê³³)
 
     private void Awake()
     {
@@ -27,7 +27,7 @@ public class TagBlock : Block
             controller = GetComponentInParent<TagBlockController>();
             if (controller == null)
             {
-                Debug.LogError("ºÎ¸ğ °èÃş¿¡ BlockController°¡ ¾ø½À´Ï´Ù!", this.gameObject);
+                Debug.LogError("ë¶€ëª¨ ê³„ì¸µì— BlockControllerê°€ ì—†ìŠµë‹ˆë‹¤!", this.gameObject);
             }
         }
         controller.RegisterBlock(groupName,this);
@@ -36,10 +36,10 @@ public class TagBlock : Block
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // 1. ºÎµúÈù ¿ÀºêÁ§Æ®ÀÇ °æ°è(Bounds)¸¦ °¡Á®¿É´Ï´Ù.
+        // 1. ë¶€ë”ªíŒ ì˜¤ë¸Œì íŠ¸ì˜ ê²½ê³„(Bounds)ë¥¼ ê°€ì ¸ì˜µë‹ˆë‹¤.
         Bounds otherBounds = collision.collider.bounds;
 
-        // 2. ÀÌ ¿ÀºêÁ§Æ®(¼¾¼­)ÀÇ °æ°è¸¦ °¡Á®¿É´Ï´Ù.
+        // 2. ì´ ì˜¤ë¸Œì íŠ¸(ì„¼ì„œ)ì˜ ê²½ê³„ë¥¼ ê°€ì ¸ì˜µë‹ˆë‹¤.
         if(myCollider == null)
         {
             myCollider = GetComponent<Collider2D>();
@@ -47,13 +47,17 @@ public class TagBlock : Block
         Bounds myBounds = myCollider.bounds;
 
 
-        // 3. »ó´ë¹æÀÇ '¹ß³¡'(°¡Àå ³·Àº y°ª)ÀÌ ³ªÀÇ '¸Ó¸®³¡'(°¡Àå ³ôÀº y°ª)º¸´Ù À§¿¡ ÀÖ°Å³ª °°ÀºÁö È®ÀÎÇÕ´Ï´Ù.
+        // 3. ìƒëŒ€ë°©ì˜ 'ë°œë'(ê°€ì¥ ë‚®ì€ yê°’)ì´ ë‚˜ì˜ 'ë¨¸ë¦¬ë'(ê°€ì¥ ë†’ì€ yê°’)ë³´ë‹¤ ìœ„ì— ìˆê±°ë‚˜ ê°™ì€ì§€ í™•ì¸í•©ë‹ˆë‹¤.
         float otherBottomEdge = otherBounds.center.y - otherBounds.extents.y;
         float myTopEdge = myBounds.center.y + myBounds.extents.y;
+#if UNITY_EDITOR
         Debug.Log(otherBottomEdge >= myTopEdge);
+#endif
         if (IsInLayerMask(collision.gameObject, detectedLayer) && otherBottomEdge >= (myTopEdge-0.05f))
         {
-            Debug.Log("À§·Î ¿Ã¶ó°¨ ÁøÀÔ");
+#if UNITY_EDITOR
+            Debug.Log("ìœ„ë¡œ ì˜¬ë¼ê° ì§„ì…");
+#endif
             controller.OnObjectEntered(groupName, collision.gameObject);
         }
     }
@@ -75,7 +79,7 @@ public class TagBlock : Block
     {
         if (childAnimators == null) return;
 
-        // ¸®½ºÆ®¿¡ ÀÖ´Â ¸ğµç ¾Ö´Ï¸ŞÀÌÅÍ¸¦ ¼øÈ¸ÇÏ¸ç ÆÄ¶ó¹ÌÅÍ °ªÀ» º¯°æ
+        // ë¦¬ìŠ¤íŠ¸ì— ìˆëŠ” ëª¨ë“  ì• ë‹ˆë©”ì´í„°ë¥¼ ìˆœíšŒí•˜ë©° íŒŒë¼ë¯¸í„° ê°’ì„ ë³€ê²½
         foreach (var animator in childAnimators)
         {
             animator.SetBool("IsActive", value);
@@ -99,12 +103,14 @@ public class TagBlock : Block
     {
         isTransitioning = true;
         isActivated = !isActivated;
-        Debug.Log("½ÇÇàµÇ¾ú½À´Ï´Ù.");
+#if UNITY_EDITOR
+        Debug.Log("ì‹¤í–‰ë˜ì—ˆìŠµë‹ˆë‹¤.");
+#endif
         SetAllAnimatorsBool(isActivated);
         //To Do....
-        //¾Ö´Ï¸ŞÀÌ¼Ç È¤Àº ÄÁÅÙÃ÷¸¦ ¶ç¿ì±â À§ÇÑ µ¿ÀÛÀÌ µé¾î°¥ °÷.
-        //Àá±İ ÇØÁ¦¸¦ À§ÇÑ ±â´ÉÀÌ µé¾î°¥°÷.
-        //¾Ö´Ï¸ŞÀÌ¼ÇÀÌ¸é À§ÀÇ ÀÌº¥Æ®·Î Ã³¸®.
+        //ì• ë‹ˆë©”ì´ì…˜ í˜¹ì€ ì»¨í…ì¸ ë¥¼ ë„ìš°ê¸° ìœ„í•œ ë™ì‘ì´ ë“¤ì–´ê°ˆ ê³³.
+        //ì ê¸ˆ í•´ì œë¥¼ ìœ„í•œ ê¸°ëŠ¥ì´ ë“¤ì–´ê°ˆê³³.
+        //ì• ë‹ˆë©”ì´ì…˜ì´ë©´ ìœ„ì˜ ì´ë²¤íŠ¸ë¡œ ì²˜ë¦¬.
         isTransitioning = false;
         yield return null;
     }

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -62,7 +62,7 @@ public class DualVideoOffsetPlayer : MonoBehaviour
     {
         if (videoPlayerA == null || videoPlayerB == null)
         {
-            Debug.LogError("VideoPlayer A ¶Ç´Â B°¡ ¿¬°áµÇÁö ¾Ê¾Ò½À´Ï´Ù.", this);
+            Debug.LogError("VideoPlayer A ë˜ëŠ” Bê°€ ì—°ê²°ë˜ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.", this);
             yield break;
         }
 

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Hazard : Block
 {
@@ -14,8 +14,10 @@ public class Hazard : Block
     {
         if (IsInLayerMask(collision.gameObject, layerMask))
         {
-            Debug.Log("ÂïÈû");
-            //GameManager.Instance.OnReset?.Invoke(); ÀÌÁ¦ ÀÌ°Ô ¾Æ´Ï¶ó ´Ù¸¥°÷¿¡¼­ È£Ãâ
+#if UNITY_EDITOR
+            Debug.Log("ì°í˜");
+#endif
+            //GameManager.Instance.OnReset?.Invoke(); ì´ì œ ì´ê²Œ ì•„ë‹ˆë¼ ë‹¤ë¥¸ê³³ì—ì„œ í˜¸ì¶œ
             CharacterControl characterControl = collision.gameObject.GetComponent<CharacterControl>();
             if (characterControl != null &&
                 characterControl.TryGetComponent(out CharacterAnimation stateMachine) &&

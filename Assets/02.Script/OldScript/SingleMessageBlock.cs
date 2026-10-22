@@ -1,14 +1,14 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using System.Xml;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
 
-//MessageBlockÀ¸·Î ±â´ÉÀ» ÀÌÀü.
+//MessageBlockìœ¼ë¡œ ê¸°ëŠ¥ì„ ì´ì „.
 // class SingleMessageBlock : Block, ISwitchable
 //{
-//    //½ºÀ§Ä¡¸¦ À§ÇÑ ºí·°À¸·Î º¯°æ¿¹Á¤
+//    //ìŠ¤ìœ„ì¹˜ë¥¼ ìœ„í•œ ë¸”ëŸ­ìœ¼ë¡œ ë³€ê²½ì˜ˆì •
 //    Vector2 startPos;
 //    private bool _startState;
 //    private bool _blockState;
@@ -66,7 +66,7 @@ using UnityEngine;
 //    }
 //    private void OnTriggerEnter2D(Collider2D collision)
 //    {
-//        // ÁöÁ¤µÈ ·¹ÀÌ¾îÀÎÁö È®ÀÎÇÏ°í Rigidbody2D°¡ ÀÖ´ÂÁö È®ÀÎ
+//        // ì§€ì •ëœ ë ˆì´ì–´ì¸ì§€ í™•ì¸í•˜ê³  Rigidbody2Dê°€ ìˆëŠ”ì§€ í™•ì¸
 //        if (((1 << collision.gameObject.layer) & targetLayer) != 0)
 //        {
 //            Rigidbody2D rb = collision.GetComponent<Rigidbody2D>();
@@ -83,7 +83,7 @@ using UnityEngine;
 //            Rigidbody2D rb = collision.GetComponent<Rigidbody2D>();
 //            if (rb != null && rigidbodiesInTrigger.Contains(rb))
 //            {
-//                // ¾È¿¡¼­ '¿ÀºêÁ§Æ®°¡ SetActive(false)°¡ µÇ¸é ¿À·ù È®ÀÎÀ» ÇØ¾ßÇÕ´Ï´Ù'
+//                // ì•ˆì—ì„œ 'ì˜¤ë¸Œì íŠ¸ê°€ SetActive(false)ê°€ ë˜ë©´ ì˜¤ë¥˜ í™•ì¸ì„ í•´ì•¼í•©ë‹ˆë‹¤'
 //                rigidbodiesInTrigger.Remove(rb);
 //            }
 //        }
@@ -95,7 +95,7 @@ using UnityEngine;
 //            Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
 //            if (rb != null && rigidbodiesInTrigger.Contains(rb))
 //            {
-//                // ¾È¿¡¼­ '¿ÀºêÁ§Æ®°¡ SetActive(false)°¡ µÇ¸é ¿À·ù È®ÀÎÀ» ÇØ¾ßÇÕ´Ï´Ù'
+//                // ì•ˆì—ì„œ 'ì˜¤ë¸Œì íŠ¸ê°€ SetActive(false)ê°€ ë˜ë©´ ì˜¤ë¥˜ í™•ì¸ì„ í•´ì•¼í•©ë‹ˆë‹¤'
 //                rigidbodiesInTrigger.Remove(rb);
 //            }
 //        }
@@ -103,27 +103,27 @@ using UnityEngine;
 //    public void MessagerBlock(bool on)
 //    { 
 //        //ani.SetBool("BlockState",blockState);
-//        if (on) // ºí·ÏÀÌ ÄÑÁú ¶§
+//        if (on) // ë¸”ë¡ì´ ì¼œì§ˆ ë•Œ
 //        {
-//            // ¸®½ºÆ®¿¡ ÀÖ´Â ¸ğµç ¿ÀºêÁ§Æ®¸¦ À§·Î ¿Ã¸²
+//            // ë¦¬ìŠ¤íŠ¸ì— ìˆëŠ” ëª¨ë“  ì˜¤ë¸Œì íŠ¸ë¥¼ ìœ„ë¡œ ì˜¬ë¦¼
 //            MoveObjectsUp();
-//            spriteRenderer.enabled = true; // º¸ÀÌ°Ô
-//            boxCollider.isTrigger = false; // ´Ü´ÜÇÑ ¹ßÆÇÀ¸·Î
+//            spriteRenderer.enabled = true; // ë³´ì´ê²Œ
+//            boxCollider.isTrigger = false; // ë‹¨ë‹¨í•œ ë°œíŒìœ¼ë¡œ
 //        }
-//        else // ºí·ÏÀÌ ²¨Áú ¶§
+//        else // ë¸”ë¡ì´ êº¼ì§ˆ ë•Œ
 //        {
-//            spriteRenderer.enabled = false; // ¾È º¸ÀÌ°Ô
-//            boxCollider.isTrigger = true; // °¨Áö ¸ğµå·Î
+//            spriteRenderer.enabled = false; // ì•ˆ ë³´ì´ê²Œ
+//            boxCollider.isTrigger = true; // ê°ì§€ ëª¨ë“œë¡œ
 //        }
 //    }
 //    private void MoveObjectsUp()
 //    {
-//        // ¸®½ºÆ®¸¦ º¹»çÇØ¼­ ¼øÈ¸ (¿øº» ¸®½ºÆ®°¡ º¯°æµÉ ¼ö ÀÖÀ¸¹Ç·Î)
+//        // ë¦¬ìŠ¤íŠ¸ë¥¼ ë³µì‚¬í•´ì„œ ìˆœíšŒ (ì›ë³¸ ë¦¬ìŠ¤íŠ¸ê°€ ë³€ê²½ë  ìˆ˜ ìˆìœ¼ë¯€ë¡œ)
 //        List<Rigidbody2D> rigidbodiesToMove = new List<Rigidbody2D>(rigidbodiesInTrigger);
 
 //        foreach (Rigidbody2D rb in rigidbodiesToMove)
 //        {
-//            if (rb == null) continue; // ¿ÀºêÁ§Æ®°¡ ÆÄ±«µÇ¾úÀ» °æ¿ì ´ëºñ
+//            if (rb == null) continue; // ì˜¤ë¸Œì íŠ¸ê°€ íŒŒê´´ë˜ì—ˆì„ ê²½ìš° ëŒ€ë¹„
 
 //            float objectHeight = rb.GetComponent<Collider2D>().bounds.size.y;
 //            float boxTopY = transform.position.y + boxCollider.offset.y + (boxCollider.size.y / 2);
@@ -133,7 +133,7 @@ using UnityEngine;
 //                boxTopY + (objectHeight / 2)
 //            );
 
-//            rb.position = targetPosition; // Áï½Ã À§Ä¡ º¯°æ
+//            rb.position = targetPosition; // ì¦‰ì‹œ ìœ„ì¹˜ ë³€ê²½
 //        }
 //    }
 //    public void SwitchOn(bool value)

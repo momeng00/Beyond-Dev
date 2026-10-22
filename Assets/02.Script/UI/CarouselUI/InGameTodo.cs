@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -15,8 +15,8 @@ public struct BannerData
 }
 public class InGameTodo : MonoBehaviour
 {
-    //ÀÎ°ÔÀÓ¿¡¼­ ÁøÇàµÇ´Â TodoµéÀ» °ü¸®ÇÏ±â À§ÇÑ ½Ã½ºÅÛ ITEM°ú ¿¬µ¿µÇ¾î¼­ ÀÛµ¿ÇÏ°Ú±İ Á¦ÀÛµÇ¾úÀ½
-    //¿©·¯°³¸¦ ÇÑ¹ø¿¡ ¿ä±¸ÇÏ°Ô µÈ´Ù¸é Queue¸¦ ÅëÇØ¼­ ÇÑ¹ø¾¿ ³ª¿Àµµ·Ï ÇÒ±î?
+    //ì¸ê²Œì„ì—ì„œ ì§„í–‰ë˜ëŠ” Todoë“¤ì„ ê´€ë¦¬í•˜ê¸° ìœ„í•œ ì‹œìŠ¤í…œ ITEMê³¼ ì—°ë™ë˜ì–´ì„œ ì‘ë™í•˜ê² ê¸ˆ ì œì‘ë˜ì—ˆìŒ
+    //ì—¬ëŸ¬ê°œë¥¼ í•œë²ˆì— ìš”êµ¬í•˜ê²Œ ëœë‹¤ë©´ Queueë¥¼ í†µí•´ì„œ í•œë²ˆì”© ë‚˜ì˜¤ë„ë¡ í• ê¹Œ?
     public TMP_Text text;
     protected Vector2 originalPosition;
     protected Coroutine currentAnimationCoroutine;
@@ -46,7 +46,7 @@ public class InGameTodo : MonoBehaviour
     }
     public void BannerNotice(string text)
     {
-        //¾ÆÀÌÄÜÀÌ³ª È£ÃâÇÒ¶§´Â ÀÌ°ÉÀÌ¿ëÇØ¼­ È£Ãâ ¾ÆÀÌÄÜ¿ë ½ºÇÁ¶óÀÌÆ®³ª ÀÌ·±°É ÃÊ±âÈ­ ÇÏ·Á¸é ¿©±â¿¡ Ãß°¡
+        //ì•„ì´ì½˜ì´ë‚˜ í˜¸ì¶œí• ë•ŒëŠ” ì´ê±¸ì´ìš©í•´ì„œ í˜¸ì¶œ ì•„ì´ì½˜ìš© ìŠ¤í”„ë¼ì´íŠ¸ë‚˜ ì´ëŸ°ê±¸ ì´ˆê¸°í™” í•˜ë ¤ë©´ ì—¬ê¸°ì— ì¶”ê°€
         if(this.text != null)
         {
             responses.Enqueue(new BannerData(text));
@@ -65,10 +65,10 @@ public class InGameTodo : MonoBehaviour
     }
     protected IEnumerator PlayOpenAnimation()
     {
-        // 1ÇÁ·¹ÀÓ ´ë±â -> À¯´ÏÆ¼°¡ UI Á¤·ÄÇÒ ½Ã°£À» ÁÜ
+        // 1í”„ë ˆì„ ëŒ€ê¸° -> ìœ ë‹ˆí‹°ê°€ UI ì •ë ¬í•  ì‹œê°„ì„ ì¤Œ
         yield return null;
 
-        // ½ÃÀÛ À§Ä¡ °è»ê
+        // ì‹œì‘ ìœ„ì¹˜ ê³„ì‚°
         float width = Screen.width;
         float height = Screen.height;
         Vector2 startPos;
@@ -77,7 +77,7 @@ public class InGameTodo : MonoBehaviour
         cg.alpha = 0f;
         
 
-        // ¾Ö´Ï¸ŞÀÌ¼Ç ·çÇÁ
+        // ì• ë‹ˆë©”ì´ì…˜ ë£¨í”„
         float timer = 0f;
         while (timer < TodoInDelay)
         {
@@ -85,22 +85,22 @@ public class InGameTodo : MonoBehaviour
             timer += Time.unscaledDeltaTime;
             t = Mathf.Sin((timer / TodoInDelay) * Mathf.PI * 0.5f);
             cg.alpha = Mathf.Lerp(cg.alpha, 1f, t);
-            // 1. ¿òÁ÷ÀÓ º¯È­
+            // 1. ì›€ì§ì„ ë³€í™”
             rectTransform.anchoredPosition = Vector2.Lerp(startPos, originalPosition, t);
 
-            // 2. [Ãß°¡µÊ] Åõ¸íµµ: 0(¾Èº¸ÀÓ) -> 1(Àßº¸ÀÓ) ·Î ¼­¼­È÷ º¯È­
+            // 2. [ì¶”ê°€ë¨] íˆ¬ëª…ë„: 0(ì•ˆë³´ì„) -> 1(ì˜ë³´ì„) ë¡œ ì„œì„œíˆ ë³€í™”
             //canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
 
             yield return null;
         }
-        // ³¡³­ ÈÄ È®½ÇÇÏ°Ô °ª °íÁ¤
+        // ëë‚œ í›„ í™•ì‹¤í•˜ê²Œ ê°’ ê³ ì •
         rectTransform.anchoredPosition = originalPosition;
         cg.alpha = 1f;
         ani.Play("Todo_Done");
         yield return new WaitForSeconds(1.44f);
         OutAnimation();
     }
-    public void OutAnimation() //ÇØ´ç ½ºÅ©¸³Æ®´Â ¾Ö´Ï¸ŞÀÌ¼Ç ÀÌº¥Æ®¸¦ ÀÌ¿ëÇØ¼­ °ü¸®ÇÒ°Í Å¸ÀÌ¹ÖÀ» ¸ÂÃâ°Í. << ÀÌ°Å ¾ÈµÊ.
+    public void OutAnimation() //í•´ë‹¹ ìŠ¤í¬ë¦½íŠ¸ëŠ” ì• ë‹ˆë©”ì´ì…˜ ì´ë²¤íŠ¸ë¥¼ ì´ìš©í•´ì„œ ê´€ë¦¬í• ê²ƒ íƒ€ì´ë°ì„ ë§ì¶œê²ƒ. << ì´ê±° ì•ˆë¨.
     {
         if(currentAnimationCoroutine != null)
         {
@@ -110,16 +110,16 @@ public class InGameTodo : MonoBehaviour
     }
     protected IEnumerator PlayCloseAnimation()
     {
-        // [ÇÙ½É] 1ÇÁ·¹ÀÓ ´ë±â -> À¯´ÏÆ¼°¡ UI Á¤·ÄÇÒ ½Ã°£À» ÁÜ
+        // [í•µì‹¬] 1í”„ë ˆì„ ëŒ€ê¸° -> ìœ ë‹ˆí‹°ê°€ UI ì •ë ¬í•  ì‹œê°„ì„ ì¤Œ
         yield return null;
 
-        // ½ÃÀÛ À§Ä¡ °è»ê
+        // ì‹œì‘ ìœ„ì¹˜ ê³„ì‚°
         float width = Screen.width;
         float height = Screen.height;
         Vector2 startPos = rectTransform.anchoredPosition;
         Vector2 targetPos = new Vector2(originalPosition.x, height+rectTransform.rect.height);
 
-        // ¾Ö´Ï¸ŞÀÌ¼Ç ·çÇÁ
+        // ì• ë‹ˆë©”ì´ì…˜ ë£¨í”„
         float timer = 0f;
         while (timer < TodoOutDelay)
         {
@@ -127,15 +127,15 @@ public class InGameTodo : MonoBehaviour
             timer += Time.unscaledDeltaTime;
             t = 1f - Mathf.Cos((timer / TodoOutDelay) * Mathf.PI * 0.5f);
 
-            // 1. ¿òÁ÷ÀÓ º¯È­
+            // 1. ì›€ì§ì„ ë³€í™”
             rectTransform.anchoredPosition = Vector2.Lerp(startPos, targetPos, t);
             cg.alpha = Mathf.Lerp(cg.alpha, 0f, t);
-            // 2. [Ãß°¡µÊ] Åõ¸íµµ: 0(¾Èº¸ÀÓ) -> 1(Àßº¸ÀÓ) ·Î ¼­¼­È÷ º¯È­
+            // 2. [ì¶”ê°€ë¨] íˆ¬ëª…ë„: 0(ì•ˆë³´ì„) -> 1(ì˜ë³´ì„) ë¡œ ì„œì„œíˆ ë³€í™”
             //canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
 
             yield return null;
         }
-        // ³¡³­ ÈÄ È®½ÇÇÏ°Ô °ª °íÁ¤
+        // ëë‚œ í›„ í™•ì‹¤í•˜ê²Œ ê°’ ê³ ì •
         cg.alpha = 0f;
         rectTransform.anchoredPosition = targetPos;
         ani.Play("Todo_Default");

@@ -203,7 +203,7 @@ public class SimpleTMPTextEffect : MonoBehaviour
             }
         }
 
-        // TMP mesh ����
+        // TMP 메시 갱신
         for (int i = 0; i < textInfo.meshInfo.Length; i++)
         {
             TMP_MeshInfo meshInfo = textInfo.meshInfo[i];

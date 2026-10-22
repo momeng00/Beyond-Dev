@@ -17,7 +17,9 @@ public class TempVolume : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
             globalVolume.profile = changeVolume;
+#if UNITY_EDITOR
             Debug.Log(globalVolume + " : " + changeVolume);
+#endif
         }
     }
 }

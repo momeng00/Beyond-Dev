@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
@@ -6,32 +6,32 @@ using UnityEngine.SceneManagement;
 public class TimeLineController : MonoBehaviour
 {
     public PlayableDirector director;
-    // ÇöÀç ÀÔ·ÂÀ» ±â´Ù¸®´Â ÁßÀÎ°¡?
+    // í˜„ì¬ ì…ë ¥ì„ ê¸°ë‹¤ë¦¬ëŠ” ì¤‘ì¸ê°€?
     private bool isWaitingForInput = false;
     [SerializeField] private bool EndingEnd = false;
 
-    // Update´Â ¸Å ÇÁ·¹ÀÓ µ¹Áö¸¸, if¹® ÇÏ³ª Ã¼Å©ÇÏ´Â °Ç CPU ºñ¿ëÀÌ °ÅÀÇ 0¿¡ °¡±õ½À´Ï´Ù.
+    // UpdateëŠ” ë§¤ í”„ë ˆì„ ëŒì§€ë§Œ, ifë¬¸ í•˜ë‚˜ ì²´í¬í•˜ëŠ” ê±´ CPU ë¹„ìš©ì´ ê±°ì˜ 0ì— ê°€ê¹ìŠµë‹ˆë‹¤.
     private void Update()
     {
         if (isWaitingForInput) return;
         if (director.state != PlayState.Playing) return;
         if (!director.playableGraph.IsValid()) return;
 
-        // 1. ¸ñÇ¥ ¼Óµµ °áÁ¤ (´©¸£°í ÀÖÀ¸¸é 3¹è, ¾Æ´Ï¸é 1¹è)
-        // GetKey¸¦ ½á¼­ Alt+Tab ¹®Á¦ ¿øÃµ Â÷´Ü
+        // 1. ëª©í‘œ ì†ë„ ê²°ì • (ëˆ„ë¥´ê³  ìˆìœ¼ë©´ 3ë°°, ì•„ë‹ˆë©´ 1ë°°)
+        // GetKeyë¥¼ ì¨ì„œ Alt+Tab ë¬¸ì œ ì›ì²œ ì°¨ë‹¨
         float targetSpeed = Input.GetKey(KeyCode.Space) ? 3.0f : 1.0f;
 
-        // 2. [ÃÖÀûÈ­] ÇöÀç ¼Óµµ¿Í ¸ñÇ¥ ¼Óµµ°¡ ´Ù¸¦ ¶§¸¸! º¯°æÇÔ
-        // ÀÌ·¯¸é ¸Å ÇÁ·¹ÀÓ È£ÃâµÇ´Â ³¶ºñ¸¦ ¸·À» ¼ö ÀÖÀ½
+        // 2. [ìµœì í™”] í˜„ì¬ ì†ë„ì™€ ëª©í‘œ ì†ë„ê°€ ë‹¤ë¥¼ ë•Œë§Œ! ë³€ê²½í•¨
+        // ì´ëŸ¬ë©´ ë§¤ í”„ë ˆì„ í˜¸ì¶œë˜ëŠ” ë‚­ë¹„ë¥¼ ë§‰ì„ ìˆ˜ ìˆìŒ
         double currentSpeed = director.playableGraph.GetRootPlayable(0).GetSpeed();
 
-        if (Mathf.Abs((float)currentSpeed - targetSpeed) > 0.01f) // ºÎµ¿¼Ò¼öÁ¡ ¿ÀÂ÷ °í·Á
+        if (Mathf.Abs((float)currentSpeed - targetSpeed) > 0.01f) // ë¶€ë™ì†Œìˆ˜ì  ì˜¤ì°¨ ê³ ë ¤
         {
             SetTimelineSpeed(targetSpeed);
 
-            // UI ÄÑ°í ²ô±â
+            // UI ì¼œê³  ë„ê¸°
         }
-        // 1. ±â´Ù¸®´Â »óÅÂ°¡ ¾Æ´Ï¶ó¸é Áï½Ã ¸®ÅÏ (¼º´É ºÎÇÏ ¾øÀ½)
+        // 1. ê¸°ë‹¤ë¦¬ëŠ” ìƒíƒœê°€ ì•„ë‹ˆë¼ë©´ ì¦‰ì‹œ ë¦¬í„´ (ì„±ëŠ¥ ë¶€í•˜ ì—†ìŒ)
         if (EndingEnd)
         {
             if (Input.anyKeyDown)
@@ -45,7 +45,7 @@ public class TimeLineController : MonoBehaviour
     {
 
     }
-    // [Signal Receiver¿¡ ¿¬°áÇÒ ÇÔ¼ö]
+    // [Signal Receiverì— ì—°ê²°í•  í•¨ìˆ˜]
     public void PauseAndWaitForInput()
     {
         if (director != null)
@@ -62,7 +62,7 @@ public class TimeLineController : MonoBehaviour
             return;
         if (director != null)
         {
-            // 1. Å¸ÀÓ¶óÀÎ Àç°³
+            // 1. íƒ€ì„ë¼ì¸ ì¬ê°œ
             director.playableGraph.GetRootPlayable(0).SetSpeed(1);
             isWaitingForInput = false;
         }
@@ -72,7 +72,7 @@ public class TimeLineController : MonoBehaviour
     {
         if (director.playableGraph.IsValid())
         {
-            // Å¸ÀÓ¶óÀÎÀÇ Àç»ı ¼Óµµ¸¦ Á÷Á¢ Á¶Àı
+            // íƒ€ì„ë¼ì¸ì˜ ì¬ìƒ ì†ë„ë¥¼ ì§ì ‘ ì¡°ì ˆ
             isWaitingForInput = false;
             director.playableGraph.GetRootPlayable(0).SetSpeed(speed);
         }

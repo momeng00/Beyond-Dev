@@ -1,4 +1,4 @@
-using TMPro;
+ï»¿using TMPro;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -28,20 +28,20 @@ public class TMPVFXManager : MonoBehaviour
         {
             if (p.tmp == null || p.vfx == null) continue;
 
-            // 1) TMP Mesh ÃßÃâ
+            // 1) TMP Mesh ì¶”ì¶œ
             p.tmp.ForceMeshUpdate();
             p.tmpMesh = p.tmp.mesh;
 
-            // 2) TMP SDF ¾ÆÆ²¶ó½º ÅØ½ºÃ³ ÃßÃâ
+            // 2) TMP SDF ì•„í‹€ë¼ìŠ¤ í…ìŠ¤ì²˜ ì¶”ì¶œ
             Texture sdfTex = p.tmp.fontMaterial.GetTexture("_MainTex");
 
-            // 3) TMP ¸ÓÅ×¸®¾ó Color ÃßÃâ
-            // TMP ±âº» SDF ¼ÎÀÌ´õ´Â "_FaceColor" ÇÁ·ÎÆÛÆ¼ »ç¿ë
+            // 3) TMP ë¨¸í…Œë¦¬ì–¼ Color ì¶”ì¶œ
+            // TMP ê¸°ë³¸ SDF ì…°ì´ë”ëŠ” "_FaceColor" í”„ë¡œí¼í‹° ì‚¬ìš©
             Color faceColor = Color.white;
             if (p.tmp.fontMaterial.HasProperty("_Color"))
                 faceColor = p.tmp.fontMaterial.GetColor("_Color");
 
-            // 4) VFX¿¡ Àü´Ş
+            // 4) VFXì— ì „ë‹¬
             if (p.vfx.HasMesh("SourceMesh"))
                 p.vfx.SetMesh("SourceMesh", p.tmpMesh);
 
@@ -51,7 +51,7 @@ public class TMPVFXManager : MonoBehaviour
             if (p.vfx.HasFloat("SDF_Threshold"))
                 p.vfx.SetFloat("SDF_Threshold", 0.5f);
 
-            if (p.vfx.HasVector4("Color")) // VFX Graph¿¡¼­´Â º¸Åë Color¸¦ Vector4·Î ¹ŞÀ½
+            if (p.vfx.HasVector4("Color")) // VFX Graphì—ì„œëŠ” ë³´í†µ Colorë¥¼ Vector4ë¡œ ë°›ìŒ
                 p.vfx.SetVector4("Color", faceColor);
         }
     }

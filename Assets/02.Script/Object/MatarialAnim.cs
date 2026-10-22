@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,27 +6,27 @@ public class MatarialAnim
 {
     public enum AnimMode
     {
-        OneShot, // ÇÑ ¹ø¸¸ ½ÇÇàÇÏ°í ¸ØÃã 
-        Loop     // °è¼Ó Ã³À½ºÎÅÍ ´Ù½Ã ½ÃÀÛ 
+        OneShot, // í•œ ë²ˆë§Œ ì‹¤í–‰í•˜ê³  ë©ˆì¶¤ 
+        Loop     // ê³„ì† ì²˜ìŒë¶€í„° ë‹¤ì‹œ ì‹œì‘ 
     }
 
     [System.Serializable]
     public struct PropertyData
     {
-        [Tooltip("Á¦¾îÇÒ ½¦ÀÌ´õ ÇÁ·ÎÆÛÆ¼ ÀÌ¸§ (¿¹: _Cutoff, _Emission)")]
+        [Tooltip("ì œì–´í•  ì‰ì´ë” í”„ë¡œí¼í‹° ì´ë¦„ (ì˜ˆ: _Cutoff, _Emission)")]
         public string propertyName;
 
-        [Tooltip("½ÃÀÛ °ª")]
+        [Tooltip("ì‹œì‘ ê°’")]
         public float startValue;
 
-        [Tooltip("³¡ °ª")]
+        [Tooltip("ë ê°’")]
         public float endValue;
 
-        [Tooltip("ÀÛµ¿ ¹æ½Ä ¼±ÅÃ")]
+        [Tooltip("ì‘ë™ ë°©ì‹ ì„ íƒ")]
         public AnimMode mode;
     }
 
-    // ¹®ÀÚ¿­ °Ë»ö ºñ¿ëÀ» ÁÙÀÌ±â À§ÇØ int ID·Î º¯È¯ÇÏ¿© ÀúÀåÇÒ ±¸Á¶Ã¼
+    // ë¬¸ìì—´ ê²€ìƒ‰ ë¹„ìš©ì„ ì¤„ì´ê¸° ìœ„í•´ int IDë¡œ ë³€í™˜í•˜ì—¬ ì €ì¥í•  êµ¬ì¡°ì²´
     public struct CachedData
     {
         public int propertyID;
@@ -37,18 +37,18 @@ public class MatarialAnim
     public struct ReturnData
     {
         public int propertyID;
-        public float currentVal; // ¸ØÃá ½ÃÁ¡ÀÇ °ª
-        public float targetVal;  // ¿ø·¡ ½ÃÀÛ °ª (StartValue)
+        public float currentVal; // ë©ˆì¶˜ ì‹œì ì˜ ê°’
+        public float targetVal;  // ì›ë˜ ì‹œì‘ ê°’ (StartValue)
     }
 
-    //º¹»çµÉ µ¥ÀÌÅÍ
+    //ë³µì‚¬ë  ë°ì´í„°
     private List<CachedData> cachedOneShotList = new List<CachedData>();
     private List<CachedData> cachedLoopList = new List<CachedData>();
-    [Tooltip("¾Ö´Ï¸ŞÀÌ¼ÇÀÌ °É¸®´Â ½Ã°£ (ÃÊ)")]
+    [Tooltip("ì• ë‹ˆë©”ì´ì…˜ì´ ê±¸ë¦¬ëŠ” ì‹œê°„ (ì´ˆ)")]
     public float duration;
     private MonoBehaviour runner;
     private Material targetMaterial;
-    //¿øÇÏ´Â °÷À¸·Î Áı¾î ³Ö±â
+    //ì›í•˜ëŠ” ê³³ìœ¼ë¡œ ì§‘ì–´ ë„£ê¸°
     public void InitMatarialAnim(MonoBehaviour runner, Material material, List<PropertyData> rawData, float Duration)
     {
         this.runner = runner;
@@ -83,20 +83,20 @@ public class MatarialAnim
     private Coroutine activeReturn;
     public void Play()
     {
-        Stop(); // ±âÁ¸ ÄÚ·çÆ¾ Á¤¸®
+        Stop(); // ê¸°ì¡´ ì½”ë£¨í‹´ ì •ë¦¬
 
         if (runner == null || targetMaterial == null) return;
 
-        // OneShot ½ÇÇà
+        // OneShot ì‹¤í–‰
         if (cachedOneShotList.Count > 0)
             activeOneShot = runner.StartCoroutine(OneShotRoutine());
 
-        // Loop ½ÇÇà
+        // Loop ì‹¤í–‰
         if (cachedLoopList.Count > 0)
             activeLoop = runner.StartCoroutine(LoopRoutine());
     }
 
-    // --- [3. Á¤Áö ¹× ÃÊ±âÈ­ ÇÔ¼ö] ---
+    // --- [3. ì •ì§€ ë° ì´ˆê¸°í™” í•¨ìˆ˜] ---
     public void Stop()
     {
         if (runner != null)
@@ -105,23 +105,23 @@ public class MatarialAnim
             if (activeLoop != null) runner.StopCoroutine(activeLoop);
         }
 
-        // ¸ØÃâ ¶§ ÃÊ±â°ª(StartValue)À¸·Î µÇµ¹¸±Áö, 
-        // ³¡°ª(EndValue)À¸·Î µÑÁö´Â ±âÈ¹ ÀÇµµ¿¡ µû¶ó ¿©±â¼­ ¼³Á¤
+        // ë©ˆì¶œ ë•Œ ì´ˆê¸°ê°’(StartValue)ìœ¼ë¡œ ë˜ëŒë¦´ì§€, 
+        // ëê°’(EndValue)ìœ¼ë¡œ ë‘˜ì§€ëŠ” ê¸°íš ì˜ë„ì— ë”°ë¼ ì—¬ê¸°ì„œ ì„¤ì •
         ResetToStartValues();
     }
     public void PlayReturn()
     {
-        // 1. ÁøÇà ÁßÀÎ ¸ğµç ¾Ö´Ï¸ŞÀÌ¼Ç Áß´Ü
+        // 1. ì§„í–‰ ì¤‘ì¸ ëª¨ë“  ì• ë‹ˆë©”ì´ì…˜ ì¤‘ë‹¨
         StopAll();
 
-        // 2. µ¹¾Æ°¡´Â ÄÚ·çÆ¾ ½ÃÀÛ
+        // 2. ëŒì•„ê°€ëŠ” ì½”ë£¨í‹´ ì‹œì‘
         if (runner != null && targetMaterial != null)
         {
             activeReturn = runner.StartCoroutine(ReturnRoutine());
         }
     }
 
-    // ³»ºÎÀûÀ¸·Î ¸ğµç ÄÚ·çÆ¾ ¸ØÃß±â
+    // ë‚´ë¶€ì ìœ¼ë¡œ ëª¨ë“  ì½”ë£¨í‹´ ë©ˆì¶”ê¸°
     private void StopAll()
     {
         if (runner != null)
@@ -135,20 +135,20 @@ public class MatarialAnim
         activeReturn = null;
     }
 
-    // --- [Ãß°¡µÈ ÄÚ·çÆ¾] µ¹¾Æ°¡±â ·ÎÁ÷ ---
+    // --- [ì¶”ê°€ëœ ì½”ë£¨í‹´] ëŒì•„ê°€ê¸° ë¡œì§ ---
     private IEnumerator ReturnRoutine()
     {
-        // 1. [½º³À¼¦] ÇöÀç ¸ØÃá ½ÃÁ¡ÀÇ °ªµéÀ» ´Ù ±â·ÏÇÔ
+        // 1. [ìŠ¤ëƒ…ìƒ·] í˜„ì¬ ë©ˆì¶˜ ì‹œì ì˜ ê°’ë“¤ì„ ë‹¤ ê¸°ë¡í•¨
         List<ReturnData> snapshotList = new List<ReturnData>();
 
-        // OneShot ¸®½ºÆ® ÇöÀç °ª Ä¸Ã³
+        // OneShot ë¦¬ìŠ¤íŠ¸ í˜„ì¬ ê°’ ìº¡ì²˜
         CaptureCurrentState(cachedOneShotList, snapshotList);
-        // Loop ¸®½ºÆ® ÇöÀç °ª Ä¸Ã³
+        // Loop ë¦¬ìŠ¤íŠ¸ í˜„ì¬ ê°’ ìº¡ì²˜
         CaptureCurrentState(cachedLoopList, snapshotList);
 
         float timer = 0f;
 
-        // 2. ÇöÀç °ª -> StartValue·Î ¼±Çü ÀÌµ¿
+        // 2. í˜„ì¬ ê°’ -> StartValueë¡œ ì„ í˜• ì´ë™
         while (timer < duration)
         {
             timer += Time.deltaTime;
@@ -156,7 +156,7 @@ public class MatarialAnim
 
             foreach (var data in snapshotList)
             {
-                // ¸ØÃá °ª(Current)¿¡¼­ -> ¿ø·¡ ½ÃÀÛ °ª(Target)À¸·Î º¸°£
+                // ë©ˆì¶˜ ê°’(Current)ì—ì„œ -> ì›ë˜ ì‹œì‘ ê°’(Target)ìœ¼ë¡œ ë³´ê°„
                 float val = Mathf.Lerp(data.currentVal, data.targetVal, t);
                 targetMaterial.SetFloat(data.propertyID, val);
             }
@@ -164,14 +164,14 @@ public class MatarialAnim
             yield return null;
         }
 
-        // 3. È®½ÇÇÏ°Ô ¿øÁ¡(StartValue)À¸·Î °íÁ¤
+        // 3. í™•ì‹¤í•˜ê²Œ ì›ì (StartValue)ìœ¼ë¡œ ê³ ì •
         foreach (var data in snapshotList)
         {
             targetMaterial.SetFloat(data.propertyID, data.targetVal);
         }
     }
 
-    // ÇöÀç ¸ÓÆ¼¸®¾óÀÇ °ªÀ» ÀĞ¾î¿Í¼­ ¸®½ºÆ®¿¡ ´ã´Â ÇïÆÛ ÇÔ¼ö
+    // í˜„ì¬ ë¨¸í‹°ë¦¬ì–¼ì˜ ê°’ì„ ì½ì–´ì™€ì„œ ë¦¬ìŠ¤íŠ¸ì— ë‹´ëŠ” í—¬í¼ í•¨ìˆ˜
     private void CaptureCurrentState(List<CachedData> sourceList, List<ReturnData> targetList)
     {
         foreach (var item in sourceList)
@@ -179,9 +179,9 @@ public class MatarialAnim
             ReturnData rData = new ReturnData
             {
                 propertyID = item.propertyID,
-                // [Áß¿ä] ÇöÀç ¸ÓÆ¼¸®¾óÀÌ °¡Áø °ªÀ» ÀĞ¾î¿È (GetFloat)
+                // [ì¤‘ìš”] í˜„ì¬ ë¨¸í‹°ë¦¬ì–¼ì´ ê°€ì§„ ê°’ì„ ì½ì–´ì˜´ (GetFloat)
                 currentVal = targetMaterial.GetFloat(item.propertyID),
-                // ¸ñÇ¥´Â ¿ø·¡ ¼³Á¤µÈ StartValue
+                // ëª©í‘œëŠ” ì›ë˜ ì„¤ì •ëœ StartValue
                 targetVal = item.startValue
             };
             targetList.Add(rData);
@@ -191,7 +191,7 @@ public class MatarialAnim
     {
         if (targetMaterial == null) return;
 
-        // ¸ğµç ¸®½ºÆ®ÀÇ °ªÀ» StartValue·Î ÃÊ±âÈ­
+        // ëª¨ë“  ë¦¬ìŠ¤íŠ¸ì˜ ê°’ì„ StartValueë¡œ ì´ˆê¸°í™”
         ApplyValues(cachedOneShotList, 0f); // t=0 (Start)
         ApplyValues(cachedLoopList, 0f);    // t=0 (Start)
     }
@@ -202,16 +202,16 @@ public class MatarialAnim
         while (timer < duration)
         {
             timer += Time.deltaTime;
-            float t = Mathf.Clamp01(timer / duration); // 0 ~ 1 ¼±Çü ºñÀ²
+            float t = Mathf.Clamp01(timer / duration); // 0 ~ 1 ì„ í˜• ë¹„ìœ¨
 
             ApplyValues(cachedOneShotList, t);
             yield return null;
         }
-        // È®½ÇÇÑ ¸¶¹«¸®
+        // í™•ì‹¤í•œ ë§ˆë¬´ë¦¬
         ApplyValues(cachedOneShotList, 1f);
     }
 
-    // °è¼Ó ¹İº¹µÇ´Â ·ÎÁ÷
+    // ê³„ì† ë°˜ë³µë˜ëŠ” ë¡œì§
     private IEnumerator LoopRoutine()
     {
         while (true)
@@ -220,15 +220,15 @@ public class MatarialAnim
             while (timer < duration)
             {
                 timer += Time.deltaTime;
-                float t = Mathf.Clamp01(timer / duration); // 0 ~ 1 ¼±Çü ºñÀ²
+                float t = Mathf.Clamp01(timer / duration); // 0 ~ 1 ì„ í˜• ë¹„ìœ¨
 
                 ApplyValues(cachedLoopList, t);
                 yield return null;
             }
 
-            // LoopÀÌ¹Ç·Î ´Ù½Ã Ã³À½(0)ºÎÅÍ ½ÃÀÛÇÏ±â À§ÇØ 
-            // ¿©±â¼­´Â ³¡°ª À¯Áö ¾øÀÌ ¹Ù·Î ´ÙÀ½ ÇÁ·¹ÀÓ¿¡ 0À¸·Î µ¹¾Æ°¨
-            // (¸¸¾à ÇÎÆşÀ» ¿øÇÏ¸é ¿©±â¿¡ ·ÎÁ÷ Ãß°¡)
+            // Loopì´ë¯€ë¡œ ë‹¤ì‹œ ì²˜ìŒ(0)ë¶€í„° ì‹œì‘í•˜ê¸° ìœ„í•´ 
+            // ì—¬ê¸°ì„œëŠ” ëê°’ ìœ ì§€ ì—†ì´ ë°”ë¡œ ë‹¤ìŒ í”„ë ˆì„ì— 0ìœ¼ë¡œ ëŒì•„ê°
+            // (ë§Œì•½ í•‘íì„ ì›í•˜ë©´ ì—¬ê¸°ì— ë¡œì§ ì¶”ê°€)
         }
     }
 
@@ -238,7 +238,7 @@ public class MatarialAnim
         for (int i = 0; i < list.Count; i++)
         {
             CachedData data = list[i];
-            // ¼±Çü º¸°£ (Lerp)
+            // ì„ í˜• ë³´ê°„ (Lerp)
             float value = Mathf.Lerp(data.startValue, data.endValue, t);
             targetMaterial.SetFloat(data.propertyID, value);
         }

@@ -1,9 +1,9 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 public enum UIAnimType { None, PopUp, SlideLeft, SlideRight, SlideTop, SlideBottom, OriginPopUp }
-// CanvasGroup°ú RectTransformÀº ¾Ö´Ï¸ŞÀÌ¼ÇÀ» À§ÇØ ÇÊ¼ö
+// CanvasGroupê³¼ RectTransformì€ ì• ë‹ˆë©”ì´ì…˜ì„ ìœ„í•´ í•„ìˆ˜
 [RequireComponent(typeof(CanvasGroup), typeof(RectTransform))]
 public class UIBase : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class UIBase : MonoBehaviour
     public UIAnimType openAnimation = UIAnimType.PopUp;
     public float animDuration = 0.3f;
 
-    // ¾Ö´Ï¸ŞÀÌ¼Ç ÀÌº¥Æ® (ÇÊ¿äÇÏ¸é ¾²¼¼¿ä)
+    // ì• ë‹ˆë©”ì´ì…˜ ì´ë²¤íŠ¸ (í•„ìš”í•˜ë©´ ì“°ì„¸ìš”)
     public event Action onOpen;
     public event Action onClose;
 
@@ -25,7 +25,7 @@ public class UIBase : MonoBehaviour
         canvasGroup = GetComponent<CanvasGroup>();
         rectTransform = GetComponent<RectTransform>();
 
-        // ÃÊ±â À§Ä¡ ÀúÀå
+        // ì´ˆê¸° ìœ„ì¹˜ ì €ì¥
         originalPosition = rectTransform.anchoredPosition;
         originalScale = rectTransform.localScale;
     }
@@ -36,8 +36,8 @@ public class UIBase : MonoBehaviour
     }
 
     // ------------------------------------------------
-    // [ÇÙ½É º¯°æ] Open/Close´Â ÀÌÁ¦ ¾Ö´Ï¸ŞÀÌ¼Ç¸¸ ½Å°æ ¾¹´Ï´Ù.
-    // Manager µî·Ï ·ÎÁ÷Àº ÀÚ½Ä Å¬·¡½º(UIWindow)·Î ³Ñ¾î°¬½À´Ï´Ù.
+    // [í•µì‹¬ ë³€ê²½] Open/CloseëŠ” ì´ì œ ì• ë‹ˆë©”ì´ì…˜ë§Œ ì‹ ê²½ ì”ë‹ˆë‹¤.
+    // Manager ë“±ë¡ ë¡œì§ì€ ìì‹ í´ë˜ìŠ¤(UIWindow)ë¡œ ë„˜ì–´ê°”ìŠµë‹ˆë‹¤.
     // ------------------------------------------------
     protected Coroutine currentAnimationCoroutine;
     public virtual void Open()
@@ -66,26 +66,26 @@ public class UIBase : MonoBehaviour
 
     public void SetInitialState()
     {
-        // ÀÌÁ¦ Open ÄÚ·çÆ¾ ¾È¿¡¼­ ÃÊ±âÈ­¸¦ ´Ù ÇÏ¹Ç·Î, 
-        // ¿ÜºÎ¿¡¼­ °­Á¦·Î ÃÊ±âÈ­ÇÒ ¶§¸¸ ÀÌ ÇÔ¼ö¸¦ ¾²¸é µË´Ï´Ù.
+        // ì´ì œ Open ì½”ë£¨í‹´ ì•ˆì—ì„œ ì´ˆê¸°í™”ë¥¼ ë‹¤ í•˜ë¯€ë¡œ, 
+        // ì™¸ë¶€ì—ì„œ ê°•ì œë¡œ ì´ˆê¸°í™”í•  ë•Œë§Œ ì´ í•¨ìˆ˜ë¥¼ ì“°ë©´ ë©ë‹ˆë‹¤.
         //gameObject.SetActive(true);
         if (openAnimation == UIAnimType.PopUp) rectTransform.localScale = Vector3.zero;
-        canvasGroup.alpha = 0f; // ¾È º¸ÀÌ°Ô
+        canvasGroup.alpha = 0f; // ì•ˆ ë³´ì´ê²Œ
     }
 
     // =========================================================
-    // ¾Ö´Ï¸ŞÀÌ¼Ç ÄÚ·çÆ¾ (Alpha ÆäÀÌµå Ãß°¡µÊ)
+    // ì• ë‹ˆë©”ì´ì…˜ ì½”ë£¨í‹´ (Alpha í˜ì´ë“œ ì¶”ê°€ë¨)
     // =========================================================
     protected IEnumerator PlayOpenAnimation()
     {
-        // [ÇÙ½É] 1ÇÁ·¹ÀÓ ´ë±â -> À¯´ÏÆ¼°¡ UI Á¤·ÄÇÒ ½Ã°£À» ÁÜ
+        // [í•µì‹¬] 1í”„ë ˆì„ ëŒ€ê¸° -> ìœ ë‹ˆí‹°ê°€ UI ì •ë ¬í•  ì‹œê°„ì„ ì¤Œ
         yield return null;
 
-        // 1ÇÁ·¹ÀÓ µÚ, Á¤·ÄµÈ ÁøÂ¥ À§Ä¡¸¦ ÀúÀå
+        // 1í”„ë ˆì„ ë’¤, ì •ë ¬ëœ ì§„ì§œ ìœ„ì¹˜ë¥¼ ì €ì¥
         //originalPosition = rectTransform.anchoredPosition;
         //originalScale = Vector3.one;
 
-        // ½ÃÀÛ À§Ä¡ °è»ê
+        // ì‹œì‘ ìœ„ì¹˜ ê³„ì‚°
         float width = Screen.width;
         float height = Screen.height;
         Vector2 startPos = originalPosition;
@@ -98,34 +98,34 @@ public class UIBase : MonoBehaviour
             case UIAnimType.SlideBottom: startPos = new Vector2(originalPosition.x, -height); break;
         }
 
-        // ÃÊ±â À§Ä¡ °­Á¦ Àû¿ë
+        // ì´ˆê¸° ìœ„ì¹˜ ê°•ì œ ì ìš©
         if (openAnimation != UIAnimType.PopUp && openAnimation != UIAnimType.None)
             rectTransform.anchoredPosition = startPos;
 
         if (openAnimation == UIAnimType.PopUp)
             rectTransform.localScale = Vector3.zero;
 
-        // ¾Ö´Ï¸ŞÀÌ¼Ç ·çÇÁ
+        // ì• ë‹ˆë©”ì´ì…˜ ë£¨í”„
         yield return UIAnimationRoutine.Run(
             animDuration,
             progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
             t =>
             {
 
-                // 1. ¿òÁ÷ÀÓ/Å©±â º¯È­
+                // 1. ì›€ì§ì„/í¬ê¸° ë³€í™”
                 if (openAnimation == UIAnimType.PopUp)
                     rectTransform.localScale = Vector3.Lerp(Vector3.zero, originalScale, t);
                 else if (openAnimation != UIAnimType.None)
                     rectTransform.anchoredPosition = Vector2.Lerp(startPos, originalPosition, t);
 
-                // 2. [Ãß°¡µÊ] Åõ¸íµµ: 0(¾Èº¸ÀÓ) -> 1(Àßº¸ÀÓ) ·Î ¼­¼­È÷ º¯È­
+                // 2. [ì¶”ê°€ë¨] íˆ¬ëª…ë„: 0(ì•ˆë³´ì„) -> 1(ì˜ë³´ì„) ë¡œ ì„œì„œíˆ ë³€í™”
                 canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
             });
 
-        // ³¡³­ ÈÄ È®½ÇÇÏ°Ô °ª °íÁ¤
+        // ëë‚œ í›„ í™•ì‹¤í•˜ê²Œ ê°’ ê³ ì •
         rectTransform.anchoredPosition = originalPosition;
         rectTransform.localScale = originalScale;
-        canvasGroup.alpha = 1f; // ¿ÏÀüÈ÷ º¸ÀÌ°Ô
+        canvasGroup.alpha = 1f; // ì™„ì „íˆ ë³´ì´ê²Œ
     }
 
 
@@ -136,7 +136,7 @@ public class UIBase : MonoBehaviour
         Vector2 startPos = rectTransform.anchoredPosition;
         Vector3 startScale = rectTransform.localScale;
 
-        // ¸ñÇ¥ ÁöÁ¡ °è»ê
+        // ëª©í‘œ ì§€ì  ê³„ì‚°
         Vector2 targetPos = originalPosition;
         Vector3 targetScale = originalScale;
         float width = Screen.width;
@@ -157,23 +157,25 @@ public class UIBase : MonoBehaviour
             t =>
             {
 
-                // 1. ¿òÁ÷ÀÓ/Å©±â º¯È­
+                // 1. ì›€ì§ì„/í¬ê¸° ë³€í™”
                 if (openAnimation == UIAnimType.PopUp)
                     rectTransform.localScale = Vector3.Lerp(startScale, targetScale, t);
                 else if (openAnimation != UIAnimType.None)
                     rectTransform.anchoredPosition = Vector2.Lerp(startPos, targetPos, t);
 
-                // 2. [Ãß°¡µÊ] Åõ¸íµµ: 1(Àßº¸ÀÓ) -> 0(¾Èº¸ÀÓ) ·Î ¼­¼­È÷ º¯È­
+                // 2. [ì¶”ê°€ë¨] íˆ¬ëª…ë„: 1(ì˜ë³´ì„) -> 0(ì•ˆë³´ì„) ë¡œ ì„œì„œíˆ ë³€í™”
                 canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
             });
 
-        // ³¡³­ ÈÄ ²ô±â
-        canvasGroup.alpha = 0f; // ¿ÏÀüÈ÷ Åõ¸íÇÏ°Ô
+        // ëë‚œ í›„ ë„ê¸°
+        canvasGroup.alpha = 0f; // ì™„ì „íˆ íˆ¬ëª…í•˜ê²Œ
         //gameObject.SetActive(false);
 
-        // ´ÙÀ½ ¿ÀÇÂÀ» À§ÇØ ¿ø»óº¹±¸
+        // ë‹¤ìŒ ì˜¤í”ˆì„ ìœ„í•´ ì›ìƒë³µêµ¬
         rectTransform.anchoredPosition = originalPosition;
         rectTransform.localScale = originalScale;
-        Debug.Log("³¡³²");
+#if UNITY_EDITOR
+        Debug.Log("ëë‚¨");
+#endif
     }
 }

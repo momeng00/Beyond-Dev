@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using System.Linq;
 using Unity.Cinemachine;
 using Unity.Cinemachine.Samples;
@@ -9,25 +9,25 @@ using static Unity.Cinemachine.Samples.PlatformerCamera2D;
 
 public class MainCameraController : MonoBehaviour
 {
-    //Ä«¸Ş¶óÀÇ ±â´ÉÀ» ºí·°Ã³·³ ³¢°í »¬ ¼ö ÀÖµµ·Ï ±¸ÇöÀ» ÇÏ·Á°í ÇÔ.
-    //ÇöÀç »ı°¢ÀÌ µÇ°í ÀÖ´Â Ä«¸Ş¶óÀÇ ±â´ÉÀº ¿øÇÏ´Â °÷À¸·Î À§Ä¡°¡ ÀÌµ¿ÀÌ µÇ¾ú´Â°¡?
-    //FSMÀ» ÀÀ¿ëÇØ¼­ ¿øÇÏ´Â ±â´ÉÀ» ³¢°í ²ø ¼ö ÀÖµµ·Ï Á¦ÀÛÀÌ µÇ¾î¾ßÇÔ. Enter¿Í Exit, Update
-    //À§¸¦ ÀÌ¿ëÇØ¼­ Start¹®°ú Update¹®À» ±¸ÇöÇÏ°í ÀÌµ¿ ¹× »óÅÂ¸¦ ÄÁÆ®·Ñ ÇÒ ¼ö ÀÖµµ·Ï ÇÕ½Ã´Ù.
-    //ScritableObject¸¦ »ç¿ëÇÒ ¼ö ÀÖ´Ù¸é »ç¿ëÇØ¼­ ±¸ÇöÀ» ÇØº¸µµ·Ï ÇÕ½Ã´Ù.
-    //Ã¼Å©°¡ Áö¼ÓÀûÀ¸·Î ÀÌ·ïÁöÁö¾Êµµ·Ï ±¸ÇöÀÌ µÇ´Â °ÍÀÌ ¸ñÇ¥.
-    //±âº» Base¸¦ ¸¸µé°í »óÅÂ¸¦ ÀüÈ¯ÇÏ´Â ±â´ÉÀ» ¸¸µé¾î¼­ »óÅÂ¸¦ ÀüÈ¯ÇÏ´Â °ÍÀÌ ¸ñÇ¥. 
-    //Main½Ã½ºÅÛÀ» ÅëÇØ¼­ Left, Right, Falling_R, Falling_LÀ» ¸¸µé¾î º¾½Ã´Ù.
-    //PlatfomerCamera2DÀÇ ±â´ÉÀ» °¡Á®¿Í¾ßÇÏ°í 
-    //¸¸¾à Update¹®ÀÌ³ª Ä«¸Ş¶óÀÇ »óÅÂ¸¦ Ã¼Å©ÇØ¾ßÇÑ´Ù¸é Ã¼Å©ÇÏ´Â ±â´ÉÀ» °¡Á®¿Ã ¼ö ÀÖ¾î¾ßÇÔ
-    //Platfromer Camera¸¦ ÇÏ³ª °¡Áö°í ÀÖ°í Check»óÅÂ·Î µé¾î°¡¸é ³ª¸ÓÁö¸¦ ¹«½ÃÇÏ°í Check¸¸ ÁøÇàÇÏ´Â ¹æ½Ä
-    //Ä³¸¯ÅÍ¿¡ ´ëÇÑ Á¤º¸ ¹× Ä³¸¯ÅÍ¿¡ ´ëÇÑ Áß½É ¿ÀºêÁ§Æ®, CinemachineÄ«¸Ş¶ó, 
+    //ì¹´ë©”ë¼ì˜ ê¸°ëŠ¥ì„ ë¸”ëŸ­ì²˜ëŸ¼ ë¼ê³  ëº„ ìˆ˜ ìˆë„ë¡ êµ¬í˜„ì„ í•˜ë ¤ê³  í•¨.
+    //í˜„ì¬ ìƒê°ì´ ë˜ê³  ìˆëŠ” ì¹´ë©”ë¼ì˜ ê¸°ëŠ¥ì€ ì›í•˜ëŠ” ê³³ìœ¼ë¡œ ìœ„ì¹˜ê°€ ì´ë™ì´ ë˜ì—ˆëŠ”ê°€?
+    //FSMì„ ì‘ìš©í•´ì„œ ì›í•˜ëŠ” ê¸°ëŠ¥ì„ ë¼ê³  ëŒ ìˆ˜ ìˆë„ë¡ ì œì‘ì´ ë˜ì–´ì•¼í•¨. Enterì™€ Exit, Update
+    //ìœ„ë¥¼ ì´ìš©í•´ì„œ Startë¬¸ê³¼ Updateë¬¸ì„ êµ¬í˜„í•˜ê³  ì´ë™ ë° ìƒíƒœë¥¼ ì»¨íŠ¸ë¡¤ í•  ìˆ˜ ìˆë„ë¡ í•©ì‹œë‹¤.
+    //ScritableObjectë¥¼ ì‚¬ìš©í•  ìˆ˜ ìˆë‹¤ë©´ ì‚¬ìš©í•´ì„œ êµ¬í˜„ì„ í•´ë³´ë„ë¡ í•©ì‹œë‹¤.
+    //ì²´í¬ê°€ ì§€ì†ì ìœ¼ë¡œ ì´ë¤„ì§€ì§€ì•Šë„ë¡ êµ¬í˜„ì´ ë˜ëŠ” ê²ƒì´ ëª©í‘œ.
+    //ê¸°ë³¸ Baseë¥¼ ë§Œë“¤ê³  ìƒíƒœë¥¼ ì „í™˜í•˜ëŠ” ê¸°ëŠ¥ì„ ë§Œë“¤ì–´ì„œ ìƒíƒœë¥¼ ì „í™˜í•˜ëŠ” ê²ƒì´ ëª©í‘œ. 
+    //Mainì‹œìŠ¤í…œì„ í†µí•´ì„œ Left, Right, Falling_R, Falling_Lì„ ë§Œë“¤ì–´ ë´…ì‹œë‹¤.
+    //PlatfomerCamera2Dì˜ ê¸°ëŠ¥ì„ ê°€ì ¸ì™€ì•¼í•˜ê³  
+    //ë§Œì•½ Updateë¬¸ì´ë‚˜ ì¹´ë©”ë¼ì˜ ìƒíƒœë¥¼ ì²´í¬í•´ì•¼í•œë‹¤ë©´ ì²´í¬í•˜ëŠ” ê¸°ëŠ¥ì„ ê°€ì ¸ì˜¬ ìˆ˜ ìˆì–´ì•¼í•¨
+    //Platfromer Cameraë¥¼ í•˜ë‚˜ ê°€ì§€ê³  ìˆê³  Checkìƒíƒœë¡œ ë“¤ì–´ê°€ë©´ ë‚˜ë¨¸ì§€ë¥¼ ë¬´ì‹œí•˜ê³  Checkë§Œ ì§„í–‰í•˜ëŠ” ë°©ì‹
+    //ìºë¦­í„°ì— ëŒ€í•œ ì •ë³´ ë° ìºë¦­í„°ì— ëŒ€í•œ ì¤‘ì‹¬ ì˜¤ë¸Œì íŠ¸, Cinemachineì¹´ë©”ë¼, 
 
 
-    //Âï°íÀÖ´Â Ä«¸Ş¶ó¸¦ º¯°æÇÏ´Â °Í
-    //Âï°íÀÖ´Â Ä«¸Ş¶óÀÇ °ª º¯°æ
-    //½Ã³×¸Ó½Å¿¡¼­ Ä«¸Ş¶óÀÇ ¿òÁ÷ÀÓ¿¡ µû¶ó Èçµé¸²ÀÇ °­¾àÁ¶Àı
-    //º» ±â´ÉÀº Cinemachine Camera ÄÄÆ÷³ÍÆ®ÀÇ noise µå·Ó´Ù¿î¿¡¼­ È°¼ºÈ­
-    //Cinemachin Basic Multi Channel Perlin ÄÄÆ÷³ÍÆ®¿¡¼­ µÎ°³ÀÇ °ÔÀÎ°ªÀ¸·Î Á¶Àı
+    //ì°ê³ ìˆëŠ” ì¹´ë©”ë¼ë¥¼ ë³€ê²½í•˜ëŠ” ê²ƒ
+    //ì°ê³ ìˆëŠ” ì¹´ë©”ë¼ì˜ ê°’ ë³€ê²½
+    //ì‹œë„¤ë¨¸ì‹ ì—ì„œ ì¹´ë©”ë¼ì˜ ì›€ì§ì„ì— ë”°ë¼ í”ë“¤ë¦¼ì˜ ê°•ì•½ì¡°ì ˆ
+    //ë³¸ ê¸°ëŠ¥ì€ Cinemachine Camera ì»´í¬ë„ŒíŠ¸ì˜ noise ë“œë¡­ë‹¤ìš´ì—ì„œ í™œì„±í™”
+    //Cinemachin Basic Multi Channel Perlin ì»´í¬ë„ŒíŠ¸ì—ì„œ ë‘ê°œì˜ ê²Œì¸ê°’ìœ¼ë¡œ ì¡°ì ˆ
     public float criticalVelocity;
     private CameraBehaviorBase cameraBehavior;
     public PlatformerCamera2D platformerCamera2D;
@@ -52,7 +52,7 @@ public class MainCameraController : MonoBehaviour
         //if (Time.frameCount != _lastCalculatedFrame)
         //{
         //    _lastCalculatedFrame = Time.frameCount;
-        //} ÇÁ·¹ÀÓ Ä³½ÌÀÌ¶ó°í ÇÁ·¹ÀÓ id¸¦ ÀúÀåÇÒ ¼ö ÀÖÀ½. ÇÊ¿äÇØÁö¸é ¾µ°Í
+        //} í”„ë ˆì„ ìºì‹±ì´ë¼ê³  í”„ë ˆì„ idë¥¼ ì €ì¥í•  ìˆ˜ ìˆìŒ. í•„ìš”í•´ì§€ë©´ ì“¸ê²ƒ
 
         if (_players.Count == 0) return false;
         
@@ -71,8 +71,10 @@ public class MainCameraController : MonoBehaviour
             if (_instance == null)
             {
                 _instance = FindAnyObjectByType<MainCameraController>();
+#if UNITY_EDITOR
                 if (_instance == null)
-                    Debug.Log("CameraController°¡ ¾øÀ½");
+                    Debug.Log("CameraControllerê°€ ì—†ìŒ");
+#endif
             }
             return _instance;
         }
@@ -117,20 +119,22 @@ public class MainCameraController : MonoBehaviour
     public void CameraReset()
     {
 
-        // 1. º¸°£ ²ô±â (Áß¿ä!)
+        // 1. ë³´ê°„ ë„ê¸° (ì¤‘ìš”!)
         RigidbodyInterpolation2D savedInterpolation = rb.interpolation;
         rb.interpolation = RigidbodyInterpolation2D.None;
 
-        // 4. º¸°£ ´Ù½Ã ÄÑ±â (¹Ù·Î ÄÑ¸é ¾È µÇ°í, ¹°¸® ¿¬»êÀÌ ³¡³­ µÚ ÄÑ¾ß ÇÔ)
-        //    ÇÏÁö¸¸ º¸Åë ¹Ù·Î ÄÑµµ µÇ°Å³ª, 1ÇÁ·¹ÀÓ µÚ¿¡ ÄÑ¾ß ÇÔ.
+        // 4. ë³´ê°„ ë‹¤ì‹œ ì¼œê¸° (ë°”ë¡œ ì¼œë©´ ì•ˆ ë˜ê³ , ë¬¼ë¦¬ ì—°ì‚°ì´ ëë‚œ ë’¤ ì¼œì•¼ í•¨)
+        //    í•˜ì§€ë§Œ ë³´í†µ ë°”ë¡œ ì¼œë„ ë˜ê±°ë‚˜, 1í”„ë ˆì„ ë’¤ì— ì¼œì•¼ í•¨.
 
         var brain = Camera.main.GetComponent<CinemachineBrain>();
         var activeCam = brain.ActiveVirtualCamera as CinemachineVirtualCameraBase;
+#if UNITY_EDITOR
         Debug.Log(activeCam);
+#endif
         if (activeCam != null)
         {
-            // [°­·ÂÇÑ ¹æ¹ı] "ÀÌÀü ÇÁ·¹ÀÓÀÇ À§Ä¡ Á¤º¸´Â À¯È¿ÇÏÁö ¾Ê´Ù"°í ¼±¾ğ
-            // ÀÌ·¸°Ô ÇÏ¸é ½Ã³×¸Ó½ÅÀº ´ïÇÎ °è»êÀ» Æ÷±âÇÏ°í, Å¸°ÙÀÇ ÇöÀç À§Ä¡·Î Ä«¸Ş¶ó¸¦ Áï½Ã °­Á¦ ÀÌµ¿½ÃÅµ´Ï´Ù.
+            // [ê°•ë ¥í•œ ë°©ë²•] "ì´ì „ í”„ë ˆì„ì˜ ìœ„ì¹˜ ì •ë³´ëŠ” ìœ íš¨í•˜ì§€ ì•Šë‹¤"ê³  ì„ ì–¸
+            // ì´ë ‡ê²Œ í•˜ë©´ ì‹œë„¤ë¨¸ì‹ ì€ ëŒí•‘ ê³„ì‚°ì„ í¬ê¸°í•˜ê³ , íƒ€ê²Ÿì˜ í˜„ì¬ ìœ„ì¹˜ë¡œ ì¹´ë©”ë¼ë¥¼ ì¦‰ì‹œ ê°•ì œ ì´ë™ì‹œí‚µë‹ˆë‹¤.
             activeCam.PreviousStateIsValid = false;
         }
         rb.interpolation = savedInterpolation;

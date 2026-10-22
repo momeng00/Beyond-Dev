@@ -1,9 +1,9 @@
-
+ï»¿
 using UnityEngine;
 
 public interface IEventListener
 {
-    //ÀÌº¥Æ®¸¦ µî·ÏÇÒ ÁÖÃ¼
+    //ì´ë²¤íŠ¸ë¥¼ ë“±ë¡í•  ì£¼ì²´
     public void ToggleEvent(bool state, Transform origin);
     
 

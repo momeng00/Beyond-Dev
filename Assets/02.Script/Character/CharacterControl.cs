@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -33,11 +33,11 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
     {
         Left = -1, Right = 1,
     }
-    #region ÄÄÆ÷³ÍÆ® ¼±¾ğºÎ
+    #region ì»´í¬ë„ŒíŠ¸ ì„ ì–¸ë¶€
     private Rigidbody2D _rb;
     private Animator _ani;
     #endregion
-    [HideInInspector] public float _axisX; //ÀÌµ¿µÇ´Â ¼öÄ¡ ¹ŞÀ» Èû
+    [HideInInspector] public float _axisX; //ì´ë™ë˜ëŠ” ìˆ˜ì¹˜ ë°›ì„ í˜
     private Vector2 extraVelocity;
     private Direction _direction = Direction.Right;
     public Direction direction
@@ -110,7 +110,7 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
     [HideInInspector] public bool hasJump;
     public float coyoteTime;
     public float landingLimit;
-    [Header("Ä«¸Ş¶ó ÀÌµ¿ ½Ã ¸ØÃâ½Ã°£")]
+    [Header("ì¹´ë©”ë¼ ì´ë™ ì‹œ ë©ˆì¶œì‹œê°„")]
     public float stopTime;
     [HideInInspector] public bool canMove;
 
@@ -306,7 +306,7 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
             _currentStat = deSO;
         }
     }
-    #region ´Ü¼ø ÆíÀÇ¼º ±â´É
+    #region ë‹¨ìˆœ í¸ì˜ì„± ê¸°ëŠ¥
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
@@ -342,17 +342,17 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
         {
             PauseCharacter(respawnPauseOwner);
 
-            // ¹Ù´Ú º¸Á¤ ¼º°ø ¿©ºÎ¿Í °ü°è¾øÀÌ ±âÁ¸ ºÎÈ° À§Ä¡·Î ¸ÕÀú º¹±ÍÇÑ´Ù.
+            // ë°”ë‹¥ ë³´ì • ì„±ê³µ ì—¬ë¶€ì™€ ê´€ê³„ì—†ì´ ê¸°ì¡´ ë¶€í™œ ìœ„ì¹˜ë¡œ ë¨¼ì € ë³µê·€í•œë‹¤.
             transform.position = startPos;
 
-            // °°Àº OnReset È£ÃâÀÇ ´Ù¸¥ ±¸µ¶ÀÚ°¡ ½ÇÇàµÈ µÚ °Ë»çÇÑ´Ù.
+            // ê°™ì€ OnReset í˜¸ì¶œì˜ ë‹¤ë¥¸ êµ¬ë…ìê°€ ì‹¤í–‰ëœ ë’¤ ê²€ì‚¬í•œë‹¤.
             yield return null;
             Physics2D.SyncTransforms();
 
             if (!TryPlaceOnRespawnGround(out string failureReason))
             {
-                //NeedToDo ¹Ù´ÚÀ» ¸ø Ã£°Å³ª ¸öÀÌ º®¿¡ °ãÄ¥ ¶§ »ç¿ëÇÒ ´ëÃ¼ ºÎÈ° À§Ä¡ ±¸ÇöÇØ¾ßÇÔ
-                Debug.LogWarning($"{name}: ºÎÈ° À§Ä¡ÀÇ ¹Ù´Ú º¸Á¤¿¡ ½ÇÆĞÇß½À´Ï´Ù. {failureReason} ÀúÀåµÈ ½ÃÀÛ À§Ä¡¿¡¼­ ±âº» ºÎÈ°À» ÁøÇàÇÕ´Ï´Ù.", this);
+                //NeedToDo ë°”ë‹¥ì„ ëª» ì°¾ê±°ë‚˜ ëª¸ì´ ë²½ì— ê²¹ì¹  ë•Œ ì‚¬ìš©í•  ëŒ€ì²´ ë¶€í™œ ìœ„ì¹˜ êµ¬í˜„í•´ì•¼í•¨
+                Debug.LogWarning($"{name}: ë¶€í™œ ìœ„ì¹˜ì˜ ë°”ë‹¥ ë³´ì •ì— ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤. {failureReason} ì €ì¥ëœ ì‹œì‘ ìœ„ì¹˜ì—ì„œ ê¸°ë³¸ ë¶€í™œì„ ì§„í–‰í•©ë‹ˆë‹¤.", this);
             }
 
             _rb.linearVelocity = Vector2.zero;
@@ -377,10 +377,10 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
 
     private bool TryPlaceOnRespawnGround(out string failureReason)
     {
-        failureReason = "Å½»ö °Å¸® ³»¿¡¼­ groundMask¿¡ ÇØ´çÇÏ´Â ¹Ù´ÚÀ» Ã£Áö ¸øÇß½À´Ï´Ù.";
+        failureReason = "íƒìƒ‰ ê±°ë¦¬ ë‚´ì—ì„œ groundMaskì— í•´ë‹¹í•˜ëŠ” ë°”ë‹¥ì„ ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.";
         if (_col == null || !_col.enabled || _col.isTrigger || !_rb.simulated)
         {
-            failureReason = "Ä³¸¯ÅÍ Collider2DÀÇ È°¼ºÈ­/Trigger ¶Ç´Â Rigidbody2DÀÇ Simulated ¼³Á¤À» È®ÀÎÇÏ¼¼¿ä.";
+            failureReason = "ìºë¦­í„° Collider2Dì˜ í™œì„±í™”/Trigger ë˜ëŠ” Rigidbody2Dì˜ Simulated ì„¤ì •ì„ í™•ì¸í•˜ì„¸ìš”.";
             return false;
         }
 
@@ -395,23 +395,23 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
 
         if (hit.collider.attachedRigidbody == _rb || Physics2D.GetIgnoreCollision(_col, hit.collider))
         {
-            failureReason = "°ËÃâµÈ Ã¹ Äİ¶óÀÌ´õ´Â Ä³¸¯ÅÍ ÀÚ½ÅÀÌ°Å³ª Ãæµ¹À» ¹«½ÃÇÏµµ·Ï ¼³Á¤µÈ ´ë»óÀÔ´Ï´Ù.";
+            failureReason = "ê²€ì¶œëœ ì²« ì½œë¼ì´ë”ëŠ” ìºë¦­í„° ìì‹ ì´ê±°ë‚˜ ì¶©ëŒì„ ë¬´ì‹œí•˜ë„ë¡ ì„¤ì •ëœ ëŒ€ìƒì…ë‹ˆë‹¤.";
             return false;
         }
 
         if (hit.fraction <= 0f)
         {
-            failureReason = $"Raycast ½ÃÀÛÁ¡ÀÌ {hit.collider.name} ³»ºÎ ¶Ç´Â Ç¥¸é¿¡ ÀÖ½À´Ï´Ù.";
+            failureReason = $"Raycast ì‹œì‘ì ì´ {hit.collider.name} ë‚´ë¶€ ë˜ëŠ” í‘œë©´ì— ìˆìŠµë‹ˆë‹¤.";
             return false;
         }
         if (hit.normal.y <= 0f)
         {
-            failureReason = $"{hit.collider.name}¿¡¼­ ¼³ ¼ö ÀÖ´Â ¹Ù´Ú À­¸éÀ» Ã£Áö ¸øÇß½À´Ï´Ù.";
+            failureReason = $"{hit.collider.name}ì—ì„œ ì„¤ ìˆ˜ ìˆëŠ” ë°”ë‹¥ ìœ—ë©´ì„ ì°¾ì§€ ëª»í–ˆìŠµë‹ˆë‹¤.";
             return false;
         }
 
         Vector3 previousPosition = transform.position;
-        // ¹ß¹Ø °Ë»ç ¿µ¿ªÀÇ Áß½ÉÀ» ¹Ù´Ú Ç¥¸é¿¡ ¸ÂÃá´Ù.
+        // ë°œë°‘ ê²€ì‚¬ ì˜ì—­ì˜ ì¤‘ì‹¬ì„ ë°”ë‹¥ í‘œë©´ì— ë§ì¶˜ë‹¤.
         float respawnY = hit.point.y - footOffset.y;
         Vector3 respawnPosition = new Vector3(startPos.x, respawnY, previousPosition.z);
 
@@ -426,8 +426,8 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
             return true;
         }
 
-        failureReason = "¹èÄ¡ ÈÄ isGrounded°¡ falseÀÔ´Ï´Ù. footOffset, footSizeOffset, Äİ¶óÀÌ´õ Å©±â¸¦ È®ÀÎÇÏ¼¼¿ä.";
-        // ¹ß¹Ø ÆÇÁ¤¿¡ ½ÇÆĞÇÏ¸é °Ë»ç Àü ½ÃÀÛ À§Ä¡·Î µÇµ¹¸°´Ù.
+        failureReason = "ë°°ì¹˜ í›„ isGroundedê°€ falseì…ë‹ˆë‹¤. footOffset, footSizeOffset, ì½œë¼ì´ë” í¬ê¸°ë¥¼ í™•ì¸í•˜ì„¸ìš”.";
+        // ë°œë°‘ íŒì •ì— ì‹¤íŒ¨í•˜ë©´ ê²€ì‚¬ ì „ ì‹œì‘ ìœ„ì¹˜ë¡œ ë˜ëŒë¦°ë‹¤.
         transform.position = previousPosition;
         Physics2D.SyncTransforms();
         ground = null;
@@ -448,7 +448,7 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
         if (candidate == null)
             return true;
 
-        // °ãÄ§ °¡´É¼ºÀÌ ÀÖÀ» ¶§¸¸ °á°ú ¸ñ·ÏÀ» ¸¸µé°í ½ÇÁ¦ ¸öÃ¼ ¸ğ¾çÀ¸·Î È®ÀÎÇÑ´Ù.
+        // ê²¹ì¹¨ ê°€ëŠ¥ì„±ì´ ìˆì„ ë•Œë§Œ ê²°ê³¼ ëª©ë¡ì„ ë§Œë“¤ê³  ì‹¤ì œ ëª¸ì²´ ëª¨ì–‘ìœ¼ë¡œ í™•ì¸í•œë‹¤.
         List<Collider2D> overlaps = new List<Collider2D>(8);
         Vector2 bodyPosition = _rb.position + (Vector2)(respawnPosition - transform.position);
         int overlapCount = _col.Overlap(bodyPosition, _rb.rotation, bodyFilter, overlaps);
@@ -458,7 +458,7 @@ public class CharacterControl : MonoBehaviour, IReset, IDetected, IMovable
             if (other == _col || other.attachedRigidbody == _rb || Physics2D.GetIgnoreCollision(_col, other))
                 continue;
 
-            failureReason = $"ºÎÈ° À§Ä¡¿¡¼­ Ä³¸¯ÅÍ°¡ {other.name}°ú °ãÄ¨´Ï´Ù.";
+            failureReason = $"ë¶€í™œ ìœ„ì¹˜ì—ì„œ ìºë¦­í„°ê°€ {other.name}ê³¼ ê²¹ì¹©ë‹ˆë‹¤.";
             return false;
         }
 

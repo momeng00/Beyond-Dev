@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -19,10 +19,10 @@ public class LanguageSystem : MonoBehaviour
         {
             if (_instance == null)
             {
-                // 1. ¾À¿¡¼­ ±âÁ¸ ÀÎ½ºÅÏ½º¸¦ Ã£¾Æº¾´Ï´Ù.
+                // 1. ì”¬ì—ì„œ ê¸°ì¡´ ì¸ìŠ¤í„´ìŠ¤ë¥¼ ì°¾ì•„ë´…ë‹ˆë‹¤.
                 _instance = FindAnyObjectByType<LanguageSystem>();
 
-                // 2. ¾À¿¡ ÀÎ½ºÅÏ½º°¡ ¾ø´Ù¸é »õ·Î »ı¼ºÇÕ´Ï´Ù.
+                // 2. ì”¬ì— ì¸ìŠ¤í„´ìŠ¤ê°€ ì—†ë‹¤ë©´ ìƒˆë¡œ ìƒì„±í•©ë‹ˆë‹¤.
                 if (_instance == null)
                 {
                     GameObject singletonObject = new GameObject("LanguageSystem");
@@ -35,16 +35,16 @@ public class LanguageSystem : MonoBehaviour
     
 
     [Header("Language Settings")]
-    [Tooltip("ÇöÀç °ÔÀÓ¿¡¼­ »ç¿ëÇÒ ¾ğ¾î¸¦ ¼³Á¤ÇÕ´Ï´Ù.")]
+    [Tooltip("í˜„ì¬ ê²Œì„ì—ì„œ ì‚¬ìš©í•  ì–¸ì–´ë¥¼ ì„¤ì •í•©ë‹ˆë‹¤.")]
     public Language currentLanguage = Language.Korean;
     public static event Action OnLanguageChanged;
 
     [Header("Data Files")]
-    [Tooltip("·ÎµùÇÒ CSV ÆÄÀÏµéÀÇ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä.")]
+    [Tooltip("ë¡œë”©í•  CSV íŒŒì¼ë“¤ì˜ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”.")]
     private List<string> dataFileNames = new List<string>
     {
         "textSetting.csv"
-    }; // ¿©·¯ ÆÄÀÏ ÀÌ¸§À» ¹ŞÀ» ¸®½ºÆ®
+    }; // ì—¬ëŸ¬ íŒŒì¼ ì´ë¦„ì„ ë°›ì„ ë¦¬ìŠ¤íŠ¸
 
     private Dictionary<Language, Dictionary<string, string>> allLanguageData;
 
@@ -61,13 +61,15 @@ public class LanguageSystem : MonoBehaviour
     public void ChangeLanguage(Language newLanguage)
     {
         currentLanguage = newLanguage;
-        // ¾ğ¾î°¡ º¯°æµÇ¾úÀ½À» ¸ğµç ±¸µ¶ÀÚ¿¡°Ô ¾Ë¸²
+        // ì–¸ì–´ê°€ ë³€ê²½ë˜ì—ˆìŒì„ ëª¨ë“  êµ¬ë…ìì—ê²Œ ì•Œë¦¼
         OnLanguageChanged?.Invoke();
+#if UNITY_EDITOR
         Debug.Log($"Language changed to: {newLanguage}");
+#endif
     }
     public string GetText(string key)
     {
-        // ÇöÀç ¾ğ¾îÀÇ µñ¼Å³Ê¸®°¡ Á¸ÀçÇÏ°í, ±× ¾È¿¡ Å°°¡ ÀÖ´ÂÁö È®ÀÎ
+        // í˜„ì¬ ì–¸ì–´ì˜ ë”•ì…”ë„ˆë¦¬ê°€ ì¡´ì¬í•˜ê³ , ê·¸ ì•ˆì— í‚¤ê°€ ìˆëŠ”ì§€ í™•ì¸
         if (allLanguageData != null &&
             allLanguageData.ContainsKey(currentLanguage) &&
             allLanguageData[currentLanguage].ContainsKey(key))
@@ -81,13 +83,15 @@ public class LanguageSystem : MonoBehaviour
 
     private void LoadLocalizationData()
     {
-        // µñ¼Å³Ê¸®¸¦ ¸ÕÀú ÃÊ±âÈ­ÇÕ´Ï´Ù.
+        // ë”•ì…”ë„ˆë¦¬ë¥¼ ë¨¼ì € ì´ˆê¸°í™”í•©ë‹ˆë‹¤.
         allLanguageData = new Dictionary<Language, Dictionary<string, string>>();
 #if UNITY_WEBGL && !UNITY_EDITOR
-        // ÀÚµ¿ »ı¼ºµÈ µ¥ÀÌÅÍ ½ÃÆ®¸¦ »ç¿ëÇÕ´Ï´Ù.
-        // LanguageDataSheet_KR.Data°¡ IDictionary<string, string>ÀÌ¹Ç·Î, Dictionary·Î º¯È¯ÇØÁİ´Ï´Ù.
+        // ìë™ ìƒì„±ëœ ë°ì´í„° ì‹œíŠ¸ë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤.
+        // LanguageDataSheet_KR.Dataê°€ IDictionary<string, string>ì´ë¯€ë¡œ, Dictionaryë¡œ ë³€í™˜í•´ì¤ë‹ˆë‹¤.
         allLanguageData[Language.Korean] = new Dictionary<string, string>(LanguageDataSheet_KR.Data);
+#if UNITY_EDITOR
         Debug.Log("WebGL: Loaded language data from generated data sheet.");
+#endif
 
 #else
 #endif
@@ -112,17 +116,17 @@ public class LanguageSystem : MonoBehaviour
         string[] lines = csvText.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
         if (lines.Length <= 1) return;
 
-        // --- Çì´õ ºĞ¼® ---
+        // --- í—¤ë” ë¶„ì„ ---
         string[] header = lines[0].Split(',');
-        // <¿­ ÀÎµ¦½º, ÇØ´ç ¾ğ¾î Enum> ¸Ê »ı¼º
+        // <ì—´ ì¸ë±ìŠ¤, í•´ë‹¹ ì–¸ì–´ Enum> ë§µ ìƒì„±
         Dictionary<int, Language> columnIndexToLanguage = new Dictionary<int, Language>();
-        for (int i = 1; i < header.Length; i++) // 1ºÎÅÍ ½ÃÀÛ (0Àº Key ¿­)
+        for (int i = 1; i < header.Length; i++) // 1ë¶€í„° ì‹œì‘ (0ì€ Key ì—´)
         {
-            // Çì´õÀÇ ¹®ÀÚ¿­À» Language EnumÀ¸·Î º¯È¯ ½Ãµµ
+            // í—¤ë”ì˜ ë¬¸ìì—´ì„ Language Enumìœ¼ë¡œ ë³€í™˜ ì‹œë„
             if (Enum.TryParse(header[i].Trim(), out Language lang))
             {
                 columnIndexToLanguage[i] = lang;
-                // ¸¸¾à allLanguageData¿¡ ÇØ´ç ¾ğ¾î µñ¼Å³Ê¸®°¡ ¾ø´Ù¸é »õ·Î »ı¼º
+                // ë§Œì•½ allLanguageDataì— í•´ë‹¹ ì–¸ì–´ ë”•ì…”ë„ˆë¦¬ê°€ ì—†ë‹¤ë©´ ìƒˆë¡œ ìƒì„±
                 if (!allLanguageData.ContainsKey(lang))
                 {
                     allLanguageData[lang] = new Dictionary<string, string>();
@@ -130,7 +134,7 @@ public class LanguageSystem : MonoBehaviour
             }
         }
 
-        // --- µ¥ÀÌÅÍ ºĞ¼® ---
+        // --- ë°ì´í„° ë¶„ì„ ---
         for (int i = 1; i < lines.Length; i++)
         {
             if (string.IsNullOrEmpty(lines[i])) continue;
@@ -147,18 +151,18 @@ public class LanguageSystem : MonoBehaviour
                 {
                     //string value = columns[colIndex].Trim().Trim('"');
                     string value = columns[colIndex];
-                    allLanguageData[lang][key] = value; // Å°°¡ ÀÖÀ¸¸é µ¤¾î¾²°í, ¾øÀ¸¸é Ãß°¡
+                    allLanguageData[lang][key] = value; // í‚¤ê°€ ìˆìœ¼ë©´ ë®ì–´ì“°ê³ , ì—†ìœ¼ë©´ ì¶”ê°€
                 }
             }
         }
     }
     private string[] SplitCsvLine(string line)
     {
-        // Á¤±ÔÇ¥Çö½ÄÀ» »ç¿ëÇÏ¿© µû¿ÈÇ¥·Î ¹­ÀÎ ÇÊµå ³»ºÎÀÇ ½°Ç¥´Â ¹«½ÃÇÏ°í ºĞ¸®
+        // ì •ê·œí‘œí˜„ì‹ì„ ì‚¬ìš©í•˜ì—¬ ë”°ì˜´í‘œë¡œ ë¬¶ì¸ í•„ë“œ ë‚´ë¶€ì˜ ì‰¼í‘œëŠ” ë¬´ì‹œí•˜ê³  ë¶„ë¦¬
         Regex csvParser = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
         string[] columns = csvParser.Split(line);
 
-        // °¢ ºĞ¸®µÈ Ç×¸ñÀÇ ¾ç ³¡¿¡ ÀÖ´Â °ø¹é°ú µû¿ÈÇ¥¸¦ Á¦°Å
+        // ê° ë¶„ë¦¬ëœ í•­ëª©ì˜ ì–‘ ëì— ìˆëŠ” ê³µë°±ê³¼ ë”°ì˜´í‘œë¥¼ ì œê±°
         for (int i = 0; i < columns.Length; i++)
         {
             columns[i] = columns[i].Trim().Trim('"');

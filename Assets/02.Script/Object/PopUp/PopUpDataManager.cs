@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -33,7 +33,7 @@ public class PopUpDataManager : MonoBehaviour
 
     private void LoadJsonData()
     {
-        string fileName = "PopupData.json"; // È®ÀåÀÚ Æ÷ÇÔ
+        string fileName = "PopupData.json"; // í™•ì¥ì í¬í•¨
         string filePath = Path.Combine(Application.streamingAssetsPath, fileName);
         if (File.Exists(filePath))
         {
@@ -42,14 +42,14 @@ public class PopUpDataManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError($" JSON ÆÄÀÏÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù: {filePath}");
+            Debug.LogError($" JSON íŒŒì¼ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤: {filePath}");
         }
     }
 
-    // JSON ¹®ÀÚ¿­À» ½ÇÁ¦ µ¥ÀÌÅÍ·Î º¯È¯ÇÏ´Â ÇÔ¼ö (°øÅë »ç¿ë)
+    // JSON ë¬¸ìì—´ì„ ì‹¤ì œ ë°ì´í„°ë¡œ ë³€í™˜í•˜ëŠ” í•¨ìˆ˜ (ê³µí†µ ì‚¬ìš©)
     private void ParseJson(string json)
     {
-        // ±âÁ¸ ·ÎÁ÷À» ¿©±â·Î °¡Á®¿É´Ï´Ù.
+        // ê¸°ì¡´ ë¡œì§ì„ ì—¬ê¸°ë¡œ ê°€ì ¸ì˜µë‹ˆë‹¤.
         PopupDataTable table = JsonUtility.FromJson<PopupDataTable>(json);
         if (table != null)
         {
@@ -62,23 +62,25 @@ public class PopUpDataManager : MonoBehaviour
                     dataDictionary.Add(item.key, item);
                 }
             }
-            Debug.Log($"StreamingAssets µ¥ÀÌÅÍ ·Îµå ¿Ï·á: {dataDictionary.Count}°³");
+#if UNITY_EDITOR
+            Debug.Log($"StreamingAssets ë°ì´í„° ë¡œë“œ ì™„ë£Œ: {dataDictionary.Count}ê°œ");
+#endif
         }
     }
 
 
-    // 4. ¿ÜºÎ¿¡¼­ µ¥ÀÌÅÍ¸¦ ²¨³» ¾²´Â ÇÔ¼ö
+    // 4. ì™¸ë¶€ì—ì„œ ë°ì´í„°ë¥¼ êº¼ë‚´ ì“°ëŠ” í•¨ìˆ˜
     public PopUpData GetData(string key)
     {
         if (dataDictionary.ContainsKey(key))
             return dataDictionary[key];
 
-        Debug.LogWarning($"Å°¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù: {key}");
+        Debug.LogWarning($"í‚¤ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤: {key}");
         return null;
     }
-    //public PopUpData GetData(PopupKey keyEnum) //overload¸¦ ÅëÇØ¼­ enumÀ» ÅëÇØ¼­µµ °¡´ÉÇÏ°Ô.
+    //public PopUpData GetData(PopupKey keyEnum) //overloadë¥¼ í†µí•´ì„œ enumì„ í†µí•´ì„œë„ ê°€ëŠ¥í•˜ê²Œ.
     //{
-    //    // EnumÀ» stringÀ¸·Î º¯È¯ ("St1_Tuto_Jump")
+    //    // Enumì„ stringìœ¼ë¡œ ë³€í™˜ ("St1_Tuto_Jump")
     //    string keyString = keyEnum.ToString();
 
     //    return GetData(keyString);

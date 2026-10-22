@@ -1,3 +1,4 @@
+ï»¿#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ public class InteractActionDrawer : PropertyDrawer
 
         float y = position.y;
 
-        // Action ÀÌ¸§
+        // Action ì´ë¦„
         Rect foldoutRect = new Rect(
             position.x,
             y,
@@ -50,7 +51,7 @@ public class InteractActionDrawer : PropertyDrawer
 
         y += height + Spacing;
 
-        // ÇöÀç Type¿¡ ¸Â´Â Value¿Í Event¸¸ Ç¥½Ã
+        // í˜„ì¬ Typeì— ë§ëŠ” Valueì™€ Eventë§Œ í‘œì‹œ
         switch ((InteractValueType)typeProp.enumValueIndex)
         {
             case InteractValueType.Bool:
@@ -167,7 +168,7 @@ public class InteractActionDrawer : PropertyDrawer
         float height =
             EditorGUIUtility.singleLineHeight + Spacing;
 
-        // Á¢ÇôÀÖÀ¸¸é Foldout ³ôÀÌ¸¸ ¹İÈ¯
+        // ì ‘í˜€ìˆìœ¼ë©´ Foldout ë†’ì´ë§Œ ë°˜í™˜
         if (!property.isExpanded)
             return height;
 
@@ -257,3 +258,4 @@ public class InteractActionDrawer : PropertyDrawer
         ) + Spacing;
     }
 }
+#endif

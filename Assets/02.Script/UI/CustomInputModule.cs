@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -13,18 +13,18 @@ public class CustomInputModule : StandaloneInputModule
     }
 
 
-    // Æ¯Á¤Á¾·ùÀÇ ¸ğµâÀ» ÅëÇØ¼­ casting µÈ GameObject ¸¦ ¹İÈ¯ÇÏ´Â ÇÔ¼ö
+    // íŠ¹ì •ì¢…ë¥˜ì˜ ëª¨ë“ˆì„ í†µí•´ì„œ casting ëœ GameObject ë¥¼ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜
     public bool TryGetHovered<T>(out List<GameObject> hovered, int mouseID = kMouseLeftId)
         where T : BaseRaycaster
     {
         if (m_PointerData.TryGetValue(mouseID, out PointerEventData data))
         {
-            BaseRaycaster module = data.pointerCurrentRaycast.module; // ÇöÀç µ¥ÀÌÅÍ´Â ¾î¶² ¸ğµâ·Î Ä³½ºÆÃÀ» Çß´ÂÁö
-                                                                      // ³»°¡ Ã£´Â ¸ğµâÀÌ ¸ÂÀ¸¸é
+            BaseRaycaster module = data.pointerCurrentRaycast.module; // í˜„ì¬ ë°ì´í„°ëŠ” ì–´ë–¤ ëª¨ë“ˆë¡œ ìºìŠ¤íŒ…ì„ í–ˆëŠ”ì§€
+                                                                      // ë‚´ê°€ ì°¾ëŠ” ëª¨ë“ˆì´ ë§ìœ¼ë©´
             if (module != null &&
                 module is T)
             {
-                hovered = data.hovered; // ÇöÀç ¸¶¿ì½º À§Ä¡¿¡ ¿Ã¶ó¿ÍÀÖ´Â ¸ğµç GameObject ¹İÈ¯
+                hovered = data.hovered; // í˜„ì¬ ë§ˆìš°ìŠ¤ ìœ„ì¹˜ì— ì˜¬ë¼ì™€ìˆëŠ” ëª¨ë“  GameObject ë°˜í™˜
                 return true;
             }
         }
@@ -38,8 +38,8 @@ public class CustomInputModule : StandaloneInputModule
     {
         if (m_PointerData.TryGetValue(mouseID, out PointerEventData data))
         {
-            BaseRaycaster module = data.pointerCurrentRaycast.module; // ÇöÀç µ¥ÀÌÅÍ´Â ¾î¶² ¸ğµâ·Î Ä³½ºÆÃÀ» Çß´ÂÁö
-                                                                      // ³»°¡ Ã£´Â ¸ğµâÀÌ ¸ÂÀ¸¸é
+            BaseRaycaster module = data.pointerCurrentRaycast.module; // í˜„ì¬ ë°ì´í„°ëŠ” ì–´ë–¤ ëª¨ë“ˆë¡œ ìºìŠ¤íŒ…ì„ í–ˆëŠ”ì§€
+                                                                      // ë‚´ê°€ ì°¾ëŠ” ëª¨ë“ˆì´ ë§ìœ¼ë©´
             if (module != null &&
                 module is T)
             {

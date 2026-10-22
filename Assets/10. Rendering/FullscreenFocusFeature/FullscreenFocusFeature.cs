@@ -29,6 +29,11 @@ public class FullscreenFocusFeature : ScriptableRendererFeature
         if (settings.material == null)
             return;
 
+        // Only enqueue during the death sequence, on its designated camera.
+        // FinishFocus resets the controller after the respawn fade completes.
+        if (!FocusMaskController.IsEffectActiveFor(settings.material, renderingData.cameraData.camera))
+            return;
+
         if (!settings.showInSceneView &&
             renderingData.cameraData.cameraType == CameraType.SceneView)
             return;

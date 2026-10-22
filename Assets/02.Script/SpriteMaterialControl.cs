@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 public class SpriteMaterialControl : MonoBehaviour
@@ -70,7 +70,9 @@ public class SpriteMaterialControl : MonoBehaviour
         if (spriteMaterial == null)
         {
             spriteMaterial = GetComponent<SpriteRenderer>();
-            Debug.Log($"{spriteMaterial}ÀÌ µé¾î¿È");
+#if UNITY_EDITOR
+            Debug.Log($"{spriteMaterial}ì´ ë“¤ì–´ì˜´");
+#endif
         }
 
         Apply();

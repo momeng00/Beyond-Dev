@@ -1,12 +1,12 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class TempCamera : MonoBehaviour
 {
     [Header("Target Aspect Ratio")]
-    [Tooltip("¿øÇÏ´Â È­¸é ºñÀ²ÀÇ °¡·Î °ªÀÔ´Ï´Ù. (¿¹: 16)")]
+    [Tooltip("ì›í•˜ëŠ” í™”ë©´ ë¹„ìœ¨ì˜ ê°€ë¡œ ê°’ì…ë‹ˆë‹¤. (ì˜ˆ: 16)")]
     public float targetAspectRatioWidth = 1920.0f;
 
-    [Tooltip("¿øÇÏ´Â È­¸é ºñÀ²ÀÇ ¼¼·Î °ªÀÔ´Ï´Ù. (¿¹: 9)")]
+    [Tooltip("ì›í•˜ëŠ” í™”ë©´ ë¹„ìœ¨ì˜ ì„¸ë¡œ ê°’ì…ë‹ˆë‹¤. (ì˜ˆ: 9)")]
     public float targetAspectRatioHeight = 1080.0f;
 
     private Camera mainCamera;
@@ -19,44 +19,44 @@ public class TempCamera : MonoBehaviour
 
     void Update()
     {
-        // ¿¡µğÅÍ ¸ğµåÀÌ°Å³ª, ½ÇÁ¦ °ÔÀÓ ÇÃ·¹ÀÌ Áß Ã¢ Å©±â°¡ º¯°æµÉ ¶§¸¦ ´ëºñÇØ Update¿¡µµ È£Ãâ
+        // ì—ë””í„° ëª¨ë“œì´ê±°ë‚˜, ì‹¤ì œ ê²Œì„ í”Œë ˆì´ ì¤‘ ì°½ í¬ê¸°ê°€ ë³€ê²½ë  ë•Œë¥¼ ëŒ€ë¹„í•´ Updateì—ë„ í˜¸ì¶œ
         UpdateAspectRatio();
     }
 
     /// <summary>
-    /// ÇöÀç È­¸é ºñÀ²À» È®ÀÎÇÏ°í Ä«¸Ş¶óÀÇ Viewport Rect¸¦ Á¶ÀıÇÏ´Â ÇÔ¼ö
+    /// í˜„ì¬ í™”ë©´ ë¹„ìœ¨ì„ í™•ì¸í•˜ê³  ì¹´ë©”ë¼ì˜ Viewport Rectë¥¼ ì¡°ì ˆí•˜ëŠ” í•¨ìˆ˜
     /// </summary>
     public void UpdateAspectRatio()
     {
-        // ¸ñÇ¥ È­¸é ºñÀ² °è»ê (¿¹: 16 / 9 = 1.777...)
+        // ëª©í‘œ í™”ë©´ ë¹„ìœ¨ ê³„ì‚° (ì˜ˆ: 16 / 9 = 1.777...)
         float targetAspect = targetAspectRatioWidth / targetAspectRatioHeight;
 
-        // ÇöÀç È­¸éÀÇ ºñÀ² °è»ê
+        // í˜„ì¬ í™”ë©´ì˜ ë¹„ìœ¨ ê³„ì‚°
         float windowAspect = (float)Screen.width / (float)Screen.height;
 
-        // ÇöÀç È­¸é ºñÀ²¿¡ ¸ÂÃç ½ºÄÉÀÏ ÆÑÅÍ °è»ê
+        // í˜„ì¬ í™”ë©´ ë¹„ìœ¨ì— ë§ì¶° ìŠ¤ì¼€ì¼ íŒ©í„° ê³„ì‚°
         float scaleHeight = windowAspect / targetAspect;
 
-        // Rect: Ä«¸Ş¶ó°¡ È­¸éÀÇ ¾î´À ºÎºĞ¿¡ ·»´õ¸µÇÒÁö¸¦ °áÁ¤ (0~1 »çÀÌÀÇ °ª)
+        // Rect: ì¹´ë©”ë¼ê°€ í™”ë©´ì˜ ì–´ëŠ ë¶€ë¶„ì— ë Œë”ë§í• ì§€ë¥¼ ê²°ì • (0~1 ì‚¬ì´ì˜ ê°’)
         Rect cameraRect = mainCamera.rect;
 
-        if (scaleHeight < 1.0f) // ÇöÀç È­¸éÀÌ ¸ñÇ¥º¸´Ù ¼¼·Î·Î ´õ ±æ °æ¿ì (·¹ÅÍ¹Ú½Ì)
+        if (scaleHeight < 1.0f) // í˜„ì¬ í™”ë©´ì´ ëª©í‘œë³´ë‹¤ ì„¸ë¡œë¡œ ë” ê¸¸ ê²½ìš° (ë ˆí„°ë°•ì‹±)
         {
             cameraRect.width = 1.0f;
             cameraRect.height = scaleHeight;
             cameraRect.x = 0;
-            cameraRect.y = (1.0f - scaleHeight) / 2.0f; // ¼¼·Î Áß¾Ó Á¤·Ä
+            cameraRect.y = (1.0f - scaleHeight) / 2.0f; // ì„¸ë¡œ ì¤‘ì•™ ì •ë ¬
         }
-        else // ÇöÀç È­¸éÀÌ ¸ñÇ¥º¸´Ù °¡·Î·Î ´õ ³ĞÀ» °æ¿ì (ÇÊ·¯¹Ú½Ì)
+        else // í˜„ì¬ í™”ë©´ì´ ëª©í‘œë³´ë‹¤ ê°€ë¡œë¡œ ë” ë„“ì„ ê²½ìš° (í•„ëŸ¬ë°•ì‹±)
         {
             float scaleWidth = 1.0f / scaleHeight;
             cameraRect.width = scaleWidth;
             cameraRect.height = 1.0f;
-            cameraRect.x = (1.0f - scaleWidth) / 2.0f; // °¡·Î Áß¾Ó Á¤·Ä
+            cameraRect.x = (1.0f - scaleWidth) / 2.0f; // ê°€ë¡œ ì¤‘ì•™ ì •ë ¬
             cameraRect.y = 0;
         }
 
-        // °è»êµÈ Rect¸¦ Ä«¸Ş¶ó¿¡ Àû¿ë
+        // ê³„ì‚°ëœ Rectë¥¼ ì¹´ë©”ë¼ì— ì ìš©
         mainCamera.rect = cameraRect;
     }
 }

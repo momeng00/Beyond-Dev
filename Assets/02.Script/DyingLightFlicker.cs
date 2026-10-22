@@ -1,49 +1,49 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(Light2D))]
 public class DyingLightFlicker : MonoBehaviour
 {
-    [Header("±âº» ¹à±â")]
-    [Tooltip("Ã¼Å©ÇÏ¸é ½ÃÀÛ ½Ã Light2D¿¡ ¼³Á¤µÈ Intensity¸¦ »ç¿ëÇÕ´Ï´Ù.")]
+    [Header("ê¸°ë³¸ ë°ê¸°")]
+    [Tooltip("ì²´í¬í•˜ë©´ ì‹œì‘ ì‹œ Light2Dì— ì„¤ì •ëœ Intensityë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤.")]
     [SerializeField] private bool useCurrentIntensity = true;
 
     [SerializeField, Min(0f)]
     private float normalIntensity = 1f;
 
-    [Header("Á¤»óÀûÀ¸·Î ÄÑÁ® ÀÖ´Â ½Ã°£")]
+    [Header("ì •ìƒì ìœ¼ë¡œ ì¼œì ¸ ìˆëŠ” ì‹œê°„")]
     [SerializeField]
     private Vector2 stableTimeRange = new Vector2(1.5f, 6f);
 
-    [Header("ÇÑ ¹ø¿¡ ±ôºıÀÌ´Â È½¼ö")]
+    [Header("í•œ ë²ˆì— ê¹œë¹¡ì´ëŠ” íšŸìˆ˜")]
     [SerializeField]
     private Vector2Int flickerCountRange = new Vector2Int(2, 6);
 
-    [Header("Âª°Ô ¾îµÎ¿öÁö´Â ½Ã°£")]
+    [Header("ì§§ê²Œ ì–´ë‘ì›Œì§€ëŠ” ì‹œê°„")]
     [SerializeField]
     private Vector2 darkTimeRange = new Vector2(0.025f, 0.12f);
 
-    [Header("´Ù½Ã ÄÑÁö´Â ½Ã°£")]
+    [Header("ë‹¤ì‹œ ì¼œì§€ëŠ” ì‹œê°„")]
     [SerializeField]
     private Vector2 litTimeRange = new Vector2(0.03f, 0.18f);
 
-    [Header("¾îµÎ¿öÁ³À» ¶§ ¹à±â ºñÀ²")]
+    [Header("ì–´ë‘ì›Œì¡Œì„ ë•Œ ë°ê¸° ë¹„ìœ¨")]
     [SerializeField]
     private Vector2 dimIntensityRatio = new Vector2(0.05f, 0.35f);
 
-    [Header("°íÀå Ç¥Çö")]
+    [Header("ê³ ì¥ í‘œí˜„")]
     [SerializeField, Range(0f, 1f)]
     private float blackoutChance = 0.65f;
 
-    [Tooltip("°¡²û ºñ±³Àû ¿À·¡ ²¨Á® ÀÖÀ» È®·ü")]
+    [Tooltip("ê°€ë” ë¹„êµì  ì˜¤ë˜ êº¼ì ¸ ìˆì„ í™•ë¥ ")]
     [SerializeField, Range(0f, 1f)]
     private float longBlackoutChance = 0.12f;
 
     [SerializeField]
     private Vector2 longBlackoutTimeRange = new Vector2(0.2f, 0.7f);
 
-    [Header("´Ù½Ã ÄÑÁú ¶§ ¹à±â Èçµé¸²")]
+    [Header("ë‹¤ì‹œ ì¼œì§ˆ ë•Œ ë°ê¸° í”ë“¤ë¦¼")]
     [SerializeField]
     private Vector2 recoveryIntensityRatio = new Vector2(0.85f, 1.05f);
 
@@ -78,7 +78,7 @@ public class DyingLightFlicker : MonoBehaviour
     {
         while (true)
         {
-            // ´ëºÎºĞÀÇ ½Ã°£Àº Á¤»óÀûÀ¸·Î ÄÑÁ® ÀÖÀ½
+            // ëŒ€ë¶€ë¶„ì˜ ì‹œê°„ì€ ì •ìƒì ìœ¼ë¡œ ì¼œì ¸ ìˆìŒ
             targetLight.intensity = baseIntensity;
 
             yield return new WaitForSeconds(
@@ -97,7 +97,7 @@ public class DyingLightFlicker : MonoBehaviour
 
             int flickerCount = Random.Range(minCount, maxCount + 1);
 
-            // ÂªÀº Á¡¸êÀÌ ¿¬¼ÓÇØ¼­ ¹ß»ı
+            // ì§§ì€ ì ë©¸ì´ ì—°ì†í•´ì„œ ë°œìƒ
             for (int i = 0; i < flickerCount; i++)
             {
                 bool completeBlackout =

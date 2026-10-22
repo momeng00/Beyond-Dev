@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -15,22 +15,34 @@ public class TestBlur : MonoBehaviour
     {
         if (volume.profile.TryGet(out blur))
         {
-            Debug.Log("Blur Ã£À½");
+#if UNITY_EDITOR
+            Debug.Log("Blur ì°¾ìŒ");
+#endif
+#if UNITY_EDITOR
             Debug.Log(blur);
+#endif
         }
         else
         {
-            Debug.Log("Blur ¸ø Ã£À½");
+#if UNITY_EDITOR
+            Debug.Log("Blur ëª» ì°¾ìŒ");
+#endif
         }
 
         if (volume2.profile.TryGet(out blur2))
         {
-            Debug.Log("Blur Ã£À½");
+#if UNITY_EDITOR
+            Debug.Log("Blur ì°¾ìŒ");
+#endif
+#if UNITY_EDITOR
             Debug.Log(blur2);
+#endif
         }
         else
         {
-            Debug.Log("Blur ¸ø Ã£À½");
+#if UNITY_EDITOR
+            Debug.Log("Blur ëª» ì°¾ìŒ");
+#endif
         }
     }
 
@@ -43,7 +55,7 @@ public class TestBlur : MonoBehaviour
     {
         StartCoroutine(BlurSet(value));
     }
-    //0ÀÌ Àßº¸ÀÌ´Â°Å 1ÀÌ ¾Èº¸ÀÌ´Â°Å
+    //0ì´ ì˜ë³´ì´ëŠ”ê±° 1ì´ ì•ˆë³´ì´ëŠ”ê±°
     public IEnumerator BlurSet(bool value)
     {
         float startValue = value ? 1f : 0f;

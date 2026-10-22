@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -61,7 +61,7 @@ public class Stage : MonoBehaviour
         if (manager == null || manager.currentStage != this)
             return;
 
-        // Àß¸ø ¿¬°áµÈ Á¶°ÇÀ» Å¬¸®¾î·Î Ãë±ŞÇÏÁö ¾Ê´Â´Ù.
+        // ì˜ëª» ì—°ê²°ëœ ì¡°ê±´ì„ í´ë¦¬ì–´ë¡œ ì·¨ê¸‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
         if (conditionItems == null || conditionItems.Count == 0)
             return;
 

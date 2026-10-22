@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,17 +12,17 @@ public struct ItemInTodo
 [RequireComponent(typeof(CanvasGroup))]
 public class Card : MonoBehaviour, IUI
 {
-    //¾Ö´Ï¸ŞÀÌ¼ÇÀÌ³ª Å°°í ²¨ÁüÀÇ [±â´É!]À» ¸¸µé¾î¾ßÇÔ. ±â´ÉÀ» »ç¿ëÇÏ´Â °ÍÀº Manager¿¡ Á¾¼ÓµÇ¾î¾ßÇÔ.
-    //°í¾çÀÌÄ«µå¸¦ °ü¸®ÇÏ´Â ½ºÅ©¸³Æ®
-    //Ä«µå´Â Manager°¡ Instance·Î ½Ì±ÛÅæÀÌ´Ï ÀÌ¸¦ ÃÖ´ëÇÑ ÀÌ¿ëÇØº¸ÀÚ
-    public List<ItemInTodo> itemInTodoes; // ÀÌ°Ç ¾ÆÀÌÅÛÀÌ¶û ¿¬°áµÇ´Â TodoµéÀÓ
-    [HideInInspector] public List<Todo> todoList; //ÀÌ°Ç ±×³É ÅõµÎµéÀ» ³ÖÀ» °ø°£ÀÓ
+    //ì• ë‹ˆë©”ì´ì…˜ì´ë‚˜ í‚¤ê³  êº¼ì§ì˜ [ê¸°ëŠ¥!]ì„ ë§Œë“¤ì–´ì•¼í•¨. ê¸°ëŠ¥ì„ ì‚¬ìš©í•˜ëŠ” ê²ƒì€ Managerì— ì¢…ì†ë˜ì–´ì•¼í•¨.
+    //ê³ ì–‘ì´ì¹´ë“œë¥¼ ê´€ë¦¬í•˜ëŠ” ìŠ¤í¬ë¦½íŠ¸
+    //ì¹´ë“œëŠ” Managerê°€ Instanceë¡œ ì‹±ê¸€í†¤ì´ë‹ˆ ì´ë¥¼ ìµœëŒ€í•œ ì´ìš©í•´ë³´ì
+    public List<ItemInTodo> itemInTodoes; // ì´ê±´ ì•„ì´í…œì´ë‘ ì—°ê²°ë˜ëŠ” Todoë“¤ì„
+    [HideInInspector] public List<Todo> todoList; //ì´ê±´ ê·¸ëƒ¥ íˆ¬ë‘ë“¤ì„ ë„£ì„ ê³µê°„ì„
     private int completedTodoCount;
 
 
-    public Action<Card> OnTodoAnimationFinished; //¿©±â¿¡ Ä«µå Áı¾î³Ö´Â ±â´É ³Ö±â
+    public Action<Card> OnTodoAnimationFinished; //ì—¬ê¸°ì— ì¹´ë“œ ì§‘ì–´ë„£ëŠ” ê¸°ëŠ¥ ë„£ê¸°
     public float animDuration = 3.2f;
-    public float todoDelay = 0.36f; //´ÙÀ½ todo°¡ Ã¼Å©µÇ´Â µô·¹ÀÌ
+    public float todoDelay = 0.36f; //ë‹¤ìŒ todoê°€ ì²´í¬ë˜ëŠ” ë”œë ˆì´
 
     public bool BeginEntrance(float duration)
     {
@@ -133,7 +133,7 @@ public class Card : MonoBehaviour, IUI
         }
     }
 
-    #region ±âº» ¼±¾ğ
+    #region ê¸°ë³¸ ì„ ì–¸
     protected Animator animator;
     private CanvasGroup canvasGroup;
     public CanvasGroup CanvasGroup => canvasGroup;
@@ -183,9 +183,9 @@ public class Card : MonoBehaviour, IUI
 
     private void Awake()
     {
-        //º´½Å¾Æ CloneÀ» ¸¸µé¶§´Â Start¹®ÀÌ »ç¿ëÀÌ ¾ÈµÇ´Ù´Â °É ¸í½ÉÇØ.
-        //¾Æ´Ï¿´À½. Awake¹®Àº »ı¼ºÁ÷ÈÄ Start¹®Àº »ı¼ºÀÌ µÈ µÚ ¾÷µ¥ÀÌÆ®°¡ ½ÇÇàµÇ±â Á÷Àü¿¡ ½ÇÇàÀÌ µÇ¹Ç·Î
-        //»ı¼ºÇÑµÚ ¹Ù·Î AddCard¸¦ ½ÇÇàÇÏ´Ï »ı¼º- awake¹® - AddCard-Start¹® - Update¹®À¸·Î ½ÇÇàÀÌ µÈ°ÅÀÓ
+        //ë³‘ì‹ ì•„ Cloneì„ ë§Œë“¤ë•ŒëŠ” Startë¬¸ì´ ì‚¬ìš©ì´ ì•ˆë˜ë‹¤ëŠ” ê±¸ ëª…ì‹¬í•´.
+        //ì•„ë‹ˆì˜€ìŒ. Awakeë¬¸ì€ ìƒì„±ì§í›„ Startë¬¸ì€ ìƒì„±ì´ ëœ ë’¤ ì—…ë°ì´íŠ¸ê°€ ì‹¤í–‰ë˜ê¸° ì§ì „ì— ì‹¤í–‰ì´ ë˜ë¯€ë¡œ
+        //ìƒì„±í•œë’¤ ë°”ë¡œ AddCardë¥¼ ì‹¤í–‰í•˜ë‹ˆ ìƒì„±- awakeë¬¸ - AddCard-Startë¬¸ - Updateë¬¸ìœ¼ë¡œ ì‹¤í–‰ì´ ëœê±°ì„
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
         animator = GetComponent<Animator>();
@@ -207,7 +207,7 @@ public class Card : MonoBehaviour, IUI
         }
 
     }
-    #region ÃÊ±âÈ­ ±â´É ¹× ÃÊ±âÈ­¿¡ ³ÖÀ» ±â´É
+    #region ì´ˆê¸°í™” ê¸°ëŠ¥ ë° ì´ˆê¸°í™”ì— ë„£ì„ ê¸°ëŠ¥
     public void InitCard()
     {
         if (initialized)
@@ -246,17 +246,19 @@ public class Card : MonoBehaviour, IUI
             }
         }
     }
-    //¿©±â¿¡ ¹¹ ³ÖÀ»¶ó°í Çß´ÂÁö Ã¼Å©ÇØº¸±â
-    //¿©±â¾È¿¡ Á¾·á½ÃÅ°´Â °É ³ÖÀ»¶ó°í ÇßÀ½
+    //ì—¬ê¸°ì— ë­ ë„£ì„ë¼ê³  í–ˆëŠ”ì§€ ì²´í¬í•´ë³´ê¸°
+    //ì—¬ê¸°ì•ˆì— ì¢…ë£Œì‹œí‚¤ëŠ” ê±¸ ë„£ì„ë¼ê³  í–ˆìŒ
     public void SubscriptCardEnd(Action<Card> action)
     {
-        Debug.Log("Ãß°¡");
+#if UNITY_EDITOR
+        Debug.Log("ì¶”ê°€");
+#endif
         OnTodoAnimationFinished += action;
     }
 
 
-    //Ä«µå¾È¿¡ÀÖ´Â ¸ğµç Todo°¡ ¿Ï·áµÇ¾ú´ÂÁö È®ÀÎÇÏ±â
-    //Todoµé¿¡ ÀÖ´Â Action¿¡ ÀÌ°É µî·Ï½ÃÄÑ¼­ ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ÀÌ°É È£ÃâÇÔ
+    //ì¹´ë“œì•ˆì—ìˆëŠ” ëª¨ë“  Todoê°€ ì™„ë£Œë˜ì—ˆëŠ”ì§€ í™•ì¸í•˜ê¸°
+    //Todoë“¤ì— ìˆëŠ” Actionì— ì´ê±¸ ë“±ë¡ì‹œì¼œì„œ ì• ë‹ˆë©”ì´ì…˜ì´ ì´ê±¸ í˜¸ì¶œí•¨
     public void TodoAnimationFinished()
     {
         if (displayState != DisplayState.Checking) return;
@@ -345,7 +347,7 @@ public class Card : MonoBehaviour, IUI
         Hide();
     }
 
-    //Å¬¸®¾î °¡ ½ÇÇàµÇ¸é ½ÇÇàµÉ ¾Ö´Ï¸ŞÀÌ¼Ç Áß°£¿¡ Å¸ÀÌ¹ÖÀ» Á¶ÀıÇØ¾ßÇÔ
+    //í´ë¦¬ì–´ ê°€ ì‹¤í–‰ë˜ë©´ ì‹¤í–‰ë  ì• ë‹ˆë©”ì´ì…˜ ì¤‘ê°„ì— íƒ€ì´ë°ì„ ì¡°ì ˆí•´ì•¼í•¨
     public void SuccessClearStage()
     {
         if (!displayRequested || displayState != DisplayState.Entering) return;
@@ -365,7 +367,7 @@ public class Card : MonoBehaviour, IUI
         }
         coroutine = StartCoroutine(CheckCondition());
     }
-    //Card ÁøÀÔÀÌ ÁøÇàµÇ¸é ½ÇÇàµÉ ¸Ş¼­µå
+    //Card ì§„ì…ì´ ì§„í–‰ë˜ë©´ ì‹¤í–‰ë  ë©”ì„œë“œ
     public void NextStep()
     {
         BeginWaitForInput();
@@ -379,7 +381,7 @@ public class Card : MonoBehaviour, IUI
     {
         CardManager.Instance.CheckClearCard();
     }
-    #region ÄÚ·çÆ¾
+    #region ì½”ë£¨í‹´
     IEnumerator CheckCondition()
     {
         foreach (Todo todo in todoList)

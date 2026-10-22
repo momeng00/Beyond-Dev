@@ -1,23 +1,23 @@
-using System.Reflection;
+ï»¿using System.Reflection;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 public class MaterialControlTest : MonoBehaviour
 {
-    [Tooltip("FullScreenPassRendererFeature°¡ Æ÷ÇÔµÈ ·»´õ·¯ µ¥ÀÌÅÍ ¿¡¼Â")]
+    [Tooltip("FullScreenPassRendererFeatureê°€ í¬í•¨ëœ ë Œë”ëŸ¬ ë°ì´í„° ì—ì…‹")]
     public ScriptableRendererData rendererData;
-    // URP ¿¡¼Â¿¡¼­ ·»´õ·¯ ±â´ÉÀ» Ã£±â À§ÇÑ º¯¼öµé
+    // URP ì—ì…‹ì—ì„œ ë Œë”ëŸ¬ ê¸°ëŠ¥ì„ ì°¾ê¸° ìœ„í•œ ë³€ìˆ˜ë“¤
     private Material targetMaterial;
 
     void Awake() 
     {
-        // 1. ¿¬°áµÈ ·»´õ·¯ µ¥ÀÌÅÍ¿¡¼­ FullScreenPassRendererFeature¸¦ Ã£½À´Ï´Ù.
+        // 1. ì—°ê²°ëœ ë Œë”ëŸ¬ ë°ì´í„°ì—ì„œ FullScreenPassRendererFeatureë¥¼ ì°¾ìŠµë‹ˆë‹¤.
         foreach (var feature in rendererData.rendererFeatures)
         {
             if (feature is FullScreenPassRendererFeature)
             {
-                // 2. ±â´É¿¡¼­ MaterialÀ» Á÷Á¢ °¡Á®¿É´Ï´Ù.
+                // 2. ê¸°ëŠ¥ì—ì„œ Materialì„ ì§ì ‘ ê°€ì ¸ì˜µë‹ˆë‹¤.
                 targetMaterial = (feature as FullScreenPassRendererFeature).passMaterial;
                 break;
             }
@@ -25,7 +25,7 @@ public class MaterialControlTest : MonoBehaviour
 
         if (targetMaterial == null)
         {
-            Debug.LogError("ÇØ´ç ·»´õ·¯ µ¥ÀÌÅÍ¿¡¼­ FullScreenPassRendererFeature¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+            Debug.LogError("í•´ë‹¹ ë Œë”ëŸ¬ ë°ì´í„°ì—ì„œ FullScreenPassRendererFeatureë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
         }
     }
 

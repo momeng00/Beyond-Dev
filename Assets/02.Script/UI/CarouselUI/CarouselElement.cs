@@ -1,18 +1,18 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CarouselElement : UIBase
 {
-    [Header ("OnOpen, OnClose ¾ÈµÊ")] //event·Î ¼±¾ğÇØ³õ¾Ò±â¶§¹®
+    [Header ("OnOpen, OnClose ì•ˆë¨")] //eventë¡œ ì„ ì–¸í•´ë†“ì•˜ê¸°ë•Œë¬¸
     private Image image;
-    //private RectTransform rectTransform; ÀÌ¹Ì UIBase¿¡ Á¸ÀçÇÔ
-    //private CanvasGroup canvasGroup; ÀÌ¹Ì UIBase¿¡ Á¸ÀçÇÔ
+    //private RectTransform rectTransform; ì´ë¯¸ UIBaseì— ì¡´ì¬í•¨
+    //private CanvasGroup canvasGroup; ì´ë¯¸ UIBaseì— ì¡´ì¬í•¨
     private Coroutine _moveCoroutine;
     public float enterTime = 2.2f;
     public float aniEnterTime = 0.6f;
     private Animator ani;
-    public bool flag=false; //Å×½ºÆ®¿ë Ã¼Å© Ç¥½Ã ³ªÁß¿¡ »èÁ¦
+    public bool flag=false; //í…ŒìŠ¤íŠ¸ìš© ì²´í¬ í‘œì‹œ ë‚˜ì¤‘ì— ì‚­ì œ
     public string enterAnimationName;
     public string exitAnimationName;
     public float todoEnterDelay=0.4f;
@@ -47,7 +47,9 @@ public class CarouselElement : UIBase
 
     public override void Open()
     {
-        Debug.Log("ÁøÀÔ");
+#if UNITY_EDITOR
+        Debug.Log("ì§„ì…");
+#endif
         gameObject.SetActive(true);
         canvasGroup.alpha = 1f;
         canvasGroup.interactable = true;
@@ -67,10 +69,10 @@ public class CarouselElement : UIBase
     }
     protected new IEnumerator PlayOpenAnimation()
     {
-        // [ÇÙ½É] 1ÇÁ·¹ÀÓ ´ë±â -> À¯´ÏÆ¼°¡ UI Á¤·ÄÇÒ ½Ã°£À» ÁÜ
+        // [í•µì‹¬] 1í”„ë ˆì„ ëŒ€ê¸° -> ìœ ë‹ˆí‹°ê°€ UI ì •ë ¬í•  ì‹œê°„ì„ ì¤Œ
         yield return null;
 
-        // ½ÃÀÛ À§Ä¡ °è»ê
+        // ì‹œì‘ ìœ„ì¹˜ ê³„ì‚°
         float width = Screen.width;
         float height = Screen.height;
         Vector2 startPos = originalPosition;
@@ -83,14 +85,14 @@ public class CarouselElement : UIBase
             case UIAnimType.SlideBottom: startPos = new Vector2(originalPosition.x, -height); break;
         }
 
-        // ÃÊ±â À§Ä¡ °­Á¦ Àû¿ë
+        // ì´ˆê¸° ìœ„ì¹˜ ê°•ì œ ì ìš©
         if (openAnimation != UIAnimType.PopUp && openAnimation != UIAnimType.None)
             rectTransform.anchoredPosition = startPos;
 
         if (openAnimation == UIAnimType.PopUp)
             rectTransform.localScale = Vector3.zero;
 
-        // ¾Ö´Ï¸ŞÀÌ¼Ç ·çÇÁ
+        // ì• ë‹ˆë©”ì´ì…˜ ë£¨í”„
         float timer = 0f;
         bool aniFlag = false;
         while (timer < enterTime)
@@ -103,23 +105,23 @@ public class CarouselElement : UIBase
                 ani.Play(enterAnimationName, 0, 0f);
                 aniFlag = true;
             }
-            // 1. ¿òÁ÷ÀÓ/Å©±â º¯È­
+            // 1. ì›€ì§ì„/í¬ê¸° ë³€í™”
             if (openAnimation == UIAnimType.PopUp)
                 rectTransform.localScale = Vector3.Lerp(Vector3.zero, originalScale, t);
             else if (openAnimation != UIAnimType.None)
                 rectTransform.anchoredPosition = Vector2.Lerp(startPos, originalPosition, t);
 
-            // 2. [Ãß°¡µÊ] Åõ¸íµµ: 0(¾Èº¸ÀÓ) -> 1(Àßº¸ÀÓ) ·Î ¼­¼­È÷ º¯È­
+            // 2. [ì¶”ê°€ë¨] íˆ¬ëª…ë„: 0(ì•ˆë³´ì„) -> 1(ì˜ë³´ì„) ë¡œ ì„œì„œíˆ ë³€í™”
             //canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
 
             yield return null;
         }
 
-        // ³¡³­ ÈÄ È®½ÇÇÏ°Ô °ª °íÁ¤
+        // ëë‚œ í›„ í™•ì‹¤í•˜ê²Œ ê°’ ê³ ì •
         rectTransform.anchoredPosition = originalPosition;
         rectTransform.localScale = originalScale;
         todoList.Open();
-        canvasGroup.alpha = 1f; // ¿ÏÀüÈ÷ º¸ÀÌ°Ô
+        canvasGroup.alpha = 1f; // ì™„ì „íˆ ë³´ì´ê²Œ
     }
 
     protected new IEnumerator PlayCloseAnimation()
@@ -128,7 +130,7 @@ public class CarouselElement : UIBase
         Vector2 startPos = rectTransform.anchoredPosition;
         Vector3 startScale = rectTransform.localScale;
 
-        // ¸ñÇ¥ ÁöÁ¡ °è»ê
+        // ëª©í‘œ ì§€ì  ê³„ì‚°
         Vector2 targetPos = originalPosition;
         Vector3 targetScale = originalScale;
         float width = Screen.width;
@@ -148,40 +150,40 @@ public class CarouselElement : UIBase
             timer += Time.unscaledDeltaTime;
             
             float t = Mathf.Pow(Mathf.Sin((timer / enterTime) * Mathf.PI * 0.5f), 0.5f);
-            // 1. ¿òÁ÷ÀÓ/Å©±â º¯È­
+            // 1. ì›€ì§ì„/í¬ê¸° ë³€í™”
             if (openAnimation == UIAnimType.PopUp)
                 rectTransform.localScale = Vector3.Lerp(startScale, targetScale, t);
             else if (openAnimation != UIAnimType.None)
                 rectTransform.anchoredPosition = Vector2.Lerp(startPos, targetPos, t);
 
-            // 2. [Ãß°¡µÊ] Åõ¸íµµ: 1(Àßº¸ÀÓ) -> 0(¾Èº¸ÀÓ) ·Î ¼­¼­È÷ º¯È­
+            // 2. [ì¶”ê°€ë¨] íˆ¬ëª…ë„: 1(ì˜ë³´ì„) -> 0(ì•ˆë³´ì„) ë¡œ ì„œì„œíˆ ë³€í™”
             //canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
 
             yield return null;
         }
 
-        //// ³¡³­ ÈÄ ²ô±â
-        //canvasGroup.alpha = 0f; // ¿ÏÀüÈ÷ Åõ¸íÇÏ°Ô
+        //// ëë‚œ í›„ ë„ê¸°
+        //canvasGroup.alpha = 0f; // ì™„ì „íˆ íˆ¬ëª…í•˜ê²Œ
         //gameObject.SetActive(false);
 
-        // ´ÙÀ½ ¿ÀÇÂÀ» À§ÇØ ¿ø»óº¹±¸
+        // ë‹¤ìŒ ì˜¤í”ˆì„ ìœ„í•´ ì›ìƒë³µêµ¬
         //rectTransform.anchoredPosition = originalPosition;
         //rectTransform.localScale = originalScale;
     }
-    //±âº»ÀÌ µÉ ±×·ÁÁú ¼ø¼­¸¦ Á¤ÇÏ±â
+    //ê¸°ë³¸ì´ ë  ê·¸ë ¤ì§ˆ ìˆœì„œë¥¼ ì •í•˜ê¸°
     public void SetSortingOrder(int index)
     {
         image.transform.SetSiblingIndex(index);
         init();
     }
 
-    //µé¾î¿À°í ³ª¼­ TodoList¸¦ ¿Ï·á½ÃÅ°±â À§ÇÑ ±â´É
+    //ë“¤ì–´ì˜¤ê³  ë‚˜ì„œ TodoListë¥¼ ì™„ë£Œì‹œí‚¤ê¸° ìœ„í•œ ê¸°ëŠ¥
     public void OverList()
     {
 
     }
 
-    //¿ä¼ÒµéÀÇ À§Ä¡¸¦ ÃÊ±âÈ­ÇÏ±â À§ÇÑ ±â´É
+    //ìš”ì†Œë“¤ì˜ ìœ„ì¹˜ë¥¼ ì´ˆê¸°í™”í•˜ê¸° ìœ„í•œ ê¸°ëŠ¥
     public void init()
     {
 
@@ -206,7 +208,7 @@ public class CarouselElement : UIBase
             
 
             elapsed += Time.deltaTime;
-            float t = Mathf.SmoothStep(0, 1, elapsed / duration);  // ºÎµå·¯¿î ÀÌµ¿
+            float t = Mathf.SmoothStep(0, 1, elapsed / duration);  // ë¶€ë“œëŸ¬ìš´ ì´ë™
             float currentRot = Mathf.Lerp(rectTransform.localRotation.y, rot, t);
             float currentSize = Mathf.Lerp(rectTransform.localScale.y, size, t);
 
@@ -236,7 +238,7 @@ public class CarouselElement : UIBase
             time += Time.deltaTime;
             float t = time / duration;
 
-            // ºÎµå·¯¿î ease (Áß¿ä)
+            // ë¶€ë“œëŸ¬ìš´ ease (ì¤‘ìš”)
             t = Mathf.SmoothStep(0f, 1f, t);
 
             rectTransform.anchoredPosition = Vector2.Lerp(startPos, endPos, t);
@@ -245,16 +247,16 @@ public class CarouselElement : UIBase
             yield return null;
         }
 
-        // ¸¶Áö¸· º¸Á¤
+        // ë§ˆì§€ë§‰ ë³´ì •
         rectTransform.anchoredPosition = endPos;
         canvasGroup.alpha = 1f;
     }
 
-    //¼±ÅÃµÈ ¿ä¼Ò°¡ Áß¾Ó¿¡ ÀÖÀ¸¸é¼­ »õ·Î µé¾î¿À´Â ¿ä¼Ò°¡ Ãß°¡µÇ´Â ÀÛµ¿¹æ½ÄÀÌ ÇÊ¿äÇÔ.
-    //init·Î °¡´ÉÇÑ°¡? À§Ä¡¸¦ Manager°¡ ÀÖ´Â °÷ÀÌ ±âÁØÁ¡ÀÌ µÇ°í ÁÂ·Î ÀÌµ¿½ÃÅ°¸é?
-    //À§Ä¡¸¦ ÁöÁ¤ÇÏ´Â ¹æ½ÄÀÌ ¹¹°¡ ÀÖÀ»±î?
-    //0,10À» ±âÁØÁ¡À¸·Î ÇÏ¸é µÉ°Í°°Àºµ¥ ¼±ÅÃµÈ ¿ä¼Ò¸¦ ±âÁØÁ¡À¸·Î µÎ°í xÀÇ °ªÀ» º¯°æ½ÃÅ°´Â ¹æ½ÄÀ¸·Î ÁøÇàÇÏ°í
-    //ÀÌµ¿ ÀÚÃ¼¸¦ ¾î¶²½ÄÀ¸·Î ÇØ¾ßÇÒ±î? ÄÚ·çÆ¾?
-    //Update¹®À¸·Îµµ °¡´ÉÇÏ±â´Â ÇÑÅ× ÀÔ·ÂÀ» ¹Ş´Â°Íµµ ¾Æ´Ï°í ´Ù¸¥ ¹æ½ÄÀ¸·Î ±¸ÇöÇÏ°í ½ÍÀºµ¥?
+    //ì„ íƒëœ ìš”ì†Œê°€ ì¤‘ì•™ì— ìˆìœ¼ë©´ì„œ ìƒˆë¡œ ë“¤ì–´ì˜¤ëŠ” ìš”ì†Œê°€ ì¶”ê°€ë˜ëŠ” ì‘ë™ë°©ì‹ì´ í•„ìš”í•¨.
+    //initë¡œ ê°€ëŠ¥í•œê°€? ìœ„ì¹˜ë¥¼ Managerê°€ ìˆëŠ” ê³³ì´ ê¸°ì¤€ì ì´ ë˜ê³  ì¢Œë¡œ ì´ë™ì‹œí‚¤ë©´?
+    //ìœ„ì¹˜ë¥¼ ì§€ì •í•˜ëŠ” ë°©ì‹ì´ ë­ê°€ ìˆì„ê¹Œ?
+    //0,10ì„ ê¸°ì¤€ì ìœ¼ë¡œ í•˜ë©´ ë ê²ƒê°™ì€ë° ì„ íƒëœ ìš”ì†Œë¥¼ ê¸°ì¤€ì ìœ¼ë¡œ ë‘ê³  xì˜ ê°’ì„ ë³€ê²½ì‹œí‚¤ëŠ” ë°©ì‹ìœ¼ë¡œ ì§„í–‰í•˜ê³ 
+    //ì´ë™ ìì²´ë¥¼ ì–´ë–¤ì‹ìœ¼ë¡œ í•´ì•¼í• ê¹Œ? ì½”ë£¨í‹´?
+    //Updateë¬¸ìœ¼ë¡œë„ ê°€ëŠ¥í•˜ê¸°ëŠ” í•œí…Œ ì…ë ¥ì„ ë°›ëŠ”ê²ƒë„ ì•„ë‹ˆê³  ë‹¤ë¥¸ ë°©ì‹ìœ¼ë¡œ êµ¬í˜„í•˜ê³  ì‹¶ì€ë°?
     //
 }

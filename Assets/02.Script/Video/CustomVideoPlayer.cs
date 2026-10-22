@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -12,14 +12,14 @@ public class CustomVideoPlayer : MonoBehaviour
     public VideoData videoName;
     public UnityEvent onStarted;
     public UnityEvent onFinished;
-    //videoPlayer.loopPointReached //¿µ»óÀÌ ³¡ÁöÁ¡¿¡ ´Ù°¡°¡¸é ÀÚµ¿À¸·Î È£ÃâÇÏ´Â ÀÌº¥Æ® (À¯´ÏÆ¼ ±âº»±â´É)
-    //videoPlayer.started //¸¶Âù°¡Áö·Î ½ÃÀÛÇÒ¶§
-    //videoPlayer.prepareCompleted    // Prepare ¿Ï·á
-    //videoPlayer.started             // Play°¡ ½ÃÀÛµÊ
-    //videoPlayer.loopPointReached    // ¿µ»ó ³¡³²
-    //videoPlayer.seekCompleted       // Æ¯Á¤ ½Ã°£À¸·Î ÀÌµ¿ ¿Ï·á
-    //videoPlayer.errorReceived       // ¿À·ù ¹ß»ı
-    //videoPlayer.frameDropped        // ÇÁ·¹ÀÓ µå¶ø
+    //videoPlayer.loopPointReached //ì˜ìƒì´ ëì§€ì ì— ë‹¤ê°€ê°€ë©´ ìë™ìœ¼ë¡œ í˜¸ì¶œí•˜ëŠ” ì´ë²¤íŠ¸ (ìœ ë‹ˆí‹° ê¸°ë³¸ê¸°ëŠ¥)
+    //videoPlayer.started //ë§ˆì°¬ê°€ì§€ë¡œ ì‹œì‘í• ë•Œ
+    //videoPlayer.prepareCompleted    // Prepare ì™„ë£Œ
+    //videoPlayer.started             // Playê°€ ì‹œì‘ë¨
+    //videoPlayer.loopPointReached    // ì˜ìƒ ëë‚¨
+    //videoPlayer.seekCompleted       // íŠ¹ì • ì‹œê°„ìœ¼ë¡œ ì´ë™ ì™„ë£Œ
+    //videoPlayer.errorReceived       // ì˜¤ë¥˜ ë°œìƒ
+    //videoPlayer.frameDropped        // í”„ë ˆì„ ë“œë
     private void Awake()
     {
         _vidImage = GetComponent<RawImage>();

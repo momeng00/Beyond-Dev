@@ -1,8 +1,8 @@
-using System;
+ï»¿using System;
 
 public interface IEventHandle
 {
-    //ÀÌº¥Æ®¸¦ ½ÇÇà½ÃÅ³ ÁÖÃÖÀÚ
+    //ì´ë²¤íŠ¸ë¥¼ ì‹¤í–‰ì‹œí‚¬ ì£¼ìµœì
     public event Action<bool> OnToggleEvent;
     public void ToggleEventAddListener(Action<bool> action);
     public void ToggleEventDeleteListener(Action<bool> action);

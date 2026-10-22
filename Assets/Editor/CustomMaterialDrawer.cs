@@ -1,4 +1,4 @@
-using UnityEditor;
+ï»¿using UnityEditor;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using static MaterialControl;
@@ -7,7 +7,7 @@ using static MaterialControl;
 public class CustomMaterialDrawer : PropertyDrawer
 {
 
-    //MaterialControl ¹× SpriteMaterialControlÀÌ ÀÎ½ºÆåÅÍ Ã¢¿¡¼­ ÀÌ»Ú°Ô º¸ÀÌ°Ô ¸¸µé±â À§ÇÑ ½ºÅ©¸³Æ®
+    //MaterialControl ë° SpriteMaterialControlì´ ì¸ìŠ¤í™í„° ì°½ì—ì„œ ì´ì˜ê²Œ ë³´ì´ê²Œ ë§Œë“¤ê¸° ìœ„í•œ ìŠ¤í¬ë¦½íŠ¸
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         EditorGUI.BeginProperty(position, label, property);

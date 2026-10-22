@@ -1,8 +1,8 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class ConditionItem : ClearCondition, IReset
 {
-    //OpenDoorItemÀÌ ´ë½ÅÇÏ°í ÀÖÀ½
+    //OpenDoorItemì´ ëŒ€ì‹ í•˜ê³  ìˆìŒ
     public LayerMask layerMask;
     private bool satisfied = false;
     public bool Satisfied

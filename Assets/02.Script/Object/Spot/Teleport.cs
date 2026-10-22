@@ -1,9 +1,9 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 public class Teleport : Spot, IClearCondition
 {
-    //°ÔÀÓÀÇ Å¬¸®¾î¿¡ ÇØ´çÇÏ´Â ±â´ÉÀ» ±¸ÇöÇØ¾ßÇÕ´Ï´Ù.
+    //ê²Œì„ì˜ í´ë¦¬ì–´ì— í•´ë‹¹í•˜ëŠ” ê¸°ëŠ¥ì„ êµ¬í˜„í•´ì•¼í•©ë‹ˆë‹¤.
     public Transform arrivePos;
     public int stage;
     [SerializeField] private List<GameObject> detects = new List<GameObject>();
@@ -30,7 +30,7 @@ public class Teleport : Spot, IClearCondition
         }
     }
 
-    #region °ÔÀÓ Å¬¸®¾î¸¦ À§ÇÑ ±â´É±¸Çö
+    #region ê²Œì„ í´ë¦¬ì–´ë¥¼ ìœ„í•œ ê¸°ëŠ¥êµ¬í˜„
 
     public bool IsSatisfied()
     {
@@ -46,7 +46,7 @@ public class Teleport : Spot, IClearCondition
 
 
 
-    #region Trigger ±¸Çö
+    #region Trigger êµ¬í˜„
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

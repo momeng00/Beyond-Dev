@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 
 public enum ScreenSize
@@ -9,7 +9,7 @@ public enum ScreenSize
 }
 public class LetterboxScaler : MonoBehaviour
 {
-    //È­¸é ºñÀ²À» µû·Î Á¶Á¤ÇÒ ¼ö ¾øµµ·Ï ¸¸µé±â ¶§¹®¿¡ ·¹ÅÍ¹Ú½º´Â ÀÚµ¿À¸·Î ¿©±â¿¡ Á¾¼ÓµÊ
+    //í™”ë©´ ë¹„ìœ¨ì„ ë”°ë¡œ ì¡°ì •í•  ìˆ˜ ì—†ë„ë¡ ë§Œë“¤ê¸° ë•Œë¬¸ì— ë ˆí„°ë°•ìŠ¤ëŠ” ìë™ìœ¼ë¡œ ì—¬ê¸°ì— ì¢…ì†ë¨
     public Transform upLetterbox;
     public Transform downLetterbox;
     private int width;
