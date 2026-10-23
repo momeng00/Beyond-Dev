@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.U2D.Animation;
 
@@ -13,14 +13,16 @@ public class CostumeData : ScriptableObject
         {
             if (pair.state == state) return pair.library;
         }
-        Debug.Log("¼³Á¤µÈ Library°¡ ¾øÀ½");
+#if UNITY_EDITOR
+        Debug.Log("ì„¤ì •ëœ Libraryê°€ ì—†ìŒ");
+#endif
         return null;
     }
     [System.Serializable]
     public struct CostumeEntry
     {
-        public GameState state;       // ½ÃÁ¡ (Enum)
-        public SpriteLibraryAsset library; // Àû¿ëÇÒ ¶óÀÌºê·¯¸®
+        public GameState state;       // ì‹œì  (Enum)
+        public SpriteLibraryAsset library; // ì ìš©í•  ë¼ì´ë¸ŒëŸ¬ë¦¬
     }
 }
 

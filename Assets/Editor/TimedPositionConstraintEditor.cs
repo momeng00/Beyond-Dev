@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -111,9 +111,9 @@ public sealed class TimedPositionConstraintEditor : Editor
                     .objectReferenceValue == null)
             {
                 EditorGUILayout.HelpBox(
-                    "Render Camera°¡ ºñ¾î ÀÖÀ¸¸é " +
-                    "SourcesÀÇ Camera¸¦ ¸ÕÀú Ã£°í, " +
-                    "¾øÀ¸¸é MainCamera¸¦ »ç¿ëÇÕ´Ï´Ù.",
+                    "Render Cameraê°€ ë¹„ì–´ ìˆìœ¼ë©´ " +
+                    "Sourcesì˜ Cameraë¥¼ ë¨¼ì € ì°¾ê³ , " +
+                    "ì—†ìœ¼ë©´ MainCameraë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤.",
                     MessageType.Info
                 );
             }

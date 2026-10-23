@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
@@ -13,7 +13,9 @@ public class SceneLoader : MonoBehaviour
         {
             director.playableGraph.GetRootPlayable(0).SetSpeed(1f);
             UI.SetActive(false);
-            Debug.Log("Å¸ÀÓ 1 ÀÌÇÏ");
+#if UNITY_EDITOR
+            Debug.Log("íƒ€ì„ 1 ì´í•˜");
+#endif
         }
     }
     

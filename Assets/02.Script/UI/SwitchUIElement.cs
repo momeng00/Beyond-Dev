@@ -1,4 +1,4 @@
-using CarouselUI;
+Ôªøusing CarouselUI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,8 +14,8 @@ public class SwitchUIElement : CarouselUIElement
     private void Start()
     {
 
-        //±‚∫ª¿Ã ≈∞∫∏µÂ(left¿ßƒ°ø° ¿÷¿Ω) << º≥¡§¿Ã ∆–µÂ∞° æ∆¥— ≈∞∫∏µÂ∂Û¥¬ ∂Ê
-        //≥™¡ﬂø° º≥¡§¿ª ∑ŒµÂ«œ¥¬ ±‚¥…¿ª ∏∏µÈ∏È ∞≈±‚º≠ ∞°¡ÆøÕº≠ º≥¡§¿ª Ω√≈∞¥¬ πÊΩƒ¿∏∑Œ ∫Ø∞Ê«ÿæﬂ«‘
+        //Í∏∞Î≥∏Ïù¥ ÌÇ§Î≥¥Îìú(leftÏúÑÏπòÏóê ÏûàÏùå) << ÏÑ§Ï†ïÏù¥ Ìå®ÎìúÍ∞Ä ÏïÑÎãå ÌÇ§Î≥¥ÎìúÎùºÎäî Îúª
+        //ÎÇòÏ§ëÏóê ÏÑ§Ï†ïÏùÑ Î°úÎìúÌïòÎäî Í∏∞Îä•ÏùÑ ÎßåÎì§Î©¥ Í±∞Í∏∞ÏÑú Í∞ÄÏ†∏ÏôÄÏÑú ÏÑ§Ï†ïÏùÑ ÏãúÌÇ§Îäî Î∞©ÏãùÏúºÎ°ú Î≥ÄÍ≤ΩÌï¥ÏïºÌï®
         currentImage = leftImage;
         Color color = currentImage.color;
         color.a = 1f;
@@ -56,7 +56,7 @@ public class SwitchUIElement : CarouselUIElement
         Color color = currentImage.color;
         color.a = 1f;
         currentImage.color = color;
-        //current∞° πŸ≤Ô∞Õø° µ˚∂Ûº≠ º≥¡§πŸ≤Ó∞‘ «œ¥¬ ƒ⁄µÂ ø©±‚ø°
+        //currentÍ∞Ä Î∞îÎÄêÍ≤ÉÏóê Îî∞ÎùºÏÑú ÏÑ§Ï†ïÎ∞îÎÄåÍ≤å ÌïòÎäî ÏΩîÎìú Ïó¨Í∏∞Ïóê
     }
 
     public void SwitchUnSelected()

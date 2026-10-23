@@ -1,10 +1,10 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    [Header("Æ®¸®°Å ¾×¼ÇÀÎ°¡ ±×°Å")]
+    [Header("íŠ¸ë¦¬ê±° ì•¡ì…˜ì¸ê°€ ê·¸ê±°")]
     public Collider2D doorCollider;
 
     public List<OpenDoorItem> satisfiedItem;

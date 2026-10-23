@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -58,50 +58,50 @@ public class MessageBlock : Block, ISwitchable
     }
     public void MessagerBlock(bool on)
     {
-        if (on) // ºí·ÏÀÌ ÄÑÁú ¶§
+        if (on) // ë¸”ë¡ì´ ì¼œì§ˆ ë•Œ
         {
             MoveObjectsUp();
             ani.Play("In");
             mask.enabled = on;
             matarialAnim.Play();
-            //spriteRenderer.enabled = true; // º¸ÀÌ°Ô
-            boxCollider.isTrigger = false; // ´Ü´ÜÇÑ ¹ßÆÇÀ¸·Î
+            //spriteRenderer.enabled = true; // ë³´ì´ê²Œ
+            boxCollider.isTrigger = false; // ë‹¨ë‹¨í•œ ë°œíŒìœ¼ë¡œ
         }
-        else // ºí·ÏÀÌ ²¨Áú ¶§
+        else // ë¸”ë¡ì´ êº¼ì§ˆ ë•Œ
         {
             ani.Play("Out");
             mask.enabled = on;
             matarialAnim.PlayReturn();
-            //spriteRenderer.enabled = false; // ¾È º¸ÀÌ°Ô
-            boxCollider.isTrigger = true; // °¨Áö ¸ğµå·Î
+            //spriteRenderer.enabled = false; // ì•ˆ ë³´ì´ê²Œ
+            boxCollider.isTrigger = true; // ê°ì§€ ëª¨ë“œë¡œ
         }
     }
     private bool CanPushHorizontally(Collider2D charCol, float directionX, float distance)
     {
         Vector2 direction = new Vector2(directionX, 0);
 
-        // °á°ú¸¦ ´ãÀ» ¸®½ºÆ® (Cast ÇÔ¼ö´Â °á°ú¸¦ ¿©±â¿¡ ³Ö¾îÁİ´Ï´Ù)
+        // ê²°ê³¼ë¥¼ ë‹´ì„ ë¦¬ìŠ¤íŠ¸ (Cast í•¨ìˆ˜ëŠ” ê²°ê³¼ë¥¼ ì—¬ê¸°ì— ë„£ì–´ì¤ë‹ˆë‹¤)
         RaycastHit2D[] results = new RaycastHit2D[1];
 
-        // ContactFilter ¼³Á¤ (·¹ÀÌ¾î ¸¶½ºÅ© µî)
+        // ContactFilter ì„¤ì • (ë ˆì´ì–´ ë§ˆìŠ¤í¬ ë“±)
         ContactFilter2D filter = new ContactFilter2D();
         filter.SetLayerMask(targetLayer);
         filter.useLayerMask = true;
 
-        // --- ÇÙ½É º¯°æ: ³» Äİ¶óÀÌ´õ ¸ğ¾ç ±×´ë·Î ½î±â ---
-        // distance + skinWidth ¸¸Å­ ½÷¼­ º®ÀÌ °É¸®´ÂÁö È®ÀÎ
-        // (ÀÌ ÇÔ¼ö´Â °¨ÁöµÈ °³¼ö¸¦ ¹İÈ¯ÇÕ´Ï´Ù)
+        // --- í•µì‹¬ ë³€ê²½: ë‚´ ì½œë¼ì´ë” ëª¨ì–‘ ê·¸ëŒ€ë¡œ ì˜ê¸° ---
+        // distance + skinWidth ë§Œí¼ ì´ì„œ ë²½ì´ ê±¸ë¦¬ëŠ”ì§€ í™•ì¸
+        // (ì´ í•¨ìˆ˜ëŠ” ê°ì§€ëœ ê°œìˆ˜ë¥¼ ë°˜í™˜í•©ë‹ˆë‹¤)
         int hitCount = charCol.Cast(direction, filter, results, distance + 0.02f);
 
-        // °¨ÁöµÈ °Ô 0°³¶ó¸é º®ÀÌ ¾ø´Ù´Â ¶æ -> ¹Ğ¸± ¼ö ÀÖÀ½ (true)
+        // ê°ì§€ëœ ê²Œ 0ê°œë¼ë©´ ë²½ì´ ì—†ë‹¤ëŠ” ëœ» -> ë°€ë¦´ ìˆ˜ ìˆìŒ (true)
         return hitCount == 0;
     }
     private void MoveObjectsUp()
     {
-        // ¸®½ºÆ® º¹»ç
+        // ë¦¬ìŠ¤íŠ¸ ë³µì‚¬
         List<Rigidbody2D> rigidbodiesToMove = new List<Rigidbody2D>(rigidbodiesInTrigger);
 
-        // ³»(ºí·Ï) Äİ¶óÀÌ´õÀÇ °æ°è
+        // ë‚´(ë¸”ë¡) ì½œë¼ì´ë”ì˜ ê²½ê³„
         Bounds blockBounds = boxCollider.bounds;
 
         foreach (Rigidbody2D charRb in rigidbodiesToMove)
@@ -111,70 +111,70 @@ public class MessageBlock : Block, ISwitchable
             Collider2D charCol = charRb.GetComponent<Collider2D>();
             Bounds charBounds = charCol.bounds;
 
-            // --- 1. °ãÄ£ ±íÀÌ °è»ê ---
+            // --- 1. ê²¹ì¹œ ê¹Šì´ ê³„ì‚° ---
 
-            // À§·Î Å»ÃâÇÏ±â À§ÇØ ÀÌµ¿ÇØ¾ß ÇÒ °Å¸®
-            // (ºí·ÏÀÇ »ó´Ü) - (Ä³¸¯ÅÍÀÇ ¹ß¹Ù´Ú)
+            // ìœ„ë¡œ íƒˆì¶œí•˜ê¸° ìœ„í•´ ì´ë™í•´ì•¼ í•  ê±°ë¦¬
+            // (ë¸”ë¡ì˜ ìƒë‹¨) - (ìºë¦­í„°ì˜ ë°œë°”ë‹¥)
             float distToTop = (blockBounds.max.y - charBounds.min.y);
 
-            // ¿·À¸·Î Å»ÃâÇÏ±â À§ÇØ ÀÌµ¿ÇØ¾ß ÇÒ °Å¸® °è»ê
-            float distToRight = (blockBounds.max.x - charBounds.min.x); // ¿À¸¥ÂÊÀ¸·Î ¹Ğ ¶§ °Å¸®
-            float distToLeft = (charBounds.max.x - blockBounds.min.x); // ¿ŞÂÊÀ¸·Î ¹Ğ ¶§ °Å¸®
+            // ì˜†ìœ¼ë¡œ íƒˆì¶œí•˜ê¸° ìœ„í•´ ì´ë™í•´ì•¼ í•  ê±°ë¦¬ ê³„ì‚°
+            float distToRight = (blockBounds.max.x - charBounds.min.x); // ì˜¤ë¥¸ìª½ìœ¼ë¡œ ë°€ ë•Œ ê±°ë¦¬
+            float distToLeft = (charBounds.max.x - blockBounds.min.x); // ì™¼ìª½ìœ¼ë¡œ ë°€ ë•Œ ê±°ë¦¬
 
-            // Ä³¸¯ÅÍ°¡ ºí·Ï Áß½Éº¸´Ù ¿À¸¥ÂÊ¿¡ ÀÖ´ÂÁö ¿ŞÂÊ¿¡ ÀÖ´ÂÁö ÆÇ´Ü
+            // ìºë¦­í„°ê°€ ë¸”ë¡ ì¤‘ì‹¬ë³´ë‹¤ ì˜¤ë¥¸ìª½ì— ìˆëŠ”ì§€ ì™¼ìª½ì— ìˆëŠ”ì§€ íŒë‹¨
             bool isRightSide = charBounds.center.x > blockBounds.center.x;
 
-            // ÇöÀç À§Ä¡¿¡¼­ °¡Àå °¡±î¿î ¿·¸é Å»Ãâ °Å¸®¿Í ¹æÇâ
+            // í˜„ì¬ ìœ„ì¹˜ì—ì„œ ê°€ì¥ ê°€ê¹Œìš´ ì˜†ë©´ íƒˆì¶œ ê±°ë¦¬ì™€ ë°©í–¥
             float sidePushDist = isRightSide ? distToRight : distToLeft;
             float sideDir = isRightSide ? 1f : -1f;
 
 
-            // --- 2. ·ÎÁ÷ ÆÇ´Ü ---
+            // --- 2. ë¡œì§ íŒë‹¨ ---
 
-            // Á¶°Ç A: ¿·À¸·Î ³ª°¡´Â °Å¸®°¡ À§·Î °¡´Â °Å¸®º¸´Ù ÂªÀº°¡? (Áï, ¿·¿¡ °ÉÃÄÀÖ´Â°¡?)
-            // Á¶°Ç B: ¿·À¸·Î ³ª°¡´Â °Å¸®°¡ ³Ê¹« ¸ÖÁö ¾ÊÀº°¡? (Ä³¸¯ÅÍ ÆøÀÇ Àı¹İ ÀÌÇÏÀÏ ¶§¸¸ ¿·À¸·Î ÀÎÁ¤ µî)
+            // ì¡°ê±´ A: ì˜†ìœ¼ë¡œ ë‚˜ê°€ëŠ” ê±°ë¦¬ê°€ ìœ„ë¡œ ê°€ëŠ” ê±°ë¦¬ë³´ë‹¤ ì§§ì€ê°€? (ì¦‰, ì˜†ì— ê±¸ì³ìˆëŠ”ê°€?)
+            // ì¡°ê±´ B: ì˜†ìœ¼ë¡œ ë‚˜ê°€ëŠ” ê±°ë¦¬ê°€ ë„ˆë¬´ ë©€ì§€ ì•Šì€ê°€? (ìºë¦­í„° í­ì˜ ì ˆë°˜ ì´í•˜ì¼ ë•Œë§Œ ì˜†ìœ¼ë¡œ ì¸ì • ë“±)
             bool isEdge = sidePushDist < distToTop && sidePushDist < (charBounds.size.x * 0.7f);
 
             if (isEdge)
             {
-                // --- 3. ¹Ğ¸± ¼ö ÀÖ´ÂÁö Ã¼Å© (BoxCast) ---
+                // --- 3. ë°€ë¦´ ìˆ˜ ìˆëŠ”ì§€ ì²´í¬ (BoxCast) ---
                 if (CanPushHorizontally(charCol, sideDir, sidePushDist))
                 {
-                    // º®ÀÌ ¾ø´Ù -> ¿·À¸·Î ¹Ğ±â
+                    // ë²½ì´ ì—†ë‹¤ -> ì˜†ìœ¼ë¡œ ë°€ê¸°
                     float targetX = charRb.position.x + (sideDir * sidePushDist) + (sideDir * 0.02f);
                     charRb.position = new Vector2(targetX, charRb.position.y);
                 }
                 else
                 {
-                    // º®ÀÌ ÀÖ´Ù -> À§·Î ¿Ã¸®±â (±âÁ¸ ·ÎÁ÷)
+                    // ë²½ì´ ìˆë‹¤ -> ìœ„ë¡œ ì˜¬ë¦¬ê¸° (ê¸°ì¡´ ë¡œì§)
                     PushUp(charRb, blockBounds.max.y, charBounds.size.y);
                 }
             }
             else
             {
-                // ¿ÏÀüÈ÷ ¾ÈÂÊ¿¡ ÀÖ°Å³ª À§ÂÊÀÌ ´õ °¡±î¿ò -> À§·Î ¿Ã¸®±â (±âÁ¸ ·ÎÁ÷)
+                // ì™„ì „íˆ ì•ˆìª½ì— ìˆê±°ë‚˜ ìœ„ìª½ì´ ë” ê°€ê¹Œì›€ -> ìœ„ë¡œ ì˜¬ë¦¬ê¸° (ê¸°ì¡´ ë¡œì§)
                 PushUp(charRb, blockBounds.max.y, charBounds.size.y);
             }
         }
     }
 
-    // ÄÚµå Àç»ç¿ëÀ» À§ÇØ À§·Î ¿Ã¸®´Â ºÎºĞ¸¸ µû·Î »­
+    // ì½”ë“œ ì¬ì‚¬ìš©ì„ ìœ„í•´ ìœ„ë¡œ ì˜¬ë¦¬ëŠ” ë¶€ë¶„ë§Œ ë”°ë¡œ ëºŒ
     private void PushUp(Rigidbody2D charRb, float blockTopY, float charHeight)
     {
         float targetY = blockTopY + (charHeight / 2f) + 0.02f;
         charRb.position = new Vector2(charRb.position.x, targetY);
 
-        // (Áß¿ä) À§·Î ¿Ã¸± ¶§ YÃà ¼Óµµ¸¦ 0À¸·Î ¸¸µé¾î¾ß Æ¢¾î ¿À¸£´Â Çö»ó ¹æÁö
+        // (ì¤‘ìš”) ìœ„ë¡œ ì˜¬ë¦´ ë•Œ Yì¶• ì†ë„ë¥¼ 0ìœ¼ë¡œ ë§Œë“¤ì–´ì•¼ íŠ€ì–´ ì˜¤ë¥´ëŠ” í˜„ìƒ ë°©ì§€
         charRb.linearVelocity = new Vector2(charRb.linearVelocity.x, 0);
     }
     //private void MoveObjectsUp()
     //{
-    //    // ¸®½ºÆ®¸¦ º¹»çÇØ¼­ ¼øÈ¸ (¿øº» ¸®½ºÆ®°¡ º¯°æµÉ ¼ö ÀÖÀ¸¹Ç·Î)
+    //    // ë¦¬ìŠ¤íŠ¸ë¥¼ ë³µì‚¬í•´ì„œ ìˆœíšŒ (ì›ë³¸ ë¦¬ìŠ¤íŠ¸ê°€ ë³€ê²½ë  ìˆ˜ ìˆìœ¼ë¯€ë¡œ)
     //    List<Rigidbody2D> rigidbodiesToMove = new List<Rigidbody2D>(rigidbodiesInTrigger);
 
     //    foreach (Rigidbody2D rb in rigidbodiesToMove)
     //    {
-    //        if (rb == null) continue; // ¿ÀºêÁ§Æ®°¡ ÆÄ±«µÇ¾úÀ» °æ¿ì ´ëºñ
+    //        if (rb == null) continue; // ì˜¤ë¸Œì íŠ¸ê°€ íŒŒê´´ë˜ì—ˆì„ ê²½ìš° ëŒ€ë¹„
 
     //        float objectHeight = rb.GetComponent<Collider2D>().bounds.size.y;
     //        float boxTopY = transform.position.y + boxCollider.offset.y + (boxCollider.size.y / 2);
@@ -184,12 +184,12 @@ public class MessageBlock : Block, ISwitchable
     //            boxTopY + (objectHeight / 2)
     //        );
 
-    //        rb.position = targetPosition; // Áï½Ã À§Ä¡ º¯°æ
+    //        rb.position = targetPosition; // ì¦‰ì‹œ ìœ„ì¹˜ ë³€ê²½
     //    }
     //}
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // ÁöÁ¤µÈ ·¹ÀÌ¾îÀÎÁö È®ÀÎÇÏ°í Rigidbody2D°¡ ÀÖ´ÂÁö È®ÀÎ
+        // ì§€ì •ëœ ë ˆì´ì–´ì¸ì§€ í™•ì¸í•˜ê³  Rigidbody2Dê°€ ìˆëŠ”ì§€ í™•ì¸
         if (((1 << collision.gameObject.layer) & targetLayer) != 0)
         {
             Rigidbody2D rb = collision.GetComponent<Rigidbody2D>();
@@ -219,7 +219,7 @@ public class MessageBlock : Block, ISwitchable
             Rigidbody2D rb = collision.GetComponent<Rigidbody2D>();
             if (rb != null && rigidbodiesInTrigger.Contains(rb))
             {
-                // ¾È¿¡¼­ '¿ÀºêÁ§Æ®°¡ SetActive(false)°¡ µÇ¸é ¿À·ù È®ÀÎÀ» ÇØ¾ßÇÕ´Ï´Ù'
+                // ì•ˆì—ì„œ 'ì˜¤ë¸Œì íŠ¸ê°€ SetActive(false)ê°€ ë˜ë©´ ì˜¤ë¥˜ í™•ì¸ì„ í•´ì•¼í•©ë‹ˆë‹¤'
                 rigidbodiesInTrigger.Remove(rb);
             }
         }
@@ -231,7 +231,7 @@ public class MessageBlock : Block, ISwitchable
             Rigidbody2D rb = collision.gameObject.GetComponent<Rigidbody2D>();
             if (rb != null && rigidbodiesInTrigger.Contains(rb))
             {
-                // ¾È¿¡¼­ '¿ÀºêÁ§Æ®°¡ SetActive(false)°¡ µÇ¸é ¿À·ù È®ÀÎÀ» ÇØ¾ßÇÕ´Ï´Ù'
+                // ì•ˆì—ì„œ 'ì˜¤ë¸Œì íŠ¸ê°€ SetActive(false)ê°€ ë˜ë©´ ì˜¤ë¥˜ í™•ì¸ì„ í•´ì•¼í•©ë‹ˆë‹¤'
                 rigidbodiesInTrigger.Remove(rb);
             }
         }

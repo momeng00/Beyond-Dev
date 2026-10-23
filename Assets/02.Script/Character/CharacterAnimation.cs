@@ -1,10 +1,10 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterAnimation : MonoBehaviour
 {
-    //ID¸¦ Àü´ŞÇÏ¸é Å¬·¡½º¸¦ ¹İÈ¯ÇÏ°Ô DIctionary¸¦ ÅëÇØ¼­ ±¸ÇöÀ» Çß¾úÀ½, ´Ü DataSheet¸¦ ¸¸µé¾î¼­ ¹Ì¸® ¼±¾ğÀ» ÇØµÖ¾ßÇÔ.
+    //IDë¥¼ ì „ë‹¬í•˜ë©´ í´ë˜ìŠ¤ë¥¼ ë°˜í™˜í•˜ê²Œ DIctionaryë¥¼ í†µí•´ì„œ êµ¬í˜„ì„ í–ˆì—ˆìŒ, ë‹¨ DataSheetë¥¼ ë§Œë“¤ì–´ì„œ ë¯¸ë¦¬ ì„ ì–¸ì„ í•´ë‘¬ì•¼í•¨.
     private Dictionary<CharacterStateID,CharacterStateBase> stateData = new Dictionary<CharacterStateID, CharacterStateBase>();
     public CharacterControl characterControl;
     public Collider2D col;

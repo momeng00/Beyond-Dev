@@ -1,4 +1,4 @@
-using CarouselUI;
+ï»¿using CarouselUI;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,9 +7,9 @@ using static SoundUIElement;
 public class OptionUIElement : CarouselUIElement
 {
     public Image leftImage;
-    [SerializeField] public List<customSelectImage> leftImages = new List<customSelectImage>(); //¼±ÅÃ´ë»ó¸¶´Ù ¹Ù²î´Â ÀÌ¹ÌÁö¸¦ Áı¾î³Ö´Â °÷
+    [SerializeField] public List<customSelectImage> leftImages = new List<customSelectImage>(); //ì„ íƒëŒ€ìƒë§ˆë‹¤ ë°”ë€ŒëŠ” ì´ë¯¸ì§€ë¥¼ ì§‘ì–´ë„£ëŠ” ê³³
     public Image rightImage;
-    [SerializeField] public List<customSelectImage> rightImages = new List<customSelectImage>(); //¼±ÅÃ´ë»ó¸¶´Ù ¹Ù²î´Â ÀÌ¹ÌÁö¸¦ Áı¾î³Ö´Â °÷
+    [SerializeField] public List<customSelectImage> rightImages = new List<customSelectImage>(); //ì„ íƒëŒ€ìƒë§ˆë‹¤ ë°”ë€ŒëŠ” ì´ë¯¸ì§€ë¥¼ ì§‘ì–´ë„£ëŠ” ê³³
     private void Awake()
     {
         UnSelected();

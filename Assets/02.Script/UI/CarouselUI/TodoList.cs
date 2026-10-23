@@ -1,12 +1,12 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TodoList : MonoBehaviour
 {
-    //¿¹Àü¿¡ TodoList°¡ µû·Î Á¸ÀçÇÒ¶§ÀÇ ½ºÅ©¸³Æ®
-    //Todo°¡ °í¾çÀÌ(Card)¾ÈÀ¸·Î µé¾î°¬À¸´Ï ¿òÁ÷ÀÓ ½ºÅ©¸³Æ®¸¦ ´Ù¸¥°÷À¸·Î ºĞ¸®ÇÔ.
-    //°í¾çÀÌ ¾È¿¡ ÀÖ´Â Todo´Â º¯ÇßÀ¸´Ï µô·¹ÀÌ¸¦ ÁÖ´Â ¹æ½ÄÀ¸·Î¸¸ º¯°æÇÏ¸é µÊ.
+    //ì˜ˆì „ì— TodoListê°€ ë”°ë¡œ ì¡´ì¬í• ë•Œì˜ ìŠ¤í¬ë¦½íŠ¸
+    //Todoê°€ ê³ ì–‘ì´(Card)ì•ˆìœ¼ë¡œ ë“¤ì–´ê°”ìœ¼ë‹ˆ ì›€ì§ì„ ìŠ¤í¬ë¦½íŠ¸ë¥¼ ë‹¤ë¥¸ê³³ìœ¼ë¡œ ë¶„ë¦¬í•¨.
+    //ê³ ì–‘ì´ ì•ˆì— ìˆëŠ” TodoëŠ” ë³€í–ˆìœ¼ë‹ˆ ë”œë ˆì´ë¥¼ ì£¼ëŠ” ë°©ì‹ìœ¼ë¡œë§Œ ë³€ê²½í•˜ë©´ ë¨.
     protected Vector2 originalPosition;
     protected Coroutine currentAnimationCoroutine;
     protected RectTransform rectTransform;
@@ -42,10 +42,10 @@ public class TodoList : MonoBehaviour
     }
     protected IEnumerator PlayOpenAnimation()
     {
-        // [ÇÙ½É] 1ÇÁ·¹ÀÓ ´ë±â -> À¯´ÏÆ¼°¡ UI Á¤·ÄÇÒ ½Ã°£À» ÁÜ
+        // [í•µì‹¬] 1í”„ë ˆì„ ëŒ€ê¸° -> ìœ ë‹ˆí‹°ê°€ UI ì •ë ¬í•  ì‹œê°„ì„ ì¤Œ
         yield return null;
 
-        // ½ÃÀÛ À§Ä¡ °è»ê
+        // ì‹œì‘ ìœ„ì¹˜ ê³„ì‚°
         float width = Screen.width;
         float height = Screen.height;
         Vector2 startPos = originalPosition;
@@ -53,7 +53,7 @@ public class TodoList : MonoBehaviour
         cg.alpha = 1f;
         startPos = new Vector2(originalPosition.x, height);
 
-        // ¾Ö´Ï¸ŞÀÌ¼Ç ·çÇÁ
+        // ì• ë‹ˆë©”ì´ì…˜ ë£¨í”„
         float timer = 0f;
         while (timer < 1.2f)
         {
@@ -61,10 +61,10 @@ public class TodoList : MonoBehaviour
             timer += Time.unscaledDeltaTime;
             t = Mathf.Sin((timer / 1.2f) * Mathf.PI * 0.5f);
 
-            // 1. ¿òÁ÷ÀÓ/Å©±â º¯È­
+            // 1. ì›€ì§ì„/í¬ê¸° ë³€í™”
             rectTransform.anchoredPosition = Vector2.Lerp(startPos, originalPosition, t);
 
-            // 2. [Ãß°¡µÊ] Åõ¸íµµ: 0(¾Èº¸ÀÓ) -> 1(Àßº¸ÀÓ) ·Î ¼­¼­È÷ º¯È­
+            // 2. [ì¶”ê°€ë¨] íˆ¬ëª…ë„: 0(ì•ˆë³´ì„) -> 1(ì˜ë³´ì„) ë¡œ ì„œì„œíˆ ë³€í™”
             //canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
 
             yield return null;
@@ -74,7 +74,7 @@ public class TodoList : MonoBehaviour
             todo.CheckClear();
             yield return new WaitForSeconds(TodoDelay);
         }
-        // ³¡³­ ÈÄ È®½ÇÇÏ°Ô °ª °íÁ¤
+        // ëë‚œ í›„ í™•ì‹¤í•˜ê²Œ ê°’ ê³ ì •
         rectTransform.anchoredPosition = originalPosition;
     }
 
@@ -84,7 +84,7 @@ public class TodoList : MonoBehaviour
         Vector2 startPos = rectTransform.anchoredPosition;
         Vector3 startScale = rectTransform.localScale;
 
-        // ¸ñÇ¥ ÁöÁ¡ °è»ê
+        // ëª©í‘œ ì§€ì  ê³„ì‚°
         Vector2 targetPos = originalPosition;
 
         float width = Screen.width;
@@ -97,20 +97,20 @@ public class TodoList : MonoBehaviour
             timer += Time.unscaledDeltaTime;
 
             float t = Mathf.Pow(Mathf.Sin((timer / 1.2f) * Mathf.PI * 0.5f), 0.5f);
-            // 1. ¿òÁ÷ÀÓ/Å©±â º¯È­
+            // 1. ì›€ì§ì„/í¬ê¸° ë³€í™”
             rectTransform.anchoredPosition = Vector2.Lerp(startPos, targetPos, t);
 
-            // 2. [Ãß°¡µÊ] Åõ¸íµµ: 1(Àßº¸ÀÓ) -> 0(¾Èº¸ÀÓ) ·Î ¼­¼­È÷ º¯È­
+            // 2. [ì¶”ê°€ë¨] íˆ¬ëª…ë„: 1(ì˜ë³´ì„) -> 0(ì•ˆë³´ì„) ë¡œ ì„œì„œíˆ ë³€í™”
             //canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
 
             yield return null;
         }
 
-        //// ³¡³­ ÈÄ ²ô±â
-        //canvasGroup.alpha = 0f; // ¿ÏÀüÈ÷ Åõ¸íÇÏ°Ô
+        //// ëë‚œ í›„ ë„ê¸°
+        //canvasGroup.alpha = 0f; // ì™„ì „íˆ íˆ¬ëª…í•˜ê²Œ
         //gameObject.SetActive(false);
 
-        // ´ÙÀ½ ¿ÀÇÂÀ» À§ÇØ ¿ø»óº¹±¸
+        // ë‹¤ìŒ ì˜¤í”ˆì„ ìœ„í•´ ì›ìƒë³µêµ¬
         //rectTransform.anchoredPosition = originalPosition;
         //rectTransform.localScale = originalScale;
     }

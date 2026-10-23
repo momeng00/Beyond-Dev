@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -18,13 +18,15 @@ public class TriggerAction : MonoBehaviour, IReset
         }
         else
         {
-            Debug.Log("½ºÀ§Ä¡°¡ ÀÖ´Â ¿ÀºêÁ§Æ®¿¡ ¿¬°áÇÏµµ·Ï");
+#if UNITY_EDITOR
+            Debug.Log("ìŠ¤ìœ„ì¹˜ê°€ ìˆëŠ” ì˜¤ë¸Œì íŠ¸ì— ì—°ê²°í•˜ë„ë¡");
+#endif
         }
 
         GameManager.Instance.OnReset += ResetAction;
     }
 
-    private void EventAction(bool state) //³Ö°í ½ÍÀº ±â´ÉÀÌ ÀÖÀ¸¸é ¿©±â´Ù°¡ Àû¾î¼­ ³ÖÀ» ¼ö ÀÖÀ½.
+    private void EventAction(bool state) //ë„£ê³  ì‹¶ì€ ê¸°ëŠ¥ì´ ìˆìœ¼ë©´ ì—¬ê¸°ë‹¤ê°€ ì ì–´ì„œ ë„£ì„ ìˆ˜ ìˆìŒ.
     {
 
         if (isOnce && hasExecuted)

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Playables;
 
@@ -17,7 +17,7 @@ public class EventBehaviour : PlayableBehaviour
     {
         if (_played || target == null) return;
         _played = true;
-        // targetÀÌ ÀÖÀ¸¸é Bridge ½ÇÇà, ¾øÀ¸¸é onPlay ½ÇÇà
+        // targetì´ ìˆìœ¼ë©´ Bridge ì‹¤í–‰, ì—†ìœ¼ë©´ onPlay ì‹¤í–‰
         if (target != null)
             target.Play();
         else

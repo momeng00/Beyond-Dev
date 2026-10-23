@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 [ExecuteAlways]
 public class SortingOrderFollower : MonoBehaviour
@@ -21,7 +21,7 @@ public class SortingOrderFollower : MonoBehaviour
     private void Update()
     {
 #if UNITY_EDITOR
-        // ¿¡µğÅÍ¿¡¼­¸¸ ½Ç½Ã°£ ¾÷µ¥ÀÌÆ®
+        // ì—ë””í„°ì—ì„œë§Œ ì‹¤ì‹œê°„ ì—…ë°ì´íŠ¸
         if (!Application.isPlaying)
             UpdateSortingOrder_EditorOnly();
 #endif
@@ -53,11 +53,11 @@ public class SortingOrderFollower : MonoBehaviour
     }
 
     /// <summary>
-    /// ¿¡µğÅÍ¿¡¼­¸¸ Á¤·Ä°ªÀ» ºÎ¸ğ ±â¹İÀ¸·Î ÀÚµ¿ ¼³Á¤
+    /// ì—ë””í„°ì—ì„œë§Œ ì •ë ¬ê°’ì„ ë¶€ëª¨ ê¸°ë°˜ìœ¼ë¡œ ìë™ ì„¤ì •
     /// </summary>
     private void UpdateSortingOrder_EditorOnly()
     {
-        if (Application.isPlaying) return; // ½ÇÇà Áß¿¡´Â °íÁ¤ »óÅÂ À¯Áö
+        if (Application.isPlaying) return; // ì‹¤í–‰ ì¤‘ì—ëŠ” ê³ ì • ìƒíƒœ ìœ ì§€
 
         if (selfRenderer == null || topParentSpriteRenderer == null)
             return;

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class NormalPopUp : PopUp, IEventListener, IReset
 {
-    public SmartKey key; //enumÀ» ÅëÇØ¼­ Àü´Ş ¹ŞÀ»²¨ÀÓ.
+    public SmartKey key; //enumì„ í†µí•´ì„œ ì „ë‹¬ ë°›ì„êº¼ì„.
     public SpriteRenderer image;
     public TextMeshPro nickName;
     public TextMeshPro content;
@@ -26,7 +26,7 @@ public class NormalPopUp : PopUp, IEventListener, IReset
         animator = GetComponent<Animator>();
         FindChildAnimator();
         ToggleEvent(false);
-        //InitPopUpDatas(); Áö±İÀº µ¥ÀÌÅÍ Å×ÀÌºíÀÌ ¾ø¾î¼­ ÁÖ¼®Ã³¸® ÇØµÒ. ¿À·ù¹®¶ß´Â°Å ½È¾î¼­
+        //InitPopUpDatas(); ì§€ê¸ˆì€ ë°ì´í„° í…Œì´ë¸”ì´ ì—†ì–´ì„œ ì£¼ì„ì²˜ë¦¬ í•´ë‘ . ì˜¤ë¥˜ë¬¸ëœ¨ëŠ”ê±° ì‹«ì–´ì„œ
     }
     private void Start()
     {

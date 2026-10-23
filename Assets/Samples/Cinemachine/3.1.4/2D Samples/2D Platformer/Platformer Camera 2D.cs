@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 namespace Unity.Cinemachine.Samples
 {
@@ -54,7 +54,7 @@ namespace Unity.Cinemachine.Samples
         {
             
             return mCameras;
-            //¹ØÀº ¿¹Àü ¿øº» ÄÚµå
+            //ë°‘ì€ ì˜ˆì „ ì›ë³¸ ì½”ë“œ
 //            bool isLeft = false; 
 //            bool isFalling = false;
 //            if (m_Player != null)

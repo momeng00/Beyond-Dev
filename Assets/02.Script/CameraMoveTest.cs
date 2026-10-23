@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +22,7 @@ public class CameraMoveTest : MonoBehaviour
     {
         while (true)
         {
-            nextPosition = target.position; // 1ÃÊ¸¶´Ù ¸ñÇ¥ À§Ä¡ ±â·Ï
+            nextPosition = target.position; // 1ì´ˆë§ˆë‹¤ ëª©í‘œ ìœ„ì¹˜ ê¸°ë¡
             yield return new WaitForSeconds(interval);
         }
     }
@@ -35,14 +35,14 @@ public class CameraMoveTest : MonoBehaviour
         }
         if (flag)
         {
-            // ±â·ÏµÈ À§Ä¡·Î ºÎµå·´°Ô ÀÌµ¿
+            // ê¸°ë¡ëœ ìœ„ì¹˜ë¡œ ë¶€ë“œëŸ½ê²Œ ì´ë™
             transform.position = Vector3.Lerp(transform.position, nextPosition, Time.deltaTime * followSpeed);
         }
         else 
         {
 
             history.Enqueue((target.position, Time.time));
-            // 2) ¿À·¡µÈ ±â·Ï Á¦°Å (1ÃÊ ÀÌ»ó Áö³­ °Í¸¸)
+            // 2) ì˜¤ëž˜ëœ ê¸°ë¡ ì œê±° (1ì´ˆ ì´ìƒ ì§€ë‚œ ê²ƒë§Œ)
             while (history.Count > 0 && Time.time - history.Peek().time > interval)
             {
                 var old = history.Dequeue();

@@ -1,4 +1,4 @@
-using Unity.Cinemachine.Samples;
+ï»¿using Unity.Cinemachine.Samples;
 using UnityEngine;
 
 public class Move : CharacterStateBase
@@ -13,12 +13,12 @@ public class Move : CharacterStateBase
     {
         base.EnterState();
         machine.GetComponent<Animator>().Play("Walk");
-        //ÃÊ±âÈ­¿Í °°Àº ¹æ½Ä
+        //ì´ˆê¸°í™”ì™€ ê°™ì€ ë°©ì‹
     }
     public override void ExitState()
     {
         base.ExitState();
-        //EnterÀÇ ¿ª
+        //Enterì˜ ì—­
     }
     public override CharacterStateID OnUpdateState()
     {

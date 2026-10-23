@@ -1,20 +1,20 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class TriggerPlayAnimation : MonoBehaviour
 {
     [Header("Trigger Filter")]
-    [Tooltip("ÀÌ ·¹ÀÌ¾î¿¡ Æ÷ÇÔµÈ ¿ÀºêÁ§Æ®¸¸ ¹İÀÀÇÕ´Ï´Ù.")]
+    [Tooltip("ì´ ë ˆì´ì–´ì— í¬í•¨ëœ ì˜¤ë¸Œì íŠ¸ë§Œ ë°˜ì‘í•©ë‹ˆë‹¤.")]
     public LayerMask triggerLayer;
 
     [Header("Animation Settings")]
-    [Tooltip("Enter ½Ã Àç»ıÇÒ Animator State ÀÌ¸§")]
+    [Tooltip("Enter ì‹œ ì¬ìƒí•  Animator State ì´ë¦„")]
     public string enterClipName = "";
 
-    [Tooltip("Exit ½Ã Àç»ıÇÒ Animator State ÀÌ¸§")]
+    [Tooltip("Exit ì‹œ ì¬ìƒí•  Animator State ì´ë¦„")]
     public string exitClipName = "";
 
     [Header("Play Control")]
-    [Tooltip("True¸é Enter/Exit °¢°¢ ÇÑ ¹ø¸¸ ½ÇÇà")]
+    [Tooltip("Trueë©´ Enter/Exit ê°ê° í•œ ë²ˆë§Œ ì‹¤í–‰")]
     public bool playOnce = true;
 
     private bool enterPlayed = false;
@@ -22,15 +22,15 @@ public class TriggerPlayAnimation : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        // LayerMask °Ë»ç
+        // LayerMask ê²€ì‚¬
         if (((1 << col.gameObject.layer) & triggerLayer) == 0)
             return;
 
-        // ÇÑ ¹ø¸¸ ½ÇÇà
+        // í•œ ë²ˆë§Œ ì‹¤í–‰
         if (playOnce && enterPlayed)
             return;
 
-        // Ãæµ¹ÇÑ ¿ÀºêÁ§Æ®ÀÇ Animator °¡Á®¿À±â
+        // ì¶©ëŒí•œ ì˜¤ë¸Œì íŠ¸ì˜ Animator ê°€ì ¸ì˜¤ê¸°
         Animator anim = col.GetComponent<Animator>();
         if (anim != null && !string.IsNullOrEmpty(enterClipName))
         {

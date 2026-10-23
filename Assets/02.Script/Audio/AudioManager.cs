@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -42,7 +42,7 @@ public class AudioManager : MonoBehaviour
             {
                 _instance = FindAnyObjectByType<AudioManager>();
                 if (_instance == null)
-                    Debug.LogError("AudioManager°¡ ¾øÀ½");
+                    Debug.LogError("AudioManagerê°€ ì—†ìŒ");
             }
             return _instance;
         }
@@ -69,7 +69,7 @@ public class AudioManager : MonoBehaviour
             _musicVolume = value;
             if (_musicVolume <= 0.0001f)
             {
-                audioMixer.SetFloat("Music", -80f); // ¿ÏÀü À½¼Ò°Å
+                audioMixer.SetFloat("Music", -80f); // ì™„ì „ ìŒì†Œê±°
             }
             audioMixer.SetFloat("Music", Mathf.Log10(_musicVolume) * 20);
         }
@@ -86,7 +86,7 @@ public class AudioManager : MonoBehaviour
             _SFXVolume = value;
             if (_SFXVolume <= 0.0001f)
             {
-                audioMixer.SetFloat("SFX", -80f); // ¿ÏÀü À½¼Ò°Å
+                audioMixer.SetFloat("SFX", -80f); // ì™„ì „ ìŒì†Œê±°
             }
             else
                 audioMixer.SetFloat("SFX", Mathf.Log10(_SFXVolume) * 20);

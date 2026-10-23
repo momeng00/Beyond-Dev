@@ -1,7 +1,4 @@
-using NUnit.Framework.Interfaces;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Splines.Interpolators;
 
 public class FocusMaskController : MonoBehaviour
 {
@@ -24,6 +21,20 @@ public class FocusMaskController : MonoBehaviour
     private static readonly int SoftnessId = Shader.PropertyToID("_Softness");
     private Color overlayColor;
     private bool isVisible;
+    private static FocusMaskController activeController;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void ResetActiveController()
+    {
+        activeController = null;
+    }
+
+    public static bool IsEffectActiveFor(Material material, Camera camera)
+    {
+        return activeController != null && activeController.isActiveAndEnabled &&
+               activeController.isVisible && activeController.focusMaskMaterial == material &&
+               activeController.targetCamera == camera;
+    }
 
     private void Awake()
     {
@@ -36,8 +47,18 @@ public class FocusMaskController : MonoBehaviour
 
     public void InitFocusMaskMaterial()
     {
+        isVisible = false;
+        if (activeController == this)
+            activeController = null;
+        if (focusMaskMaterial == null)
+            return;
         SetScale(10.0f);
         SetAlpha(0.0f);
+    }
+
+    private void OnDisable()
+    {
+        InitFocusMaskMaterial();
     }
     public float ReturnScale()
     {
@@ -46,11 +67,14 @@ public class FocusMaskController : MonoBehaviour
     }
     public void ShowAtWorld(Vector3 worldPosition, float scale)
     {
-        isVisible = true;
+        if (!isActiveAndEnabled || focusMaskMaterial == null || targetCamera == null)
+            return;
 
         SetAlpha(visibleAlpha);
         SetCenterWorld(worldPosition);
         SetScale(scale);
+        isVisible = true;
+        activeController = this;
     }
 
 

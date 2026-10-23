@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -99,22 +99,22 @@ public class DownloadStationSwtich : Switch, IReset
         float duration = 0.5f;
         float time = 0f;
 
-        // ÇöÀç °¢µµ
+        // í˜„ìž¬ ê°ë„
         float startAngle = transform.eulerAngles.z;
 
-        // Å¸°Ù ¹æÇâ °è»ê
+        // íƒ€ê²Ÿ ë°©í–¥ ê³„ì‚°
         Vector2 dir = (partnerSwitch.gameObject.transform.position - transform.position).normalized;
 
-        // "À§(Vector2.up)" ±âÁØÀ¸·Î °¢µµ °è»ê
+        // "ìœ„(Vector2.up)" ê¸°ì¤€ìœ¼ë¡œ ê°ë„ ê³„ì‚°
         float targetAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
 
-        // ¹æÇâ °áÁ¤
+        // ë°©í–¥ ê²°ì •
         bool clockwise = partnerSwitch.gameObject.transform.position.x > transform.position.x;
 
-        // °¢µµ Â÷ÀÌ °è»ê
+        // ê°ë„ ì°¨ì´ ê³„ì‚°
         float delta = Mathf.DeltaAngle(startAngle, targetAngle);
 
-        // ¹æÇâ °­Á¦ Àû¿ë
+        // ë°©í–¥ ê°•ì œ ì ìš©
         if (clockwise && delta > 0)
             delta -= 360f;
         else if (!clockwise && delta < 0)
@@ -133,7 +133,7 @@ public class DownloadStationSwtich : Switch, IReset
             yield return null;
         }
 
-        // ¸¶Áö¸· º¸Á¤
+        // ë§ˆì§€ë§‰ ë³´ì •
         transform.rotation = Quaternion.Euler(0, 0, endAngle);
         yield return new WaitForSeconds(0.75f);
         StopCoroutine(activiteCoroutine);
@@ -148,7 +148,7 @@ public class DownloadStationSwtich : Switch, IReset
         float startAngle = transform.eulerAngles.z;
         float endAngle = originalAngle;
 
-        // ¹æÇâ ´Ù½Ã °áÁ¤ (¿øÇÏ¸é µ¿ÀÏ ±ÔÄ¢ »ç¿ë)
+        // ë°©í–¥ ë‹¤ì‹œ ê²°ì • (ì›í•˜ë©´ ë™ì¼ ê·œì¹™ ì‚¬ìš©)
         bool clockwise = partnerSwitch.gameObject.transform.position.x > transform.position.x;
 
         float delta = Mathf.DeltaAngle(startAngle, endAngle);

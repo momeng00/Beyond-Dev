@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using TMPro;
 
 [ExecuteAlways]
@@ -6,29 +6,29 @@ using TMPro;
 public class TMPVertexWiggle : MonoBehaviour
 {
     [Header("Timing")]
-    [Tooltip("1ÃÊ¿¡ ¸î ¹ø ·£´ı ¸ğ¾çÀ» °»½ÅÇÒÁö")]
+    [Tooltip("1ì´ˆì— ëª‡ ë²ˆ ëœë¤ ëª¨ì–‘ì„ ê°±ì‹ í• ì§€")]
     [SerializeField] private float updatesPerSecond = 4f;
 
     [Header("Vertex Wiggle")]
-    [Tooltip("°¢ ¹öÅØ½º°¡ ¿òÁ÷ÀÌ´Â ÃÖ´ë °Å¸®")]
+    [Tooltip("ê° ë²„í…ìŠ¤ê°€ ì›€ì§ì´ëŠ” ìµœëŒ€ ê±°ë¦¬")]
     [SerializeField] private float vertexMoveAmount = 1.5f;
 
-    [Tooltip("±ÛÀÚ ÀüÃ¼°¡ °°ÀÌ ¿òÁ÷ÀÌ´Â ¾ç. 0ÀÌ¸é ±ÛÀÚ ÇüÅÂ¸¸ Âî±×·¯Áü")]
+    [Tooltip("ê¸€ì ì „ì²´ê°€ ê°™ì´ ì›€ì§ì´ëŠ” ì–‘. 0ì´ë©´ ê¸€ì í˜•íƒœë§Œ ì°Œê·¸ëŸ¬ì§")]
     [SerializeField] private float characterMoveAmount = 0f;
 
     [Header("Smoothing")]
-    [Tooltip("·£´ı°ªÀÌ µüµü ²÷±âÁö ¾Ê°í º¸°£µÊ")]
+    [Tooltip("ëœë¤ê°’ì´ ë”±ë”± ëŠê¸°ì§€ ì•Šê³  ë³´ê°„ë¨")]
     [SerializeField] private bool smoothTransition = true;
 
-    [Tooltip("·£´ı°ª »çÀÌ¸¦ µû¶ó°¡´Â ¼Óµµ")]
+    [Tooltip("ëœë¤ê°’ ì‚¬ì´ë¥¼ ë”°ë¼ê°€ëŠ” ì†ë„")]
     [SerializeField] private float smoothSpeed = 16f;
 
     [Header("Time")]
-    [Tooltip("ÇÃ·¹ÀÌ ¸ğµå¿¡¼­ Time.timeScaleÀÇ ¿µÇâÀ» ¹ŞÁö ¾ÊÀ½")]
+    [Tooltip("í”Œë ˆì´ ëª¨ë“œì—ì„œ Time.timeScaleì˜ ì˜í–¥ì„ ë°›ì§€ ì•ŠìŒ")]
     [SerializeField] private bool useUnscaledTime = true;
 
     [Header("Editor")]
-    [Tooltip("¿¡µğÅÍ ¸ğµå¿¡¼­µµ È¿°ú ÀÛµ¿")]
+    [Tooltip("ì—ë””í„° ëª¨ë“œì—ì„œë„ íš¨ê³¼ ì‘ë™")]
     [SerializeField] private bool animateInEditor = true;
 
     private TMP_Text tmp;

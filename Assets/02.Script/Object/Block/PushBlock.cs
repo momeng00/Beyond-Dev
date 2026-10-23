@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Diagnostics.Tracing;
 using UnityEngine;
 
@@ -22,7 +22,7 @@ public class PushBlock : Block
     public override void Start()
     {
         base.Start();
-        //ÇØ´ç ±¸¹®Àº ÀÇµµÀûÀ¸·Î ¹èÄ¡¸¦ ´Ã·Á¼­ MatarialÀÌ °ø¿ëÈ­°¡ µÇ´Â °ÍÀ» ¸·´Â°ÍÀÓ
+        //í•´ë‹¹ êµ¬ë¬¸ì€ ì˜ë„ì ìœ¼ë¡œ ë°°ì¹˜ë¥¼ ëŠ˜ë ¤ì„œ Matarialì´ ê³µìš©í™”ê°€ ë˜ëŠ” ê²ƒì„ ë§‰ëŠ”ê²ƒì„
         material = this.GetComponent<Renderer>().material;
     }
     
@@ -68,7 +68,7 @@ public class PushBlock : Block
             if (sample != null)
             {
                 sample.EventOnce = false;
-                sample.ToggleEvent(false,this.gameObject.GetComponent<Transform>()); //ÀÓ½ÃÁ¶Ä¡ (³ú°¡ ¾ÆÇÃ¶§ Çß´ø°ÅÀÓ)
+                sample.ToggleEvent(false,this.gameObject.GetComponent<Transform>()); //ì„ì‹œì¡°ì¹˜ (ë‡Œê°€ ì•„í”Œë•Œ í–ˆë˜ê±°ì„)
             }
         }
         popupFlag = false;
@@ -84,13 +84,17 @@ public class PushBlock : Block
     }
     public void OnDisable()
     {
-        // °ÔÀÓÀÌ Á¾·áµÉ ¶§ ²¨Áö´Â °Ç ¹«½Ã (¾È ±×·¯¸é Á¾·áÇÒ ¶§¸¶´Ù ·Î±× ¶ä)
+        // ê²Œì„ì´ ì¢…ë£Œë  ë•Œ êº¼ì§€ëŠ” ê±´ ë¬´ì‹œ (ì•ˆ ê·¸ëŸ¬ë©´ ì¢…ë£Œí•  ë•Œë§ˆë‹¤ ë¡œê·¸ ëœ¸)
         if (!this.gameObject.scene.isLoaded) return;
 
-        Debug.LogWarning($"[¹üÀÎ »öÃâ] {gameObject.name}ÀÇ ÄÄÆ÷³ÍÆ®°¡ ²¨Á³½À´Ï´Ù!");
+#if UNITY_EDITOR
+        Debug.LogWarning($"[ë²”ì¸ ìƒ‰ì¶œ] {gameObject.name}ì˜ ì»´í¬ë„ŒíŠ¸ê°€ êº¼ì¡ŒìŠµë‹ˆë‹¤!");
+#endif
 
-        // ´©°¡ ²°´ÂÁö È£Ãâ ½ºÅÃ(°æ·Î)À» ÀüºÎ Ãâ·ÂÇÕ´Ï´Ù.
+        // ëˆ„ê°€ ê»ëŠ”ì§€ í˜¸ì¶œ ìŠ¤íƒ(ê²½ë¡œ)ì„ ì „ë¶€ ì¶œë ¥í•©ë‹ˆë‹¤.
+#if UNITY_EDITOR
         Debug.Log(System.Environment.StackTrace);
+#endif
     }
     public override void OnDestroy()
     {
@@ -113,7 +117,7 @@ public class PushBlock : Block
                     animator.Play("PushBlock_Off");
                     animator.enabled = false;
                     Color color = spriteRenderer.color;
-                    color.a = 1f; // Åõ¸íµµ 1(ºÒÅõ¸í)·Î °­Á¦ ¼³Á¤
+                    color.a = 1f; // íˆ¬ëª…ë„ 1(ë¶ˆíˆ¬ëª…)ë¡œ ê°•ì œ ì„¤ì •
                     spriteRenderer.color = color;
                     animator.enabled = true;
                     gameObject.SetActive(false);

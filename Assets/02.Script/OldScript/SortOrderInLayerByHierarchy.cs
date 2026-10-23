@@ -1,10 +1,10 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEditor;
 #if UNITY_EDITOR
 public class SortOrderInLayerByHierarchy
 {
 
-    [MenuItem("GameObject/Á¤¸®/ÀÚ½Ä Order In Layer Á¤·Ä", false, 0)]
+    [MenuItem("GameObject/ì •ë¦¬/ìì‹ Order In Layer ì •ë ¬", false, 0)]
     static void SortOrder()
     {
         GameObject parent = Selection.activeGameObject;
@@ -16,7 +16,7 @@ public class SortOrderInLayerByHierarchy
 
         int order = 0;
 
-        // ÇÏÀÌ¾î¶óÅ° ¼ø¼­ ±×´ë·Î (À§ ¡æ ¾Æ·¡)
+        // í•˜ì´ì–´ë¼í‚¤ ìˆœì„œ ê·¸ëŒ€ë¡œ (ìœ„ â†’ ì•„ë˜)
         for (int i = 0; i < parent.transform.childCount; i++)
         {
             Transform child = parent.transform.GetChild(i);

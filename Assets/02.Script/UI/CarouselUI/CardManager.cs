@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -7,11 +7,11 @@ using static UnityEngine.Rendering.GPUSort;
 
 public class CardManager : MonoBehaviour
 {
-    //Card¿¡¼­ ¸¸µé¾îÁø ±â´ÉÀ» ¿øÇÏ´Â Å¸ÀÌ¹Ö¿¡ ¸Â°Ô ½ÇÇàÀ» ½ÃÅ³ ¼ö ÀÖ¾î¾ß ÇÔ.
-    //¸Ç ¾Õ¿¡ ÀÖ´Â ¿ä¼Ò¸¦ Ã¼Å©ÇÏ´Â ¹æ½Ä ¹× Ä«µå¿¡¼­ »ç¿ëµÇ´Â ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ³¡³ª¸é Ä«µå¸Å´ÏÀú¿¡°Ô ´Ù½Ã ºÎ¸£´Â ½ÄÀ¸·Î
-    //¸Ç¾Õ¿¡ Ãß°¡µÇ´Â ¾Ö´Ï¸ŞÀÌ¼Ç, ¸Ç ¾Õ¿¡ ÀÖ´Â°Å È®ÀÎÇÏ´Â°Å
-    //¸Ç ¾Õ¿¡ ÀÖ´Â Todo¶û µ¿±âÈ­ (4¹öÆ° ½Ã ¶ß´Â È­¸é)
-    //¸Ç ¾Õ¿¡ ÀÖ´Â°Í¸¸ º¸ÀÌ°Ô TodoCheck °ÔÀÓ Å¬¸®¾î ½Ã.
+    //Cardì—ì„œ ë§Œë“¤ì–´ì§„ ê¸°ëŠ¥ì„ ì›í•˜ëŠ” íƒ€ì´ë°ì— ë§ê²Œ ì‹¤í–‰ì„ ì‹œí‚¬ ìˆ˜ ìˆì–´ì•¼ í•¨.
+    //ë§¨ ì•ì— ìˆëŠ” ìš”ì†Œë¥¼ ì²´í¬í•˜ëŠ” ë°©ì‹ ë° ì¹´ë“œì—ì„œ ì‚¬ìš©ë˜ëŠ” ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚˜ë©´ ì¹´ë“œë§¤ë‹ˆì €ì—ê²Œ ë‹¤ì‹œ ë¶€ë¥´ëŠ” ì‹ìœ¼ë¡œ
+    //ë§¨ì•ì— ì¶”ê°€ë˜ëŠ” ì• ë‹ˆë©”ì´ì…˜, ë§¨ ì•ì— ìˆëŠ”ê±° í™•ì¸í•˜ëŠ”ê±°
+    //ë§¨ ì•ì— ìˆëŠ” Todoë‘ ë™ê¸°í™” (4ë²„íŠ¼ ì‹œ ëœ¨ëŠ” í™”ë©´)
+    //ë§¨ ì•ì— ìˆëŠ”ê²ƒë§Œ ë³´ì´ê²Œ TodoCheck ê²Œì„ í´ë¦¬ì–´ ì‹œ.
     private static CardManager _instance;
     public static CardManager Instance
     {
@@ -26,10 +26,10 @@ public class CardManager : MonoBehaviour
             return _instance;
         }
     }
-    private List<Card> cardList = new List<Card>(); //±âº»ÀûÀ¸·Î AddLast·Î µé¾î°¨. Count¸¦ ÅëÇØ¼­ µÚ·Î Á¤·ÄÀ» ÇØ¾ßÇÔ.
-    public int limit = 1; //Ä«µå¸¦ °¡Áú ¼ö ÀÖ´Â ÃÖ´ëÄ¡.
+    private List<Card> cardList = new List<Card>(); //ê¸°ë³¸ì ìœ¼ë¡œ AddLastë¡œ ë“¤ì–´ê°. Countë¥¼ í†µí•´ì„œ ë’¤ë¡œ ì •ë ¬ì„ í•´ì•¼í•¨.
+    public int limit = 1; //ì¹´ë“œë¥¼ ê°€ì§ˆ ìˆ˜ ìˆëŠ” ìµœëŒ€ì¹˜.
     public float animDuration = 0.52f;
-    [Range(0f, 100f)] public float ratio; //¿·À¸·Î ¿òÁ÷ÀÏ ºñÀ² ¹× Å©±â°¡ ÀÛ¾ÆÁú ºñÀ² Ä«µå ³¢¸® °£°İ¿¡ ÇØ´ç
+    [Range(0f, 100f)] public float ratio; //ì˜†ìœ¼ë¡œ ì›€ì§ì¼ ë¹„ìœ¨ ë° í¬ê¸°ê°€ ì‘ì•„ì§ˆ ë¹„ìœ¨ ì¹´ë“œ ë¼ë¦¬ ê°„ê²©ì— í•´ë‹¹
     private Coroutine coroutine;
     private Card currentCard;
     private readonly List<Card> outgoingCards = new List<Card>();
@@ -114,7 +114,7 @@ public class CardManager : MonoBehaviour
         if (_instance == this) _instance = null;
     }
 
-    #region Ä«µå Ãß°¡
+    #region ì¹´ë“œ ì¶”ê°€
     public void AddCard(Card card)
     {
         if (!isActiveAndEnabled || card == null || limit <= 0 || cardList.Contains(card) || outgoingCards.Contains(card))
@@ -173,7 +173,7 @@ public class CardManager : MonoBehaviour
     }
     #endregion
 
-    #region Ä«µå »èÁ¦
+    #region ì¹´ë“œ ì‚­ì œ
     public void HideCardList()
     {
         if (currentCard != null && currentCard.IsDisplayed)
@@ -227,10 +227,10 @@ public class CardManager : MonoBehaviour
         if (card == currentCard) HideCardList();
     }
     #endregion
-    //Card¿¡ ÀÖ´Â IEnumeratorÀ» °¡Á®¿Í¼­ ¿©±â¿¡ Á¾¼Ó½ÃÅ°±â
-    //¸Ç ¾Õ¿¡ ÀÖ´Â Ä«µå¸¸ °¡Á®¿Í¼­ ClearCheckÇÏ´Â ±â´ÉÀ» Ãß°¡
-    //¸Ç ¾Õ¿¡ ÀÖ´Â Ä«µåÀÇ TodoList¸¦ PauseMenu¿¡ µ¿±âÈ­ ½ÃÅ°´Â ¹æ½Ä
-    #region ÄÚ·çÆ¾ ¾Ö´Ï¸ŞÀÌ¼Ç
+    //Cardì— ìˆëŠ” IEnumeratorì„ ê°€ì ¸ì™€ì„œ ì—¬ê¸°ì— ì¢…ì†ì‹œí‚¤ê¸°
+    //ë§¨ ì•ì— ìˆëŠ” ì¹´ë“œë§Œ ê°€ì ¸ì™€ì„œ ClearCheckí•˜ëŠ” ê¸°ëŠ¥ì„ ì¶”ê°€
+    //ë§¨ ì•ì— ìˆëŠ” ì¹´ë“œì˜ TodoListë¥¼ PauseMenuì— ë™ê¸°í™” ì‹œí‚¤ëŠ” ë°©ì‹
+    #region ì½”ë£¨í‹´ ì• ë‹ˆë©”ì´ì…˜
     private IEnumerator RefreshCardCoroutine()
     {
         // Let the UI layout settle before reading card widths.

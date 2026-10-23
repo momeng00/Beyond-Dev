@@ -1,4 +1,4 @@
-using NUnit.Framework;
+ï»¿using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -31,22 +31,24 @@ public class SaveManager
     }
     public void Save()
     {
-        // ÇöÀç ÀúÀå µ¥ÀÌÅÍ°¡ ¾øÀ¸¸é ±âº» µ¥ÀÌÅÍ·Î »ı¼ºÇÑ´Ù.
+        // í˜„ì¬ ì €ì¥ ë°ì´í„°ê°€ ì—†ìœ¼ë©´ ê¸°ë³¸ ë°ì´í„°ë¡œ ìƒì„±í•œë‹¤.
         if (CurrentData == null)
         {
             CurrentData = CreateDefaultSaveData();
         }
 
-        // SaveData¸¦ JSON ¹®ÀÚ¿­·Î º¯È¯ÇÑ µÚ ÆÄÀÏ·Î ÀúÀåÇÑ´Ù.
+        // SaveDataë¥¼ JSON ë¬¸ìì—´ë¡œ ë³€í™˜í•œ ë’¤ íŒŒì¼ë¡œ ì €ì¥í•œë‹¤.
         string json = JsonUtility.ToJson(CurrentData, true);
         File.WriteAllText(SavePath, json);
 
+#if UNITY_EDITOR
         Debug.Log($"Save completed: {SavePath}");
+#endif
     }
 
     public void Load()
     {
-        // ÀúÀå ÆÄÀÏÀÌ ¾øÀ¸¸é ±âº» µ¥ÀÌÅÍ¸¦ ¸¸µé°í »õ·Î ÀúÀåÇÑ´Ù.
+        // ì €ì¥ íŒŒì¼ì´ ì—†ìœ¼ë©´ ê¸°ë³¸ ë°ì´í„°ë¥¼ ë§Œë“¤ê³  ìƒˆë¡œ ì €ì¥í•œë‹¤.
         if (!File.Exists(SavePath))
         {
             CurrentData = CreateDefaultSaveData();
@@ -54,11 +56,11 @@ public class SaveManager
             return;
         }
 
-        // ÀúÀå ÆÄÀÏÀÇ JSONÀ» ÀĞ¾î¼­ SaveData·Î º¯È¯ÇÑ´Ù.
+        // ì €ì¥ íŒŒì¼ì˜ JSONì„ ì½ì–´ì„œ SaveDataë¡œ ë³€í™˜í•œë‹¤.
         string json = File.ReadAllText(SavePath);
         CurrentData = JsonUtility.FromJson<SaveData>(json);
 
-        // JSON º¯È¯¿¡ ½ÇÆĞÇßÀ» °æ¿ì ±âº» µ¥ÀÌÅÍ·Î º¹±¸ÇÑ´Ù.
+        // JSON ë³€í™˜ì— ì‹¤íŒ¨í–ˆì„ ê²½ìš° ê¸°ë³¸ ë°ì´í„°ë¡œ ë³µêµ¬í•œë‹¤.
         if (CurrentData == null)
         {
             CurrentData = CreateDefaultSaveData();
@@ -71,43 +73,43 @@ public class SaveManager
 
     public bool HasSaveData()
     {
-        // ÀúÀå ÆÄÀÏÀÌ Á¸ÀçÇÏ´ÂÁö È®ÀÎÇÑ´Ù.
+        // ì €ì¥ íŒŒì¼ì´ ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸í•œë‹¤.
         return File.Exists(SavePath);
     }
 
     public void DeleteSaveData()
     {
-        // ÀúÀå ÆÄÀÏÀÌ ÀÖÀ¸¸é »èÁ¦ÇÑ´Ù.
+        // ì €ì¥ íŒŒì¼ì´ ìˆìœ¼ë©´ ì‚­ì œí•œë‹¤.
         if (File.Exists(SavePath))
         {
             File.Delete(SavePath);
         }
 
-        // ¸Ş¸ğ¸®ÀÇ ÇöÀç µ¥ÀÌÅÍ´Â ±âº» µ¥ÀÌÅÍ·Î ÃÊ±âÈ­ÇÑ´Ù.
+        // ë©”ëª¨ë¦¬ì˜ í˜„ì¬ ë°ì´í„°ëŠ” ê¸°ë³¸ ë°ì´í„°ë¡œ ì´ˆê¸°í™”í•œë‹¤.
         CurrentData = CreateDefaultSaveData();
     }
 
     private SaveData CreateDefaultSaveData()
     {
-        // »õ·Î¿î ±âº» ÀúÀå µ¥ÀÌÅÍ¸¦ »ı¼ºÇÑ´Ù.
+        // ìƒˆë¡œìš´ ê¸°ë³¸ ì €ì¥ ë°ì´í„°ë¥¼ ìƒì„±í•œë‹¤.
         return new SaveData();
     }
 
     private void EnsureData()
     {
-        // ·ÎµåµÈ µ¥ÀÌÅÍ¿¡¼­ settings°¡ ºñ¾î ÀÖÀ¸¸é ±âº»°ªÀ» ³Ö´Â´Ù.
+        // ë¡œë“œëœ ë°ì´í„°ì—ì„œ settingsê°€ ë¹„ì–´ ìˆìœ¼ë©´ ê¸°ë³¸ê°’ì„ ë„£ëŠ”ë‹¤.
         if (CurrentData.settings == null)
         {
             CurrentData.settings = new SettingData();
         }
 
-        // ·ÎµåµÈ µ¥ÀÌÅÍ¿¡¼­ progress°¡ ºñ¾î ÀÖÀ¸¸é ±âº»°ªÀ» ³Ö´Â´Ù.
+        // ë¡œë“œëœ ë°ì´í„°ì—ì„œ progressê°€ ë¹„ì–´ ìˆìœ¼ë©´ ê¸°ë³¸ê°’ì„ ë„£ëŠ”ë‹¤.
         if (CurrentData.progress == null)
         {
             CurrentData.progress = new ProgressData();
         }
 
-        // ÀúÀå µ¥ÀÌÅÍ ¹öÀüÀÌ ¾ø°Å³ª Àß¸øµÇ¾î ÀÖÀ¸¸é ±âº» ¹öÀüÀ¸·Î ¼³Á¤ÇÑ´Ù.
+        // ì €ì¥ ë°ì´í„° ë²„ì „ì´ ì—†ê±°ë‚˜ ì˜ëª»ë˜ì–´ ìˆìœ¼ë©´ ê¸°ë³¸ ë²„ì „ìœ¼ë¡œ ì„¤ì •í•œë‹¤.
         if (CurrentData.version <= 0)
         {
             CurrentData.version = 1;

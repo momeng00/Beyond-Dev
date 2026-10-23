@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 using UnityEngine.UI;
 public enum PropertyType
@@ -23,7 +23,7 @@ public enum PropertyType
 }
 public class MaterialControl : MonoBehaviour
 {
-    //PropertyType°¡ º¯°æÀÌ µÇ¸é ¼³Á¤°ªµéÀÌ ´Ù ÅĞ¸®´Âµ¥ ÁÁÀº ¹æ¾ÈÀÌ ¾øÀ»±î?
+    //PropertyTypeê°€ ë³€ê²½ì´ ë˜ë©´ ì„¤ì •ê°’ë“¤ì´ ë‹¤ í„¸ë¦¬ëŠ”ë° ì¢‹ì€ ë°©ì•ˆì´ ì—†ì„ê¹Œ?
     private Material material;
     [Serializable]
     public struct CustomMaterial

@@ -1,6 +1,6 @@
-[System.Serializable]
+ï»¿[System.Serializable]
 public struct LocalKey
 {
-    // ´ë»óÀÌ µÇ´Â EnumÀ» º¯¼ö·Î °¡Áı´Ï´Ù.
+    // ëŒ€ìƒì´ ë˜ëŠ” Enumì„ ë³€ìˆ˜ë¡œ ê°€ì§‘ë‹ˆë‹¤.
     public LocalizationKeys key;
 }

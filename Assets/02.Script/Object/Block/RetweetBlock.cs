@@ -42,18 +42,24 @@ public class RetweetBlock : Block, ISwitchable
             blockEvent?.Invoke(value);
             if (_blockState)
             {
+#if UNITY_EDITOR
                 Debug.Log((int)movingWalkDirection);
+#endif
                 
                 if ((int)movingWalkDirection >= 1)
                 {
                     matarialAnim.Stop();
+#if UNITY_EDITOR
                     Debug.Log("extra");
+#endif
                     extraMatarialAnim.Play();
                 }
                 else if((int)movingWalkDirection <= 1)
                 {
                     extraMatarialAnim.Stop();
+#if UNITY_EDITOR
                     Debug.Log("Left");
+#endif
                     matarialAnim.Play();
                 }
                 foreach (var moving in movingTargets)

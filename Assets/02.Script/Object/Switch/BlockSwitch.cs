@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +20,7 @@ public class BlockSwitch : Switch,IReset
 
     public List<ISwitchable> targetBlock = new List<ISwitchable>();
     private bool isSatisfied;
-    [Header("Ä«¸Þ¶ó ½ºÀ§Ä¡ÀÏ¶§ ¼³Á¤")]
+    [Header("ì¹´ë©”ë¼ ìŠ¤ìœ„ì¹˜ì¼ë•Œ ì„¤ì •")]
     public bool isCamera = false;
     public DownloadStationSwtich downloadStationSwitch;
     float originalAngle;
@@ -159,22 +159,22 @@ public class BlockSwitch : Switch,IReset
         float duration = 0.5f;
         float time = 0f;
 
-        // ÇöÀç °¢µµ
+        // í˜„ìž¬ ê°ë„
         float startAngle = transform.eulerAngles.z;
 
-        // Å¸°Ù ¹æÇâ °è»ê
+        // íƒ€ê²Ÿ ë°©í–¥ ê³„ì‚°
         Vector2 dir = (downloadStationSwitch.gameObject.transform.position - transform.position).normalized;
 
-        // "À§(Vector2.up)" ±âÁØÀ¸·Î °¢µµ °è»ê
+        // "ìœ„(Vector2.up)" ê¸°ì¤€ìœ¼ë¡œ ê°ë„ ê³„ì‚°
         float targetAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
 
-        // ¹æÇâ °áÁ¤
+        // ë°©í–¥ ê²°ì •
         bool clockwise = downloadStationSwitch.gameObject.transform.position.x > transform.position.x;
 
-        // °¢µµ Â÷ÀÌ °è»ê
+        // ê°ë„ ì°¨ì´ ê³„ì‚°
         float delta = Mathf.DeltaAngle(startAngle, targetAngle);
 
-        // ¹æÇâ °­Á¦ Àû¿ë
+        // ë°©í–¥ ê°•ì œ ì ìš©
         if (clockwise && delta > 0)
             delta -= 360f;
         else if (!clockwise && delta < 0)
@@ -193,7 +193,7 @@ public class BlockSwitch : Switch,IReset
             yield return null;
         }
 
-        // ¸¶Áö¸· º¸Á¤
+        // ë§ˆì§€ë§‰ ë³´ì •
         transform.rotation = Quaternion.Euler(0, 0, endAngle);
         yield return new WaitForSeconds(0.75f);
         StopCoroutine(activiteCoroutine);
@@ -208,7 +208,7 @@ public class BlockSwitch : Switch,IReset
         float startAngle = transform.eulerAngles.z;
         float endAngle = originalAngle;
 
-        // ¹æÇâ ´Ù½Ã °áÁ¤ (¿øÇÏ¸é µ¿ÀÏ ±ÔÄ¢ »ç¿ë)
+        // ë°©í–¥ ë‹¤ì‹œ ê²°ì • (ì›í•˜ë©´ ë™ì¼ ê·œì¹™ ì‚¬ìš©)
         bool clockwise = downloadStationSwitch.gameObject.transform.position.x > transform.position.x;
 
         float delta = Mathf.DeltaAngle(startAngle, endAngle);

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 public class UploadStation : Spot, ISwitchable, IReset
@@ -48,11 +48,11 @@ public class UploadStation : Spot, ISwitchable, IReset
 
         col.isTrigger = true;
 
-        // SpriteRendererÀÇ Å©±â¿¡ Collider Å©±â ¸ÂÃß±â
+        // SpriteRendererì˜ í¬ê¸°ì— Collider í¬ê¸° ë§ì¶”ê¸°
         col.size = spriteRenderer.size;
 
-        // Sprite PivotÀÌ ¿ìÃø »ó´ÜÀÌ¹Ç·Î
-        // Collider Áß½ÉÀ» ÁÂÃø ¾Æ·¡·Î SizeÀÇ Àı¹İ¸¸Å­ ÀÌµ¿
+        // Sprite Pivotì´ ìš°ì¸¡ ìƒë‹¨ì´ë¯€ë¡œ
+        // Collider ì¤‘ì‹¬ì„ ì¢Œì¸¡ ì•„ë˜ë¡œ Sizeì˜ ì ˆë°˜ë§Œí¼ ì´ë™
         col.offset = new Vector2(
             -spriteRenderer.size.x * 0.5f,
             -spriteRenderer.size.y * 0.5f
@@ -105,13 +105,17 @@ public class UploadStation : Spot, ISwitchable, IReset
                 if (clone.TryGetComponent(out PushBlock clonePushBlock))
                 {
                     clonePushBlock.UDAnimationPlay(true);
+#if UNITY_EDITOR
                     Debug.Log(clonePushBlock);
+#endif
                 }
 
                 if (ob.TryGetComponent(out PushBlock pushBlock))
                 {
                     pushBlock.UDAnimationPlay(false);
+#if UNITY_EDITOR
                     Debug.Log(pushBlock);
+#endif
                 }
 
                 if (!activeList.Contains(clone))

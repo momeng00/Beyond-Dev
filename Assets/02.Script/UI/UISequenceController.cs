@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,9 +7,9 @@ public class UISequenceController : MonoBehaviour
     [System.Serializable]
     public struct SequenceStep
     {
-        public UIBase targetUI; // ½ÇÇàÇÒ UI
-        [Tooltip("´ÙÀ½ UI°¡ ¿­¸®±â Àü ´ë±â ½Ã°£")]
-        public float delayNext; // ´ë±â ½Ã°£
+        public UIBase targetUI; // ì‹¤í–‰í•  UI
+        [Tooltip("ë‹¤ìŒ UIê°€ ì—´ë¦¬ê¸° ì „ ëŒ€ê¸° ì‹œê°„")]
+        public float delayNext; // ëŒ€ê¸° ì‹œê°„
     }
 
     public bool playOnStart = false;
@@ -28,26 +28,26 @@ public class UISequenceController : MonoBehaviour
 
     IEnumerator ProcessSequence()
     {
-        // [1´Ü°è] ÃÊ±âÈ­ ÆäÀÌÁî: ¸ğµç UI¸¦ ÄÑ°í, ½ÃÀÛ À§Ä¡·Î °­Á¦ ÀÌµ¿½ÃÅ´
-        // ÀÌ·¸°Ô ÇÏ¸é "Á¦ÀÚ¸®¿¡ ÀÖ´Ù°¡ ÀÌµ¿ÇÏ´Â" Çö»óÀÌ »ç¶óÁü (¹®Á¦ 1¹ø ÇØ°á)
+        // [1ë‹¨ê³„] ì´ˆê¸°í™” í˜ì´ì¦ˆ: ëª¨ë“  UIë¥¼ ì¼œê³ , ì‹œì‘ ìœ„ì¹˜ë¡œ ê°•ì œ ì´ë™ì‹œí‚´
+        // ì´ë ‡ê²Œ í•˜ë©´ "ì œìë¦¬ì— ìˆë‹¤ê°€ ì´ë™í•˜ëŠ”" í˜„ìƒì´ ì‚¬ë¼ì§ (ë¬¸ì œ 1ë²ˆ í•´ê²°)
         foreach (var step in sequenceList)
         {
             if (step.targetUI != null)
             {
-                // ¹Ì¸® ÄÑµÎµÇ, È­¸é ¹ÛÀÌ³ª Å©±â 0À¸·Î ¼³Á¤ÇØµÒ
+                // ë¯¸ë¦¬ ì¼œë‘ë˜, í™”ë©´ ë°–ì´ë‚˜ í¬ê¸° 0ìœ¼ë¡œ ì„¤ì •í•´ë‘ 
                 step.targetUI.SetInitialState();
             }
         }
 
-        // ÇÑ ÇÁ·¹ÀÓ ´ë±â (RectTransform °»½Å µî ¾ÈÁ¤¼º È®º¸)
+        // í•œ í”„ë ˆì„ ëŒ€ê¸° (RectTransform ê°±ì‹  ë“± ì•ˆì •ì„± í™•ë³´)
         yield return null;
 
-        // [2´Ü°è] ½ÇÇà ÆäÀÌÁî: ÇÏ³ª¾¿ ¼ø¼­´ë·Î Open È£Ãâ
+        // [2ë‹¨ê³„] ì‹¤í–‰ í˜ì´ì¦ˆ: í•˜ë‚˜ì”© ìˆœì„œëŒ€ë¡œ Open í˜¸ì¶œ
         foreach (var step in sequenceList)
         {
             if (step.targetUI != null)
             {
-                // ÀÌ¹Ì SetInitialState¿¡¼­ ÄÑÁ®(Active)ÀÖÀ¸¹Ç·Î ÄÚ·çÆ¾ ¿À·ù ¾È ³²
+                // ì´ë¯¸ SetInitialStateì—ì„œ ì¼œì ¸(Active)ìˆìœ¼ë¯€ë¡œ ì½”ë£¨í‹´ ì˜¤ë¥˜ ì•ˆ ë‚¨
                 step.targetUI.Open();
             }
 

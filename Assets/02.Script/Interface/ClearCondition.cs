@@ -1,7 +1,7 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
-//List¿¡ IClearConditionÀ» ³ÖÀ¸´Ï ÀÎ½ºÆåÅÍ Ã¢¿¡¼­ ¾È³ª¿Í ¸¸µç Ãß»óÅ¬·¡½º
+//Listì— IClearConditionì„ ë„£ìœ¼ë‹ˆ ì¸ìŠ¤í™í„° ì°½ì—ì„œ ì•ˆë‚˜ì™€ ë§Œë“  ì¶”ìƒí´ë˜ìŠ¤
 public abstract class ClearCondition : MonoBehaviour, IClearCondition
 {
     public Action OnCheck;

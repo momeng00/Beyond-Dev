@@ -1,6 +1,6 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-//¾ø¾îµµ ÀÛµ¿ÀÌ µÉ°Í°°Àº OpenDoorItemÀÌ ´ë½ÅÇÏ°í ÀÖÀ½ (È¤½Ã¸ğ¸£´Ï Å×½ºÆ®)
+//ì—†ì–´ë„ ì‘ë™ì´ ë ê²ƒê°™ì€ OpenDoorItemì´ ëŒ€ì‹ í•˜ê³  ìˆìŒ (í˜¹ì‹œëª¨ë¥´ë‹ˆ í…ŒìŠ¤íŠ¸)
 public class ClearToken : Token, IClearCondition, IReset
 {
     public int stage;
@@ -32,7 +32,7 @@ public class ClearToken : Token, IClearCondition, IReset
         {
             go = collision.gameObject.GetComponent<Transform>();
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            //¾ÆÀÌÅÛÀ» ¸Ô¾úÀ»¶§
+            //ì•„ì´í…œì„ ë¨¹ì—ˆì„ë•Œ
             isSatisfied = true;
             
         }

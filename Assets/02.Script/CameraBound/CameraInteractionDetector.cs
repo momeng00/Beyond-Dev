@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -7,15 +7,15 @@ public class CameraInteractionDetector : MonoBehaviour
     [SerializeField]
     private Camera targetCamera;
 
-    // Ä«¸Ş¶ó°¡ °¨ÁöÇÒ ÀüÃ¼ »óÈ£ÀÛ¿ë ´ë»ó
+    // ì¹´ë©”ë¼ê°€ ê°ì§€í•  ì „ì²´ ìƒí˜¸ì‘ìš© ëŒ€ìƒ
     private readonly List<IInteractable> interactables = new();
 
-    // ÇöÀç Ä«¸Ş¶ó ¿µ¿ª ¾È¿¡ ÀÖ´Â »óÈ£ÀÛ¿ë ´ë»ó
+    // í˜„ì¬ ì¹´ë©”ë¼ ì˜ì—­ ì•ˆì— ìˆëŠ” ìƒí˜¸ì‘ìš© ëŒ€ìƒ
     private readonly HashSet<IInteractable> detected = new();
 
     private void Awake()
     {
-        // Ä«¸Ş¶ó°¡ ÁöÁ¤µÇÁö ¾Ê¾Ò´Ù¸é Main Camera »ç¿ë
+        // ì¹´ë©”ë¼ê°€ ì§€ì •ë˜ì§€ ì•Šì•˜ë‹¤ë©´ Main Camera ì‚¬ìš©
         if (targetCamera == null)
             targetCamera = Camera.main;
     }
@@ -27,55 +27,65 @@ public class CameraInteractionDetector : MonoBehaviour
 
     private void CheckCameraBounds()
     {
-        // ÇöÀç Ä«¸Ş¶ó°¡ ¹Ù¶óº¸´Â ¿ùµå ¿µ¿ª
+        // í˜„ì¬ ì¹´ë©”ë¼ê°€ ë°”ë¼ë³´ëŠ” ì›”ë“œ ì˜ì—­
         Bounds cameraBounds = GetCameraBounds();
+#if UNITY_EDITOR
         Debug.Log(
     $"Camera Bounds Center: {cameraBounds.center}, " +
     $"Size: {cameraBounds.size}"
 );
+#endif
 
         foreach (IInteractable interactable in interactables)
         {
-            // IInteractableÀÌ Component¸¦ »ó¼Ó¹ŞÀº °æ¿ì¿¡¸¸ Ã³¸®
-            // Component¸¦ »ó¼Ó¹Ş´Â ´Ù´Â °Í¿¡ ´ëÇÑ °³³ä
+            // IInteractableì´ Componentë¥¼ ìƒì†ë°›ì€ ê²½ìš°ì—ë§Œ ì²˜ë¦¬
+            // Componentë¥¼ ìƒì†ë°›ëŠ” ë‹¤ëŠ” ê²ƒì— ëŒ€í•œ ê°œë…
             if (interactable is not Component component)
                 continue;
 
-            // »óÈ£ÀÛ¿ë ´ë»óÀÇ Renderer ¿µ¿ª °¡Á®¿À±â
-            // ÀÌ°Ô ¹¹½Ã¿© ¿Ö IInteractableÀÇ renderer¸¦ °¡Á®¿ÀÁö?
+            // ìƒí˜¸ì‘ìš© ëŒ€ìƒì˜ Renderer ì˜ì—­ ê°€ì ¸ì˜¤ê¸°
+            // ì´ê²Œ ë­ì‹œì—¬ ì™œ IInteractableì˜ rendererë¥¼ ê°€ì ¸ì˜¤ì§€?
             Renderer renderer = component.GetComponent<Renderer>();
+#if UNITY_EDITOR
             Debug.Log("renderer= " + renderer);
+#endif
             if (renderer == null)
                 continue;
 
-            // ¿ÀºêÁ§Æ®ÀÇ ¿µ¿ªÀÌ Ä«¸Ş¶ó ¿µ¿ª°ú °ãÄ¡´ÂÁö È®ÀÎ
-            // ³»ºÎ ±â´ÉÀÎµ¥ ¹«½¼ ±â´ÉÀÎÁö ¼³¸í
+            // ì˜¤ë¸Œì íŠ¸ì˜ ì˜ì—­ì´ ì¹´ë©”ë¼ ì˜ì—­ê³¼ ê²¹ì¹˜ëŠ”ì§€ í™•ì¸
+            // ë‚´ë¶€ ê¸°ëŠ¥ì¸ë° ë¬´ìŠ¨ ê¸°ëŠ¥ì¸ì§€ ì„¤ëª…
             bool isInside =
     cameraBounds.min.x <= renderer.bounds.max.x &&
     cameraBounds.max.x >= renderer.bounds.min.x &&
     cameraBounds.min.y <= renderer.bounds.max.y &&
     cameraBounds.max.y >= renderer.bounds.min.y;
+#if UNITY_EDITOR
             Debug.Log(
            $"{component.gameObject.name} | " +
            $"Object Center: {renderer.bounds.center} | " +
            $"Object Size: {renderer.bounds.size} | " +
            $"Inside: {isInside}"
        );
-            Debug.Log("renderer qÃÄÁü? ---" + isInside );
+#endif
+#if UNITY_EDITOR
+            Debug.Log("renderer ê±‰ì³ì§? ---" + isInside );
+#endif
             if (isInside)
             {
-                // Ã³À½ µé¾î¿Â °æ¿ì¿¡¸¸ Enter ÀÌº¥Æ® È£Ãâ
-                //ÀÌ¹Ì ÀÖ´Ù¸é false¸¦ ¹İÈ¯ÇÏ°ÚÁö?
+                // ì²˜ìŒ ë“¤ì–´ì˜¨ ê²½ìš°ì—ë§Œ Enter ì´ë²¤íŠ¸ í˜¸ì¶œ
+                //ì´ë¯¸ ìˆë‹¤ë©´ falseë¥¼ ë°˜í™˜í•˜ê² ì§€?
                 if (detected.Add(interactable))
                 {
                     interactable.OnCameraEnter();
-                    Debug.Log("renderer °¨Áö ¿Ï·á ½ÇÇà");
+#if UNITY_EDITOR
+                    Debug.Log("renderer ê°ì§€ ì™„ë£Œ ì‹¤í–‰");
+#endif
                 }
             }
             else
             {
-                // ¿µ¿ª ¹ÛÀ¸·Î ³ª°£ °æ¿ì¿¡¸¸ Exit ÀÌº¥Æ® È£Ãâ
-                // ÀÌ¹Ì ÀÖ´Â °Í¿¡ ´ëÇÑ Ã¼Å©°¡ ÀÌ·ç¾î Áö°íÀÖ´Â°¡?
+                // ì˜ì—­ ë°–ìœ¼ë¡œ ë‚˜ê°„ ê²½ìš°ì—ë§Œ Exit ì´ë²¤íŠ¸ í˜¸ì¶œ
+                // ì´ë¯¸ ìˆëŠ” ê²ƒì— ëŒ€í•œ ì²´í¬ê°€ ì´ë£¨ì–´ ì§€ê³ ìˆëŠ”ê°€?
                 if (detected.Remove(interactable))
                 {
                     interactable.OnCameraExit();
@@ -86,13 +96,13 @@ public class CameraInteractionDetector : MonoBehaviour
 
     private Bounds GetCameraBounds()
     {
-        // Orthographic Ä«¸Ş¶óÀÇ È­¸é ³ôÀÌ
+        // Orthographic ì¹´ë©”ë¼ì˜ í™”ë©´ ë†’ì´
         float height = targetCamera.orthographicSize * 2f;
 
-        // È­¸é ºñÀ²¿¡ µû¸¥ È­¸é ³Êºñ
+        // í™”ë©´ ë¹„ìœ¨ì— ë”°ë¥¸ í™”ë©´ ë„ˆë¹„
         float width = height * targetCamera.aspect;
 
-        // Ä«¸Ş¶ó À§Ä¡¸¦ Áß½ÉÀ¸·Î È­¸é ¿µ¿ª »ı¼º
+        // ì¹´ë©”ë¼ ìœ„ì¹˜ë¥¼ ì¤‘ì‹¬ìœ¼ë¡œ í™”ë©´ ì˜ì—­ ìƒì„±
         return new Bounds(
             targetCamera.transform.position,
             new Vector3(width, height, 0f)
@@ -101,7 +111,7 @@ public class CameraInteractionDetector : MonoBehaviour
 
     public void Register(IInteractable interactable)
     {
-        // °¨Áö ´ë»ó¿¡ µî·Ï
+        // ê°ì§€ ëŒ€ìƒì— ë“±ë¡
         if (!interactables.Contains(interactable))
         {
             interactables.Add(interactable);
@@ -110,10 +120,10 @@ public class CameraInteractionDetector : MonoBehaviour
 
     public void Unregister(IInteractable interactable)
     {
-        // °¨Áö ´ë»ó¿¡¼­ Á¦°Å
+        // ê°ì§€ ëŒ€ìƒì—ì„œ ì œê±°
         interactables.Remove(interactable);
 
-        // ÇöÀç °¨Áö ¸ñ·Ï¿¡¼­µµ Á¦°Å
+        // í˜„ì¬ ê°ì§€ ëª©ë¡ì—ì„œë„ ì œê±°
         detected.Remove(interactable);
     }
 }

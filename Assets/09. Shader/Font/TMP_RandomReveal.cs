@@ -1,4 +1,4 @@
-using System.Text;
+ï»¿using System.Text;
 using TMPro;
 using UnityEngine;
 
@@ -152,7 +152,7 @@ public class TMP_RandomReveal : MonoBehaviour
             char fromChar = i < fromText.Length ? fromText[i] : ' ';
             char toChar = i < toText.Length ? toText[i] : ' ';
 
-            // progress 0°ú 1Àº ¹«Á¶°Ç ¿ø¹®/ÃÖÁ¾¹®À» ±×´ë·Î º¸¿©ÁØ´Ù
+            // progress 0ê³¼ 1ì€ ë¬´ì¡°ê±´ ì›ë¬¸/ìµœì¢…ë¬¸ì„ ê·¸ëŒ€ë¡œ ë³´ì—¬ì¤€ë‹¤
             if (progress <= 0f)
             {
                 builder.Append(fromChar);
@@ -165,7 +165,7 @@ public class TMP_RandomReveal : MonoBehaviour
                 continue;
             }
 
-            // Áß°£ »óÅÂ¿¡¼­´Â Final Text ±âÁØÀ¸·Î °ø¹é º¸Á¸
+            // ì¤‘ê°„ ìƒíƒœì—ì„œëŠ” Final Text ê¸°ì¤€ìœ¼ë¡œ ê³µë°± ë³´ì¡´
             if (preserveSpaces && char.IsWhiteSpace(toChar))
             {
                 builder.Append(toChar);

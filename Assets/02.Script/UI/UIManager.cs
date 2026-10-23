@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
     }
 
 
-    //½Ì±ÛÅæ »ç¿ë
+    //ì‹±ê¸€í†¤ ì‚¬ìš©
     private static UIManager _instance;
     public static UIManager instance
     {
@@ -46,9 +46,9 @@ public class UIManager : MonoBehaviour
             return _instance;
         }
     }
-    // µî·ÏµÈ ¸ğµç UI
+    // ë“±ë¡ëœ ëª¨ë“  UI
     public Dictionary<Type, IUI> uis = new Dictionary<Type, IUI>();
-    // ÇöÀç º¸¿©Áö°íÀÖ´Â ÆË¾÷ UI µé
+    // í˜„ì¬ ë³´ì—¬ì§€ê³ ìˆëŠ” íŒì—… UI ë“¤
     public LinkedList<IUI> showns = new LinkedList<IUI>(); 
     
     public T Get<T>()
@@ -64,7 +64,9 @@ public class UIManager : MonoBehaviour
         Type type = ui.GetType();
         if (uis.TryAdd(type, ui) == false)
             throw new Exception($"[UIManager] : {type} already registered but you tried to add it again..!");
+#if UNITY_EDITOR
         Debug.Log($"[UIManager] : Registered {type}.");
+#endif
     }
     private Coroutine enableNextUICoroutine;
 
@@ -175,7 +177,7 @@ public class UIManager : MonoBehaviour
         HandleCancel();
     }
 
-    // UI ¾×¼ÇÀÌ ¾ø´Â ¾À¿¡¼­´Â ±âÁ¸ InputSystem Å° µî·ÏÀ» »ç¿ëÇÑ´Ù.
+    // UI ì•¡ì…˜ì´ ì—†ëŠ” ì”¬ì—ì„œëŠ” ê¸°ì¡´ InputSystem í‚¤ ë“±ë¡ì„ ì‚¬ìš©í•œë‹¤.
     private void DispatchFallbackInput(KeyCode key)
     {
         InputSystemUIInputModule module = GetNavigationModule();
@@ -306,7 +308,7 @@ public class UIManager : MonoBehaviour
             return;
 
         previousSendNavigationEvents = controlledEventSystem.sendNavigationEvents;
-        // ±âÁ¸ UI ¾×¼ÇÀ» ÃÖ»ó´Ü Ã¢À¸·Î Àü´ŞÇÏ°í EventSystemÀÇ Áßº¹ ÀÌµ¿/½ÇÇà¸¸ ¸·´Â´Ù.
+        // ê¸°ì¡´ UI ì•¡ì…˜ì„ ìµœìƒë‹¨ ì°½ìœ¼ë¡œ ì „ë‹¬í•˜ê³  EventSystemì˜ ì¤‘ë³µ ì´ë™/ì‹¤í–‰ë§Œ ë§‰ëŠ”ë‹¤.
         controlledEventSystem.sendNavigationEvents = false;
     }
 

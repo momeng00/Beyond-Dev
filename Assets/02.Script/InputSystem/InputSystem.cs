@@ -34,7 +34,9 @@ public class InputSystem : MonoBehaviour
         {
             if (_keyState != value) stateChangedFrame = Time.frameCount;
             _keyState = value;
+#if UNITY_EDITOR
             Debug.Log(InputSystem.Instance.keyState);
+#endif
             if (maps.ContainsKey(value))
             {
                 currentMap = maps[value];

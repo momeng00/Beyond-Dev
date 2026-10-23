@@ -1,11 +1,11 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class MPB_AnimFloatLerp : MonoBehaviour
 {
-    public string propertyName = "_AnimLerp"; // º¯°æÇÒ ¸ÓÅ×¸®¾ó Float ÀÌ¸§
-    public float duration = 1f;           // Lerp ½Ã°£
+    public string propertyName = "_AnimLerp"; // ë³€ê²½í•  ë¨¸í…Œë¦¬ì–¼ Float ì´ë¦„
+    public float duration = 1f;           // Lerp ì‹œê°„
 
     private SpriteRenderer sr;
     private Material mat;
@@ -15,7 +15,7 @@ public class MPB_AnimFloatLerp : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
 
-        // material ·Î Á¢±Ù ¡æ ÀÚµ¿À¸·Î ÀÎ½ºÅÏ½º »ı¼ºµÊ
+        // material ë¡œ ì ‘ê·¼ â†’ ìë™ìœ¼ë¡œ ì¸ìŠ¤í„´ìŠ¤ ìƒì„±ë¨
         mat = sr.material;
 
         propertyID = Shader.PropertyToID(propertyName);
@@ -26,7 +26,7 @@ public class MPB_AnimFloatLerp : MonoBehaviour
     // ==================================
 
     /// <summary>
-    /// EaseIn 0 ¡æ 1
+    /// EaseIn 0 â†’ 1
     /// </summary>
     public void PlayAnimUp()
     {
@@ -35,7 +35,7 @@ public class MPB_AnimFloatLerp : MonoBehaviour
     }
 
     /// <summary>
-    /// EaseIn 1 ¡æ 0
+    /// EaseIn 1 â†’ 0
     /// </summary>
     public void PlayAnimDown()
     {
@@ -66,7 +66,7 @@ public class MPB_AnimFloatLerp : MonoBehaviour
             yield return null;
         }
 
-        // ¸¶Áö¸· °ª º¸Á¤
+        // ë§ˆì§€ë§‰ ê°’ ë³´ì •
         mat.SetFloat(propertyID, endValue);
     }
 

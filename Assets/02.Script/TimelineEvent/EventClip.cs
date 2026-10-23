@@ -1,11 +1,11 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Playables;
 using UnityEngine.Timeline;
 
 public class EventClip : PlayableAsset, ITimelineClipAsset
 {
-    public ExposedReference<TimelineEventBridge> target; // ¾À ¿ÀºêÁ§Æ® ÂüÁ¶
+    public ExposedReference<TimelineEventBridge> target; // ì”¬ ì˜¤ë¸Œì íŠ¸ ì°¸ì¡°
     public UnityEvent onPlay;
     public ClipCaps clipCaps => ClipCaps.None;
 

@@ -1,13 +1,13 @@
-using System.Collections;
+ï»¿using System.Collections;
 using TMPro;
 using UnityEngine;
 using static UnityEngine.UI.Image;
 
 public class OriginalPopUp : NormalPopUp
 {
-    //Canvas°¡ ¾øÀ¸¸ç RectTransformÀ» °¡Áö°í ÀÖ´Â ±âÁØÀ¸·Î ¸¸µé¾î Áø°ÅÀÔ´Ï´Ù.
-    //Canvas°¡ ¾øÀ¸¸é CanvasGroupÀÌ ½ÇÇàÀÌ ¾ÈµÊ.
-    //ÆË¾÷ÀÌ BlockStage¸¦ µû¶ó°¨, ToggleEvent°¡ ½ÇÇàµÇ¸é BlockState¿¡ µû¶ó¼­ ÆË¾÷ÀÌ ³ª¿À°í ¾È³ª¿À°í ÀÓ.
+    //Canvasê°€ ì—†ìœ¼ë©° RectTransformì„ ê°€ì§€ê³  ìˆëŠ” ê¸°ì¤€ìœ¼ë¡œ ë§Œë“¤ì–´ ì§„ê±°ì…ë‹ˆë‹¤.
+    //Canvasê°€ ì—†ìœ¼ë©´ CanvasGroupì´ ì‹¤í–‰ì´ ì•ˆë¨.
+    //íŒì—…ì´ BlockStageë¥¼ ë”°ë¼ê°, ToggleEventê°€ ì‹¤í–‰ë˜ë©´ BlockStateì— ë”°ë¼ì„œ íŒì—…ì´ ë‚˜ì˜¤ê³  ì•ˆë‚˜ì˜¤ê³  ì„.
     protected CanvasGroup canvasGroup;
     protected RectTransform rectTransform;
     protected Vector2 originalPosition;
@@ -21,12 +21,12 @@ public class OriginalPopUp : NormalPopUp
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
         animator = GetComponent<Animator>();
-        // ÃÊ±â À§Ä¡ ÀúÀå
+        // ì´ˆê¸° ìœ„ì¹˜ ì €ì¥
         originalPosition = rectTransform.anchoredPosition;
         originalScale = rectTransform.localScale;
         FindChildAnimator();
         ToggleEvent(false);
-        //InitPopUpDatas(); Áö±İÀº µ¥ÀÌÅÍ Å×ÀÌºíÀÌ ¾ø¾î¼­ ÁÖ¼®Ã³¸® ÇØµÒ. ¿À·ù¹®¶ß´Â°Å ½È¾î¼­
+        //InitPopUpDatas(); ì§€ê¸ˆì€ ë°ì´í„° í…Œì´ë¸”ì´ ì—†ì–´ì„œ ì£¼ì„ì²˜ë¦¬ í•´ë‘ . ì˜¤ë¥˜ë¬¸ëœ¨ëŠ”ê±° ì‹«ì–´ì„œ
     }
     private void Start()
     {
@@ -51,11 +51,11 @@ public class OriginalPopUp : NormalPopUp
         if (original == null)
             return;
 
-        //È£ÃâÇÑ À§Ä¡¿¡¼­ ºÎÅÍ ¿øº» À§Ä¡±îÁö ÀÌµ¿ÇÏ´Â ½ºÅ©¸³Æ®
+        //í˜¸ì¶œí•œ ìœ„ì¹˜ì—ì„œ ë¶€í„° ì›ë³¸ ìœ„ì¹˜ê¹Œì§€ ì´ë™í•˜ëŠ” ìŠ¤í¬ë¦½íŠ¸
 
         gameObject.SetActive(true);
         //canvasGroup.interactable = true;
-        //canvasGroup.blocksRaycasts = true; Å¬¸¯ÀÌ ÇÊ¿ä¾ø±â¿¡ Ç×»ó false·Î
+        //canvasGroup.blocksRaycasts = true; í´ë¦­ì´ í•„ìš”ì—†ê¸°ì— í•­ìƒ falseë¡œ
 
         if (currentCoroutine != null) StopCoroutine(currentCoroutine);
         currentCoroutine = StartCoroutine(PlayOpenAnimation(original));
@@ -66,10 +66,10 @@ public class OriginalPopUp : NormalPopUp
         //nickName.enabled = false;
         //content.enabled = false;
         //profileID.enabled = false;
-        // [ÇÙ½É] 1ÇÁ·¹ÀÓ ´ë±â -> À¯´ÏÆ¼°¡ UI Á¤·ÄÇÒ ½Ã°£À» ÁÜ
+        // [í•µì‹¬] 1í”„ë ˆì„ ëŒ€ê¸° -> ìœ ë‹ˆí‹°ê°€ UI ì •ë ¬í•  ì‹œê°„ì„ ì¤Œ
         yield return null;
 
-        // ½ÃÀÛ À§Ä¡ °è»ê
+        // ì‹œì‘ ìœ„ì¹˜ ê³„ì‚°
         float width = Screen.width;
         float height = Screen.height;
         Vector2 startPos = originalPosition;
@@ -77,31 +77,31 @@ public class OriginalPopUp : NormalPopUp
         startPos = original.position;
         rectTransform.localScale = Vector3.zero;
 
-        // ¾Ö´Ï¸ŞÀÌ¼Ç ·çÇÁ
+        // ì• ë‹ˆë©”ì´ì…˜ ë£¨í”„
         yield return UIAnimationRoutine.Run(
             animDuration,
             progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
             t =>
             {
 
-                //¿òÁ÷ÀÓ/Å©±â º¯È­
+                //ì›€ì§ì„/í¬ê¸° ë³€í™”
                 rectTransform.localScale = Vector3.Lerp(Vector3.zero, originalScale, t);
                 rectTransform.anchoredPosition = Vector2.Lerp(startPos, originalPosition, t);
 
-                //Åõ¸íµµ: 0(¾Èº¸ÀÓ) -> 1(Àßº¸ÀÓ) ·Î ¼­¼­È÷ º¯È­
+                //íˆ¬ëª…ë„: 0(ì•ˆë³´ì„) -> 1(ì˜ë³´ì„) ë¡œ ì„œì„œíˆ ë³€í™”
                 canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
                 //if (timer < animDuration * 2 && nickName.enabled == false)
                 //{
                 //    nickName.enabled = true;
                 //    content.enabled = true;
                 //    profileID.enabled = true;
-                //} À§Ä¡°ªÀÌ ÀÌ»óÇØÁö´Â ¹ö±×°¡ÀÖÀ½ Áß°£¿¡ ²¨¼­ ±×·±µí
+                //} ìœ„ì¹˜ê°’ì´ ì´ìƒí•´ì§€ëŠ” ë²„ê·¸ê°€ìˆìŒ ì¤‘ê°„ì— êº¼ì„œ ê·¸ëŸ°ë“¯
             });
 
-        // ³¡³­ ÈÄ È®½ÇÇÏ°Ô °ª °íÁ¤
+        // ëë‚œ í›„ í™•ì‹¤í•˜ê²Œ ê°’ ê³ ì •
         rectTransform.anchoredPosition = originalPosition;
         rectTransform.localScale = originalScale;
-        canvasGroup.alpha = 1f; // ¿ÏÀüÈ÷ º¸ÀÌ°Ô
+        canvasGroup.alpha = 1f; // ì™„ì „íˆ ë³´ì´ê²Œ
     }
     public virtual void Close()
     {
@@ -126,16 +126,16 @@ public class OriginalPopUp : NormalPopUp
             progress => Mathf.Sin(progress * Mathf.PI * 0.5f),
             t =>
             {
-                // Å©±â, Åõ¸íµµ º¯È­
+                // í¬ê¸°, íˆ¬ëª…ë„ ë³€í™”
                 rectTransform.localScale = Vector3.Lerp(startScale, targetScale, t);
                 canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
             });
         //nickName.enabled = false;
         //content.enabled = false;
         //profileID.enabled = false;
-        // ³¡³­ ÈÄ ²ô±â
-        //canvasGroup.alpha = 0f; // ¿ÏÀüÈ÷ Åõ¸íÇÏ°Ô Äµ¹ö½º°¡ canvas¾È¿¡ ÀÖ¾î¾ßÁö¸¸ Àû¿ë
-        // ´ÙÀ½ ¿ÀÇÂÀ» À§ÇØ ¿ø»óº¹±¸
+        // ëë‚œ í›„ ë„ê¸°
+        //canvasGroup.alpha = 0f; // ì™„ì „íˆ íˆ¬ëª…í•˜ê²Œ ìº”ë²„ìŠ¤ê°€ canvasì•ˆì— ìˆì–´ì•¼ì§€ë§Œ ì ìš©
+        // ë‹¤ìŒ ì˜¤í”ˆì„ ìœ„í•´ ì›ìƒë³µêµ¬
         //rectTransform.anchoredPosition = originalPosition;
         //rectTransform.localScale = originalScale;
         //gameObject.SetActive(false);

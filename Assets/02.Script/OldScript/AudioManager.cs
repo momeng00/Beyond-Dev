@@ -1,4 +1,4 @@
-//using System.Collections;
+ï»¿//using System.Collections;
 //using System.Collections.Generic;
 //using UnityEngine;
 //[System.Serializable]
@@ -40,7 +40,7 @@
 //        {
 //            if(_name == sounds[i].name)
 //            {
-//                //sounds[i].source.volume = GameManager.instance.soundVolume; ÃßÈÄ Ãß°¡ º¯¼ö¸í
+//                //sounds[i].source.volume = GameManager.instance.soundVolume; ì¶”í›„ ì¶”ê°€ ë³€ìˆ˜ëª…
 //                sounds[i].Play();
 //                return;
 //            }

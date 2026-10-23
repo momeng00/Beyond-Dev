@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "TagBlockCondition", menuName = "Scriptable Objects/TagBlockCondition/MoreThan")]
 public class MoreThanOneCondition : TagBlockCondition
@@ -7,13 +7,15 @@ public class MoreThanOneCondition : TagBlockCondition
 
     public override bool IsSatisfied(TagBlockController controller, string groupName)
     {
-        Debug.Log("¸¸Á·ÇÏ´ÂÁö Ã¼Å©");
-        // Controller¿¡°Ô groupNameÀÇ °¨ÁöµÈ ¿ÀºêÁ§Æ® ¸®½ºÆ®¸¦ Á÷Á¢ ¿äÃ»
+#if UNITY_EDITOR
+        Debug.Log("ë§Œì¡±í•˜ëŠ”ì§€ ì²´í¬");
+#endif
+        // Controllerì—ê²Œ groupNameì˜ ê°ì§€ëœ ì˜¤ë¸Œì íŠ¸ ë¦¬ìŠ¤íŠ¸ë¥¼ ì§ì ‘ ìš”ì²­
         var detectedList = controller.detectedObject[groupName];
 
         if (detectedList != null)
         {
-            // ¸®½ºÆ®ÀÇ °³¼ö°¡ ÇÊ¿äÇÑ °³¼ö ÀÌ»óÀÎÁö È®ÀÎÇÏ¿© true/false ¹İÈ¯
+            // ë¦¬ìŠ¤íŠ¸ì˜ ê°œìˆ˜ê°€ í•„ìš”í•œ ê°œìˆ˜ ì´ìƒì¸ì§€ í™•ì¸í•˜ì—¬ true/false ë°˜í™˜
             return detectedList.Count >= requiredCount;
         }
 

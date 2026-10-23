@@ -1,4 +1,4 @@
-using CarouselUI;
+ï»¿using CarouselUI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,8 +18,8 @@ public class SoundUIElement : CarouselUIElement
         public selectState state;
         public Sprite sprite;
     }
-    public Image targetImage; //¹Ù²ğ ÀÌ¹ÌÁö
-    [SerializeField]public List<customSelectImage> images = new List<customSelectImage>(); //¼±ÅÃ´ë»ó¸¶´Ù ¹Ù²î´Â ÀÌ¹ÌÁö¸¦ Áı¾î³Ö´Â °÷
+    public Image targetImage; //ë°”ë€” ì´ë¯¸ì§€
+    [SerializeField]public List<customSelectImage> images = new List<customSelectImage>(); //ì„ íƒëŒ€ìƒë§ˆë‹¤ ë°”ë€ŒëŠ” ì´ë¯¸ì§€ë¥¼ ì§‘ì–´ë„£ëŠ” ê³³
     public Slider slider;
     private float _volume;
     public SoundType soundType;

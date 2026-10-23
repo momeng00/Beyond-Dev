@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class ConditionSpot : ClearCondition
 {
@@ -27,7 +27,7 @@ public class ConditionSpot : ClearCondition
         }
         else
         {
-            Debug.LogError("Collider°¡ ¾øÀ½");
+            Debug.LogError("Colliderê°€ ì—†ìŒ");
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)

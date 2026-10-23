@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,7 +9,7 @@ public class Todo : MonoBehaviour
     private InGameTodo gameTodo;
     private Animator ani;
     public TMP_Text content_text;
-    public Action OnAnimationFinished; // ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ³¡³¯¶§ Ä«µå¿¡°Ô ¹İÈ¯µÇ±â À§ÇÑ ¸Ş¼­µå
+    public Action OnAnimationFinished; // ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚ ë•Œ ì¹´ë“œì—ê²Œ ë°˜í™˜ë˜ê¸° ìœ„í•œ ë©”ì„œë“œ
 
     public void SubscribeTodoAction(Action action)
     {
@@ -18,7 +18,7 @@ public class Todo : MonoBehaviour
     private void Awake()
     {
         gameTodo = FindFirstObjectByType<InGameTodo>();
-        //content_text = GetComponent<TMP_Text>(); //ÀÎ½ºÆåÅÍ¿¡¼­ Á÷Á¢ ÇÒ´çÀ¸·Î º¯°æ
+        //content_text = GetComponent<TMP_Text>(); //ì¸ìŠ¤í™í„°ì—ì„œ ì§ì ‘ í• ë‹¹ìœ¼ë¡œ ë³€ê²½
         ani = GetComponent<Animator>();
     }
     public void DoSuccess()
@@ -26,7 +26,7 @@ public class Todo : MonoBehaviour
         isClear = true;
         gameTodo.BannerNotice(content_text.text);
     }
-    //Todo ¾Ö´Ï¸ŞÀÌ¼ÇÀÎ Todo_DoneÀÌ È£ÃâÇÏ´Â ÀÌº¥Æ®
+    //Todo ì• ë‹ˆë©”ì´ì…˜ì¸ Todo_Doneì´ í˜¸ì¶œí•˜ëŠ” ì´ë²¤íŠ¸
     public void AnimationTodoDone()
     {
         OnAnimationFinished?.Invoke();
@@ -41,8 +41,8 @@ public class Todo : MonoBehaviour
         {
             ani.Play("Todo_Default");
             AnimationTodoDone();
-            //¿©±â¼­ °­Á¦·Î AnimationTodoDoneÀ» ½ÇÇà½ÃÄÑ¾ßÇÒµí?
-            //¾ê³×´Â 
+            //ì—¬ê¸°ì„œ ê°•ì œë¡œ AnimationTodoDoneì„ ì‹¤í–‰ì‹œì¼œì•¼í• ë“¯?
+            //ì–˜ë„¤ëŠ” 
         }
     }
 

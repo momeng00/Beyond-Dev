@@ -1,4 +1,4 @@
-using CarouselUI;
+ï»¿using CarouselUI;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +16,7 @@ public class UIKeyNavigator : MonoBehaviour
     [SerializeField]private UIElement currentElement;
 
     //public List<UIElementGroup> uiElementGroups;
-    //private Dictionary<string, List<UIElement>> uiElements; ±×·ì ÀÚÃ¼¸¦ UI°¡ °ü¸®ÇÏ°Ô µÇ¹Ç·Î ¾ø¾îÁ®µµ µÉ°Í°°À½
+    //private Dictionary<string, List<UIElement>> uiElements; ê·¸ë£¹ ìì²´ë¥¼ UIê°€ ê´€ë¦¬í•˜ê²Œ ë˜ë¯€ë¡œ ì—†ì–´ì ¸ë„ ë ê²ƒê°™ìŒ
     private void Start()
     {
         Initialize();
@@ -30,7 +30,7 @@ public class UIKeyNavigator : MonoBehaviour
         //}
         //uiElement = uiElements[menuName.ToString()];
     }
-    //Unity Event¿¡ ³ÖÀ¸·Á¸é stringÀÌ µé¾î°¡¾ßÇÏ°í ÀÌ°É enumÀ¸·Î º¯°æÇÏ·Á¸é...
+    //Unity Eventì— ë„£ìœ¼ë ¤ë©´ stringì´ ë“¤ì–´ê°€ì•¼í•˜ê³  ì´ê±¸ enumìœ¼ë¡œ ë³€ê²½í•˜ë ¤ë©´...
     //public void ChangeGroup(string groupName)
     //{
     //    if (IsValidGroup(groupName))
@@ -43,7 +43,7 @@ public class UIKeyNavigator : MonoBehaviour
     //            oldGroupCanvas.blocksRaycasts = false;
     //            uiElement = uiElements[groupName];
 
-    //            currentElement = uiElement[0]; // »õ ±×·ìÀÇ Ã¹ ¹øÂ° ¿ä¼Ò¸¦ ±âº» ¼±ÅÃ
+    //            currentElement = uiElement[0]; // ìƒˆ ê·¸ë£¹ì˜ ì²« ë²ˆì§¸ ìš”ì†Œë¥¼ ê¸°ë³¸ ì„ íƒ
     //            CanvasGroup current = currentElement.gameObject.GetComponentInParent<CanvasGroup>();
     //            current.interactable = true;
     //            current.blocksRaycasts = true;
@@ -52,7 +52,7 @@ public class UIKeyNavigator : MonoBehaviour
     //                this.menuName = menuName;
     //            }
 
-    //            UpdateUIElement(); // UI ¾÷µ¥ÀÌÆ®
+    //            UpdateUIElement(); // UI ì—…ë°ì´íŠ¸
     //            Debug.Log($"Changed to group: {groupName}");
     //        }
     //        else
@@ -87,7 +87,7 @@ public class UIKeyNavigator : MonoBehaviour
 
     public bool IsValidGroup(string groupName)
     {
-        // Enum.IsDefined(typeof(È®ÀÎÇÒ Enum Å¸ÀÔ), È®ÀÎÇÒ ¹®ÀÚ¿­)
+        // Enum.IsDefined(typeof(í™•ì¸í•  Enum íƒ€ì…), í™•ì¸í•  ë¬¸ìì—´)
         return Enum.IsDefined(typeof(MenuName), groupName);
     }
 
@@ -164,7 +164,7 @@ public class UIKeyNavigator : MonoBehaviour
 
         currentElement = element;
         currentElement.Selected();
-        // °ª Á¶Àı Ç×¸ñÀ¸·Î ÀÌµ¿ÇßÀ» ¶§ ÀÌÀü ButtonÀÇ Æ÷Ä¿½º¸¦ ³²±âÁö ¾Ê´Â´Ù.
+        // ê°’ ì¡°ì ˆ í•­ëª©ìœ¼ë¡œ ì´ë™í–ˆì„ ë•Œ ì´ì „ Buttonì˜ í¬ì»¤ìŠ¤ë¥¼ ë‚¨ê¸°ì§€ ì•ŠëŠ”ë‹¤.
         if (!(currentElement is ButtonUIElement) && GetPointerSelectedButton() != null)
             EventSystem.current.SetSelectedGameObject(null);
     }
@@ -198,7 +198,9 @@ public class UIKeyNavigator : MonoBehaviour
     {
         if (currentElement == null)
         {
-            Debug.Log("currentElement°¡ ¾ø½À´Ï´Ù.");
+#if UNITY_EDITOR
+            Debug.Log("currentElementê°€ ì—†ìŠµë‹ˆë‹¤.");
+#endif
             return;
         }
         currentElement.Action();
@@ -207,7 +209,7 @@ public class UIKeyNavigator : MonoBehaviour
 
     public void UpdateUIElement()
     {
-        //currentElement¸¦ È£¹öµÇ´Â ¹æ½ÄÀ¸·Î ¾÷µ¥ÀÌÆ® µÇ¾î¾ßÇÔ.
+        //currentElementë¥¼ í˜¸ë²„ë˜ëŠ” ë°©ì‹ìœ¼ë¡œ ì—…ë°ì´íŠ¸ ë˜ì–´ì•¼í•¨.
     }
     
 }

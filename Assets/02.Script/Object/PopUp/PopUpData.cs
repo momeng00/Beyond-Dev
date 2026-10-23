@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 
 [System.Serializable]
 public class PopUpData
@@ -51,6 +51,6 @@ public class PopupDataTable
 [System.Serializable]
 public struct SmartKey
 {
-    // ½ÇÁ¦ µ¥ÀÌÅÍ´Â ÀÌ Enum ÇÏ³ª»ÓÀÔ´Ï´Ù.
+    // ì‹¤ì œ ë°ì´í„°ëŠ” ì´ Enum í•˜ë‚˜ë¿ì…ë‹ˆë‹¤.
     public PopupKey key;
 }

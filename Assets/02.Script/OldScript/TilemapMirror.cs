@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.Tilemaps;
 
 #if UNITY_EDITOR
@@ -8,8 +8,8 @@ using UnityEditor;
 public class TilemapMirror : MonoBehaviour
 {
     [Header("Source / Target")]
-    public Tilemap sourceTilemap;   // A Å¸ÀÏ¸Ê
-    public Tilemap targetTilemap;   // B Å¸ÀÏ¸Ê
+    public Tilemap sourceTilemap;   // A íƒ€ì¼ë§µ
+    public Tilemap targetTilemap;   // B íƒ€ì¼ë§µ
 
     [Header("Options")]
     public bool clearTargetBeforeCopy = true;
@@ -20,13 +20,13 @@ public class TilemapMirror : MonoBehaviour
     {
         if (sourceTilemap == null || targetTilemap == null)
         {
-            Debug.LogWarning("Source ¶Ç´Â Target TilemapÀÌ ºñ¾î ÀÖ½À´Ï´Ù.", this);
+            Debug.LogWarning("Source ë˜ëŠ” Target Tilemapì´ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.", this);
             return;
         }
 
         if (sourceTilemap == targetTilemap)
         {
-            Debug.LogWarning("Source¿Í Target TilemapÀÌ °°À» ¼ö ¾ø½À´Ï´Ù.", this);
+            Debug.LogWarning("Sourceì™€ Target Tilemapì´ ê°™ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.", this);
             return;
         }
 
@@ -65,7 +65,9 @@ public class TilemapMirror : MonoBehaviour
         EditorUtility.SetDirty(targetTilemap);
 #endif
 
+#if UNITY_EDITOR
         Debug.Log("Tilemap copy complete.", this);
+#endif
     }
 }
 

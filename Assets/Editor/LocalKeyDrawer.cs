@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
@@ -12,20 +12,20 @@ public class LocalKeyDrawer : PropertyDrawer
     private static bool isInitialized = false;
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        // µ¥ÀÌÅÍ°¡ ¾øÀ¸¸é ÃÊ±âÈ­ (ÄÄÆÄÀÏ Á÷ÈÄ µî)
+        // ë°ì´í„°ê°€ ì—†ìœ¼ë©´ ì´ˆê¸°í™” (ì»´íŒŒì¼ ì§í›„ ë“±)
         if (!isInitialized || hierarchy == null) InitializeData();
 
         EditorGUI.BeginProperty(position, label, property);
 
-        // 1) ÇöÀç ¼±ÅÃµÈ °ª °¡Á®¿À±â
+        // 1) í˜„ì¬ ì„ íƒëœ ê°’ ê°€ì ¸ì˜¤ê¸°
         SerializedProperty keyProp = property.FindPropertyRelative("key");
-        string currentFullKey = keyProp.enumNames[keyProp.enumValueIndex]; // ¿¹: "St1_Tuto_Jump"
+        string currentFullKey = keyProp.enumNames[keyProp.enumValueIndex]; // ì˜ˆ: "St1_Tuto_Jump"
 
-        // 2) ÇöÀç °ªÀÇ Ä«Å×°í¸® ¿ªÃßÀû (ÃÊ±â ¼±ÅÃ°ª ¼³Á¤À» À§ÇØ)
+        // 2) í˜„ì¬ ê°’ì˜ ì¹´í…Œê³ ë¦¬ ì—­ì¶”ì  (ì´ˆê¸° ì„ íƒê°’ ì„¤ì •ì„ ìœ„í•´)
         string currentMain = "Etc";
         string currentSub = "Etc";
 
-        // ÀÌ¸§ ÂÉ°³±â ("St1_Tuto_Jump" -> "St1", "Tuto")
+        // ì´ë¦„ ìª¼ê°œê¸° ("St1_Tuto_Jump" -> "St1", "Tuto")
         string[] parts = currentFullKey.Split('_');
 
         if (currentFullKey == "None")
@@ -40,25 +40,25 @@ public class LocalKeyDrawer : PropertyDrawer
         else if (parts.Length == 2)
         {
             currentMain = parts[0];
-            currentSub = "General"; // ÁßºĞ·ù°¡ ¾øÀ¸¸é General·Î Ãë±Ş
+            currentSub = "General"; // ì¤‘ë¶„ë¥˜ê°€ ì—†ìœ¼ë©´ Generalë¡œ ì·¨ê¸‰
         }
 
-        // µ¥ÀÌÅÍ µñ¼Å³Ê¸®¿¡ ¾ø´Â Å°ÀÏ °æ¿ì ¾ÈÀüÀåÄ¡ (Error ¹æÁö)
+        // ë°ì´í„° ë”•ì…”ë„ˆë¦¬ì— ì—†ëŠ” í‚¤ì¼ ê²½ìš° ì•ˆì „ì¥ì¹˜ (Error ë°©ì§€)
         if (!hierarchy.ContainsKey(currentMain)) currentMain = mainCategories[0];
         if (!hierarchy[currentMain].ContainsKey(currentSub)) currentSub = hierarchy[currentMain].Keys.First();
 
 
-        // --- 3) È­¸é ±×¸®±â (Rect °è»ê) ---
+        // --- 3) í™”ë©´ ê·¸ë¦¬ê¸° (Rect ê³„ì‚°) ---
 
-        // ÀüÃ¼ ÇÑ ÁÙÀ» °¡Á®¿Í¼­ ¶óº§ ¿µ¿ªÀ» ¸ÕÀú ±×¸³´Ï´Ù.
+        // ì „ì²´ í•œ ì¤„ì„ ê°€ì ¸ì™€ì„œ ë¼ë²¨ ì˜ì—­ì„ ë¨¼ì € ê·¸ë¦½ë‹ˆë‹¤.
         Rect labelRect = new Rect(position.x, position.y, EditorGUIUtility.labelWidth, position.height);
         EditorGUI.LabelField(labelRect, label);
 
-        // ³²Àº ¿À¸¥ÂÊ °ø°£À» °è»êÇÕ´Ï´Ù.
+        // ë‚¨ì€ ì˜¤ë¥¸ìª½ ê³µê°„ì„ ê³„ì‚°í•©ë‹ˆë‹¤.
         float contentWidth = position.width - EditorGUIUtility.labelWidth;
         float startX = position.x + EditorGUIUtility.labelWidth;
 
-        // °ø°£À» 3µîºĞ ÇÕ´Ï´Ù (´ëºĞ·ù / ÁßºĞ·ù / ¼ÒºĞ·ù)
+        // ê³µê°„ì„ 3ë“±ë¶„ í•©ë‹ˆë‹¤ (ëŒ€ë¶„ë¥˜ / ì¤‘ë¶„ë¥˜ / ì†Œë¶„ë¥˜)
         float fieldWidth = contentWidth / 3f;
 
         Rect mainRect = new Rect(startX, position.y, fieldWidth - 2, position.height);
@@ -66,30 +66,30 @@ public class LocalKeyDrawer : PropertyDrawer
         Rect keyRect = new Rect(startX + (fieldWidth * 2), position.y, fieldWidth, position.height);
 
 
-        // --- 4) ÆË¾÷ 1: ´ëºĞ·ù (Main Category) ---
+        // --- 4) íŒì—… 1: ëŒ€ë¶„ë¥˜ (Main Category) ---
         int mainIndex = Array.IndexOf(mainCategories, currentMain);
         if (mainIndex < 0) mainIndex = 0;
 
         int newMainIndex = EditorGUI.Popup(mainRect, mainIndex, mainCategories);
         string newMain = mainCategories[newMainIndex];
 
-        // --- 5) ÆË¾÷ 2: ÁßºĞ·ù (Sub Category) ---
-        // ¼±ÅÃµÈ ´ëºĞ·ù¿¡ ¼ÓÇÑ ÁßºĞ·ù ¸ñ·Ï¸¸ °¡Á®¿É´Ï´Ù.
+        // --- 5) íŒì—… 2: ì¤‘ë¶„ë¥˜ (Sub Category) ---
+        // ì„ íƒëœ ëŒ€ë¶„ë¥˜ì— ì†í•œ ì¤‘ë¶„ë¥˜ ëª©ë¡ë§Œ ê°€ì ¸ì˜µë‹ˆë‹¤.
         string[] subCats = hierarchy[newMain].Keys.ToArray();
         int subIndex = Array.IndexOf(subCats, currentSub);
 
-        // ´ëºĞ·ù¸¦ ¹Ù²åÀ¸¸é ÁßºĞ·ù ÀÎµ¦½º°¡ ¾È ¸ÂÀ» ¼ö ÀÖÀ¸´Ï 0À¸·Î ¸®¼Â
+        // ëŒ€ë¶„ë¥˜ë¥¼ ë°”ê¿¨ìœ¼ë©´ ì¤‘ë¶„ë¥˜ ì¸ë±ìŠ¤ê°€ ì•ˆ ë§ì„ ìˆ˜ ìˆìœ¼ë‹ˆ 0ìœ¼ë¡œ ë¦¬ì…‹
         if (subIndex < 0 || newMain != currentMain) subIndex = 0;
 
         int newSubIndex = EditorGUI.Popup(subRect, subIndex, subCats);
         string newSub = subCats[newSubIndex];
 
-        // --- 6) ÆË¾÷ 3: ÃÖÁ¾ Å° (Key) ---
-        // ¼±ÅÃµÈ ÁßºĞ·ù¿¡ ¼ÓÇÑ Å° ¸ñ·Ï¸¸ °¡Á®¿É´Ï´Ù.
+        // --- 6) íŒì—… 3: ìµœì¢… í‚¤ (Key) ---
+        // ì„ íƒëœ ì¤‘ë¶„ë¥˜ì— ì†í•œ í‚¤ ëª©ë¡ë§Œ ê°€ì ¸ì˜µë‹ˆë‹¤.
         string[] keys = hierarchy[newMain][newSub].ToArray();
 
-        // Ç¥½Ã¿ë ÀÌ¸§ ¸¸µé±â (µŞºÎºĞ¸¸ º¸¿©ÁÖ±â: "Jump")
-        // ÀüÃ¼ ÀÌ¸§("St1_Tuto_Jump")À» ´Ù º¸¿©ÁÖ¸é Ä­ÀÌ Á¼À¸´Ï±î¿ä.
+        // í‘œì‹œìš© ì´ë¦„ ë§Œë“¤ê¸° (ë’·ë¶€ë¶„ë§Œ ë³´ì—¬ì£¼ê¸°: "Jump")
+        // ì „ì²´ ì´ë¦„("St1_Tuto_Jump")ì„ ë‹¤ ë³´ì—¬ì£¼ë©´ ì¹¸ì´ ì¢ìœ¼ë‹ˆê¹Œìš”.
         string[] displayOptions = keys.Select(k => k.Split('_').Last()).ToArray();
         if (newMain == "None") displayOptions = new string[] { "None" };
 
@@ -97,10 +97,10 @@ public class LocalKeyDrawer : PropertyDrawer
         if (keyIndex < 0 || newSub != currentSub || newMain != currentMain) keyIndex = 0;
 
         int newKeyIndex = EditorGUI.Popup(keyRect, keyIndex, displayOptions);
-        string newKey = keys[newKeyIndex]; // ½ÇÁ¦ ÀúÀåÇÒ °ªÀº ÀüÃ¼ ÀÌ¸§
+        string newKey = keys[newKeyIndex]; // ì‹¤ì œ ì €ì¥í•  ê°’ì€ ì „ì²´ ì´ë¦„
 
-        // --- 7) °ª º¯°æ Àû¿ë ---
-        // »ç¿ëÀÚ°¡ ¼±ÅÃÀ» ¹Ù²å´Ù¸é ½ÇÁ¦ ÇÁ·ÎÆÛÆ¼¿¡ Àû¿ëÇÕ´Ï´Ù.
+        // --- 7) ê°’ ë³€ê²½ ì ìš© ---
+        // ì‚¬ìš©ìê°€ ì„ íƒì„ ë°”ê¿¨ë‹¤ë©´ ì‹¤ì œ í”„ë¡œí¼í‹°ì— ì ìš©í•©ë‹ˆë‹¤.
         if (newKey != currentFullKey)
         {
             keyProp.enumValueIndex = Array.IndexOf(keyProp.enumNames, newKey);
@@ -109,12 +109,12 @@ public class LocalKeyDrawer : PropertyDrawer
         EditorGUI.EndProperty();
     }
 
-    // --- 2. µ¥ÀÌÅÍ ÃÊ±âÈ­ (ºĞ·ù ÀÛ¾÷) ---
+    // --- 2. ë°ì´í„° ì´ˆê¸°í™” (ë¶„ë¥˜ ì‘ì—…) ---
     private void InitializeData()
     {
         hierarchy = new Dictionary<string, Dictionary<string, List<string>>>();
 
-        // EnumÀÇ ¸ğµç ÀÌ¸§À» °¡Á®¿É´Ï´Ù.
+        // Enumì˜ ëª¨ë“  ì´ë¦„ì„ ê°€ì ¸ì˜µë‹ˆë‹¤.
         string[] allKeys = Enum.GetNames(typeof(LocalizationKeys));
 
         foreach (string key in allKeys)
@@ -141,14 +141,14 @@ public class LocalKeyDrawer : PropertyDrawer
                 }
             }
 
-            // µñ¼Å³Ê¸® ±¸Á¶ Àâ±â
+            // ë”•ì…”ë„ˆë¦¬ êµ¬ì¡° ì¡ê¸°
             if (!hierarchy.ContainsKey(main))
                 hierarchy[main] = new Dictionary<string, List<string>>();
 
             if (!hierarchy[main].ContainsKey(sub))
                 hierarchy[main][sub] = new List<string>();
 
-            // Å° Ãß°¡
+            // í‚¤ ì¶”ê°€
             hierarchy[main][sub].Add(key);
         }
 

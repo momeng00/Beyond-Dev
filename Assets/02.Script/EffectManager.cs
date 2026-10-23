@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,8 +18,8 @@ public class EffectManager : MonoBehaviour
     private Dictionary<string,VolumeData> _volumeList = new Dictionary<string,VolumeData>();
     public float blurDuration = 0.3f;
     private bool isWorking = false;
-    public FocusMaskController focusMaskController; //Á×À»¶§ È£ÃâÇÒ ´ë»ó
-    //½Ì±ÛÅæ »ç¿ë
+    public FocusMaskController focusMaskController; //ì£½ì„ë•Œ í˜¸ì¶œí•  ëŒ€ìƒ
+    //ì‹±ê¸€í†¤ ì‚¬ìš©
     private static EffectManager _instance;
     public static EffectManager instance
     {
@@ -53,13 +53,13 @@ public class EffectManager : MonoBehaviour
 
             if (data.volume == null)
             {
-                Debug.LogWarning($"{data.volumeName}ÀÇ VolumeÀÌ ¾ø½À´Ï´Ù.");
+                Debug.LogWarning($"{data.volumeName}ì˜ Volumeì´ ì—†ìŠµë‹ˆë‹¤.");
                 continue;
             }
 
             if (data.volume.profile == null)
             {
-                Debug.LogWarning($"{data.volumeName}ÀÇ ProfileÀÌ ¾ø½À´Ï´Ù.");
+                Debug.LogWarning($"{data.volumeName}ì˜ Profileì´ ì—†ìŠµë‹ˆë‹¤.");
                 continue;
             }
 
@@ -68,14 +68,16 @@ public class EffectManager : MonoBehaviour
             {
                 data.blur = blur;
 
-                // ÃÊ±âÈ­µÈ µ¥ÀÌÅÍ¸¦ Dictionary¿¡ ÀúÀå
+                // ì´ˆê¸°í™”ëœ ë°ì´í„°ë¥¼ Dictionaryì— ì €ì¥
                 _volumeList.Add(data.volumeName, data);
+#if UNITY_EDITOR
                 Debug.Log(_volumeList.Count);
+#endif
             }
             else
             {
                 Debug.LogWarning(
-                    $"{data.volumeName}ÀÇ Profile¿¡ GaussianBlur1DVolumeComponent°¡ ¾ø½À´Ï´Ù.");
+                    $"{data.volumeName}ì˜ Profileì— GaussianBlur1DVolumeComponentê°€ ì—†ìŠµë‹ˆë‹¤.");
             }
         }
     }
@@ -137,7 +139,7 @@ public class EffectManager : MonoBehaviour
         {
             focusGameManager.PauseCharacters();
             focusMaskController.ShowAtWorld(control.transform.position, 5.0f);
-            //ScaleÀ» Ã³À½Å©±â¿¡¼­ 0.5±îÁö ÀÌµ¿½ÃÅ°±â
+            //Scaleì„ ì²˜ìŒí¬ê¸°ì—ì„œ 0.5ê¹Œì§€ ì´ë™ì‹œí‚¤ê¸°
             float startScale = focusMaskController.ReturnScale();
             yield return null;
             yield return UIAnimationRoutine.Run(
@@ -176,19 +178,19 @@ public class EffectManager : MonoBehaviour
             FinishFocus();
         }
     }
-    //0ÀÌ Àßº¸ÀÌ´Â°Å 1ÀÌ ¾Èº¸ÀÌ´Â°Å
-    //false°¡ 1ÀÌ µÊ(¾Èº¸ÀÓ)/ture°¡ 0ÀÌ µÊ (º¸ÀÓ)
+    //0ì´ ì˜ë³´ì´ëŠ”ê±° 1ì´ ì•ˆë³´ì´ëŠ”ê±°
+    //falseê°€ 1ì´ ë¨(ì•ˆë³´ì„)/tureê°€ 0ì´ ë¨ (ë³´ì„)
     public IEnumerator BlurSet(bool value, string name)
     {
         if (!_volumeList.TryGetValue(name, out VolumeData data))
         {
-            Debug.LogWarning($"VolumeData '{name}'À» Ã£À» ¼ö ¾ø½À´Ï´Ù.");
+            Debug.LogWarning($"VolumeData '{name}'ì„ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
             yield break;
         }
 
         if (data.blur == null)
         {
-            Debug.LogWarning($"VolumeData '{name}'ÀÇ Blur°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogWarning($"VolumeData '{name}'ì˜ Blurê°€ ì—†ìŠµë‹ˆë‹¤.");
             yield break;
         }
 

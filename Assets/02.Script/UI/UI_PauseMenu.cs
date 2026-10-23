@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class UI_PauseMenu : UIWindow
 {
@@ -17,10 +17,14 @@ public class UI_PauseMenu : UIWindow
             {
                 _quitSignInstance = Instantiate(quitSign); ;
                 _quitSignInstance.name = quitSign.name;
-                Debug.Log("Ã¢ »ı¼º");
+#if UNITY_EDITOR
+                Debug.Log("ì°½ ìƒì„±");
+#endif
             }
             _quitSignInstance.Open();
-            Debug.Log("Ã¢ ¿ÀÇÂ");
+#if UNITY_EDITOR
+            Debug.Log("ì°½ ì˜¤í”ˆ");
+#endif
         }
     }
 }

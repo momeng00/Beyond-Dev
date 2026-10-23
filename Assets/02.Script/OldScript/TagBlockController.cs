@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +10,7 @@ public class TagBlockController : MonoBehaviour
     public Dictionary<string, List<Block>> blockPairs = new Dictionary<string, List<Block>>();
     public Dictionary<string, List<GameObject>> detectedObject = new Dictionary<string, List<GameObject>>();
 
-    // <±×·ì ÀÌ¸§, ÇöÀç È°¼º »óÅÂ>
+    // <ê·¸ë£¹ ì´ë¦„, í˜„ì¬ í™œì„± ìƒíƒœ>
     public Dictionary<string, bool> isGroupActive = new Dictionary<string, bool>();
     void Awake()
     {
@@ -18,16 +18,16 @@ public class TagBlockController : MonoBehaviour
     }
     public void RegisterBlock(string groupName, Block block)
     {
-        // ¸¸¾à Ã³À½ µî·ÏµÇ´Â ±×·ì ÀÌ¸§ÀÌ¶ó¸é,
+        // ë§Œì•½ ì²˜ìŒ ë“±ë¡ë˜ëŠ” ê·¸ë£¹ ì´ë¦„ì´ë¼ë©´,
         if (!blockPairs.ContainsKey(groupName))
         {
-            // µñ¼Å³Ê¸®¿¡ »õ·Î¿î ¸®½ºÆ®¸¦ »ı¼ºÇÕ´Ï´Ù.
+            // ë”•ì…”ë„ˆë¦¬ì— ìƒˆë¡œìš´ ë¦¬ìŠ¤íŠ¸ë¥¼ ìƒì„±í•©ë‹ˆë‹¤.
             blockPairs[groupName] = new List<Block>();
             detectedObject[groupName] = new List<GameObject>();
             isGroupActive[groupName] = false;
         }
 
-        // ÇØ´ç ±×·ìÀÇ ¸®½ºÆ®¿¡ ºí·ÏÀ» Ãß°¡ÇÕ´Ï´Ù.
+        // í•´ë‹¹ ê·¸ë£¹ì˜ ë¦¬ìŠ¤íŠ¸ì— ë¸”ë¡ì„ ì¶”ê°€í•©ë‹ˆë‹¤.
         blockPairs[groupName].Add(block);
     }
 
@@ -59,13 +59,15 @@ public class TagBlockController : MonoBehaviour
     {
         if (condition == null) return;
 
-        // ´ÜÀÏ Condition ¿¡¼Â¿¡°Ô Á¶°ÇÀÌ ¸¸Á·µÇ¾ú´ÂÁö È®ÀÎ
+        // ë‹¨ì¼ Condition ì—ì…‹ì—ê²Œ ì¡°ê±´ì´ ë§Œì¡±ë˜ì—ˆëŠ”ì§€ í™•ì¸
         bool shouldBeActive = condition.IsSatisfied(this,groupName);
 
         if (shouldBeActive != isGroupActive[groupName])
         {
-            isGroupActive[groupName] = !isGroupActive[groupName]; // ÄÁÆ®·Ñ·¯´Â »óÅÂ¸¸ º¯°æ
+            isGroupActive[groupName] = !isGroupActive[groupName]; // ì»¨íŠ¸ë¡¤ëŸ¬ëŠ” ìƒíƒœë§Œ ë³€ê²½
+#if UNITY_EDITOR
             Debug.Log($"Group '{groupName}' state changing to: {isGroupActive[groupName]}");
+#endif
 
             if (blockPairs.ContainsKey(groupName))
             {

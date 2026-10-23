@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using Unity.Cinemachine;
 
 #if UNITY_EDITOR
@@ -88,14 +88,14 @@ public sealed class CinemachineFrameLimiter : MonoBehaviour
         if (!isActiveAndEnabled || brain == null)
             return;
 
-        // ¿¡µğÅÍ°¡ ¸ØÃç ÀÖ¾úÀ» ¶§ Áö³ªÄ¡°Ô Å« deltaTimeÀÌ
-        // µé¾î°¡´Â °ÍÀ» ¹æÁöÇÑ´Ù.
+        // ì—ë””í„°ê°€ ë©ˆì¶° ìˆì—ˆì„ ë•Œ ì§€ë‚˜ì¹˜ê²Œ í° deltaTimeì´
+        // ë“¤ì–´ê°€ëŠ” ê²ƒì„ ë°©ì§€í•œë‹¤.
         deltaTime = Mathf.Clamp(deltaTime, 0f, 0.1f);
 
         if (!Tick(deltaTime))
             return;
 
-        // Game View¿Í Scene View°¡ »õ Ä«¸Ş¶ó À§Ä¡¸¦ ´Ù½Ã ±×¸®µµ·Ï ÇÑ´Ù.
+        // Game Viewì™€ Scene Viewê°€ ìƒˆ ì¹´ë©”ë¼ ìœ„ì¹˜ë¥¼ ë‹¤ì‹œ ê·¸ë¦¬ë„ë¡ í•œë‹¤.
         EditorApplication.QueuePlayerLoopUpdate();
         SceneView.RepaintAll();
     }
@@ -117,8 +117,8 @@ public sealed class CinemachineFrameLimiter : MonoBehaviour
 
         try
         {
-            // UpdateMethod°¡ ManualUpdateÀÏ ¶§ ¿ÜºÎ¿¡¼­ ¸í½ÃÀûÀ¸·Î
-            // È£ÃâÇÏ¿© °¡»ó Ä«¸Ş¶ó¿Í ½ÇÁ¦ Ä«¸Ş¶ó¸¦ °»½ÅÇÑ´Ù.
+            // UpdateMethodê°€ ManualUpdateì¼ ë•Œ ì™¸ë¶€ì—ì„œ ëª…ì‹œì ìœ¼ë¡œ
+            // í˜¸ì¶œí•˜ì—¬ ê°€ìƒ ì¹´ë©”ë¼ì™€ ì‹¤ì œ ì¹´ë©”ë¼ë¥¼ ê°±ì‹ í•œë‹¤.
             brain.ManualUpdate();
         }
         finally

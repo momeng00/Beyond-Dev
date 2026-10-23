@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+ï»¿using Unity.VisualScripting;
 using UnityEngine;
 
 public class Idle: CharacterStateBase
@@ -14,12 +14,12 @@ public class Idle: CharacterStateBase
         machine.GetComponent<Animator>().Play("Idle");
         machine.characterControl.hasJump = false;
         machine.characterControl.canJump = true;
-        //ÃÊ±âÈ­¿Í °°Àº ¹æ½Ä
+        //ì´ˆê¸°í™”ì™€ ê°™ì€ ë°©ì‹
     }
     public override void ExitState()
     {
         base.ExitState();
-        //EnterÀÇ ¿ª
+        //Enterì˜ ì—­
     }
     public override CharacterStateID OnUpdateState()
     {

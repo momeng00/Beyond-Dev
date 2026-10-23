@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -103,7 +103,9 @@ public class GameManager : MonoBehaviour
                 if (_instance == null)
                 {
                     _instance = new GameObject("GameSystem").AddComponent<GameManager>();
-                    Debug.Log("¿À·ù»óÈ²");
+#if UNITY_EDITOR
+                    Debug.Log("ì˜¤ë¥˜ìƒí™©");
+#endif
                 }
 
             }
@@ -118,13 +120,19 @@ public class GameManager : MonoBehaviour
     {
         if (currentStage != null)
         {
-            Debug.Log("½ºÅ×ÀÌÁö ³ª°¡´Â°Å ½ÇÇà");
+#if UNITY_EDITOR
+            Debug.Log("ìŠ¤í…Œì´ì§€ ë‚˜ê°€ëŠ”ê±° ì‹¤í–‰");
+#endif
             currentStage.StageExit();
         }
 
-        Debug.Log("Çö ½ºÅ×ÀÌÁö º¯°æ");
+#if UNITY_EDITOR
+        Debug.Log("í˜„ ìŠ¤í…Œì´ì§€ ë³€ê²½");
+#endif
         currentStage = nextStage;
-        Debug.Log("½ºÅ×ÀÌÁö ÁøÀÔ ½ÇÇà");
+#if UNITY_EDITOR
+        Debug.Log("ìŠ¤í…Œì´ì§€ ì§„ì… ì‹¤í–‰");
+#endif
         currentStage.StageEnter();
     }
     public void GamePause()
@@ -220,13 +228,17 @@ public class GameManager : MonoBehaviour
     }
     public void GoToEnd()
     {
-        Debug.Log("¿Ö ½ÇÇàµÊ?");
+#if UNITY_EDITOR
+        Debug.Log("ì™œ ì‹¤í–‰ë¨?");
+#endif
         SceneManager.LoadScene(finalClearSceneName);
     }
 
     public void SceneChange(string sceneName)
     {
-        Debug.Log("SceneÃ¤ÀÎÄ¡");
+#if UNITY_EDITOR
+        Debug.Log("Sceneì±„ì¸ì¹˜");
+#endif
         SceneManager.LoadScene(sceneName);
     }
 }

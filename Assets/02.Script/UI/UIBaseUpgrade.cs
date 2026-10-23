@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using UnityEngine;
 public enum direction
@@ -13,7 +13,7 @@ public enum direction
 public class UIBaseUpgrade : MonoBehaviour
 {
     [Range(0f, 200f)]
-    public float ratio; //¿øº»°ú ¾ó¸¶³ª ¶³¾îÁ®¼­ ÀÌµ¿ÇÒ °ÍÀÎÁö ÃÖ´ë 200
+    public float ratio; //ì›ë³¸ê³¼ ì–¼ë§ˆë‚˜ ë–¨ì–´ì ¸ì„œ ì´ë™í•  ê²ƒì¸ì§€ ìµœëŒ€ 200
     public float delay = 0.72f;
     public direction direction = direction.right;
     public event Action onOpen;
@@ -54,7 +54,7 @@ public class UIBaseUpgrade : MonoBehaviour
     }
     IEnumerator OpenCoroutine()
     {
-        Vector2 startPos = originalPosition; //¾Æ¹«°Íµµ ¾È³ÖÀ¸¸é ÀÔ·ÂÀÌ ¾ÈµÇ¼­ ³ÖÀº °ª
+        Vector2 startPos = originalPosition; //ì•„ë¬´ê²ƒë„ ì•ˆë„£ìœ¼ë©´ ì…ë ¥ì´ ì•ˆë˜ì„œ ë„£ì€ ê°’
         yield return null;
         switch (direction)
         {
@@ -75,14 +75,14 @@ public class UIBaseUpgrade : MonoBehaviour
                 canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
             });
 
-        // ³¡³­ ÈÄ È®½ÇÇÏ°Ô °ª °íÁ¤
+        // ëë‚œ í›„ í™•ì‹¤í•˜ê²Œ ê°’ ê³ ì •
         rectTransform.anchoredPosition = originalPosition;
         rectTransform.localScale = originalScale;
         canvasGroup.alpha = 1f;
     }
     IEnumerator OpenCoroutine(Vector2 pos, Vector3 Scale)
     {
-        Vector2 startPos = pos; //¾Æ¹«°Íµµ ¾È³ÖÀ¸¸é ÀÔ·ÂÀÌ ¾ÈµÇ¼­ ³ÖÀº °ª
+        Vector2 startPos = pos; //ì•„ë¬´ê²ƒë„ ì•ˆë„£ìœ¼ë©´ ì…ë ¥ì´ ì•ˆë˜ì„œ ë„£ì€ ê°’
         yield return null;
         switch (direction)
         {
@@ -103,14 +103,16 @@ public class UIBaseUpgrade : MonoBehaviour
                 canvasGroup.alpha = Mathf.Lerp(0f, 1f, t);
             });
 
-        // ³¡³­ ÈÄ È®½ÇÇÏ°Ô °ª °íÁ¤
+        // ëë‚œ í›„ í™•ì‹¤í•˜ê²Œ ê°’ ê³ ì •
         rectTransform.anchoredPosition = pos;
         //rectTransform.localScale = originalScale;
         canvasGroup.alpha = 1f;
     }
     IEnumerator CloseCoroutine()
     {
-        Debug.Log($"UI ¿øº» À§Ä¡´Â {originalPosition}");
+#if UNITY_EDITOR
+        Debug.Log($"UI ì›ë³¸ ìœ„ì¹˜ëŠ” {originalPosition}");
+#endif
         Vector2 targetPos = originalPosition;
         yield return null;
         switch (direction)
@@ -131,7 +133,7 @@ public class UIBaseUpgrade : MonoBehaviour
                 canvasGroup.alpha = Mathf.Lerp(1f, 0f, t);
             });
 
-        // ³¡³­ ÈÄ È®½ÇÇÏ°Ô °ª °íÁ¤
+        // ëë‚œ í›„ í™•ì‹¤í•˜ê²Œ ê°’ ê³ ì •
         canvasGroup.alpha = 0f;
         rectTransform.anchoredPosition = originalPosition;
         rectTransform.localScale = originalScale;
