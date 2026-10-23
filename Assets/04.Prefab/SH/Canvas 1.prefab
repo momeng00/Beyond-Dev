@@ -753,9 +753,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16d68ee4bc6f09342a0eebde694979d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardManager
-  ratio: 0
-  animDuration: 0.52
   limit: 0
+  animDuration: 0.52
+  ratio: 0
 --- !u!1 &834321816713193130
 GameObject:
   m_ObjectHideFlags: 0
@@ -1162,6 +1162,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   btn: {fileID: 5356261646021973232}
+  useButtonClickEvent: 0
 --- !u!225 &4135665609597563466
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2551,8 +2552,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.09803922, g: 0.4509804, b: 0.7529412, a: 1}
+  m_Material: {fileID: 2100000, guid: 0741aa841a9852debf610b2073b4281a, type: 2}
+  m_Color: {r: 0.09803922, g: 0.4509804, b: 0.7529412, a: 0.89411765}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2582,8 +2583,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Card
   itemInTodoes:
-  - item: {fileID: 0}
-    todo: {fileID: 6189080839268976260}
+  - todo: {fileID: 6189080839268976260}
+    item: {fileID: 0}
+  todoList: []
+  animDuration: 3.2
   todoDelay: 0.36
 --- !u!225 &6091875820907765900
 CanvasGroup:
@@ -2910,6 +2913,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   btn: {fileID: 2124367620384268105}
+  useButtonClickEvent: 0
 --- !u!1 &2436148264260824308
 GameObject:
   m_ObjectHideFlags: 0
@@ -3366,6 +3370,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   btn: {fileID: 8369409935378546637}
+  useButtonClickEvent: 0
 --- !u!225 &1944353437212258852
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3498,7 +3503,6 @@ MonoBehaviour:
   onHided:
     m_PersistentCalls:
       m_Calls: []
-  test: 0
 --- !u!114 &1458409617312499193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6189,6 +6193,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   btn: {fileID: 2590260450681482023}
+  useButtonClickEvent: 0
 --- !u!225 &6500549298424241750
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -6896,6 +6901,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   btn: {fileID: 3262394414965233605}
+  useButtonClickEvent: 0
 --- !u!1 &4931675052722243525
 GameObject:
   m_ObjectHideFlags: 0
@@ -7311,7 +7317,6 @@ MonoBehaviour:
   onHided:
     m_PersistentCalls:
       m_Calls: []
-  test: 0
 --- !u!114 &2836081075710289047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9879,7 +9884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 0741aa841a9852debf610b2073b4281a, type: 2}
   m_Color: {r: 0.09803922, g: 0.4509804, b: 0.7529412, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -10815,6 +10820,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   btn: {fileID: 2138771631602649717}
+  useButtonClickEvent: 0
 --- !u!1 &7425065414843926406
 GameObject:
   m_ObjectHideFlags: 0
@@ -10961,7 +10967,6 @@ MonoBehaviour:
           m_StringArgument: Todos_Out
           m_BoolArgument: 1
         m_CallState: 2
-  test: 0
 --- !u!114 &7327445962184913143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11410,7 +11415,6 @@ MonoBehaviour:
   onHided:
     m_PersistentCalls:
       m_Calls: []
-  test: 0
 --- !u!114 &58498398723617216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12879,6 +12883,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   btn: {fileID: 6475677942303874364}
+  useButtonClickEvent: 0
 --- !u!1 &8983747336816932805
 GameObject:
   m_ObjectHideFlags: 0
