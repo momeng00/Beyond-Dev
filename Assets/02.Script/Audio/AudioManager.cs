@@ -71,7 +71,10 @@ public class AudioManager : MonoBehaviour
             {
                 audioMixer.SetFloat("Music", -80f); // 완전 음소거
             }
-            audioMixer.SetFloat("Music", Mathf.Log10(_musicVolume) * 20);
+            else
+            {
+                audioMixer.SetFloat("Music", Mathf.Log10(_musicVolume) * 20);
+            }
         }
     }
 

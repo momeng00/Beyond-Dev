@@ -9793,36 +9793,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c1b26cf09b5a80469bc9dc4bfc81698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractObject
-  actions:
-  - type: 0
-    boolValue: 0
-    intValue: 0
-    floatValue: 0
-    stringValue: 
-    onBool:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1618857176}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    onInt:
-      m_PersistentCalls:
-        m_Calls: []
-    onFloat:
-      m_PersistentCalls:
-        m_Calls: []
-    onString:
-      m_PersistentCalls:
-        m_Calls: []
+  enterEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1618857176}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument:
+          m_BoolArgument: 0
+        m_CallState: 2
+  exitEvent:
+    m_PersistentCalls:
+      m_Calls: []
   detector: {fileID: 2026792529}
 --- !u!4 &746652373
 Transform:
