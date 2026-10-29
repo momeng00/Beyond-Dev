@@ -45,6 +45,15 @@ public class LetterboxScaler : MonoBehaviour
     }
 
 
+    public void ApplyDisplaySettings(int newWidth, int newHeight, FullScreenMode mode)
+    {
+        width = newWidth;
+        height = newHeight;
+        currentScreenMode = mode;
+
+        Screen.SetResolution(width, height, currentScreenMode);
+    }
+
     public void SetScaler(ScreenSize size)
     {
         switch (size)

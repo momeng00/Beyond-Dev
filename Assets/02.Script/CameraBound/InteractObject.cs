@@ -1,33 +1,46 @@
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 public interface IInteractable
 {
     void OnCameraEnter();
     void OnCameraExit();
 }
 
+[RequireComponent(typeof(CameraVisibility))]
 public class InteractObject : MonoBehaviour, IInteractable
 {
     [SerializeField]
-    private List<InteractAction> actions = new();
+    private UnityEvent enterEvent = new();
+
+    [SerializeField]
+    private UnityEvent exitEvent = new();
+
     public CameraInteractionDetector detector;
-    private void Start()
+    private CameraInteractionDetector registeredDetector;
+
+    private void OnEnable()
     {
         if (detector != null)
         {
-            detector.Register(this);
+            registeredDetector = detector;
+            registeredDetector.Register(this);
         }
     }
+
+    private void OnDisable()
+    {
+        if (registeredDetector != null)
+            registeredDetector.Unregister(this);
+        registeredDetector = null;
+    }
+
     public void OnCameraEnter()
     {
-        foreach (var action in actions)
-        {
-            action.Execute();
-        }
+        enterEvent.Invoke();
     }
 
     public void OnCameraExit()
     {
-
+        exitEvent.Invoke();
     }
 }

@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(TMP_Text))]
+[RequireComponent(typeof(CameraVisibility))]
+[DefaultExecutionOrder(11001)]
 public class SimpleTMPTextEffect : MonoBehaviour
 {
     [Header("Effects")]
@@ -45,17 +47,93 @@ public class SimpleTMPTextEffect : MonoBehaviour
     };
 
     private TMP_Text tmp;
+    private bool effectsWereApplied;
+    private bool typingCompleted;
+    private float initialTypingProgress;
+    private CameraVisibility visibility;
+    private GameManager resetManager;
 
     private void Awake()
     {
         tmp = GetComponent<TMP_Text>();
+        visibility = GetComponent<CameraVisibility>();
+        // Existing saved objects may not have the newly required component yet.
+        if (visibility == null)
+            visibility = gameObject.AddComponent<CameraVisibility>();
+        initialTypingProgress = typingProgress;
         if (string.IsNullOrEmpty(sourceText)) sourceText = tmp.text;
+    }
+
+    private void Start()
+    {
+        resetManager = FindFirstObjectByType<GameManager>();
+        if (resetManager != null) resetManager.OnReset += ResetAction;
+    }
+
+    private void OnDestroy()
+    {
+        if (resetManager != null) resetManager.OnReset -= ResetAction;
+    }
+
+    private void OnDisable()
+    {
+        RestoreEffects();
+    }
+
+    // Game reset restores the authored initial progress; plain labels remain complete.
+    public void ResetAction()
+    {
+        typingCompleted = false;
+        typingProgress = initialTypingProgress;
+        appliedFrame = -1;
+    }
+
+    // For an explicit replay from a UnityEvent or another script.
+    public void ResetTyping()
+    {
+        typingCompleted = false;
+        typingProgress = 0f;
+        appliedFrame = -1;
     }
 
     private void LateUpdate()
     {
+        if (tmp == null || !tmp.isActiveAndEnabled)
+        {
+            RestoreEffects();
+            return;
+        }
+
+        bool hasEffects = wave || shake || rainbow;
+        if (!hasEffects && typingCompleted && cachedSource == (sourceText ?? string.Empty))
+        {
+            RestoreEffects();
+            return;
+        }
+
+        if (visibility == null || !visibility.IsVisible(GetEffectPadding()))
+        {
+            RestoreEffects();
+            return;
+        }
+
         ApplyTyping();
+        if (!hasEffects)
+        {
+            RestoreEffects();
+            return;
+        }
         ApplyEffects();
+    }
+
+    private float GetEffectPadding()
+    {
+        float padding = 0f;
+        if (wave)
+            padding += Mathf.Abs(waveHeight);
+        if (shake)
+            padding += Mathf.Abs(shakeAmount);
+        return padding;
     }
 
     // Call this when a dialogue system supplies a new sentence.
@@ -64,6 +142,7 @@ public class SimpleTMPTextEffect : MonoBehaviour
         sourceText = text ?? string.Empty;
         cachedSource = null;
         appliedFrame = -1;
+        typingCompleted = false;
     }
 
     private static string Syllable(int initial, int vowel, int final = 0)
@@ -74,8 +153,10 @@ public class SimpleTMPTextEffect : MonoBehaviour
     private void ApplyTyping()
     {
         string fullText = sourceText ?? string.Empty;
+        if (typingCompleted && cachedSource == fullText) return;
         if (cachedSource != fullText)
         {
+            typingCompleted = false;
             cachedSource = fullText;
             appliedFrame = -1;
             typingFrames.Clear();
@@ -124,6 +205,7 @@ public class SimpleTMPTextEffect : MonoBehaviour
             typingFrames[typingFrames.Count - 1] = fullText;
         }
         int frame = Mathf.FloorToInt(Mathf.Clamp01(typingProgress) * (typingFrames.Count - 1));
+        if (typingProgress >= 1f) typingCompleted = true;
         if (frame == appliedFrame) return;
         appliedFrame = frame;
         tmp.maxVisibleCharacters = int.MaxValue;
@@ -139,8 +221,18 @@ public class SimpleTMPTextEffect : MonoBehaviour
         typingFrames.Add(text);
     }
 
+    private void RestoreEffects()
+    {
+        if (effectsWereApplied && tmp != null)
+        {
+            tmp.ForceMeshUpdate();
+            effectsWereApplied = false;
+        }
+    }
+
     private void ApplyEffects()
     {
+
         tmp.ForceMeshUpdate();
 
         TMP_TextInfo textInfo = tmp.textInfo;
@@ -213,5 +305,6 @@ public class SimpleTMPTextEffect : MonoBehaviour
 
             tmp.UpdateGeometry(meshInfo.mesh, i);
         }
+        effectsWereApplied = true;
     }
 }

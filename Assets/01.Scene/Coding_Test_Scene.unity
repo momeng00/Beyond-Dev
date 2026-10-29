@@ -303,7 +303,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c1b26cf09b5a80469bc9dc4bfc81698, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractObject
-  actions: []
+  enterEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  exitEvent:
+    m_PersistentCalls:
+      m_Calls: []
   detector: {fileID: 0}
 --- !u!1 &344313197
 GameObject:

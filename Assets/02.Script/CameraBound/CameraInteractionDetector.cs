@@ -1,17 +1,22 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-
-
+[DefaultExecutionOrder(11000)]
 public class CameraInteractionDetector : MonoBehaviour
 {
+    private sealed class DetectionTarget
+    {
+        public InteractObject interactable;
+        public CameraVisibility visibility;
+        public bool isInside;
+        public bool removed;
+    }
+
     [SerializeField]
     private Camera targetCamera;
 
-    // 카메라가 감지할 전체 상호작용 대상
-    private readonly List<IInteractable> interactables = new();
-
-    // 현재 카메라 영역 안에 있는 상호작용 대상
-    private readonly HashSet<IInteractable> detected = new();
+    private readonly List<DetectionTarget> targets = new();
+    private bool isChecking;
+    private bool hasRemovedTargets;
 
     private void Awake()
     {
@@ -25,105 +30,117 @@ public class CameraInteractionDetector : MonoBehaviour
         CheckCameraBounds();
     }
 
+    private void OnDestroy()
+    {
+        // Release cached references even if surviving targets still hold this component.
+        if (isChecking)
+        {
+            for (int i = 0; i < targets.Count; i++)
+                targets[i].removed = true;
+            hasRemovedTargets = true;
+            return;
+        }
+        targets.Clear();
+    }
+
     private void CheckCameraBounds()
     {
-        // 현재 카메라가 바라보는 월드 영역
-        Bounds cameraBounds = GetCameraBounds();
-#if UNITY_EDITOR
-        Debug.Log(
-    $"Camera Bounds Center: {cameraBounds.center}, " +
-    $"Size: {cameraBounds.size}"
-);
-#endif
+        // UI may use its own Canvas camera, or no camera at all (Overlay).
+        // Let each sensor resolve the applicable camera instead of skipping the entire list.
+        if (targetCamera == null)
+            targetCamera = Camera.main;
 
-        foreach (IInteractable interactable in interactables)
+        isChecking = true;
+        // Targets registered by an event are first checked on the next update.
+        int count = targets.Count;
+        try
         {
-            // IInteractable이 Component를 상속받은 경우에만 처리
-            // Component를 상속받는 다는 것에 대한 개념
-            if (interactable is not Component component)
-                continue;
-
-            // 상호작용 대상의 Renderer 영역 가져오기
-            // 이게 뭐시여 왜 IInteractable의 renderer를 가져오지?
-            Renderer renderer = component.GetComponent<Renderer>();
-#if UNITY_EDITOR
-            Debug.Log("renderer= " + renderer);
-#endif
-            if (renderer == null)
-                continue;
-
-            // 오브젝트의 영역이 카메라 영역과 겹치는지 확인
-            // 내부 기능인데 무슨 기능인지 설명
-            bool isInside =
-    cameraBounds.min.x <= renderer.bounds.max.x &&
-    cameraBounds.max.x >= renderer.bounds.min.x &&
-    cameraBounds.min.y <= renderer.bounds.max.y &&
-    cameraBounds.max.y >= renderer.bounds.min.y;
-#if UNITY_EDITOR
-            Debug.Log(
-           $"{component.gameObject.name} | " +
-           $"Object Center: {renderer.bounds.center} | " +
-           $"Object Size: {renderer.bounds.size} | " +
-           $"Inside: {isInside}"
-       );
-#endif
-#if UNITY_EDITOR
-            Debug.Log("renderer 걉쳐짐? ---" + isInside );
-#endif
-            if (isInside)
+            for (int i = 0; i < count; i++)
             {
-                // 처음 들어온 경우에만 Enter 이벤트 호출
-                //이미 있다면 false를 반환하겠지?
-                if (detected.Add(interactable))
+                DetectionTarget target = targets[i];
+                if (target.removed)
+                    continue;
+
+                if (target.interactable == null || target.visibility == null)
                 {
-                    interactable.OnCameraEnter();
-#if UNITY_EDITOR
-                    Debug.Log("renderer 감지 완료 실행");
-#endif
+                    target.removed = true;
+                    hasRemovedTargets = true;
+                    continue;
                 }
+
+                bool isInside = target.visibility.IsVisible(0f, targetCamera);
+                if (target.isInside == isInside)
+                    continue;
+
+                // Store the state before the callback, which may disable this target.
+                target.isInside = isInside;
+                if (isInside)
+                    target.interactable.OnCameraEnter();
+                else
+                    target.interactable.OnCameraExit();
+
+                if (this == null || !isActiveAndEnabled)
+                    break;
             }
-            else
-            {
-                // 영역 밖으로 나간 경우에만 Exit 이벤트 호출
-                // 이미 있는 것에 대한 체크가 이루어 지고있는가?
-                if (detected.Remove(interactable))
-                {
-                    interactable.OnCameraExit();
-                }
-            }
+        }
+        finally
+        {
+            isChecking = false;
+            RemoveMarkedTargets();
         }
     }
 
-    private Bounds GetCameraBounds()
+    public void Register(InteractObject interactable)
     {
-        // Orthographic 카메라의 화면 높이
-        float height = targetCamera.orthographicSize * 2f;
+        if (interactable == null)
+            return;
 
-        // 화면 비율에 따른 화면 너비
-        float width = height * targetCamera.aspect;
-
-        // 카메라 위치를 중심으로 화면 영역 생성
-        return new Bounds(
-            targetCamera.transform.position,
-            new Vector3(width, height, 0f)
-        );
-    }
-
-    public void Register(IInteractable interactable)
-    {
-        // 감지 대상에 등록
-        if (!interactables.Contains(interactable))
+        for (int i = 0; i < targets.Count; i++)
         {
-            interactables.Add(interactable);
+            if (!targets[i].removed && ReferenceEquals(targets[i].interactable, interactable))
+                return;
         }
+
+        // 등록 시 참조를 저장하고, 기존 오브젝트에 감지 컴포넌트가 없으면 추가한다.
+        CameraVisibility visibility = interactable.GetComponent<CameraVisibility>();
+        if (visibility == null)
+            visibility = interactable.gameObject.AddComponent<CameraVisibility>();
+
+        targets.Add(new DetectionTarget
+        {
+            interactable = interactable,
+            visibility = visibility
+        });
     }
 
-    public void Unregister(IInteractable interactable)
+    public void Unregister(InteractObject interactable)
     {
-        // 감지 대상에서 제거
-        interactables.Remove(interactable);
+        for (int i = 0; i < targets.Count; i++)
+        {
+            DetectionTarget target = targets[i];
+            if (!target.removed && ReferenceEquals(target.interactable, interactable))
+            {
+                target.removed = true;
+                hasRemovedTargets = true;
+                break;
+            }
+        }
 
-        // 현재 감지 목록에서도 제거
-        detected.Remove(interactable);
+        // Do not shift indices while an Enter/Exit callback is running.
+        if (!isChecking)
+            RemoveMarkedTargets();
+    }
+
+    private void RemoveMarkedTargets()
+    {
+        if (!hasRemovedTargets)
+            return;
+
+        for (int i = targets.Count - 1; i >= 0; i--)
+        {
+            if (targets[i].removed)
+                targets.RemoveAt(i);
+        }
+        hasRemovedTargets = false;
     }
 }
