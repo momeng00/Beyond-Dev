@@ -45,7 +45,11 @@ public class NormalPopUp : PopUp, IEventListener, IReset
             }
         }
     }
-    
+    public override void PopUpHandle(bool state)
+    {
+        base.PopUpHandle(state);
+        ToggleEvent(state);
+    }
     public virtual void ToggleEvent(bool state, Transform origin = null)
     {
 
